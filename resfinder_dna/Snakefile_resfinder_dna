@@ -1,0 +1,61 @@
+import glob, os
+import numpy as np
+
+sample_run_file = glob.glob("/work/microbiome/users/juan/arg_compare/data/fna/*.fna.gz")
+runs_sizes = [os.stat(x).st_size for x in sample_run_file]
+sample_run_file_np = np.array(sample_run_file)
+runs_sizes_np = np.array(runs_sizes)
+#sample_run_file_2 = sample_run_file_np[runs_sizes_np <= np.percentile(runs_sizes_np, 0.2)].tolist()
+sample_run_file_2 = sample_run_file_np.copy()
+runs = [f.split("/")[-1] for f in sample_run_file_2 ]
+#runs = runs[0:2]
+
+work_dir ="/work/microbiome/users/juan/arg_compare/dna"
+data_dir = "/work/microbiome/users/juan/arg_compare/data/fna/"
+
+
+rule all:
+    input:
+        out_resfinder_tab = expand(work_dir+"/resfinder/{runs}_tab.tsv", runs=runs),
+        out_resfinder_table = expand(work_dir+"/resfinder/{runs}_table.tsv", runs=runs),
+        out_resfinder_hit = expand(work_dir+"/resfinder/{runs}_hit_in_genome.fsa", runs=runs)
+
+
+rule resfinder:
+    input:
+        comp_file1 = expand(data_dir+"{{runs}}", runs=runs)
+    output:
+        out_resfinder = work_dir+"/resfinder/{runs}_tab.tsv",
+        out_resfinder1 = work_dir+"/resfinder/{runs}_table.tsv",
+        out_resfinder2 = work_dir+"/resfinder/{runs}_hit_in_genome.fsa",
+    params:
+        num_of_processes = 2,
+        data_dir = data_dir
+    threads: 2
+    shadow: "minimal"
+    conda:
+        "resfinder"
+    shell:
+        """
+        echo $CONDA_PREFIX
+        echo "resfinder  {wildcards.runs} "
+        if [ -s {input.comp_file1} ]; then
+          export CGE_RESFINDER_RESGENE_DB="/work/microbiome/users/juan/resfinder_databases/resfinder_db"
+          export CGE_RESFINDER_RESPOINT_DB="/work/microbiome/users/juan/resfinder_databases/pointfinder_db/"
+          export CGE_DISINFINDER_DB="/work/microbiome/users/juan/resfinder_databases/disinfinder_db"
+          echo "decompress fna.gz"
+          gunzip <{input.comp_file1} > tmp.fna
+          if [ -s tmp.fna ]; then
+            echo "running resfinder"
+            python -m resfinder -o results -l 0.6 -t 0.8 --acquired -ifa tmp.fna
+            echo "copying results to ouput"
+            grep -v -e '^$' results/ResFinder_results_table.txt  >> {output.out_resfinder}
+            cat results/ResFinder_results_tab.txt  >> {output.out_resfinder1}
+            cat results/ResFinder_Hit_in_genome_seq.fsa >> {output.out_resfinder2}
+          else
+            touch {output.out_resfinder}
+          fi
+        else
+          touch {output.out_resfinder}
+        fi
+        """

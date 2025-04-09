@@ -4,7 +4,7 @@ resfinder_dna/*
 
 !dna/Snakefile_dna
 !protein/Snakefile_protein
-!resfinder/Snakefile_resfinder_dna
+!resfinder_dna/Snakefile_resfinder_dna
 
 check_missing_annot
 check_missing_annot
