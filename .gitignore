@@ -45,3 +45,5 @@ results_tools.rds
 # Never got to use it
 split_data_resfinder.py
 
+# Old file
+retrieve_unigenes_and_aros.R
