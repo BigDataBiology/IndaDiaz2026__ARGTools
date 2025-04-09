@@ -1,0 +1,164 @@
+import glob, os
+import numpy as np
+
+sample_run_file = glob.glob("/work/microbiome/users/juan/arg_compare/data/faa/*.faa.gz")
+runs_sizes = [os.stat(x).st_size for x in sample_run_file]
+sample_run_file_np = np.array(sample_run_file)
+runs_sizes_np = np.array(runs_sizes)
+#sample_run_file_2 = sample_run_file_np[runs_sizes_np <= np.percentile(runs_sizes_np, 90)].tolist()
+sample_run_file_2 = sample_run_file_np.copy()
+runs2 = [f.split("/")[-1] for f in sample_run_file_2 ]
+runs = [f.split("/")[-1] for f in sample_run_file_2 ]
+
+class_ab = ["class_a","class_b1_b2","class_b3","class_c","class_d1","class_d2"] + \
+           ["mph","erm_1","erm_2","tet_enzyme","tet_rpg","aph2b","aph3p","aph6p"]+ \
+           ["aac2p", "aac3_1", "aac3_2", "aac6p_1", "aac6p_2", "aac6p_3", "tet_efflux","qnr"]
+
+abricate_db = ["resfinder", "card", "argannot", "ncbi", "megares"]
+
+
+work_dir ="/work/microbiome/users/juan/arg_compare/protein"
+data_dir = "/work/microbiome/users/juan/arg_compare/data/faa/"
+
+models = ["class_a", "class_b_1_2", "class_b_3", "class_c","class_d_1","class_d_2"] +\
+         ["mph", "erm_type_a", "erm_type_f", "tet_enzyme", "tet_rpg", "aminoglycoside_model_g","aminoglycoside_model_h","aminoglycoside_model_i"] +\
+         ["aminoglycoside_model_a","aminoglycoside_model_b","aminoglycoside_model_c","aminoglycoside_model_d","aminoglycoside_model_e","aminoglycoside_model_f", "tet_efflux","qnr"]
+
+model_class = dict(zip(class_ab, models))
+
+rule all:
+    input:
+        reads_fargene_out = expand(work_dir+"/fargene_results/{runs}-{class_ab}.tsv", runs=runs, class_ab=class_ab),
+        genes_fargene_out = expand(work_dir+"/fargene_predicted/{runs}-{class_ab}.fasta", runs=runs, class_ab=class_ab),
+        hmm_fargene_out = expand(work_dir+"/fargene_hmm/{runs}-{class_ab}_hmm.txt", runs=runs, class_ab=class_ab),
+        out_rgi_diamond = expand(work_dir+"/rgi_diamond/{runs}_rgi.tsv", runs=runs),
+        #out_rgi_blast = expand(work_dir+"/rgi_blast/{runs}_rgi.tsv", runs=runs),
+        out_deeparg_prot = expand(work_dir+"/deeparg/{runs}.ARG", runs=runs),
+        out_deeparg_prot_potential = expand(work_dir+"/deeparg/{runs}.potential.ARG", runs=runs),
+        out_amrfinder_prot = expand(work_dir+"/amrfinder/{runs}.tsv", runs=runs)
+
+rule fargene:
+    input:
+        comp_file1 = expand(data_dir+"{{runs}}", runs=runs)
+    output:
+        out1_fargene = expand(work_dir+"/fargene_results/{{runs}}-{{class_ab}}.tsv", runs=runs, class_ab=class_ab),
+        out2_fargene = expand(work_dir+"/fargene_predicted/{{runs}}-{{class_ab}}.fasta", runs=runs, class_ab=class_ab),
+        out3_fargene = expand(work_dir+"/fargene_hmm/{{runs}}-{{class_ab}}_hmm.txt", runs=runs, class_ab=class_ab)
+    params:
+        num_of_processes = 1,
+        model = lambda wildcards: model_class[wildcards.class_ab],
+        data_dir = data_dir
+    threads: 1
+    shadow: "minimal"
+    conda:
+        "fargene"
+    shell:
+        """
+        echo $CONDA_PREFIX
+        echo "fargene  {wildcards.runs} class {params.model}"
+        if [ {params.model} == "none" ]; then
+          echo "no class given"
+        else
+          if [ -s {params.data_dir}{wildcards.runs} ]; then
+            gunzip < {params.data_dir}{wildcards.runs} > tmp.fasta
+            echo "running fargene"
+            fargene -i tmp.fasta --protein --hmm-model {params.model} -o tmp_fargene -p {params.num_of_processes} --force
+          else
+            echo "creating directories"
+            mkdir tmp_fargene
+            mkdir tmp_fargene/tmpdir
+            mkdir tmp_fargene/predictedGenes
+            mkdir tmp_fargene/hmmsearchresults
+            touch tmp_fargene/tmpdir/tmp-positives.out
+            touch tmp_fargene/predictedGenes/filtered.fasta
+            touch tmp_fargene/hmmsearchresults/a_hmmsearched.out
+          fi
+          if [ -s tmp_fargene/tmpdir/tmp-positives.out ]; then
+            echo "copying positives"
+            mod={wildcards.class_ab}
+            awk -v ab="$mod" -F' ' '{{print $0, ab}}' tmp_fargene/tmpdir/tmp-positives.out | awk '{{gsub(/ +/, "\t"); print}}' > {output.out1_fargene}
+            echo "copying contigs"
+            cp tmp_fargene/predictedGenes/*filtered.fasta {output.out2_fargene}
+            echo "copying hmm"
+            grep -v '^#' tmp_fargene/hmmsearchresults/*hmmsearched.out > {output.out3_fargene}
+          else
+            echo "creating files"
+            touch {output.out1_fargene}
+            touch {output.out2_fargene}
+            grep -v '^#' tmp_fargene/hmmsearchresults/*hmmsearched.out > {output.out3_fargene}
+          fi
+        fi
+        """
+
+rule rgi:
+    input:
+        comp_file1 = expand(data_dir+"{{runs}}", runs=runs)
+    output:
+        out_rgi_diamond = work_dir+"/rgi_diamond/{runs}_rgi.tsv"
+    params:
+        num_of_processes = 4,
+        work_dire = work_dir
+    threads: 4
+    shadow: "minimal"
+    shell:
+        """
+        echo "RGI  {wildcards.runs} "
+        if [ -s {input.comp_file1} ]; then
+          gunzip <{input.comp_file1} > tmp.faa
+          mamba run -n rgi rgi load --card_json /work/microbiome/users/juan/rgi/card.json --local
+          mamba run -n rgi rgi main -a DIAMOND -i tmp.faa -o tmpout --local --clean -t protein --num_threads {params.num_of_processes}
+          cat tmpout.txt > {output.out_rgi_diamond}
+        else
+          touch {output.out_rgi_diamond}
+        fi
+        """
+
+rule deepARG:
+    input:
+        comp_file1 = expand(data_dir+"{{runs}}", runs=runs)
+    output:
+        out_deeparg_prot = work_dir+"/deeparg/{runs}.ARG",
+        out_deeparg_prot_potential = work_dir+"/deeparg/{runs}.potential.ARG"
+    params:
+        num_of_processes = 4,
+        work_dire = work_dir,
+        path_data_deeparg = "/work/microbiome/users/juan/deeparg_data"
+    threads: 4
+    shadow: "minimal"
+    conda:
+        "deeparg_env"
+    shell:
+        """
+        echo "deepARG  {wildcards.runs} "
+        if [ -s {input.comp_file1} ]; then
+          gunzip <{input.comp_file1} > tmp.fasta
+          deeparg predict --model LS -i tmp.fasta -o tmpout -d {params.path_data_deeparg} --type prot
+          mv tmpout.mapping.ARG {output.out_deeparg_prot}
+          mv tmpout.mapping.potential.ARG {output.out_deeparg_prot_potential}
+        else
+          touch {output.out_deeparg_prot}
+          touch {output.out_deeparg_prot_potential}
+        fi
+        """
+
+rule AMRFinderPlus:
+    input:
+        comp_file1 = expand(data_dir+"{{runs}}", runs=runs)
+    output:
+        out_amrfinder_prot = work_dir+"/amrfinder/{runs}.tsv"
+    params:
+        num_of_processes = 4,
+        work_dire = work_dir
+    threads: 4
+    shadow: "minimal"
+    conda:
+        "amrfinder"
+    shell:
+        """
+        echo "AMRFinderPlus  {wildcards.runs} "
+        if [ -s {input.comp_file1} ]; then
+          amrfinder -p {input.comp_file1} > {output.out_amrfinder_prot}
+        else
+          touch {output.out_amrfinder_prot}
+        fi
+        """

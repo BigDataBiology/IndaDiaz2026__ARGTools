@@ -1,6 +1,6 @@
-dna
-protein
-resfinder_dna
+dna/*
+protein/*
+resfinder_dna/*
 
 !dna/Snakefile_dna
 !protein/Snakefile_protein
@@ -20,3 +20,4 @@ split_data_resfinder.py
 
 data/*
 contigs
+
