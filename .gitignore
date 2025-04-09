@@ -6,8 +6,8 @@ resfinder_dna/*
 !protein/Snakefile_protein
 !resfinder_dna/Snakefile_resfinder_dna
 
-check_missing_annot
-check_missing_annot
+check_missing_annot/*.txt
+check_missing_annot/*.tsv
 
 arg_length_fna.tsv
 arg_length_faa.tsv
