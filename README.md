@@ -7,7 +7,7 @@ Compare for GMGC unigenes in faa and fna form:
 - amrfinder
 - abricate (argannot, card, megares, NCBI, resfinder)
 - resfinder
-- 
+ 
 The pipeline.md file goes step by step
 
 
