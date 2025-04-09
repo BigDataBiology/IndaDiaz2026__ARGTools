@@ -235,14 +235,18 @@ rm tmpresfinder2.tsv
 rm tmpresfinder.tsv
 ```
 
+## Retrieve the unigenes flagged as ARGs and complement the ARO annotation
+
+Run the `retrieve_unigenes.R` file, the output should have:
+- genes_prot_dna.csv
+
+Use that file in the next section to retrieve abundances and gene lengths
 
 ## Retrieven the lengths and abundances 
 
-- Export all results locally
-- Analyze the data with summary1.R file:
-  - Retrieve the names of unigenes identified as ARGs in any of the tools
-  - `genes_prot_dna.csv` has that list of names 
-  - Export the file to the server 
+- Retrieve the names of unigenes identified as ARGs in any of the tools
+- `genes_prot_dna.csv` has that list of names 
+- Export the file to the server 
 
 Process the `genes_prot_dna.csv` file in the server and extract the lengths 
 
@@ -348,7 +352,14 @@ paste <(awk -F"\t" '{print $1}' abricate_megares.txt |awk -F" " '{print $1}' | a
 
 ```
 
+## Creating the table of abundance of ARGs
 
+Run the file `retrieve_aros_and_abundances.R`
+
+- `abundances_per_tool_and_unigene.rds`, large table containing sample and abundance per unigene and tool
+- `abundance_per_tool.rds`, table containing sample and abundance per **selected (standardized)** ontology and tool, sum of unigene abundance within a specific ontology level
+- `abundance_per_tool.csv`
+- `results_tools.rds`, list with detection information per tool, complemented with AROs
 
 
 ## Commands to remember 
