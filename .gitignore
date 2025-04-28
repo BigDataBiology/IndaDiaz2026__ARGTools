@@ -36,16 +36,14 @@ metadata_GMGC10.sample.meta.tsv
 
 # Results from 
 # retrieve_unigenes_and_aros.R
-genes_prot_dna.csv
-genes_prot_dna.txt
-abundances_per_tool_and_unigene.rds
-abundance_per_tool.rds
-abundance_per_tool.csv
-results_tools.rds
-diversity_per_tool.rds
+code_R_analysis/.Rapp.history
+.Rapp.history
+code_R_analysis/.R*
+.R*
+code_R_analysis/output_abundance_diversity_resistome/*
 
 # Never got to use it
 split_data_resfinder.py
 
 # Old file
-retrieve_unigenes_and_aros.R
+
