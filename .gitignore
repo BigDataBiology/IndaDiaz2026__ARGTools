@@ -40,6 +40,8 @@ code_R_analysis/.Rapp.history
 code_R_analysis/.R*
 .R*
 code_R_analysis/output_abundance_diversity_resistome/*
+*.DS_Store
+.DS_Store
 
 # Never got to use it
 split_data_resfinder.py

@@ -978,3 +978,60 @@ write.csv(df, file = "code_R_analysis/output_abundance_diversity_resistome/core_
 
 
 
+filter_samples_pan <- function(args_abundances_pan, d, j){
+  d <- d %>% filter(!is.na(parent)) 
+  Y <- args_abundances_pan %>% 
+    filter(X %in% d$query) %>% 
+    mutate(tool = d$tool[1]) %>%
+    mutate(new_level = d$new_level[match(X, d$query)]) %>%
+    mutate(parent_description = d$parent_description[match(X, d$query)]) %>%
+    mutate(aro = d$ARO[match(X, d$query)]) %>%
+    select(X, new_level, sample, tool, habitat, parent_description, aro) %>% 
+    ungroup() 
+  
+  Y_new_level <- Y %>% group_by(tool, habitat, new_level) %>% 
+    summarise(unigenes = n_distinct(X)) %>%
+    mutate(aggregation = "new_level", epoch = j) %>% ungroup() %>%
+    rename(gene_class = new_level)
+  
+  
+  Y_parent <- Y %>% group_by(tool, habitat, parent_description) %>% 
+    summarise(unigenes = n_distinct(X)) %>%
+    mutate(aggregation = "parent_description", epoch = j) %>% ungroup() %>%
+    rename(gene_class = parent_description)
+  
+  Y_new <- Y_new_level %>% bind_rows(Y_parent)
+  
+  return(Y_new_level)
+}
+
+pan_resistome <- function(args_abundances, samples_to_collect, sed, lst, mx_sample_size, j, df) {
+  
+  set.seed(seed = sed)
+  
+  samples_to_collect2 <- samples_to_collect  %>%
+    slice_sample(n = mx_sample_size,  replace = FALSE) %>%  
+    ungroup() %>% select(sample) %>% pull()
+  
+  args_abundances_pan <- args_abundances %>% filter(sample %in% samples_to_collect2)
+  args_abundances_pan_filter <- do.call(rbind, lapply(lst, function(d) filter_samples_pan(args_abundances_pan, d, j)))
+  
+  if(j == 1) {
+    df <- args_abundances_pan_filter
+  } else {
+    df <- df %>% bind_rows(args_abundances_pan_filter)
+  }
+  
+  return(df)
+}
+
+df.pan2 <- data.frame( tool = NULL, habitat = NULL, gene_class= NULL, aggregation=NULL, unigenes = NULL, epoch = NULL)
+
+for(j in 1:length(seeds)){
+  print(j)
+  df.pan2 <- pan_resistome(args_abundances,  samples_to_collect, seeds[j], lst, 100, j, df.pan2)
+}
+
+saveRDS(df.pan2, file = "code_R_analysis/output_abundance_diversity_resistome/pan_resistome.rds", compress = T)
+write.csv(df.pan2, file = "code_R_analysis/output_abundance_diversity_resistome/pan_resistome.csv", row.names = F)
+
