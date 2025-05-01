@@ -288,7 +288,7 @@ rgi.blast <- read.delim("dna/rgi_blast.tsv") %>%
   mutate(query = gsub('.{2}$', '', Contig)) %>% 
   rename(ARG.class = AMR.Gene.Family) %>%
   mutate(ARO = paste0("ARO:", ARO)) %>%
-  mutate(tool = "RGI (DIAMOND  nt)", id = Best_Identities) %>% 
+  mutate(tool = "RGI (BLAST  nt)", id = Best_Identities) %>% 
   group_by(query) %>% 
   arrange(desc(Best_Identities), 
           desc(Best_Hit_Bitscore), 
@@ -322,15 +322,6 @@ fargene %>% group_by(query) %>% mutate(n = n_distinct(new_class)) %>% filter(n >
 # no unigene  repeated 
 ## remove duplicated queries with different classes 
 
-d1 <- duplicated(paste(fargene$query, fargene$new_class))
-d2 <- duplicated(fargene$query)
-number_remove_fargene <- sum(!(!fargene$query %in% fargene$query[!fargene$query %in% fargene$query[d1] & fargene$query %in% fargene$query[d2]]))
-fargene <- fargene[!fargene$query %in% fargene$query[!fargene$query %in% fargene$query[d1] & fargene$query %in% fargene$query[d2]],]
-
-## remove duplicated queries with same class
-fargene <- fargene[!duplicated(fargene$query),]
-number_remove_fargene_same_class <- sum(duplicated(fargene$query))
-rm(d1, d2)
 
 # load the hmm scores
 hmm <- read.table("dna/fargene_hmm.txt", quote="\"", comment.char="") %>%
@@ -906,6 +897,9 @@ lst$fargene.prot <- lst$fargene.prot %>% mutate(parent.rgi = df2$Parent_ID[match
                                                 new_level.rgi = df2$new_level[match(aro.rgi, df2$Term_ID)])
 
 # saveRDS(lst,  file = "code_R_analysis/output_abundance_diversity_resistome/results_tools.rds", compress = T)
+
+lst$rgi.blast$tool <- "RGI (BLAST  nt)"
+
 saveRDS(lst,  file = "code_R_analysis/output_abundance_diversity_resistome/results_tools_not_repeated_unigenes.rds", compress = T)
 
 ################################################################################################################################################
@@ -950,7 +944,7 @@ abundance_parent <- function(abund_df, d){
 }
 
 abundance_parent_split <- function(abund_split, lst){
-  Y <-  do.call(rbind, future_lapply(lst, function(d) abundance_parent(abund_split, d)))
+  Y <-  do.call(rbind, lapply(lst, function(d) abundance_parent(abund_split, d)))
   return(Y)
 }
 

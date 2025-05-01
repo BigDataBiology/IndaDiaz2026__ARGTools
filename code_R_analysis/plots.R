@@ -5,12 +5,16 @@ library(gridExtra)
 library(tidyverse)
 
 setwd("~/Documents/GitHub/arg_compare/")
-df2 <- readRDS(file = "code_R_analysis/output_abundance_diversity_resistome/conversion_ARO_parent_new_level.rds")
-lst <- readRDS("code_R_analysis/output_abundance_diversity_resistome/results_tools.rds")
-abundance <- readRDS("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity.rds")
-core <- readRDS("code_R_analysis/output_abundance_diversity_resistome/core_resistome.rds")
-pan <- readRDS("code_R_analysis/output_abundance_diversity_resistome/pan_resistome.rds")
+df2 <- readRDS(file = "code_R_analysis/output_abundance_diversity_resistome/conversion_ARO_parent_new_level_no_repeated_unigenes_in_each_tool.rds")
+lst <- readRDS("code_R_analysis/output_abundance_diversity_resistome/results_tools_not_repeated_unigenes.rds")
 
+lst$rgi.blast$tool <- "RGI (BLAST  nt)"
+       
+abundance <- readRDS("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity.rds")
+#core <- readRDS("code_R_analysis/output_abundance_diversity_resistome/core_resistome.rds")
+#pan <- readRDS("code_R_analysis/output_abundance_diversity_resistome/pan_resistome.rds")
+
+#lapply(lst, function(x) sum(!x$query %in% genes_prot_dna$x))
 
 #pal <- c("#543005", "#8c510a", "#bf812d", "#dfc27d", "#f6e8c3", "#f5f5f5", "#c7eae5", "#80cdc1", "#35978f", "#01665e", "#003c30")
 pal_12 <- c("#a6cee3", "#1f78b4","#b2df8a","#33a02c","#fb9a99","#e31a1c","#fdbf6f","#ff7f00","#cab2d6","#6a3d9a","#ffff99","#b15928")
@@ -31,7 +35,7 @@ SO <- c(rep("Humans", 5), rep("Mammals", 4),
 
 names(SO) <- EN
 
-tools_levels <- c("DeepARG (nt)", "DeepARG (a.a.)", "RGI (BLAST  nt)", 
+tools_levels <- c("DeepARG (nt)", "DeepARG (a.a.)", "RGI (BLAST  nt)", "RGI (BLAST  a.a.)", 
                   "RGI (DIAMOND  nt)", "RGI (DIAMOND  a.a.)", "fARGene (nt)", 
                   "fARGene (a.a.)", "ResFinder (nt)", "AMRFinderPlus (nt)", "AMRFinderPlus (a.a.)", 
                   "ABRicate (ARG-ANNOT - nt)", "ABRicate (CARD - nt)", 
@@ -63,29 +67,88 @@ factor_new_level <- abundance %>% ungroup() %>% filter(aggregation %in% "new_lev
 
 factor_new_level2 <- c(factor_new_level[seq(1, length(factor_new_level), by = 3)],
                        factor_new_level[seq(1, length(factor_new_level), by = 3) + 1],
-                       factor_new_level[seq(1, length(factor_new_level), by = 3) + 2],
-                       factor_new_level[seq(1, length(factor_new_level), by = 3) + 3])
-
-
+                       factor_new_level[seq(1, length(factor_new_level), by = 3) + 2])
+                       #factor_new_level[seq(1, length(factor_new_level), by = 3) + 3])
 
 #abundance_parent$new_level <- factor(abundance_parent$new_level, levels = factor_new_level2)
 #diversity_parent$new_level <- factor(diversity_parent$new_level, levels = factor_new_level2)
 
 
 # factor for habitat
+
 abundance$habitat <- factor(abundance$habitat, levels = EN)
 abundance$habitat <- as.character(abundance$habitat)
 
 # environments that we are not interested in
 not_env <- c("built-environment", "amplicon", "isolate")
-total_abundance_sample <- abundance_parent %>% group_by(sample) %>% summarise(total = sum(normed10m)) %>%
-  arrange(desc(total))
+
+# SUMMARIES
+# SUMMARIES
+# SUMMARIES
 
 
+# total numbrer of unigenes captured with abundance 
+
+args_abundances <- read.delim("data/abundances/args_abundances.tsv")
+metadata <- read.delim("data/metadata_GMGC10.sample.meta.tsv")
+unigenes_with_abundance <- args_abundances  %>% filter(!habitat %in% not_env) %>%
+  select(X) %>% distinct()
+
+# total numbrer of unigenes captured with the tools
+
+
+
+unigenes <- do.call(rbind, lapply(lst, function(x) x[,c("query","tool")]))
+length(unique(unigenes$query))
+unigenes %>% group_by(tool) %>% summarise(n = n_distinct(query)) %>% ungroup() %>% arrange(n)
+
+do.call(rbind, lapply(lst, function(x) x[,c("tool","ARO")])) %>% 
+  group_by(tool) %>% mutate(N = n()) %>% filter(ARO == "") %>% mutate(n = n()) %>% 
+  summarise( p = n[1] / N[1])
+
+do.call(rbind, lapply(lst, function(x) x[,c("query","ARO")])) %>% 
+  group_by(query) %>% slice_head(n = 1) %>% ungroup() %>%
+  mutate(N = n()) %>% filter(ARO == "") %>% mutate(n = n()) %>% 
+  summarise( p = n[1] / N[1])
+
+do.call(rbind, lapply(lst, function(x) x[,c("tool","parent_description")])) %>% 
+  summarise(N = n_distinct(parent_description))
 # sample outliers
 extreme_samples <- total_abundance_sample %>% filter(total > quantile(total, probs = .9977)) %>%
   ungroup() %>% select(sample) %>% pull()
 
+
+get_accumulated_count <- function(x) {
+  y <- x %>% group_by(tool, new_level) %>% 
+    summarise(n = n()) %>% 
+    arrange(n) %>% 
+    ungroup() %>% 
+    mutate(prop = cumsum(n) / sum(n))
+  return(y)
+}
+  
+class_per_tool <- do.call(rbind, lapply(lst, function(x) get_accumulated_count(x)))
+data.frame(class_per_tool %>% group_by(tool) %>% 
+  arrange(desc(prop), .by_group = TRUE) %>%  # or arrange by time/order column if you have one
+  mutate(next_x = lead(prop)) %>%
+  filter(prop > 0.5 | (lag(prop) > 0.5 & prop <= 0.5)) %>%
+  select(-next_x))
+
+proportion_new_level_tool <- do.call(rbind, lapply(lst, function(x) x[,c("query","tool","new_level")])) %>% 
+  mutate(N = n_distinct(query)) %>% 
+  group_by(new_level) %>% mutate(M = n_distinct(query)) %>% ungroup() %>%
+  group_by(tool) %>% mutate(ntool = n_distinct(query)) %>% ungroup() %>%
+  mutate(P = M / N) %>%
+  group_by(new_level, tool) %>% summarise(N = N[1], M = M[1], P = P[1], ntool = ntool[1], n = n_distinct(query)) %>% 
+  arrange(desc(n)) %>% mutate(p = n/ntool)
+
+proportion_new_level_tool %>% filter(P > .04) %>% group_by(new_level) %>% slice_head(n=1) %>% ungroup() %>% summarise(s = sum(P))
+proportion_new_level_tool %>% filter(new_level %in% c("GPA","Efflux p.")) %>% group_by(tool) %>% summarise(N = sum(N), M = sum(M), ntool = sum(ntool), n = sum(n), p = sum(p))
+
+do.call(rbind, lapply(lst, function(x) x[,c("query","tool","new_level")])) %>% 
+  mutate(N = n_distinct(query)) %>% 
+  group_by(new_level) %>% summarise(N = N[1], n = n_distinct(query)) %>% 
+  arrange(desc(n)) %>% mutate(p = n/N)
 
 # tools selected to plot
 tool_selected <- c("rgi.diamond",  "deeparg", "fargene", "amrfinder.prot", 
