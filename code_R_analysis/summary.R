@@ -3,6 +3,7 @@ library(ggplot2)
 library(ggVennDiagram)
 library(gridExtra)
 library(tidyverse)
+library(RColorBrewer)
 
 setwd("~/Documents/GitHub/arg_compare/")
 df2 <- readRDS(file = "code_R_analysis/output_abundance_diversity_resistome/conversion_ARO_parent_new_level.rds")
@@ -21,6 +22,10 @@ pal_12 <- c("#a6cee3", "#1f78b4","#b2df8a","#33a02c","#fb9a99","#e31a1c","#fdbf6
 pal_8 <-  c("#a6cee3", "#1f78b4","#b2df8a","#33a02c","#fb9a99","#e31a1c","#fdbf6f","#ff7f00")
 pal_10 <-  c("#a6cee3", "#1f78b4", "#b2df8a", "#33a02c", "#fb9a99", "#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a")
 
+
+pal_10_q <- brewer.pal(8, "Dark2")
+pal_10_d <- brewer.pal(10, "BrBG")
+pal_9_d <- brewer.pal(9, "BrBG")
 
 
 #pal_latent <- c("#00B5E2", "#013B67", "#CC0C01", "#985428", "#73006D", "#E08728", "#377E60", "#FD8CC0")
@@ -62,6 +67,7 @@ abundance <- abundance %>% mutate(habitat = factor(habitat, levels = EN),
                                   tool = factor(tool, levels = tools_levels))
 
 ## factors for new_level, we take the highest abundance per ontology by tool
+
 factor_aro <- abundance %>% ungroup() %>% filter(aggregation %in% "ARO") %>%
   group_by(aggregation, tool, gene ) %>% summarise(total = sum(normed10m)) %>%
   ungroup() %>% arrange(aggregation, tool, desc(total)) %>% 
@@ -77,7 +83,7 @@ factor_new_level <- abundance %>% ungroup() %>% filter(aggregation %in% "new_lev
     ungroup() %>% arrange(aggregation, tool, desc(total)) %>% 
     group_by(aggregation, tool, gene) %>%  ungroup() %>% select(gene) %>% distinct() %>% pull()
 
-
+# this is mainly for the circular / radial plots
 factor_new_level2 <- c(factor_new_level[seq(1, length(factor_new_level), by = 3)],
                        factor_new_level[seq(1, length(factor_new_level), by = 3) + 1],
                        factor_new_level[seq(1, length(factor_new_level), by = 3) + 2])
@@ -93,7 +99,7 @@ abundance$habitat <- factor(abundance$habitat, levels = EN)
 abundance$habitat <- as.character(abundance$habitat)
 
 # environments that we are not interested in
-not_env <- c("built-environment", "amplicon", "isolate")
+not_env <- c("amplicon", "isolate")
 
 # SUMMARIES
 # SUMMARIES
@@ -103,22 +109,24 @@ not_env <- c("built-environment", "amplicon", "isolate")
 # total numbrer of unigenes captured with abundance 
 
 args_abundances <- read.delim("data/abundances/args_abundances.tsv")
+
 metadata <- read.delim("data/metadata_GMGC10.sample.meta.tsv")
+
+args_abundances <- args_abundances %>% mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)])
+
+# name of unigenes that had abundance
 unigenes_with_abundance <- args_abundances  %>% filter(!habitat %in% not_env) %>%
   select(X) %>% distinct()
 
-# total numbrer of unigenes captured with the tools
+length(unigenes_with_abundance$X)
 
+# unigenes captured with the tools
+unigenes <- do.call(rbind, lapply(lst, function(x) x[,c("query","tool")])) 
 
-unigenes <- do.call(rbind, lapply(lst, function(x) x[,c("query","tool")])) #%>%
-  #mutate(tool = ifelse(tool == "DeepARG (a.a.)", "DeepARG (aa)",
-  #ifelse(tool == "RGI (BLAST  a.a.)", "RGI (BLAST - aa)",
-  #ifelse(tool == "RGI (DIAMOND  a.a.)", "RGI (DIAMOND - aa)",
-  #ifelse(tool == "RGI (DIAMOND  nt)", "RGI (DIAMOND - nt)",
-  #ifelse(tool == "fARGene (a.a.)", "fARGene (aa)",
-  #ifelse(tool == "AMRFinderPlus (a.a.)", "AMRFinderPlus (aa)", tool)))))))
-
+# total number of unique unigenes captured with the tools
 length(unique(unigenes$query))
+
+
 unigenes %>% group_by(tool) %>% summarise(n = n_distinct(query)) %>% ungroup() %>% arrange(n)
 
 do.call(rbind, lapply(lst, function(x) x[,c("tool","ARO")])) %>% 
@@ -126,18 +134,20 @@ do.call(rbind, lapply(lst, function(x) x[,c("tool","ARO")])) %>%
   summarise( p = n[1] / N[1])
 
 ## UNIGENES missing aro
-do.call(rbind, lapply(lst, function(x) x[,c("query","ARO")])) %>% 
-  group_by(query) %>% slice_head(n = 1) %>% ungroup() %>%
-  mutate(N = n()) %>% filter(ARO == "") %>% mutate(n = n()) %>% 
+do.call(rbind, lapply(lst, function(x) x[,c("tool","query","ARO")])) %>% 
+  group_by(tool) %>%
+  mutate(N = n())  %>% 
+  filter(ARO == "") %>% mutate(n = n()) %>% 
   summarise( p = n[1] / N[1])
 
 ## NUMBER OF PARENT CLASSES 
 do.call(rbind, lapply(lst, function(x) x[,c("tool","parent_description")])) %>% 
   summarise(N = n_distinct(parent_description))
 
-# sample outliers
-# extreme_samples <- total_abundance_sample %>% filter(total > quantile(total, probs = .9977)) %>%
-#  ungroup() %>% select(sample) %>% pull()
+## NUMBER OF new levels
+do.call(rbind, lapply(lst, function(x) x[,c("tool","new_level")])) %>% 
+  summarise(N = n_distinct(new_level))
+
 
 
 get_accumulated_count <- function(x) {
@@ -174,7 +184,6 @@ proportion_new_level_tool <- do.call(rbind, lapply(lst, function(x) x[,c("query"
   group_by(new_level, tool) %>% summarise(N = N[1], M = M[1], P = P[1], ntool = ntool[1], n = n_distinct(query)) %>% 
   arrange(desc(n)) %>% mutate(p = n/ntool)
 
-proportion_new_level_tool %>% filter(P > .04) %>% group_by(new_level) %>% slice_head(n=1) %>% ungroup() %>% summarise(s = sum(P))
 
 # sum of propotions for GPA AND EFFLUX
 proportion_new_level_tool %>% filter(new_level %in% c("GPA","Efflux p.")) %>% group_by(tool) %>% summarise(N = sum(N), M = sum(M), ntool = sum(ntool), n = sum(n), p = sum(p))
@@ -188,7 +197,8 @@ do.call(rbind, lapply(lst, function(x) x[,c("query","tool","new_level")])) %>%
   group_by(new_level) %>% summarise(N = N[1], n = n_distinct(query)) %>% 
   arrange(desc(n)) %>% mutate(p = n/N)
 
-
+do.call(rbind, lapply(lst, function(x) x[is.na(x$new_level),c("query","tool","new_level")])) %>%
+  group_by(tool) %>% summarise(n = n())
 
 ### conformity (overlap)
 
@@ -843,6 +853,24 @@ sumcore %>% filter(habitat %in% c("pig gut")) %>%
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
         axis.title = element_text(size = general_size + 2, face = "bold"))
+
+sumcore %>% filter(habitat %in% c("wastewater")) %>% 
+  ggplot(aes(x = tool, y = unigenes)) +
+  geom_col(aes(fill = new_level)) +
+  theme_minimal() +
+  labs(fill = "Gene class") +
+  xlab("Tool") +
+  xlab("Size core-resistome") +
+  theme(axis.title.y = element_blank(),
+        #legend.position = "bottom",
+        panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+        axis.text.x = element_text(angle = 90, size = general_size),
+        axis.text.y = element_text(size = general_size),
+        strip.text = element_text(size = general_size, face = "bold"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        axis.title = element_text(size = general_size + 2, face = "bold"))
+
 
 ##################################################################################################################################################################
 ##################################################################################################################################################################

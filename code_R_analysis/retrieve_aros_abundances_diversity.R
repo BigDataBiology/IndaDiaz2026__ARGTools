@@ -135,11 +135,11 @@ names(hmm_models) <- c("aac2p-aligned", "aac3_class1-aligned", "aac3_class2-alig
 "oxa_g1_70_centroids-aligned", "oxa_g2_70_centroids-aligned", "rpg_reference_sequences-aligned", "pmqnr_20120719.pfa")
 
 # Manually assigned aros to fargene classes
-fargene2ARO <- c("ARO:3000341", "ARO:3000322", "ARO:3000345", "ARO:3000128", "ARO:3000126", "ARO:3000151",
+fargene2ARO <- c("ARO:3000341", "ARO:3000322", "ARO:3000345", "ARO:3000128", "ARO:3000126", "ARO:3000151", "ARO:3000151",
                  "ARO:3000078", "ARO:3000004", "ARO:3000004", "ARO:3000076", "ARO:3000075",
                  "ARO:3000560", "ARO:3000333", "ARO:3000036", "ARO:0000002", "ARO:0010002", "ARO:3000419")
 
-names(fargene2ARO) <- c("aac2p", "aac3", "aac6p", "aph2b", "aph3p","aph6",
+names(fargene2ARO) <- c("aac2p", "aac3", "aac6p", "aph2b", "aph3p","aph6", "aph6p",
                         "class_a", "class_b1_b2", "class_b3", "class_c", "class_d", 
                         "erm", "mph", "tet_enzyme", "tet_rpg", "tet_efflux", "qnr")
 
@@ -359,6 +359,13 @@ fargene <- fargene %>%
          aro.rgi = fargene_with_rgi$ARO[match(query, fargene_with_rgi$query)])
 rm(fargene_with_rgi)
 
+fargene <- fargene %>% mutate(ARO = as.vector(fargene2ARO[new_class]),
+                              aro.rgi = ifelse(is.na(aro.rgi), "", aro.rgi))
+
+fargene <- fargene %>% 
+  mutate(manual.ARO = ARO) %>% 
+  mutate(ARO = aro.rgi)
+
 #
 
 fargene.prot <- read.delim("protein/fargene_results.tsv", header = F) %>% 
@@ -407,6 +414,14 @@ fargene.prot <- fargene.prot %>%
          aro.rgi = fargene_with_rgi$ARO[match(query, fargene_with_rgi$query)])
 
 rm(fargene_with_rgi)
+
+fargene.prot <- fargene.prot %>% mutate(ARO = as.vector(fargene2ARO[new_class]),
+                                        aro.rgi = ifelse(is.na(aro.rgi), "", aro.rgi))
+
+fargene.prot <- fargene.prot %>% 
+  mutate(manual.ARO = ARO) %>% 
+  mutate(ARO = aro.rgi)
+
 
 # abricate
 
@@ -696,11 +711,6 @@ rm(abricate_ncbi_missing_aro, abricate_megares_missing_aro, resfinder_missing_ar
 # I need to include those from abricate.CARD at some point 
 # I need to fix by hand those AROs missing in each tool
 
-fargene <- fargene %>% mutate(ARO = as.vector(fargene2ARO[new_class]),
-                              aro.rgi = ifelse(is.na(aro.rgi), "", aro.rgi))
-fargene.prot <- fargene.prot %>% mutate(ARO = as.vector(fargene2ARO[new_class]),
-                                        aro.rgi = ifelse(is.na(aro.rgi), "", aro.rgi))
-
 
 aros <- tibble(data.frame(rbind(cbind(rgi.diamond$tool, rgi.diamond$Best_Hit_ARO, rgi.diamond$ARO),
                                 cbind(rgi.diamond.prot$tool, rgi.diamond.prot$Best_Hit_ARO, rgi.diamond.prot$ARO),
@@ -888,23 +898,14 @@ lst <- lapply(lst, function(x) x %>% mutate(parent = df2$Parent_ID[match(ARO, df
                                      parent_description = df2$Parent_Label[match(ARO, df2$Term_ID)],
                                      new_level = df2$new_level[match(ARO, df2$Term_ID)]))
 
-lst$fargene <- lst$fargene %>% mutate(parent.rgi = df2$Parent_ID[match(aro.rgi, df2$Term_ID)],
-                                      parent_description.rgi = df2$Parent_Label[match(aro.rgi, df2$Term_ID)],
-                                      new_level.rgi = df2$new_level[match(aro.rgi, df2$Term_ID)])
+lst$fargene <- lst$fargene %>% mutate(manual.parent = df2$Parent_ID[match(manual.ARO, df2$Term_ID)],
+                                      manual.parent_description = df2$Parent_Label[match(manual.ARO, df2$Term_ID)],
+                                      manual.new_level = df2$new_level[match(manual.ARO, df2$Term_ID)])
 
-lst$fargene.prot <- lst$fargene.prot %>% mutate(parent.rgi = df2$Parent_ID[match(aro.rgi, df2$Term_ID)],
-                                                parent_description.rgi = df2$Parent_Label[match(aro.rgi, df2$Term_ID)],
-                                                new_level.rgi = df2$new_level[match(aro.rgi, df2$Term_ID)])
+lst$fargene.prot <- lst$fargene.prot %>% mutate(manual.parent = df2$Parent_ID[match(manual.ARO, df2$Term_ID)],
+                                                manual.parent_description = df2$Parent_Label[match(manual.ARO, df2$Term_ID)],
+                                                manual.new_level = df2$new_level[match(manual.ARO, df2$Term_ID)])
 
-lst$fargene <- lst$fargene %>% mutate(manual.ARO = ARO, manual.parent = parent, manual.parent_description = parent_description,
-                                      manual.new_level = new_level,
-                                      ARO = aro.rgi, parent = parent.rgi, parent_description = parent_description.rgi,
-                                      new_level = new_level.rgi)
-
-lst$fargene.prot <- lst$fargene.prot %>% mutate(manual.ARO = ARO, manual.parent = parent, manual.parent_description = parent_description,
-                                      manual.new_level = new_level,
-                                      ARO = aro.rgi, parent = parent.rgi, parent_description = parent_description.rgi,
-                                      new_level = new_level.rgi)
 
 saveRDS(lst,  file = "code_R_analysis/output_abundance_diversity_resistome/results_tools.rds", compress = T)
 
@@ -1006,6 +1007,7 @@ filter_samples_core <- function(args_abundances_core, d){
     filter(X %in% d$query) %>% 
     mutate(tool = d$tool[1]) %>%
     mutate(new_level = d$new_level[match(X, d$query)]) %>%
+    mutate(ARO = d$ARO[match(X, d$query)]) %>%
     select(ARO, new_level, sample, tool, habitat) %>% 
     ungroup() %>% group_by(tool, habitat) %>% mutate(N = n_distinct(sample)) %>% # total number of samples per habitat
     ungroup() %>% group_by(ARO, habitat) %>% mutate(n = n_distinct(sample)) %>% # number of samples where a unigene X appears per habitat
@@ -1027,7 +1029,7 @@ core_resistome <- function(args_abundances, samples_to_collect, sed, lst, mx_sam
   args_abundances_core_cut <- do.call(rbind, lapply(seq_along(cuts), function(k) {cut_size_core(args_abundances_core, cuts[k])}))
 
   df <- df %>% bind_rows(args_abundances_core_cut)
-  df <- df %>% ungroup() %>% group_by(X, new_level, tool, habitat, cut) %>%
+  df <- df %>% ungroup() %>% group_by(ARO, new_level, tool, habitat, cut) %>%
     summarise(cnt = sum(cnt))
   return(df)
 }
@@ -1035,10 +1037,10 @@ core_resistome <- function(args_abundances, samples_to_collect, sed, lst, mx_sam
 
 #future_lapply
 #seeds <- seq(2001, 2002, 1)
-seeds <- seq(2001, 2500, 1)
+seeds <- seq(2001, 3000, 1)
 cuts <- c(0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9)
 
-df <- data.frame(X = NULL, new_level = NULL, tool = NULL, habitat = NULL, cut = NULL, cnt = NULL)
+df <- data.frame(ARO = NULL, new_level = NULL, tool = NULL, habitat = NULL, cut = NULL, cnt = NULL)
 
 samples_to_collect <- args_abundances %>%
   group_by(habitat) %>%
@@ -1071,13 +1073,13 @@ filter_samples_pan <- function(args_abundances_pan, d, j){
     ungroup() 
   
   Y_new_level <- Y %>% group_by(tool, habitat, new_level) %>% 
-    summarise(unigenes = n_distinct(X)) %>%
+    summarise(unigenes = n_distinct(aro)) %>%
     mutate(aggregation = "new_level", epoch = j) %>% ungroup() %>%
     rename(gene_class = new_level)
   
   
   Y_parent <- Y %>% group_by(tool, habitat, parent_description) %>% 
-    summarise(unigenes = n_distinct(X)) %>%
+    summarise(unigenes = n_distinct(aro)) %>%
     mutate(aggregation = "parent_description", epoch = j) %>% ungroup() %>%
     rename(gene_class = parent_description)
   
