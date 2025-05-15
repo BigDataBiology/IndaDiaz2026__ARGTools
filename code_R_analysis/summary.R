@@ -495,6 +495,7 @@ unigenes %>%
            (unigenes %>% filter(query %in% double_level, tool %in% c("fARGene (nt)","fARGene (aa)")) %>% 
               select(query) %>% pull())) %>% arrange(query, id, tool) %>% select(query, tool, new_level, id)
 
+unigenes %>% filter(tool %in% c("fARGene (nt)","fARGene (aa)")) %>% group_by(query) %>% summarise(n = n_distinct(new_level)) %>% filter(n > 1)
 
 # double_new_level_count = pairwise count for each new level
 sets <- unigenes %>% 
@@ -524,30 +525,45 @@ data.frame(double_new_level_count)
 
 # double_tool_count = pairwise count for tool
 
-sets <- unigenes %>% ungroup() %>% group_by(query, tool) %>% distinct() %>%
+sets <- unigenes %>% 
   filter(query %in% double_level) %>% 
   group_by(tool) %>%  
-  summarise(query = list(query), .groups = "drop")
+  summarise(query = list(query),
+            new_level = list(new_level), .groups = "drop")
 
 pairwise <- expand_grid(nl1 = sets$tool, nl2 = sets$tool) %>% filter(nl1 != nl2)
 
+library(purrr)
+
+
+pull_unigenes <- function(x,y){
+  g1 <- unigenes %>% ungroup() %>% 
+    filter(query %in% double_level) %>% 
+    group_by(tool) %>% filter(tool %in% x) %>% select(query, new_level)
+  g2 <- unigenes %>% ungroup() %>% 
+    filter(query %in% double_level) %>% 
+    group_by(tool) %>% filter(tool %in% y) %>% select(query, new_level)
+  g <-  bind_rows(g1, g2)
+  g <- g %>%group_by(query) %>% summarise(n = n_distinct(new_level)) %>% filter(n>1) %>% ungroup()
+  g <- g %>% select(query) %>% pull()
+  return(g)
+}
+
+
 double_tool_count <- pairwise %>%
-  left_join(sets, by = c("nl1" = "tool")) %>%
-  rename(values1 = query) %>%
-  left_join(sets, by = c("nl2" = "tool")) %>%
-  rename(values2 = query) %>%
+  mutate(q = map2(nl1, nl2, ~  pull_unigenes(as.character(.x), as.character(.y)))) %>% 
   filter(nl1 != nl2) %>% 
   rowwise() %>%
-  mutate( pair1 = min(c(as.character(nl1), as.character(nl2))), pair2 = max(c(as.character(nl1), as.character(nl2)))) %>%
+  mutate(n_genes = length(q)) %>%
+  mutate( pair1 = min(c(as.character(nl1), as.character(nl2))), pair2 = max(c(as.character(nl1), as.character(nl2)))) %>% 
   ungroup() %>% 
   distinct(pair1, pair2, .keep_all = TRUE) %>% 
-  mutate(n_genes = map2_dbl(values1, values2, ~ length(intersect(.x, .y)))) %>%
   filter(n_genes > 0 ) %>% 
   select(nl1, nl2, n_genes) %>% arrange(nl1, desc(n_genes))
 
-data.frame(double_tool_count)
+data.frame(double_tool_count %>% filter(nl1 %in% tool_2, nl2 %in% tool_2))
 
-rm(sets, pairwise)
+
 
 # now, we have a problem, the recall will be biased if two tools report one unigene with different class
 
@@ -587,14 +603,12 @@ rm(sets, pairwise)
 # JI_class_vs_all %>% filter(tool_ref %in% "RGI_DIAMOND_nt")
 # JI_class_vs_all %>% filter(tool_ref %in% "fARGene_nt")
 # rm (sets0, sets1, sets, pairwise)
-rm (sets0, sets1, sets, pairwise)
+# rm (sets0, sets1, sets, pairwise)
 
 
 
 JI_all %>% 
-  mutate(x1 = factor(as.vector(alt_name_tools_rev[as.character(tool_ref)]), levels = tools_levels)) %>% 
-  mutate(x2 = factor(as.vector(alt_name_tools_rev[as.character(tool_comp)]), levels = tools_levels)) %>%
-  ggplot(aes(x = x1, y = x2, fill = jaccard)) +
+  ggplot(aes(x = tool_comp, y = tool_ref, fill = jaccard)) +
   geom_tile() +
   #scale_fill_gradient2(low = "white",  high = "red") +
   scale_fill_viridis_c() + 
@@ -613,11 +627,7 @@ JI_all %>%
 
 
 JI_all %>% 
-  mutate(x1 = factor(as.vector(alt_name_tools_rev[as.character(tool_ref)]), levels = tools_levels)) %>% 
-  mutate(x2 = factor(as.vector(alt_name_tools_rev[as.character(tool_comp)]), levels = tools_levels)) %>%
-  #mutate(x1 = tool_ref) %>% 
-  #mutate(x2 = tool_comp) %>%
-  ggplot(aes(x = x1, y = x2, fill = fnr)) +
+  ggplot(aes(x = tool_comp, y = tool_ref, fill = fnr)) +
   geom_tile() +
   #scale_fill_gradient2(low = "white",  high = "red") +
   scale_fill_viridis_c() + 
@@ -636,9 +646,7 @@ JI_all %>%
 
 
 JI_all %>% 
-  mutate(x1 = factor(as.vector(alt_name_tools_rev[as.character(tool_ref)]), levels = tools_levels)) %>% 
-  mutate(x2 = factor(as.vector(alt_name_tools_rev[as.character(tool_comp)]), levels = tools_levels)) %>%
-  ggplot(aes(x = x2, y = x1, fill = recall)) +
+  ggplot(aes(x = tool_comp, y = tool_ref, fill = recall)) +
   geom_tile() +
   scale_fill_viridis_c() + 
   theme_minimal() +
@@ -694,7 +702,6 @@ plot_fdr <- JI_class_filter %>% filter(tool_ref %in% c("RGI (DIAMOND - nt)", "De
                                        tool_comp %in% tool_2,
                                        new_level %in% c(human.genes, "Class C", "Class D", "MPH", "APH", "QNR")) %>% 
   ggplot(aes(x = new_level, y = fnr)) +
-  #geom_jitter(aes(color = variable), size = 3) +
   geom_boxplot(aes(fill = tool_ref)) +
   facet_grid( tool_ref ~ new_level , scales = "free_x") +
   scale_color_manual(values = pal_10_d) +
