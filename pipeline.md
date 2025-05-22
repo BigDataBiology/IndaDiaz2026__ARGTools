@@ -262,6 +262,7 @@ rm genes_prot_dna.csv
 In the server get the lenghts for all GMGC10 unigenes
 ```bash
 cd /work/microbiome/users/juan/arg_compare
+# conda activate which seqkit 
 # head -n10 /work/microbiome/global_data_spire/GMGC10.data/GMGC10.95nr.fna | seqkit fx2tab --length --name -i 
 seqkit fx2tab --length --name -i  /work/microbiome/global_data_spire/GMGC10.data/GMGC10.95nr.fna > length_fna.tsv
 seqkit fx2tab --length --name -i  /work/microbiome/global_data_spire/GMGC10.data/GMGC10.95nr.faa > length_faa.tsv
@@ -358,6 +359,18 @@ mamba run -n rgi rgi main -a DIAMOND -i ../dna/fargene_predicted.fasta -o fargen
 mamba run -n rgi rgi main -a DIAMOND -i ../protein/fargene_predicted.fasta -o fargene_prot_predicted_faa --local --clean -t protein --include_loose
 ```
 
+# Clustering ARGs with VSEARCH
+
+```bash
+# conda activate which seqkit 
+cd /work/microbiome/users/juan/arg_compare/cluster_vsearch
+zcat /work/microbiome/global_data_spire/GMGC10.data/GMGC10.95nr.fna | seqkit grep -f ../genes_prot_dna.txt > args.fa
+vsearch --cluster_fast args.fa --id 0.90 --centroids centroids.fasta --uc clusters.uc --threads 4 
+# conda deactivate
+# conda activate which vsearch 
+```
+
+
 ## Creating the table of abundance of ARGs
 
 Run the file `retrieve_aros_and_abundances.R`
@@ -366,7 +379,6 @@ Run the file `retrieve_aros_and_abundances.R`
 - `abundance_per_tool.rds`, table containing sample and abundance per **selected (standardized)** ontology and tool, sum of unigene abundance within a specific ontology level
 - `abundance_per_tool.csv`
 - `results_tools.rds`, list with detection information per tool, complemented with AROs
-
 
 ## Commands to remember 
 ```bash

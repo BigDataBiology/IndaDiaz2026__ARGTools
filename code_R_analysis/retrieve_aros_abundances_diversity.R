@@ -913,6 +913,9 @@ aros %>% group_by(X1) %>% summarise(n = n(), e = sum(X3 == "")) %>% mutate(p=e/n
 df <- process_terms_fast(unique(aros$X3[aros$X3!=""]), parent_map, label_map)
 rm(g, rdfs_ns, aro_url, query_parents, parent_map, query_labels, label_map)
 
+# ARO:3002870 tet(34) will be forcefully receive ARO:3000012 protein(s) conferring antibiotic resistance via molecular bypass and not tet enzyme
+df <- df %>% filter(!(Term_ID %in% "ARO:3002870" & Parent_ID %in% "ARO:3000036"))
+df <- df %>% filter(!(Term_ID %in% "ARO:3002870" & Parent_ID %in% "ARO:3000557"))
 
 # THIS MIGHT NEED TO CHENGE IF MORE GENES APPEAR
 # SOME GENES SEEM TO APPEAR IN TWO OR MORE DIFFERENT BRANCHES OF ONTOLOGY
@@ -928,6 +931,8 @@ rm(g, rdfs_ns, aro_url, query_parents, parent_map, query_labels, label_map)
 # child ARO:3002484 gets ARO:3000076   || remove ARO:3000076 (classs d) for ARO:3000075 class C
 # antibiotic resistant gene variant or mutant ARO:0000031 ---> ARO:3000451 and ARO:3003040
 # gene conferring resistance via absence 3003768 (16) protein modulating permeability to antibiotic (41) 3000270
+
+
 
 overrul <- c("ARO:3003040", "ARO:3003040", "ARO:3003580", "ARO:3000451", "ARO:3004064", "ARO:3000075", "ARO:3000451", "ARO:3003040", "ARO:3000004", "ARO:3000210", "ARO:3000270")
 
@@ -961,7 +966,7 @@ df_lowest_parent_2 <- df_lowest_parent_2 %>% bind_rows(df_lowest_parent %>% filt
 repeated_wanted <- df_not_lowest %>% filter(Parent_ID %in% ontologies) %>% group_by(Term_ID) %>% summarise(n = n()) %>% filter(n >1)
 
 # those repeated after selecting overrul aro, if this had entries, we need to modify overrul (it should be empty)
-df_not_lowest %>% filter(Parent_ID %in% ontologies) %>%  group_by(Term_ID) %>% filter(n()>1)%>% group_by(Term_ID) %>% summarise(n=sum(Parent_ID %in% overrul)) %>% filter(n<1)
+df_not_lowest %>% filter(Parent_ID %in% ontologies) %>%  group_by(Term_ID) %>% filter(n()>1) %>% group_by(Term_ID) %>% summarise(n=sum(Parent_ID %in% overrul)) %>% filter(n<1)
 
 # unique lowest for df lowest parent 
 df_not_lowest_2 <- df_not_lowest %>% filter(Parent_ID %in% ontologies) %>% group_by(Term_ID) %>% filter(n()<2) %>% ungroup()
@@ -1044,6 +1049,7 @@ new_level <- c("chloramphenicol phosphotransferase", "CHL ph.",
                "antibiotic target modifying enzyme", "Target-modifying enzyme",
                "antibiotic inactivation enzyme", "Inactivation enzyme",
                "capreomycin phosphotransferase", "cph")
+
 odd_vals  <- new_level[seq(1, length(new_level), by = 2)]
 even_vals <- new_level[seq(2, length(new_level), by = 2)]
 new_level_df <- df <- data.frame(old = odd_vals, new = even_vals)
@@ -1198,9 +1204,19 @@ saveRDS(lst,  file = "code_R_analysis/output_abundance_diversity_resistome/resul
 
 #### CORE AND PAN 
 
+clusters <- read.delim("cluster_vsearch/clusters.uc", header = F)
+clusters <- clusters %>% filter(V1 != "C")
+#clusters %>% select(V1) %>% group_by(V1) %>%  summarise(n = n())
+clusters <- clusters %>% mutate(centroid = ifelse(V10 == "*", V9, V10))
+
+# 
+
 args_abundances <- args_abundances %>% 
   mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)])
 
+args_abundances <- args_abundances %>% mutate(centroid = clusters$centroid[match(X, clusters$V9)])
+args_abundances <- args_abundances %>% rename(Y = X)
+args_abundances <- args_abundances %>% rename(X = centroid)
 
 cut_size_core <- function(Y, cut) {
     Y_cnt <- Y %>% ungroup() %>% filter(p >= cut) %>%
@@ -1213,14 +1229,14 @@ cut_size_core <- function(Y, cut) {
 filter_samples_core <- function(args_abundances_core, d){
   d <- d %>% filter(!is.na(parent)) 
   Y <- args_abundances_core %>% 
-    filter(X %in% d$query) %>% 
+    filter(Y %in% d$query) %>% 
     mutate(tool = d$tool[1]) %>%
-    mutate(new_level = d$new_level[match(X, d$query)]) %>%
-    mutate(ARO = d$ARO[match(X, d$query)]) %>%
+    mutate(new_level = d$new_level[match(Y, d$query)]) %>%
+    mutate(ARO = d$ARO[match(Y, d$query)]) %>%
     select(X, new_level, sample, tool, habitat) %>% 
     ungroup() %>% group_by(tool, habitat) %>% mutate(N = n_distinct(sample)) %>% # total number of samples per habitat
     ungroup() %>% group_by(X, habitat) %>% mutate(n = n_distinct(sample)) %>% # number of samples where a unigene X appears per habitat
-    ungroup() %>% mutate( p = n / N) %>% filter(p >= 0.2) %>%
+    ungroup() %>% mutate( p = n / N) %>% filter(p >= 0.1) %>%
     group_by(habitat, X) %>% 
     slice_head(n = 1) %>% ungroup() %>% select(-sample)
     return(Y)
@@ -1245,7 +1261,9 @@ core_resistome <- function(args_abundances, samples_to_collect, sed, lst, mx_sam
 
 
 seeds <- seq(2001, 3000, 1)
+#seeds <- c(2001)
 cuts <- c(0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9)
+#cuts <- c(0.5)
 
 samples_to_collect <- args_abundances %>%
   group_by(habitat) %>%
@@ -1255,8 +1273,6 @@ samples_to_collect <- args_abundances %>%
   group_by(habitat)
 
 df <- data.frame(X = NULL, new_level = NULL, tool = NULL, habitat = NULL, cut = NULL, cnt = NULL)
-
-
 for(j in 1:length(seeds)){
   print(j)
   df <- core_resistome(args_abundances %>% filter(raw_unique > 0),  samples_to_collect, seeds[j], lst, 100, j, cuts, df)
@@ -1266,27 +1282,35 @@ saveRDS(df, file = "code_R_analysis/output_abundance_diversity_resistome/core_re
 write.csv(df, file = "code_R_analysis/output_abundance_diversity_resistome/core_resistome.csv", row.names = F)
 
 
+df <- data.frame(X = NULL, new_level = NULL, tool = NULL, habitat = NULL, cut = NULL, cnt = NULL)
+for(j in 1:length(seeds)){
+  print(j)
+  df <- core_resistome(args_abundances,  samples_to_collect, seeds[j], lst, 100, j, cuts, df)
+}
+
+saveRDS(df, file = "code_R_analysis/output_abundance_diversity_resistome/core_resistome_no_raw_unique_filter.rds", compress = T)
+write.csv(df, file = "code_R_analysis/output_abundance_diversity_resistome/core_resistome_no_raw_unique_filter.csv", row.names = F)
 
 
 filter_samples_pan <- function(args_abundances_pan, d, j){
   d <- d %>% filter(!is.na(parent)) 
   Y <- args_abundances_pan %>% 
-    filter(X %in% d$query) %>% 
+    filter(Y %in% d$query) %>% 
     mutate(tool = d$tool[1]) %>%
-    mutate(new_level = d$new_level[match(X, d$query)]) %>%
-    mutate(parent_description = d$parent_description[match(X, d$query)]) %>%
-    mutate(aro = d$ARO[match(X, d$query)]) %>%
+    mutate(new_level = d$new_level[match(Y, d$query)]) %>%
+    mutate(parent_description = d$parent_description[match(Y, d$query)]) %>%
+    mutate(aro = d$ARO[match(Y, d$query)]) %>%
     select(X, new_level, sample, tool, habitat, parent_description, aro) %>% 
     ungroup() 
   
   Y_new_level <- Y %>% group_by(tool, habitat, new_level) %>% 
-    summarise(unigenes = n_distinct(aro)) %>%
+    summarise(unigenes = n_distinct(X)) %>%
     mutate(aggregation = "new_level", epoch = j) %>% ungroup() %>%
     rename(gene_class = new_level)
   
   
   Y_parent <- Y %>% group_by(tool, habitat, parent_description) %>% 
-    summarise(unigenes = n_distinct(aro)) %>%
+    summarise(unigenes = n_distinct(X)) %>%
     mutate(aggregation = "parent_description", epoch = j) %>% ungroup() %>%
     rename(gene_class = parent_description)
   
@@ -1296,7 +1320,6 @@ filter_samples_pan <- function(args_abundances_pan, d, j){
 }
 
 pan_resistome <- function(args_abundances, samples_to_collect, sed, lst, mx_sample_size, j, df) {
-  
   set.seed(seed = sed)
   
   samples_to_collect2 <- samples_to_collect  %>%
@@ -1311,12 +1334,10 @@ pan_resistome <- function(args_abundances, samples_to_collect, sed, lst, mx_samp
   } else {
     df <- df %>% bind_rows(args_abundances_pan_filter)
   }
-  
   return(df)
 }
 
 df.pan2 <- data.frame( tool = NULL, habitat = NULL, gene_class= NULL, aggregation=NULL, unigenes = NULL, epoch = NULL)
-
 for(j in 1:length(seeds)){
   print(j)
   df.pan2 <- pan_resistome(args_abundances %>% filter(raw_unique > 0),  samples_to_collect, seeds[j], lst, 100, j, df.pan2)
@@ -1324,4 +1345,15 @@ for(j in 1:length(seeds)){
 
 saveRDS(df.pan2, file = "code_R_analysis/output_abundance_diversity_resistome/pan_resistome.rds", compress = T)
 write.csv(df.pan2, file = "code_R_analysis/output_abundance_diversity_resistome/pan_resistome.csv", row.names = F)
+
+
+df.pan2 <- data.frame( tool = NULL, habitat = NULL, gene_class= NULL, aggregation=NULL, unigenes = NULL, epoch = NULL)
+for(j in 1:length(seeds)){
+  print(j)
+  df.pan2 <- pan_resistome(args_abundances,  samples_to_collect, seeds[j], lst, 100, j, df.pan2)
+}
+
+saveRDS(df.pan2, file = "code_R_analysis/output_abundance_diversity_resistome/pan_resistome_no_rawunique_filter.rds", compress = T)
+write.csv(df.pan2, file = "code_R_analysis/output_abundance_diversity_resistome/pan_resistome_no_rawunique_filter.csv", row.names = F)
+
 
