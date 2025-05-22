@@ -1407,14 +1407,23 @@ p3_pan <- p2 +
   annotation_custom(
     grob = ggplotGrob(p1),
     xmin = 5, xmax = 13.5,   # positioning within the data coordinates of p_main
-    ymin = 2300, ymax = 6000
+    ymin = 3500, ymax = 8000
   )
 
+p3_pan <- p2 +
+  annotation_custom(
+    grob = ggplotGrob(p1),
+    xmin = 5, xmax = 13.5,   # positioning within the data coordinates of p_main
+    ymin = 2500, ymax = 6000
+  )
 
 p3_pan
 
 dev.off()
+
 ggsave("~/Documents/plots_project/pan_human_gut.svg", p3_pan, width = 130, height = 120, unit = "mm") 
+
+ggsave("~/Documents/plots_project/pan_human_gut_no_raw_unique_filter.svg", p3_pan, width = 130, height = 120, unit = "mm") 
 
 
 
@@ -1445,128 +1454,9 @@ ggsave("~/Documents/plots_project/pan_human_gut.svg", p3_pan, width = 130, heigh
 
 
 
-fig1_div <- diversity_parent  %>% 
-  group_by(habitat, habitat2, tool, sample) %>% summarise(total = sum(unigenes)) %>%
-  filter(!habitat %in% not_env, tool %in% tool_selected, !sample %in% extreme_samples) %>% 
-  ggplot(aes( x = habitat2)) +
-  geom_boxplot(aes(y = total, fill = tool), outlier.shape = NA) +
-  scale_fill_manual(values = pal) +
-  theme_minimal() +
-  scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
-                labels = scales::trans_format("log10", scales::math_format(10^.x)))  + 
-  ylab("Diversity") +
-  xlab("Source") +
-  labs(fill = "") +
-  theme(
-    legend.position = "bottom",
-    panel.grid.major.x = element_blank(),
-    panel.grid.minor.x = element_blank(),
-    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
-#scale_y_continuous(labels = scales::log10_trans())
-fig1_div
 
 
-pdf("fig1_diversity.pdf", width = 14, height = 10)
-fig1_div
-dev.off()
 
-png("fig1_abundance.png",  width= 1600,  height = 800, res = 150)
-fig1
-dev.off()
-
-png("fig1_diversity.png",  width= 1600,  height = 800, res = 150)
-fig1_div
-dev.off()
-
-# heatmap
-
-factor_new_level_heatmap <- abundance_parent %>% ungroup() %>% 
-  group_by(tool, new_level) %>% summarise(total = sum(normed10m)) %>%
-  ungroup() %>% arrange(tool, desc(total)) %>% 
-  group_by(tool, new_level) %>%  ungroup() %>% select(new_level) %>% distinct() %>% pull()
-
-
-hm1 <- abundance_parent %>% filter(!habitat %in% not_env, tool %in% tool_selected, !sample %in% extreme_samples) %>% 
-  ungroup() %>% mutate(N = n_distinct(sample)) %>% 
-  ungroup() %>% group_by(tool, new_level) %>% summarise(mn = sum(normed10m)/N[1])  %>%
-  #ungroup() %>% group_by(tool, new_level) %>% summarise(med = median(mn))  %>%
-  ungroup() %>% group_by(tool) %>% mutate(p = log10(mn+1) / max(log10(mn+1))) %>%
-  ungroup()  %>% mutate(tool = factor(as.character(tool), levels = tool_selected)) %>%
-  ungroup()  %>% complete(tool, new_level, fill = list(p = 0)) %>%
-  mutate(new_level = factor(as.character(new_level), levels = factor_new_level_heatmap)) %>% 
-   ggplot(aes( x = tool, y = new_level, fill = p)) +
-   geom_tile() +
-   #scale_fill_gradient(low = "white", high = pal[length(pal)]) +
-  scale_fill_viridis_c() + 
-#   facet_grid(. ~ habitat) +
-  xlab("Tool") + 
-  ylab("Ontology") + 
-   theme_minimal() +
-  labs(fill = "") +
-   theme(
-     legend.position = "bottom",
-     panel.grid.major = element_blank(), 
-     panel.grid.minor = element_blank(),
-     panel.background = element_blank(),
-     axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) 
-
-
-hm2 <- abundance_parent %>% filter(!habitat %in% not_env, tool %in% tool_selected, !sample %in% extreme_samples) %>% 
-  ungroup() %>% mutate(N = n_distinct(sample)) %>% 
-  ungroup() %>% group_by(tool, new_level) %>% summarise(mn = sum(normed10m)/N[1])  %>%
-  #ungroup() %>% group_by(tool, new_level) %>% summarise(med = median(mn))  %>%
-  ungroup() %>% group_by(tool) %>% mutate(p = log10(mn+1) / max(log10(mn+1))) %>%
-  ungroup()  %>% mutate(tool = factor(as.character(tool), levels = tool_selected)) %>%
-  ungroup()  %>% complete(tool, new_level, fill = list(p = 0)) %>%
-  mutate(new_level = factor(as.character(new_level), levels = factor_new_level_heatmap)) %>% 
-  ggplot(aes( x = new_level, y = tool, fill = p)) +
-  geom_tile() +
-  #scale_fill_gradient(low = "white", high = pal[length(pal)]) +
-  scale_fill_viridis_c() + 
-  #   facet_grid(. ~ habitat) +
-  ylab("Tool") + 
-  xlab("Ontology") + 
-  theme_minimal() +
-  labs(fill = "") +
-  theme(
-    legend.position = "bottom",
-    panel.grid.major = element_blank(), 
-    panel.grid.minor = element_blank(),
-    panel.background = element_blank(),
-    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) 
-
-hm3 <- abundance_parent %>% filter(!habitat %in% not_env, tool %in% tool_selected, !sample %in% extreme_samples) %>% 
-  ungroup() %>% mutate(N = n_distinct(sample)) %>% 
-  ungroup() %>% group_by(tool, new_level) %>% summarise(mn = sum(normed10m)/N[1])  %>%
-  #ungroup() %>% group_by(tool, new_level) %>% summarise(med = median(mn))  %>%
-  ungroup() %>% group_by(new_level) %>% mutate(p = log10(mn+1) / max(log10(mn+1))) %>%
-  ungroup()  %>% mutate(tool = factor(as.character(tool), levels = tool_selected)) %>%
-  ungroup()  %>% complete(tool, new_level, fill = list(p = 0)) %>%
-  mutate(new_level = factor(as.character(new_level), levels = factor_new_level_heatmap)) %>% 
-  ggplot(aes( x = new_level, y = tool, fill = p)) +
-  geom_tile() +
-  #scale_fill_gradient(low = "white", high = pal[length(pal)]) +
-  scale_fill_viridis_c() + 
-  #   facet_grid(. ~ habitat) +
-  ylab("Tool") + 
-  xlab("Ontology") + 
-  theme_minimal() +
-  labs(fill = "") +
-  theme(
-    legend.position = "bottom",
-    panel.grid.major = element_blank(), 
-    panel.grid.minor = element_blank(),
-    panel.background = element_blank(),
-    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)) 
-
-
-png("hm_by_tool.png",  width= 1600,  height = 800, res = 150)
-hm2
-dev.off()
-
-png("hm_by_class.png" , width = 1600,  height = 800, res = 150)
-hm3
-dev.off()
 
 
 
