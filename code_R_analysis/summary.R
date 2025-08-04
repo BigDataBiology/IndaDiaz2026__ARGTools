@@ -6,10 +6,21 @@ library(tidyverse)
 library(RColorBrewer)
 library(ggpattern)
 library(grid)
+library(eulerr)
 
 # 130mm 1 col 185 2 col
 # 180mm 1 col 210 2 col
 # 220mm 1 col 225 2 col
+
+# retrieve legends from plots 
+
+g_legend <- function(a.gplot){
+  tmp <- ggplotGrob(a.gplot)
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)
+}
+
 
 # d is divergent / q is qualitative
 pal_8_q <- brewer.pal(8, "Dark2")
@@ -18,6 +29,7 @@ pal_11_q <- brewer.pal(11, "Paired")
 pal_6_q <- brewer.pal(6, "Paired")
 pal_10_d <- brewer.pal(10, "BrBG")
 pal_4_d <- brewer.pal(4, "BrBG")
+pal_6_d1 <- brewer.pal(6, "PiYG")
 pal_11_d <- brewer.pal(11, "BrBG")
 pal_9_d <- brewer.pal(9, "BrBG")
 
@@ -25,8 +37,11 @@ pal_9_d <- brewer.pal(9, "BrBG")
 pal15_rep <- c(rep(pal_10_d[1], 2), rep(pal_10_d[2], 3), rep(pal_10_d[3], 2),
                pal_10_d[4], rep(pal_10_d[5], 2), pal_10_d[6:10])
 
+
+pal_10_q <- pal_10_q[c(6,2,8,7,4,3,10,9,1,5)]
+
 # size for font in plots 
-general_size <- 8
+general_size <- 5
 
 # data
 
@@ -60,8 +75,8 @@ names(SO) <- EN
 
 tools_levels <- c("DeepARG (nt)", "fARGene (nt)",
                   "RGI (DIAMOND - nt)", "ABRicate (CARD - nt)",
-                  "ResFinder (nt)", "ABRicate (ResFinder - nt)", 
                   "AMRFinderPlus (aa)", "ABRicate (NCBI - nt)",
+                  "ResFinder (nt)", "ABRicate (ResFinder - nt)", 
                   "ABRicate (ARG-ANNOT - nt)", "ABRicate (MEGARES - nt)")
 
 tool_2 <- c("DeepARG (nt)", "RGI (DIAMOND - nt)", "fARGene (nt)", "AMRFinderPlus (aa)", "ResFinder (nt)",
@@ -70,8 +85,8 @@ tool_2 <- c("DeepARG (nt)", "RGI (DIAMOND - nt)", "fARGene (nt)", "AMRFinderPlus
 
 tool_label <- c(expression({DeepARG~""^"a"}), expression({fARGene~""^"a"}), 
                 expression({RGI~""^"a,b"}),  expression({CARD~""^"a,d"}), 
-                expression(ResFinder~{""^"a"}), expression({ResFinder~""^"a,d"}),
                 expression({AMRFinderPlus~""^"c"}), expression({NCBI~""^"a,d"}),
+                expression(ResFinder~{""^"a"}), expression({ResFinder~""^"a,d"}),
                 expression({ARG-ANNOT~""^"a,d"}), 
                 expression({MEGARES~""^"a,d"}))
 
@@ -83,13 +98,13 @@ abundance <- abundance %>% mutate( tool =
                      ifelse(tool == "RGI (DIAMOND nt)", "RGI (DIAMOND - nt)", tool)))))
 
 # environments that we are not interested in
-not_env <- c("amplicon", "isolate")
+not_env <- c("amplicon", "isolate", "built-environment" )
 
 
 # changing habitats and tools to factor
 
 abundance <- abundance %>% mutate(habitat = factor(habitat, levels = EN),
-                                  habitat2 = factor(SO[habitat], levels = c("Humans","Mammals","Wastewater","Built-environment", "Soil","Marine","Freshwater","Other")),
+                                  habitat2 = factor(SO[habitat], levels = c("Humans","Mammals","Wastewater", "Freshwater","Soil", "Marine", "Other")),
                                   tool = factor(tool, levels = tools_levels))
 
 abundance <- abundance %>% mutate(location = ifelse(habitat2 %in% c("Humans","Mammals","Wastewater","Built-environment"), "Human-related","External"))
@@ -104,7 +119,7 @@ abundance0 <- abundance
 
 abundance <- abundance %>% filter(tool %in% tool_2 & !habitat %in% not_env)
 abundance <- abundance %>% filter(aggregation %in% "new_level")
-
+abundance <- abundance %>% mutate(habitat2 = factor(as.character(habitat2), levels = c("Humans","Mammals","Wastewater", "Freshwater","Soil", "Marine")))
 
 
 # SUMMARIES
@@ -112,25 +127,30 @@ abundance <- abundance %>% filter(aggregation %in% "new_level")
 # SUMMARIES
 
 # unigenes captured with the tools
-unigenes <- do.call(rbind, lapply(lst, function(x) x[,c("query","tool", "ARO", "parent", "parent_description", "new_level", "id")])) 
-unigenes <- unigenes %>% mutate(tool = factor(tool, levels = tools_levels))
 
-# total number of unique unigenes captured with the tools
-unigenes %>% select(query) %>% distinct() %>% summarise(n = n())
+unigenes0 <- do.call(rbind, lapply(lst, function(x) x[,c("query","tool", "ARO", "parent", "parent_description", "new_level", "id")])) 
+unigenes0 %>% select(query) %>% distinct() %>% summarise(n = n())
+
+unigenes <- do.call(rbind, lapply(lst, function(x) x[,c("query","tool", "ARO", "parent", "parent_description", "new_level", "id")])) 
+unigenes <- unigenes %>% 
+  filter(tool %in% tools_levels) %>% 
+  mutate(tool = factor(tool, levels = tools_levels))
 
 # unigenes per tool
 unigenes  %>% group_by(tool) %>% summarise(n = n_distinct(query)) %>% ungroup() %>% arrange(n)
 
 plot_count_genes_tool <- unigenes  %>% filter(tool %in% tool_2) %>% 
   ggplot(aes( x = tool)) +
-  geom_bar(aes(fill = tool), color = "black") +
+  geom_bar(aes(fill = tool), color = "black", linewidth = 0.2) +
   scale_fill_manual(values = pal_10_q) +
   scale_x_discrete( labels = tool_label) +
   theme_minimal() +
-  ylab("Unigenes") +
+  ylab("Genes") +
   xlab("") +
+  ggtitle("A") +
   labs(fill = "") +
-  scale_y_continuous(breaks = c(0, 25000, 50000,75000,100000,125000), labels = c("0","25,000", "50,000", "75,000","100,000","125,000")) +
+  #scale_y_continuous(expand = c(0, 0), limits = c(0, 126000)) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 128000),  breaks = c(0, 25000, 50000,75000,100000,125000), labels = c("0","25,000", "50,000", "75,000","100,000","125,000")) +
   theme(
     legend.position = "none",
     legend.text = element_text(size = general_size),
@@ -141,6 +161,7 @@ plot_count_genes_tool <- unigenes  %>% filter(tool %in% tool_2) %>%
     legend.margin = margin(0, 0, 0, 0, unit = "pt"),
     panel.spacing = unit(0, "pt"),
     panel.grid.minor.x = element_blank(),
+    title = element_text(size = general_size + 2, face = "bold"),
     axis.title = element_text(size = general_size + 1, face = "bold"),
     axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
     axis.text.y = element_text(size = general_size))
@@ -148,9 +169,10 @@ plot_count_genes_tool <- unigenes  %>% filter(tool %in% tool_2) %>%
 plot_count_genes_tool
 
 dev.off()
-ggsave("~/Documents/plots_project2/count_genes_per_tool_2.svg", plot_count_genes_tool, width = 130, height = 80, unit = "mm")
+ggsave("~/Documents/plots_project2/count_genes_per_tool_2.svg", plot_count_genes_tool  , width = 90, height = 70, unit = "mm")
 dev.off()  
 
+plot_count_genes_tool
 
 ### 
 
@@ -200,27 +222,37 @@ proportion_new_level_tool %>% filter(new_level %in% c("Class A", "Class B", "Cla
 top10class <- unigenes %>% 
   mutate(N = n_distinct(query)) %>% 
   group_by(new_level) %>% summarise(N = N[1], n = n_distinct(query)) %>% 
-  arrange(desc(n)) %>% mutate(p = n/N) %>% 
-  select(new_level) %>% slice_head(n=10) %>% pull()
+  arrange(desc(n)) %>% mutate(p = n/N) %>% slice_head(n=11)  %>% 
+  select(new_level)  %>% pull()
+
+top10class_tool <- unigenes %>% 
+  mutate(N = n_distinct(query)) %>% 
+  group_by(tool, new_level) %>% summarise(n = n_distinct(query)) %>% mutate(N = sum(n)) %>%
+  arrange(desc(n)) %>% mutate(p = n/N) %>% slice_head(n=11) 
+
+top10class <- top10class_tool %>% filter(p >= 0.05) %>% ungroup() %>% select(new_level) %>% distinct()%>% pull()
 
 top10class <- factor(c(top10class, "Other"), 
                      levels = c(top10class, "Other"))
 
-top10class_plot <- bind_rows(proportion_new_level_tool %>% filter(new_level %in% top10class, tool %in% tool_2) %>% 
+top10class_plot <- bind_rows(proportion_new_level_tool %>% filter(new_level %in% top10class) %>% 
             select(new_level, tool, p) %>% ungroup() %>% group_by(tool) %>% mutate(P = sum(p)),
-          proportion_new_level_tool %>% filter(new_level %in% top10class, tool %in% tool_2) %>% 
-            select(new_level, tool, p) %>% ungroup() %>% group_by(tool) %>% mutate(P = sum(p)) %>% 
-            summarise(p = 1 - max(P)) %>% mutate(new_level = "Other")) %>% 
-  mutate(tool = factor(tool, levels = tool_2),
+          proportion_new_level_tool %>% filter(!new_level %in% top10class, tool %in% tool_2) %>% 
+            select(new_level, tool, p) %>% ungroup() %>% group_by(tool) %>% 
+            summarise(p = sum(p)) %>% mutate(new_level = "Other")) %>% 
+  mutate(tool = factor(tool, levels = tools_levels),
          new_level = factor(new_level, levels = top10class)) %>% 
   ggplot(aes( x = tool, y = p)) +
-  geom_col(aes(fill = new_level), color = "black") +
-  scale_fill_manual(values = pal_11_q) +
+  geom_col(aes(fill = new_level), color = "black", linewidth = 0.2) +
+  scale_fill_manual(values = c(pal_10_d, pal_6_d1)) +
   scale_x_discrete(labels = tool_label) +
   theme_minimal() +
   ylab("Proportion") +
   xlab("") +
   labs(fill = "") +
+  ggtitle("B") + 
+  scale_y_continuous(expand = c(0, 0), limits = c(0, 1.0001)) +
+  guides(fill = guide_legend(ncol = 2)) +
   theme(
     legend.position = "right",
     legend.text = element_text(size = general_size),
@@ -231,6 +263,7 @@ top10class_plot <- bind_rows(proportion_new_level_tool %>% filter(new_level %in%
     legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
     legend.margin = margin(0, 0, 0, 0, unit = "pt"),
     panel.spacing = unit(0, "pt"),
+    title = element_text(size = general_size + 2, face = "bold"),
     axis.title = element_text(size = general_size + 1, face = "bold"),
     axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
     axis.text.y = element_text(size = general_size))
@@ -238,9 +271,47 @@ top10class_plot <- bind_rows(proportion_new_level_tool %>% filter(new_level %in%
 top10class_plot
 
 dev.off()
-ggsave("~/Documents/plots_project2/top10classes.svg", top10class_plot, width = 130, height = 100, unit = "mm")
+ggsave("~/Documents/plots_project2/top10classes.svg", top10class_plot, width = 110, height = 70, unit = "mm")
 dev.off()  
 
+
+unigenes_class_plot <- proportion_new_level_tool %>% mutate(gene = ifelse(new_level %in% top20, new_level, "Other")) %>% 
+  mutate(gene = factor(gene, levels = top20)) %>% 
+  ungroup() %>%
+  group_by(tool, gene) %>%
+  summarise(tot = sum(n)) %>%
+  ggplot(aes( x = gene, y = tot, fill = tool, color = tool)) +
+  geom_col(position = position_dodge2(preserve = "single"), color = "black", linewidth = 0.1) +
+  scale_y_continuous(breaks = c(10000, 20000,30000,40000,50000)) +
+  facet_grid(. ~ gene, scales  = "free_x") +
+  scale_fill_manual(values = pal_10_q, labels = tool_label) +
+  scale_color_manual(values = pal_10_q, labels = tool_label) +
+  xlab("") +
+  ggtitle("A") + 
+  ylab("Genes") +
+  theme_minimal() +
+  labs(fill = "", color = "") +
+  #scale_y_continuous(limits = c(-20, 55000), expand = c(0, 0)) +
+  theme(legend.position = "none",
+        panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+        axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+        axis.text.y = element_text(size = general_size),
+        #strip.text = element_text(size = general_size, face = "bold"),
+        strip.text = element_blank(),
+        plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+        legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+        panel.spacing = unit(0, "pt"),
+        legend.text = element_text(size = general_size),
+        title = element_text(size = general_size + 2, face = "bold"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        axis.title = element_text(size = general_size + 1, face = "bold"))
+
+unigenes_class_plot
+
+
+ggsave("~/Documents/plots_project2/unigenes_class.svg", unigenes_class_plot, width = 180, height = 70, unit = "mm")
 
 ##############################################################
 
@@ -264,7 +335,7 @@ abundance_plot <- abundance  %>%
   group_by(habitat2, tool, sample, aggregation) %>% summarise(total = sum(normed10m)+1) %>%
   filter(!habitat2 %in% "Other") %>% 
   ggplot(aes( x = habitat2)) +
-  geom_boxplot(aes(y = total, fill = tool), outlier.shape = NA) +
+  geom_boxplot(aes(y = total, fill = tool), outlier.shape = NA, linewidth = 0.2) +
   scale_fill_manual(values = pal_10_q, labels = tool_label) +
   theme_minimal() +
   scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
@@ -273,6 +344,7 @@ abundance_plot <- abundance  %>%
   ylab("Abundance") +
   xlab("") +
   labs(fill = "") +
+  ggtitle("A") +
   theme(
     legend.position = "right",
     legend.text = element_text(size = general_size ),
@@ -283,6 +355,7 @@ abundance_plot <- abundance  %>%
     legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
     legend.margin = margin(0, 0, 0, 0, unit = "pt"),
     panel.spacing = unit(0, "pt"),
+    title = element_text(size = general_size + 2, face = "bold"),
     axis.title = element_text(size = general_size + 1, face = "bold"),
     axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
     axis.text.y = element_text(size = general_size))
@@ -299,16 +372,17 @@ abundance_plot_inv <- abundance  %>%
   filter(!habitat2 %in% "Other") %>% 
   ggplot(aes( x = tool)) +
   scale_x_discrete(labels = tool_label) +
-  geom_boxplot(aes(y = total, fill = habitat2), outlier.shape = NA) +
+  geom_boxplot(aes(y = total, fill = habitat2), outlier.shape = NA, linewidth = 0.2) +
   facet_grid( . ~ location) +
   scale_fill_manual(values = pal_10_q) +
   theme_minimal() +
   scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
                 labels = scales::trans_format("log10", scales::math_format(10^.x)),
-                limits = c(1, 20000)) + 
+                limits = c(1, 50000)) + 
   ylab("Abundance") +
   xlab("") +
   labs(fill = "") +
+  ggtitle("A") +
   theme(
     legend.position = "bottom",
     legend.text = element_text(size = general_size ),
@@ -321,15 +395,20 @@ abundance_plot_inv <- abundance  %>%
     panel.spacing = unit(0, "pt"),
     strip.text = element_text(size = general_size, face = "bold"),
     axis.title = element_text(size = general_size + 1, face = "bold"),
+    title = element_text(size = general_size + 2, face = "bold"),
     axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
     axis.text.y = element_text(size = general_size))
 
-abundance_plot_inv
+abundance_plot_inv + theme( legend.position = "none")
 
 dev.off()
-ggsave("~/Documents/plots_project2/abundance_inverted.svg", abundance_plot_inv, width = 130, height = 80, unit = "mm")
+ggsave("~/Documents/plots_project2/abundance_inverted.svg", abundance_plot_inv + theme( legend.position = "none"), width = 180, height = 70, unit = "mm")
 dev.off()  
 
+
+dev.off()
+ggsave("~/Documents/plots_project2/abundance_legend.svg", g_legend(abundance_plot_inv), width = 180, height = 10, unit = "mm")
+dev.off()  
 
 
 abundance_class <- abundance %>% 
@@ -377,7 +456,7 @@ top20 <- abundance_class %>%
   distinct() %>% 
   pull()
 
-top20 <- unique(c(top20, "Cell wall charge", "ERM", "Class C"))
+top20 <- unique(c(top20, "Cell wall charge", "ERM", "Class C", "Target-modifying enzyme", "ABC-F"))
 top20 <- factor(c(top20, "Other"), levels = c(top20, "Other"))
 
 
@@ -405,25 +484,39 @@ ab_class_tool %>% filter(tool %in% "ResFinder (nt)") %>% arrange(desc(md), desc(
 ab_class_tool %>% filter(tool %in% "ResFinder (nt)") %>% arrange(desc(md), desc(total))
 
 
-human_abundance_class_plot <- abundance_class  %>% 
-  filter(habitat %in% "human gut") %>% 
-  group_by(habitat, tool, gene, sample) %>% summarise(total = normed10m + 1) %>%
-  ungroup() %>%
-  mutate(g2 = ifelse(gene %in% top20, gene, "Other")) %>% 
-  mutate(g2 = factor(g2, levels = top20)) %>% 
-  filter(g2 %in% top20) %>%
-  ggplot(aes( x = g2)) +
-  geom_boxplot(aes(y = total, fill = tool), position = position_dodge2(preserve = "single"), outlier.shape = NA) +
-  scale_fill_manual(values = pal_10_q, labels = tool_label) +
+abundance_medians_human <- abundance_class %>% ungroup() %>%
+  group_by(tool, gene) %>%
+  summarise(md = median(normed10m), q75 = quantile(normed10m, 0.75), q25 = quantile(normed10m, 0.25)) 
+
+abundance_medians_human_non_zero <- abundance_medians_human %>% filter(q75 > 0) 
+
+abundance_class %>% ungroup() %>% 
+  group_by(tool, gene) %>% filter(gene %in% "ERM", habitat %in% "human gut") %>%
+  summarise(md = median(normed10m), q75 = quantile(normed10m, 0.75), q25 = quantile(normed10m, 0.25),
+            sn = sum(normed10m), md_genes = median(unigenes), su= sum(unigenes), n = n_distinct(sample)) 
+
+abundance_class %>% ungroup() %>% 
+  group_by(tool, gene) %>% filter(gene %in% "ERM") %>%
+  summarise(md = median(normed10m), q75 = quantile(normed10m, 0.75), q25 = quantile(normed10m, 0.25),
+            md_genes = median(unigenes)) 
+
+abundance_human_medians_heatmap <- abundance_medians_human %>% 
+  ungroup() %>% 
+  group_by(gene) %>% 
+  mutate(mx =  max(md)) %>% 
+  filter(mx > 0) %>% 
+  mutate(norm  = log(md + 1) / log(mx + 1)) %>%
+ggplot(aes(x = tool, y = gene, fill = norm)) +
+  geom_tile() +
+  scale_x_discrete(labels = tool_label) +
+  scale_fill_viridis_c() + 
   theme_minimal() +
-  scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
-                labels = scales::trans_format("log10", scales::math_format(10^.x)),
-                limits = c(1, 20000)) + 
-  ylab("Abundance") +
-  xlab("") +
   labs(fill = "") +
+  xlab("") +
+  ylab("Gene class") +
+  ggtitle("A") + 
   theme(
-    legend.position = "right",
+    legend.position = "bottom",
     legend.text = element_text(size = general_size ),
     panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
     panel.grid.major.x = element_blank(),
@@ -436,18 +529,108 @@ human_abundance_class_plot <- abundance_class  %>%
     axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
     axis.text.y = element_text(size = general_size))
 
+abundance_human_medians_heatmap
 
-human_abundance_class_plot
+
+human_abundance_class_plot <- abundance_class  %>% 
+  filter(habitat %in% "human gut") %>% 
+  ungroup() %>%
+  mutate(g2 = ifelse(gene %in% top_abundance, gene, "Other")) %>% 
+  mutate(g2 = factor(g2, levels = top_abundance)) %>% 
+  group_by(habitat, tool, g2, sample) %>% summarise(total = sum(normed10m)) %>%
+  filter(paste(g2, tool) %in% paste(abundance_medians_human_non_zero$gene, abundance_medians_human_non_zero$tool)) %>%
+  ggplot(aes( x = g2, y = total +1, fill = tool)) +
+  geom_boxplot(position = position_dodge2(preserve = "single"),  outlier.shape = NA, coef = 0, width = 1, linewidth = 0.2) +
+  scale_fill_manual(values = pal_10_q, labels = tool_label) +
+  facet_grid(. ~ g2, scales = "free_x") +
+  theme_minimal() +
+  scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
+                labels = scales::trans_format("log10", scales::math_format(10^.x))) + #,
+                #limits = c(1, 10000)) + 
+  coord_cartesian(ylim = c(1, 5000)) +
+  ylab("Abundance") +
+  xlab("") +
+  labs(fill = "") +
+  ggtitle("B") +
+  theme(
+    legend.position = "bottom",
+    legend.text = element_text(size = general_size ),
+    panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+    legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+    legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+    panel.spacing = unit(0, "pt"),
+    strip.text.x = element_blank(),
+    title = element_text(size = general_size + 2, face = "bold"),
+    strip.text.y = element_blank(),
+    axis.title = element_text(size = general_size + 1, face = "bold"),
+    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+    axis.text.y = element_text(size = general_size)) 
+
+
+human_abundance_class_plot 
 
 dev.off()
-ggsave("~/Documents/plots_project2/abundance_class_humangut.svg", human_abundance_class_plot, width = 130, height = 80, unit = "mm")
+ggsave("~/Documents/plots_project2/abundance_class_humangut.svg", human_abundance_class_plot + theme(legend.position = "none"), width = 180, height = 70, unit = "mm")
 dev.off()  
 
 
+ggsave("~/Documents/plots_project2/abundance_class_humangut_heatmap.svg", abundance_human_medians_heatmap, width = 50, height = 70, unit = "mm")
 
 
 
+abundance_medians_human %>% 
+  ungroup() %>% 
+  group_by(gene) %>% 
+  mutate(mx =  max(md)) %>% filter(gene %in% "ERM")
+  
+top_abundance <- abundance_medians_human %>% 
+  ungroup() %>% 
+  group_by(gene) %>% 
+  mutate(mx =  max(md)) %>% 
+  filter(md > 0) %>% select(gene) %>% distinct() %>% pull()
 
+top_abundance <- unique(c(as.character(top20[1:(length(top20)-1)]), top_abundance))
+
+abundance_medians_human_jitter <- abundance_medians_human %>% 
+  ungroup() %>% 
+  group_by(gene) %>% 
+  mutate(mx =  max(md)) %>% 
+  filter(q75 > 0) %>% 
+  mutate(gene = factor(gene, levels = top_abundance)) %>%
+  ggplot(aes(x = gene, y = md + 1, fill = tool, color = tool, group = tool)) +
+  geom_pointrange(aes(ymin = q25 + 1, ymax = q75 + 1), 
+                  position=position_jitter(width = 0.5)) +
+  theme_minimal() +
+  labs(fill = "", color = "") +
+  facet_grid( . ~ gene , scales = "free_x" ) +
+  xlab("") +
+  ylab("") +
+  ggtitle("A") + 
+  scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
+                labels = scales::trans_format("log10", scales::math_format(10^.x)))  +
+  scale_fill_manual(values = pal_10_q, labels = tool_label) +
+  scale_color_manual(values = pal_10_q, labels = tool_label) +
+  theme(legend.position = "bottom",
+        panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+        axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+        axis.text.y = element_text(size = general_size),
+        strip.text = element_blank(),
+        plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+        legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+        panel.spacing = unit(0, "pt"),
+        legend.text = element_text(size = general_size),
+        panel.grid.major.x = element_blank(),
+        title = element_text(size = general_size + 2, face = "bold"),
+        panel.grid.minor.x = element_blank(),
+        axis.title = element_text(size = general_size + 1, face = "bold"))
+
+abundance_medians_human_jitter
+
+ggsave("~/Documents/plots_project2/abundance_medians_human_jitter.svg", abundance_medians_human_jitter + theme(legend.position = "none"), width = 180, height = 73, unit = "mm")
 
 ##############################################################
 ##############################################################
@@ -548,7 +731,7 @@ diversity_plot_inv <- abundance  %>%
   ggplot(aes( x = tool)) +
   facet_grid( . ~ location) +
   scale_x_discrete(labels = tool_label) +
-  geom_boxplot(aes(y = total, fill = habitat2), outlier.shape = NA) +
+  geom_boxplot(aes(y = total, fill = habitat2), outlier.shape = NA, linewidth = 0.2) +
   scale_fill_manual(values = pal_10_q) +
   theme_minimal() +
   scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
@@ -557,6 +740,7 @@ diversity_plot_inv <- abundance  %>%
   ylab("Diversity") +
   xlab("") +
   labs(fill = "") +
+  ggtitle("B") +
   theme(
     legend.position = "bottom",
     legend.text = element_text(size = general_size ),
@@ -569,6 +753,7 @@ diversity_plot_inv <- abundance  %>%
     panel.spacing = unit(0, "pt"),
     strip.text = element_text(size = general_size, face = "bold"),
     axis.title = element_text(size = general_size + 1, face = "bold"),
+    title = element_text(size = general_size + 2, face = "bold"),
     axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
     axis.text.y = element_text(size = general_size))
 
@@ -576,12 +761,12 @@ diversity_plot_inv <- abundance  %>%
 diversity_plot_inv
 
 dev.off()  
-ggsave("~/Documents/plots_project2/diversity_inverted.svg", diversity_plot_inv, width = 130, height = 80, unit = "mm")
+ggsave("~/Documents/plots_project2/diversity_inverted.svg", diversity_plot_inv + theme(legend.position = "none"), width = 180, height = 70, unit = "mm")
 
 abundance_plot_inv
 
 ### Correlations
-abundance
+
 cor_abu_div <- abundance_class %>% mutate(habitat2 = abundance$habitat2[match(habitat, abundance$habitat)]) %>%
   group_by(habitat, tool) %>% filter(normed10m != 0 & unigenes != 0) %>% summarise(corr = cor(normed10m, unigenes, method = "pearson"))
 data.frame(cor_abu_div)
@@ -592,92 +777,8 @@ data.frame(cor_abu_div)
 
 abu_tool_habitat <- abundance  %>% 
   group_by(habitat, tool, sample, aggregation, gene) %>% 
-  summarise(abundance = sum(normed10m) + 1,
-            diversity = sum(unigenes) + 1) %>%
-  filter(!habitat %in% not_env, tool %in% tool_2) 
-
-# tool_2[c(1:3,5)] = "DeepARG (nt)" "RGI (DIAMOND - nt)" "fARGene (nt)" "ResFinder (nt)" 
-human.genes <- abu_tool_habitat  %>% 
-  filter(habitat %in% c("human gut"), aggregation %in% "new_level", tool %in% tool_2[c(1:3,6)]) %>%
-  ungroup() %>% group_by( tool, gene) %>% summarise(n = median(abundance)) %>%
-  ungroup() %>% arrange( tool, desc(n)) %>% group_by(tool)  %>% slice_head(n = 5) %>% 
-  ungroup() %>% 
-  select(gene) %>% 
-  distinct() %>% 
-  pull()
-
-abundance_plot_habitat <- 
-  abu_tool_habitat  %>% 
-  filter(habitat %in% c("human gut"), aggregation %in% "new_level", as.character(tool) %in% tool_2[c(1:3,5)], gene %in% human.genes) %>%
-  mutate(gene = factor(gene, levels = factor_new_level)) %>% 
-  ggplot(aes( x = gene)) +
-  geom_boxplot(aes(y = abundance, fill = tool), outlier.shape = NA, position = position_dodge(preserve = "single")) +
-  scale_fill_manual(values = pal_6_q) +
-  theme_minimal() +
-  scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
-                labels = scales::trans_format("log10", scales::math_format(10^.x)),
-                limits = c(1, 20000)) + 
-  ylab("Abundance") +
-  xlab("") +
-  labs(fill = "") +
-  facet_grid(habitat ~ gene, scales = "free_x") +
-  theme(
-    legend.position = "right",
-    legend.text = element_text(size = general_size),
-    panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
-    panel.grid.major.x = element_blank(),
-    plot.margin = margin(0, 0, 0, 0, unit = "pt"),
-    legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
-    legend.margin = margin(0, 0, 0, 0, unit = "pt"),
-    panel.spacing = unit(0, "pt"),
-    panel.grid.minor.x = element_blank(),
-    strip.text = element_blank(),
-    axis.title = element_text(size = general_size + 1, face = "bold"),
-    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
-    axis.text.y = element_text(size = general_size))
-
-abundance_plot_habitat
-
-dev.off()
-ggsave("~/Documents/plots_project/abundance_human_gut.svg", abundance_plot_habitat, width = 130, height = 80, unit = "mm")
-dev.off()  
-
-
-diversity_plot_habitat <- 
-  abu_tool_habitat  %>% 
-  filter(habitat %in% c("human gut"), aggregation %in% "new_level", tool %in% tool_2[c(1:3,5)], gene %in% human.genes) %>%
-  mutate(gene = factor(gene, levels = factor_new_level)) %>% 
-  ggplot(aes( x = gene)) +
-  geom_boxplot(aes(y = diversity, fill = tool), outlier.shape = NA, position = position_dodge(preserve = "single")) +
-  scale_fill_manual(values = pal_6_q) +
-  theme_minimal() +
-  scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
-                labels = scales::trans_format("log10", scales::math_format(10^.x)),
-                limits = c(1, 1300)) + 
-  ylab("Diversity") +
-  xlab("") +
-  labs(fill = "") +
-  facet_grid(habitat ~ gene, scales = "free_x") +
-  theme(
-    legend.position = "right",
-    legend.text = element_text(size = general_size),
-    panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
-    panel.grid.major.x = element_blank(),
-    panel.grid.minor.x = element_blank(),
-    plot.margin = margin(0, 0, 0, 0, unit = "pt"),
-    legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
-    legend.margin = margin(0, 0, 0, 0, unit = "pt"),
-    panel.spacing = unit(0, "pt"),
-    strip.text = element_blank(),
-    axis.title = element_text(size = general_size + 1, face = "bold"),
-    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
-    axis.text.y = element_text(size = general_size))
-
-diversity_plot_habitat
-
-dev.off()
-ggsave("~/Documents/plots_project/diversity_human_gut.svg", diversity_plot_habitat, width = 130, height = 80, unit = "mm")
-dev.off()  
+  summarise(abundance = sum(normed10m),
+            diversity = sum(unigenes) ) 
 
 
 ################################
@@ -717,6 +818,7 @@ JI_all <- pairwise %>%
   select(tool_ref, tool_comp, jaccard, recall, fnr)  
 data.frame(JI_all)
 
+data.frame(JI_all)
 
 # double new level
 double_level <- do.call(rbind, lapply(lst, function(x) x[,c("query","tool","new_level")])) %>%
@@ -861,15 +963,111 @@ JI_class_other_filter %>% filter(tool_ref %in% "RGI (DIAMOND - nt)")
 JI_class_other_filter %>% filter(tool_ref %in% "fARGene (nt)")
 JI_class_other_filter %>% filter(tool_ref %in% "fARGene (nt)", new_level %in% "TET - enzyme")
 
+JI_class_other_filter %>% filter(tool_ref %in% "fARGene (nt)") %>% ungroup() %>% group_by(new_level) %>% summarise(m = median(recall)) %>%
+  mutate(M = median(m))
+
+JI_class_other_filter %>% filter(tool_ref %in% "RGI (DIAMOND - nt)") %>% ungroup() %>% group_by(new_level) %>% summarise(m = median(recall)) %>%
+  mutate(M = median(m))
+
+JI_class_other_filter %>% filter(tool_ref %in% "DeepARG (nt)") %>% ungroup() %>% group_by(new_level) %>% summarise(m = median(recall)) %>%
+  mutate(M = median(m, na.rm = T))
+
+JI_class_other_filter %>% filter(tool_ref %in% "ABRicate (MEGARES - nt)") %>% ungroup() %>% group_by(new_level) %>% summarise(m = median(recall)) %>%
+  mutate(M = mean(m))
+
+JI_class_other_filter %>% filter(tool_ref %in% "AMRFinderPlus (aa)") %>% ungroup() %>% group_by(new_level) %>% summarise(m = median(recall)) %>%
+  mutate(M = median(m))
+
+JI_class_other_filter %>% filter(tool_ref %in% "ABRicate (MEGARES - nt)") %>% filter(grepl("ABRicate", tool_comp)) %>% ungroup() %>% group_by(new_level) %>% summarise(m = median(recall)) %>%
+  mutate(M = mean(m), mn = min(m)) %>% ggplot(aes(x = new_level, y = m)) + geom_point()
+
+
+JI_class_other_filter %>% filter(tool_ref %in% "ABRicate (MEGARES - nt)") %>% filter(grepl("ABRicate", tool_comp)) %>% ungroup() %>% group_by(new_level) %>% summarise(m = median(recall)) %>%
+  mutate(M = mean(m), mn = min(m)) %>% filter(m >= .97)
+
+JI_class_other_filter %>% filter(tool_ref %in% "ABRicate (MEGARES - nt)") %>% filter(!grepl("ABRicate", tool_comp)) %>% ungroup() %>% group_by(new_level) %>% summarise(m = median(recall)) %>%
+  mutate(M = median(m), mn = min(m)) 
+
+
+JI_class_other_filter %>% 
+  ungroup() %>% 
+  group_by(tool_ref, new_level) %>% 
+  summarise(md1 = median(recall, na.rm = T)) %>% 
+  ungroup() %>% 
+  group_by(tool_ref) %>% 
+  summarise(md2 = median(md1, na.rm = T), iqr = IQR(md1, 0.25))
+
+
+recall_plot <- JI_class_other_filter %>% filter(!is.na(recall)) %>%
+  ggplot(aes(x = tool_ref, y = recall, fill = tool_ref)) + 
+  geom_boxplot( linewidth = 0.2) +
+  scale_fill_manual(values = pal_10_q, labels = tool_label) +
+  scale_x_discrete( labels = tool_label) +
+  theme_minimal() +
+  coord_cartesian(ylim = c(0,1)) +
+  ylab("Recall") +
+  xlab("") +
+  labs(fill = "") +
+  ggtitle("A") +
+  theme(
+    legend.position = "none",
+    legend.text = element_text(size = general_size ),
+    panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+    legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+    legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+    panel.spacing = unit(0, "pt"),
+    title = element_text(size = general_size + 2, face = "bold"),
+    axis.title = element_text(size = general_size + 1, face = "bold"),
+    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+    axis.text.y = element_text(size = general_size))
+
+recall_plot
+
+fnr_plot <- JI_class_other_filter %>% filter(!is.na(fnr)) %>%
+  ggplot(aes(x = tool_ref, y = fnr, fill = tool_ref)) + 
+  geom_boxplot(linewidth = 0.2) +
+  scale_fill_manual(values = pal_10_q, labels = tool_label) +
+  scale_x_discrete( labels = tool_label) +
+  theme_minimal() +
+  coord_cartesian(ylim = c(0,1)) +
+  ylab("False negative rate") +
+  xlab("") +
+  labs(fill = "") +
+  ggtitle("B") +
+  theme(
+    legend.position = "none",
+    legend.text = element_text(size = general_size ),
+    panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+    legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+    legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+    panel.spacing = unit(0, "pt"),
+    title = element_text(size = general_size + 2, face = "bold"),
+    axis.title = element_text(size = general_size + 1, face = "bold"),
+    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+    axis.text.y = element_text(size = general_size))
+
+fnr_plot
+
+
+ggsave("~/Documents/plots_project2/recall.svg", recall_plot , width = 85, height = 70, unit = "mm")
+ggsave("~/Documents/plots_project2/fdr.svg", fnr_plot   , width = 85, height = 70, unit = "mm")
+
 ##
 
-JI_all %>% 
+JI_all %>% filter(as.numeric(tool_ref) >= as.numeric(tool_comp)) %>% 
   ggplot(aes(x = tool_comp, y = tool_ref, fill = jaccard)) +
   geom_tile() +
   #scale_fill_gradient2(low = "white",  high = "red") +
   scale_fill_viridis_c() + 
   theme_minimal() +
-  labs(fill = "Jaccaard index") +
+  ggtitle("B") + 
+  labs(fill = "") +
   xlab("") +
   theme(axis.title.y = element_blank(),
         legend.position = "bottom",
@@ -879,8 +1077,71 @@ JI_all %>%
         strip.text = element_text(size = general_size, face = "bold"),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        panel.grid.major.y = element_blank(),
+        title = element_text(size = general_size + 2, face = "bold"),
         axis.title = element_text(size = general_size + 1, face = "bold"))
 
+
+JI_all %>% filter(as.numeric(tool_ref) >= as.numeric(tool_comp)) %>% filter(tool_ref != tool_comp) %>%
+  summarise(mn = mean(jaccard))
+  
+JI_all %>% filter(tool_ref != tool_comp) %>% filter(tool_ref %in% "DeepARG (nt)", tool_comp %in% c("ABRicate (CARD - nt)",
+                                                                                                   "ABRicate (NCBI - nt)",
+                                                                                                   "ABRicate (ResFinder - nt)",
+                                                                                                   "ABRicate (ARG-ANNOT - nt)",
+                                                                                                   "ABRicate (MEGARES - nt)",
+                                                                                                   "ResFinder (nt)")) %>% 
+  summarise(mn = mean(recall))
+
+JI_all %>% filter(tool_ref != tool_comp) %>% filter(tool_ref %in% "RGI (DIAMOND - nt)", tool_comp %in% c("ABRicate (CARD - nt)",
+                                                                                                   "ABRicate (NCBI - nt)",
+                                                                                                   "ABRicate (ResFinder - nt)",
+                                                                                                   "ABRicate (ARG-ANNOT - nt)",
+                                                                                                   "ABRicate (MEGARES - nt)",
+                                                                                                   "ResFinder (nt)")) %>% 
+  summarise(mn = mean(recall))
+
+
+JI_all %>% filter(tool_ref != tool_comp) %>% filter(tool_ref %in% "ABRicate (MEGARES - nt)", tool_comp %in% c("ABRicate (CARD - nt)",
+                                                                                                         "ABRicate (NCBI - nt)",
+                                                                                                         "ABRicate (ResFinder - nt)",
+                                                                                                         "ABRicate (ARG-ANNOT - nt)",
+                                                                                                         "ABRicate (MEGARES - nt)",
+                                                                                                         "ResFinder (nt)")) %>% 
+  summarise(mn = mean(recall))
+
+
+
+
+heatmap_proportion_unigenes_found_in_other <- JI_all %>% #filter(as.numeric(tool_ref) >= as.numeric(tool_comp)) %>% 
+  ggplot(aes(x = tool_comp, y = tool_ref, fill = recall)) +
+  geom_tile() +
+  scale_fill_viridis_c() + 
+  scale_x_discrete(labels = tool_label) +
+  scale_y_discrete(labels = tool_label) +
+  theme_minimal() +
+  ggtitle("B") + 
+  labs(fill = "") +
+  xlab("") +
+  theme(axis.title.y = element_blank(),
+        legend.position = "right",
+        panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+        axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+        axis.text.y = element_text(size = general_size),
+        strip.text = element_text(size = general_size, face = "bold"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        panel.grid.major.y = element_blank(),
+        legend.text = element_text(size = general_size ),
+        plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+        legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+        title = element_text(size = general_size + 2, face = "bold"),
+        axis.title = element_text(size = general_size + 1, face = "bold"))
+
+ggsave("~/Documents/plots_project2/proportion_found_in_other_tool.svg", heatmap_proportion_unigenes_found_in_other  , width = 90, height = 70, unit = "mm")
 
 JI_all %>% 
   ggplot(aes(x = tool_comp, y = tool_ref, fill = fnr)) +
@@ -954,7 +1215,6 @@ plot_recall_3tools
 dev.off()
 ggsave("~/Documents/plots_project/recall_box_1.svg", plot_recall_3tools, width = 200, height = 120, unit = "mm")
 dev.off()  
-
 
 
 
@@ -1366,8 +1626,210 @@ data.frame(hm_recall_fnr_2 %>% filter(tool_ref %in% "RGI (DIAMOND - nt)") %>%
              arrange(med_recall) %>% filter(new_level %in% (t50 %>% filter(p_bool> 0.9, !n, tool %in% "RGI (DIAMOND - nt)") %>% select(new_level) %>% pull())))
 
 
+id3 <- unigenes %>% 
+  filter(tool %in% c("DeepARG (nt)", "RGI (DIAMOND - nt)")) %>% 
+  ungroup() %>% 
+  group_by(tool, new_level) %>% 
+  summarise(n = n()) %>% 
+  arrange(desc(n)) %>% 
+  slice_head(n = 6) %>% 
+  ungroup() %>% 
+  select(new_level) %>% distinct() %>% pull()
+
+id3 <- unigenes %>% 
+  filter(tool %in% c("DeepARG (nt)", "RGI (DIAMOND - nt)")) %>% 
+  ungroup() %>% 
+  group_by(tool, new_level) %>% 
+  summarise(n = n()) %>% 
+  arrange(desc(n)) %>% 
+  slice_head(n = 20) %>% 
+  ungroup() %>% 
+  select(new_level) %>% distinct() %>% pull()
+
+data_plot_rgi_deep <- bind_rows(
+  unigenes %>% #filter(tool %in% c("DeepARG (nt)", "RGI (DIAMOND - nt)")) %>%
+    mutate(id = id/100, dt = "unigenes") %>%
+    ungroup() %>% group_by(tool, new_level) %>% 
+    summarise(md = median(id, na.rm = T), q25 = quantile(id , 0.25, na.rm = T), q75 = quantile(id , 0.75, na.rm = T)) %>% 
+    mutate(dt = "Identity"),
+  JI_class_other_filter %>% #filter(tool_ref %in% c("DeepARG (nt)", "RGI (DIAMOND - nt)")) %>% 
+  select(tool_ref, recall, new_level) %>% 
+  ungroup() %>% group_by(tool_ref, new_level) %>% 
+  summarise(md = median(recall, na.rm = T), q25 = quantile(recall , 0.25, na.rm = T), q75 = quantile(recall , 0.75, na.rm = T)) %>% 
+  rename(tool = tool_ref) %>%
+  mutate(dt  = "Recall"),
+  JI_class_other_filter %>% #filter(tool_ref %in% c("DeepARG (nt)", "RGI (DIAMOND - nt)")) %>% 
+    select(tool_ref, fnr, new_level) %>% 
+    ungroup() %>% group_by(tool_ref, new_level) %>% 
+    summarise(md = median(fnr, na.rm = T), q25 = quantile(fnr , 0.25, na.rm = T), q75 = quantile(fnr , 0.75, na.rm = T)) %>% 
+    rename(tool = tool_ref) %>%
+    mutate(dt  = "FNR"))
+
+data_plot_rgi_deep %>% filter(new_level %in% id3) %>% 
+  ggplot(aes(x = md, y = new_level, fill = tool, alpha = dt, color = tool)) +
+  geom_point() + 
+  facet_grid( . ~ tool)
 
 
+
+
+rgi_id_recall_fnr <- data_plot_rgi_deep  %>% filter(tool %in% c("RGI (DIAMOND - nt)")) %>% 
+  mutate(dt = factor(dt, levels = c("Identity", "Recall", "FNR"))) %>% 
+  ungroup() %>% group_by(dt, tool) %>%
+  arrange(dt, md) %>% 
+  mutate(cl1 = factor(new_level, levels = unique(new_level))) %>%
+  mutate(cl = as.numeric(cl1)) %>%
+  mutate(cl = ifelse(dt %in% c("Identity"), cl - 0.15, cl)) %>%
+  mutate(cl = ifelse(dt %in% c("FNR"), cl + 0.15, cl))
+
+
+deep_id_recall_fnr <- data_plot_rgi_deep  %>% filter(tool %in% c("DeepARG (nt)")) %>% 
+  mutate(dt = factor(dt, levels = c("Identity", "Recall", "FNR"))) %>% 
+  ungroup() %>% group_by(dt, tool) %>%
+  arrange(dt, md) %>% 
+  mutate(cl1 = factor(new_level, levels = unique(new_level))) %>%
+  mutate(cl = as.numeric(cl1)) %>%
+  mutate(cl = ifelse(dt %in% c("Identity"), cl - 0.15, cl)) %>%
+  mutate(cl = ifelse(dt %in% c("FNR"), cl + 0.15, cl))
+
+fargene_id_recall_fnr <- data_plot_rgi_deep  %>% filter(tool %in% c("fARGene (nt)")) %>% 
+  mutate(dt = factor(dt, levels = c("Identity", "Recall", "FNR"))) %>% 
+  ungroup() %>% group_by(dt, tool) %>%
+  arrange(dt, md) %>% 
+  mutate(cl1 = factor(new_level, levels = unique(new_level))) %>%
+  mutate(cl = as.numeric(cl1)) %>%
+  mutate(cl = ifelse(dt %in% c("Identity"), cl - 0.15, cl)) %>%
+  mutate(cl = ifelse(dt %in% c("FNR"), cl + 0.15, cl))
+
+
+fargene_id_recall_fnr_plot <- fargene_id_recall_fnr %>% 
+  ggplot(aes( y = cl, x = md, fill = dt, color = dt)) +
+  geom_rect(aes(
+    ymin = as.numeric(cl) - 0.06,
+    ymax = as.numeric(cl) + 0.06,
+    xmin = q25,
+    xmax = q75), color = "black", linewidth = 0.2) + 
+  geom_point(shape = 15, aes(color = dt), alpha = 0.75, size = 3) +
+  scale_color_manual(values = pal_10_q) +
+  scale_fill_manual(values = pal_10_q) +
+  theme_minimal() +
+  scale_y_continuous(limits = c(0, length(levels(fargene_id_recall_fnr$cl1)) + 0.3), 
+                     expand = c(0, 0), 
+                     breaks = 1:length(levels(fargene_id_recall_fnr$cl1)), 
+                     labels = levels(fargene_id_recall_fnr$cl1)) + 
+  facet_grid(. ~ tool, scales = "free_y") +
+  ylab("") +
+  xlab("") +
+  labs(fill = "", color = "") +
+  ggtitle("B") +
+  theme(
+    legend.position = "bottom",
+    legend.text = element_text(size = general_size ),
+    panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+    strip.text = element_text(size = general_size , face = "bold"),
+    legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+    legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+    panel.spacing = unit(0, "pt"),
+    title = element_text(size = general_size + 2, face = "bold"),
+    axis.title = element_text(size = general_size + 1, face = "bold"),
+    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+    axis.text.y = element_text(size = general_size))
+
+fargene_id_recall_fnr_plot
+
+
+deep_id_recall_fnr_plot <- deep_id_recall_fnr %>% 
+  ggplot(aes( y = cl, x = md, fill = dt, color = dt)) +
+  geom_rect(aes(
+    ymin = as.numeric(cl) - 0.09,
+    ymax = as.numeric(cl) + 0.09,
+    xmin = q25,
+    xmax = q75), color = "black", linewidth = 0.1) + 
+  geom_point(shape = 15, aes(color = dt), alpha = 0.75) +
+  scale_color_manual(values = pal_10_q) +
+  scale_fill_manual(values = pal_10_q) +
+  theme_minimal() +
+  scale_y_continuous(limits = c(0, length(levels(deep_id_recall_fnr$cl1)) + 0.4), 
+                     expand = c(0, 0), 
+                     breaks = 1:length(levels(deep_id_recall_fnr$cl1)), 
+                     labels = levels(deep_id_recall_fnr$cl1)) + 
+  facet_grid(. ~ tool, scales = "free_y") +
+  ylab("") +
+  xlab("") +
+  labs(fill = "", color = "") +
+  ggtitle("B") +
+  theme(
+    legend.position = "bottom",
+    legend.text = element_text(size = general_size ),
+    panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+    strip.text = element_text(size = general_size , face = "bold"),
+    legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+    legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+    panel.spacing = unit(0, "pt"),
+    title = element_text(size = general_size + 2, face = "bold"),
+    axis.title = element_text(size = general_size + 1, face = "bold"),
+    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+    axis.text.y = element_text(size = general_size))
+
+
+rgi_id_recall_fnr_plot <- rgi_id_recall_fnr %>% 
+  ggplot(aes( y = cl, x = md, fill = dt, color = dt)) +
+  geom_rect(aes(
+    ymin = as.numeric(cl) - 0.09,
+    ymax = as.numeric(cl) + 0.09,
+    xmin = q25,
+    xmax = q75), color = "black", linewidth = 0.1) + 
+  geom_point(shape = 15, aes(color = dt), alpha = 0.75) +
+  scale_color_manual(values = pal_10_q) +
+  scale_fill_manual(values = pal_10_q) +
+  theme_minimal() +
+  scale_y_continuous(limits = c(0, length(levels(rgi_id_recall_fnr$cl1)) + 0.4), 
+                     expand = c(0, 0), 
+                     breaks = 1:length(levels(rgi_id_recall_fnr$cl1)), 
+                     labels = levels(rgi_id_recall_fnr$cl1)) + 
+  facet_grid(. ~ tool, scales = "free_y") +
+  ylab("") +
+  xlab("") +
+  labs(fill = "", color = "") +
+  ggtitle("C") +
+  theme(
+    legend.position = "bottom",
+    legend.text = element_text(size = general_size ),
+    panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+    strip.text = element_text(size = general_size , face = "bold"),
+    legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+    legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+    panel.spacing = unit(0, "pt"),
+    title = element_text(size = general_size + 2, face = "bold"),
+    axis.title = element_text(size = general_size + 1, face = "bold"),
+    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+    axis.text.y = element_text(size = general_size))
+
+rgi_id_recall_fnr_plot
+deep_id_recall_fnr_plot
+fargene_id_recall_fnr_plot
+
+ggsave("~/Documents/plots_project2/deep_id_recall.svg", deep_id_recall_fnr_plot + theme( legend.position = "none"), width = 87, height = 135, unit = "mm")
+ggsave("~/Documents/plots_project2/rgi_id_recall.svg", rgi_id_recall_fnr_plot + theme( legend.position = "none"), width = 87, height = 135, unit = "mm")
+ggsave("~/Documents/plots_project2/legend_id_recall.svg", g_legend(rgi_id_recall_fnr_plot), width = 180, height = 10, unit = "mm")
+
+JI_class_other_filter %>% filter(tool_ref %in% c("DeepARG (nt)", "RGI (DIAMOND - nt)")) %>% 
+  select(tool_ref, recall, new_level) %>% 
+  mutate(tool = tool_ref, dt  = "recall")
+  
+JI_class_other_filter %>% filter(tool_ref %in% c("DeepARG (nt)", "RGI (DIAMOND - nt)")) %>% 
+  ggplot(aes(x = recall, y = new_level, fill = tool_ref)) +
+  geom_boxplot(outlier.shape = NA, outlier.size = NA)  + 
+  facet_grid( . ~ tool_ref)
 
 
 ####
@@ -1471,8 +1933,40 @@ hist(lst$deeparg.norm$alignment.bitscore[lst$deeparg.norm$id < 60 & lst$deeparg.
 hist(lst$deeparg.norm$alignment.length[lst$deeparg.norm$id < 60 & lst$deeparg.norm$probability>.95])
 
 
+id_plot <- unigenes %>% ungroup() %>% filter(tool %in% tool_2) %>% 
+  mutate(t = ifelse(tool %in% c("fARGene (nt)", "AMRFinderPlus (aa)", "RGI (DIAMOND - nt)", "DeepARG (nt)", "ResFinder (nt)"), "n", "y")) %>%
+  ggplot(aes(x = id, color = tool, y=..count../sum(count))) +
+  geom_freqpoly(bins = 35, linewidth = .7) +
+  facet_grid(. ~ t ) +
+  theme_minimal() + 
+  scale_fill_manual(values = pal_10_q, labels = tool_label) +
+  scale_color_manual(values = pal_10_q, labels = tool_label) +
+  ggtitle("A") + 
+  ylab("Proportion of genes") + 
+  xlab("Identity") + 
+  theme(legend.position = "none",
+        panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+        axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+        axis.text.y = element_text(size = general_size),
+        strip.text = element_blank(),
+        plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+        legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+        panel.spacing = unit(0, "pt"),
+        legend.text = element_text(size = general_size),
+        title = element_text(size = general_size + 2, face = "bold"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        axis.title = element_text(size = general_size + 1, face = "bold"))
 
+ggsave("~/Documents/plots_project2/id_tool.svg", id_plot + theme( legend.position = "none"), width = 180, height = 60, unit = "mm")
 
+  
+unigenes %>% ungroup() %>% filter(tool %in% tool_2) %>% 
+  mutate(t = ifelse(tool %in% c("fARGene (nt)", "AMRFinderPlus (aa)", "RGI (DIAMOND - nt)", "DeepARG (nt)"), "n", "y")) %>%
+  ggplot(aes(x = id, color = tool)) +
+  stat_ecdf() +
+  facet_grid(. ~ t )
 
 ##################################################################################################################################################################
 ##################################################################################################################################################################
@@ -1481,47 +1975,36 @@ hist(lst$deeparg.norm$alignment.length[lst$deeparg.norm$id < 60 & lst$deeparg.no
 ##################################################################################################################################################################
 ##################################################################################################################################################################
 
-core <- readRDS(file = "code_R_analysis/output_abundance_diversity_resistome/core_resistome.rds")
-pan <- readRDS(file = "code_R_analysis/output_abundance_diversity_resistome/pan_resistome.rds")
+#core <- readRDS(file = "code_R_analysis/output_abundance_diversity_resistome/core_resistome.rds")
+#pan <- readRDS(file = "code_R_analysis/output_abundance_diversity_resistome/pan_resistome.rds")
 
 core <- readRDS(file = "code_R_analysis/output_abundance_diversity_resistome/core_resistome_no_raw_unique_filter.rds")
 pan <- readRDS(file = "code_R_analysis/output_abundance_diversity_resistome/pan_resistome_no_rawunique_filter.rds")
 
+core <- core %>% 
+  mutate(tool = ifelse(tool == "RGI (DIAMOND nt)", "RGI (DIAMOND - nt)", tool)) %>%
+  filter(tool %in% tool_2, !habitat %in% not_env) %>% 
+  mutate(habitat = factor(habitat, levels = EN), tool = factor(tool, levels =  tools_levels))
 
-core <- core %>% mutate(habitat = factor(habitat, levels = EN))
-pan <- pan %>% mutate(habitat = factor(habitat, levels = EN))
-pan <- pan %>% mutate(tool = ifelse(tool == "RGI (DIAMOND nt)", "RGI (DIAMOND - nt)", tool))
-core <- core %>% mutate(tool = ifelse(tool == "RGI (DIAMOND nt)", "RGI (DIAMOND - nt)", tool))
+pan <- pan %>% 
+  mutate(tool = ifelse(tool == "RGI (DIAMOND nt)", "RGI (DIAMOND - nt)", tool)) %>% 
+  filter(tool %in% tool_2, !habitat %in% not_env, aggregation %in% "new_level") %>% 
+  mutate(habitat = factor(habitat, levels = EN), tool = factor(tool, levels =  tools_levels))
 
-sumcore <- core %>% filter(cut %in% 0.5 & cnt > 900, !habitat %in% c( "amplicon", "isolate" ),
-                           tool %in% tool_2) %>% ungroup() %>% 
-  group_by(new_level, tool, habitat) %>% summarise(unigenes = n_distinct(X))  %>% 
-  mutate(tool = factor(tool, levels = tools_levels))
-
-sumcore <- sumcore %>% mutate(tool = factor(tool, levels = tools_levels))
+sumcore <- core %>% 
+  filter(cut %in% 0.5 & cnt > 900) %>% 
+  ungroup() %>% 
+  group_by(new_level, tool, habitat) %>% 
+  summarise(unigenes = n_distinct(X))  
 
 sumpan <- pan %>% ungroup() %>% group_by(tool, habitat, aggregation, gene_class) %>% 
-  summarise(md = median(unigenes), mn = mean(unigenes)) %>%
-  filter(aggregation == "new_level", !habitat %in% c( "amplicon", "isolate"),
-         tool %in% tool_2) %>% mutate(tool = factor(tool, levels = tool_2)) %>% 
-  mutate(tool = factor(tool, levels = tools_levels))
+  summarise(md = median(unigenes), mn = mean(unigenes)) 
 
+top20_c <- sumcore %>% filter(habitat %in% c("human gut")) %>% ungroup() %>% 
+  arrange(desc(unigenes)) %>% group_by(tool) %>% slice_head(n = 6) %>% ungroup() %>% select(new_level) %>% distinct() %>% pull()
 
-
-#sumpan %>% filter(habitat %in% c("human gut")) %>% group_by(gene_class) %>% summarise(s_mn = median(mn)) %>% arrange(desc(s_mn)) %>% print(n=30)
-#sumcore %>% filter(habitat %in% c("human gut")) %>% group_by(new_level) %>% summarise(s_mn = median(unigenes)) %>% arrange(desc(s_mn)) %>% print(n=30)
-
-top20 <- sumpan %>% filter(habitat %in% c("human gut")) %>% ungroup() %>% 
-  arrange(desc(mn)) %>% group_by(tool) %>% slice_head(n = 5) %>% ungroup() %>% select(gene_class) %>% distinct() %>% pull()
-
-top20 <- sumcore %>% filter(habitat %in% c("human gut")) %>% ungroup() %>% 
-  arrange(desc(unigenes)) %>% group_by(tool) %>% slice_head(n = 5) %>% ungroup() %>% select(new_level) %>% distinct() %>% pull()
-
-top20 <- unique(c(top20, "Cell wall charge"))
-
-top20 <- factor(c(top20, "Other"), levels = c(top20, "Other"))
-
-
+top20_c %in% top20
+top20 %in% top20_c
 
 human_pan <- sumpan %>% filter(habitat %in% c("human gut")) %>% ungroup() %>% 
   mutate(gene_class = ifelse(as.character(gene_class) %in% levels(top20), gene_class, "Other")) %>% 
@@ -1561,7 +2044,7 @@ p1 <- human_resistome %>% filter(d %in% "Core-resistome") %>%
   labs(fill = "") +
   scale_x_discrete( labels = tool_label) +
   xlab("") +
-  ylab("Total") +
+  ylab("Core-resistome") +
   scale_fill_manual(values = pal_10_q) +
   theme(legend.position = "none",
     legend.text = element_text(size = general_size),
@@ -1586,9 +2069,9 @@ p2 <- human_resistome %>% filter(d %in% "Core-resistome") %>%
   theme_minimal() +
   labs(fill = "") +
   xlab("") +
-  ylab("Unigenes per class") +
+  ylab("ARGs per class") +
   scale_fill_manual(values = c(pal_10_q), labels = tool_label) +
-  theme(legend.position = "right",
+  theme(legend.position = "bottom",
     panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
     axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
     axis.text.y = element_text(size = general_size),
@@ -1602,10 +2085,78 @@ p2 <- human_resistome %>% filter(d %in% "Core-resistome") %>%
     panel.grid.minor.x = element_blank(),
     axis.title = element_text(size = general_size + 1, face = "bold"))
 
+
+p2.2 <- human_resistome %>% filter(d %in% "Core-resistome") %>% 
+  group_by(tool, habitat, new_level) %>% 
+  summarise(unigenes = sum(unigenes), d = d[1], pattern = pattern[1]) %>%
+  ggplot(aes(x = unigenes + 1, y = new_level, color = tool)) +
+  geom_jitter(height = 0.6, size = 2) +
+  theme_minimal() +
+  labs(color = "") +
+  facet_grid(new_level ~ ., scales = "free_y") + 
+  xlab("") +
+  ylab("") +
+  ggtitle("B") +
+  scale_color_manual(values = c(pal_10_q), labels = tool_label) +
+  scale_x_continuous(limits = c(0, 200), expand = c(0, 0)) +
+  #scale_x_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
+  #              labels = scales::trans_format("log10", scales::math_format(10^.x)),
+  #              limits = c(1, 200)) + 
+  theme(legend.position = "bottom",
+        panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+        axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+        axis.text.y = element_text(size = general_size),
+        #strip.text = element_text(size = general_size, face = "bold"),
+        strip.text = element_blank(),
+        plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+        legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+        panel.spacing = unit(0, "pt"),
+        legend.text = element_text(size = general_size),
+        title = element_text(size = general_size + 2, face = "bold"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        axis.title = element_text(size = general_size + 1, face = "bold"))
+
+p2.2
+
+
+p2.21 <- human_resistome %>% filter(d %in% "Core-resistome") %>% 
+  group_by(tool, habitat, new_level) %>% 
+  summarise(unigenes = sum(unigenes), d = d[1], pattern = pattern[1]) %>%
+  ggplot(aes(y = unigenes, x = new_level, fill = tool)) +
+  #geom_jitter(height = 0.6, size = 2) +
+  geom_col(position = position_dodge2(preserve = "single"), color = "black", linewidth = 0.1) +
+  theme_minimal() +
+  labs(color = "") +
+  facet_grid(. ~ new_level, scales = "free_x") + 
+  xlab("") +
+  ylab("") +
+  ggtitle("C") +
+  scale_fill_manual(values = c(pal_10_q), labels = tool_label) +
+  scale_y_continuous(limits = c(-2, 175), expand = c(0, 0)) +
+  theme(legend.position = "none",
+        panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+        axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+        axis.text.y = element_text(size = general_size),
+        #strip.text = element_text(size = general_size, face = "bold"),
+        strip.text = element_blank(),
+        plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+        legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+        panel.spacing = unit(0, "pt"),
+        legend.text = element_text(size = general_size),
+        title = element_text(size = general_size + 2, face = "bold"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        axis.title = element_text(size = general_size + 1, face = "bold"))
+
+p2.21
+
 p3_core <- p2 +
   annotation_custom(
     grob = ggplotGrob(p1),
-    xmin = 5, xmax = 13.5,   # positioning within the data coordinates of p_main
+    xmin = 5, xmax = 16.5,   # positioning within the data coordinates of p_main
     ymin = 70, ymax = 179
   )
 
@@ -1619,9 +2170,10 @@ p3_core <- p2 +
 p3_core
 
 dev.off()
-ggsave("~/Documents/plots_project/core_human_gut.svg", p3_core, width = 130, height = 120, unit = "mm")  
+ggsave("~/Documents/plots_project2/core_human_gut.svg", p3_core, width = 130, height = 120, unit = "mm")  
+ggsave("~/Documents/plots_project2/core_class_human_gut.svg", p2.21, width = 180, height = 70, unit = "mm")  
 
-ggsave("~/Documents/plots_project/core_human_gut_no_raw_unique_filter.svg", p3_core, width = 130, height = 120, unit = "mm")  
+ggsave("~/Documents/plots_project2/core_human_gut_no_raw_unique_filter.svg", p3_core, width = 130, height = 120, unit = "mm")  
 
 
 
@@ -1676,11 +2228,45 @@ p2 <- human_resistome %>% filter(d %in% "Pan-resistome") %>%
         panel.grid.minor.x = element_blank(),
         axis.title = element_text(size = general_size + 1, face = "bold"))
 
+p2.3 <- human_resistome %>% filter(d %in% "Pan-resistome") %>% 
+  group_by(tool, habitat, new_level) %>% 
+  summarise(unigenes = sum(unigenes), d = d[1], pattern = pattern[1]) %>%
+  ggplot(aes(x = unigenes + 1, y = new_level, col = tool)) +
+  geom_jitter(height = 0.6, size = 2) +
+  theme_minimal() +
+  labs(color = "") +
+  facet_grid(new_level ~ ., scales = "free_y") + 
+  xlab("") +
+  ylab("") +
+  ggtitle("A") +
+  scale_color_manual(values = c(pal_10_q), labels = tool_label) +
+  #scale_x_continuous(limits = c(0, 200), expand = c(0, 0)) +
+  scale_x_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
+                labels = scales::trans_format("log10", scales::math_format(10^.x)),
+                limits = c(1, 9000)) + 
+  theme(legend.position = "bottom",
+        panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+        axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+        axis.text.y = element_text(size = general_size),
+        #strip.text = element_text(size = general_size, face = "bold"),
+        strip.text = element_blank(),
+        plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+        legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+        panel.spacing = unit(0, "pt"),
+        legend.text = element_text(size = general_size),
+        title = element_text(size = general_size + 2, face = "bold"),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        axis.title = element_text(size = general_size + 1, face = "bold"))
+
+p2.3
+
 p3_pan <- p2 +
   annotation_custom(
     grob = ggplotGrob(p1),
-    xmin = 5, xmax = 13,   # positioning within the data coordinates of p_main
-    ymin = 3500, ymax = 8000
+    xmin = 5, xmax = 18,   # positioning within the data coordinates of p_main
+    ymin = 3000, ymax = 8000
   )
 
 p3_pan <- p2 +
@@ -1696,40 +2282,26 @@ dev.off()
 
 ggsave("~/Documents/plots_project/pan_human_gut.svg", p3_pan, width = 130, height = 120, unit = "mm") 
 
-ggsave("~/Documents/plots_project/pan_human_gut_no_raw_unique_filter.svg", p3_pan, width = 130, height = 120, unit = "mm") 
+ggsave("~/Documents/plots_project2/pan_human_gut_no_raw_unique_filter.svg", p3_pan, width = 130, height = 120, unit = "mm") 
 
 
-
-# human_resistome %>% filter(d %in% "Core-resistome") %>% 
-#   ggplot(aes(x = tool, y = unigenes, fill = new_level, pattern = pattern)) +
-#     geom_col_pattern(pattern_density = 0.1, pattern_spacing = 0.02, pattern_size = 0.05) +
-#     theme_minimal() +
-#     labs(fill = "") +
-#     xlab("") +
-#     scale_fill_manual(values = c(pal_10_d,pal_10_d)) +
-#     scale_pattern_manual(values = c("stripe", "none")) + 
-#     theme(
-#         panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
-#         axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
-#         axis.text.y = element_text(size = general_size),
-#         strip.text = element_text(size = general_size, face = "bold"),
-#         panel.grid.major.x = element_blank(),
-#         panel.grid.minor.x = element_blank(),
-#         axis.title = element_text(size = general_size + 1, face = "bold"))
+plot_env <- c("human gut", "human skin", "pig gut", "wastewater", "marine", "freshwater", "soil")
 
 
-
-hbt <- c("human gut", "wastewater", "freshwater", "soil", "cat gut", "dog gut", "pig gut")
-
-core_environment <- sumcore %>% filter(habitat %in% hbt) %>% ungroup() %>% group_by(habitat, tool) %>% summarise(unigenes = sum(unigenes)) %>% 
-  ggplot(aes(x = tool, y = unigenes, fill = habitat)) +
-  geom_col(position = position_dodge2(preserve = "single", width = 0.9), width = .6) +
+core_environment <- sumcore  %>% ungroup() %>% 
+  group_by(habitat, tool) %>% 
+  summarise(unigenes = sum(unigenes)) %>% 
+  filter(habitat %in% plot_env) %>% 
+  ggplot(aes(x = unigenes, y = habitat, fill = tool)) +
+  geom_col(position = position_dodge2(preserve = "single", width = 1), width = 1) +
   theme_minimal() +
   labs(fill = "") +
-  scale_x_discrete( labels = tool_label) +
+  facet_grid(habitat ~ ., scales = "free_y") +
+  scale_x_continuous(limits = c(-10, 1350), expand = c(0, 0)) +
+  ylab("") +
   xlab("") +
-  ylab("Core-resistome") +
-  scale_fill_manual(values = pal_8_q) +
+  ggtitle("B") +
+  scale_fill_manual(values = pal_10_q, labels = tool_label) +
   theme(legend.position = "right",
         legend.text = element_text(size = general_size),
         panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
@@ -1739,24 +2311,31 @@ core_environment <- sumcore %>% filter(habitat %in% hbt) %>% ungroup() %>% group
         legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
         legend.margin = margin(0, 0, 0, 0, unit = "pt"),
         panel.spacing = unit(0, "pt"),
+        title = element_text(size = general_size + 2, face = "bold"),
         strip.text = element_blank(),
         axis.title = element_text(size = general_size + 1, face = "bold"),
         axis.text.x = element_text(angle = 90, size = general_size),
         axis.text.y = element_text(size = general_size)) 
 
+core_environment
 
-ggsave("~/Documents/plots_project/core_environment_no_raw_unique_filter.svg", core_environment, width = 130, height = 120, unit = "mm") 
+ggsave("~/Documents/plots_project2/core_environment_no_raw_unique_filter.svg", core_environment + theme(legend.position = "none"), width = 90, height = 140, unit = "mm") 
 
-pan_environment <- sumpan %>% filter(habitat %in% hbt) %>% ungroup() %>% group_by(habitat, tool) %>% summarise(unigenes = sum(md)) %>% ungroup() %>% 
-  ggplot(aes(x = tool, y = unigenes, fill = habitat)) +
-  geom_col(position = position_dodge2(preserve = "single", width = 0.9), width = .6) +
+
+core_environment_supplement <- sumcore  %>% ungroup() %>% 
+  group_by(habitat, tool) %>% 
+  summarise(unigenes = sum(unigenes)) %>% 
+  filter(!habitat %in% plot_env) %>% 
+  ggplot(aes(x = unigenes, y = habitat, fill = tool)) +
+  geom_col(position = position_dodge2(preserve = "single", width = 1), width = 1) +
   theme_minimal() +
   labs(fill = "") +
-  scale_x_discrete( labels = tool_label) +
-  #facet_grid(. ~ tool,  scales="free_x", switch="x") + 
+  facet_grid(habitat ~ ., scales = "free_y") +
+  scale_x_continuous(limits = c(-10, 1350), expand = c(0, 0)) +
+  ylab("") +
   xlab("") +
-  ylab("Core-resistome") +
-  scale_fill_manual(values = pal_8_q) +
+  ggtitle("B") +
+  scale_fill_manual(values = pal_10_q, labels = tool_label) +
   theme(legend.position = "right",
         legend.text = element_text(size = general_size),
         panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
@@ -1765,17 +2344,19 @@ pan_environment <- sumpan %>% filter(habitat %in% hbt) %>% ungroup() %>% group_b
         plot.margin = margin(0, 0, 0, 0, unit = "pt"),
         legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
         legend.margin = margin(0, 0, 0, 0, unit = "pt"),
-        panel.spacing = unit(1, "pt"),
+        panel.spacing = unit(0, "pt"),
+        title = element_text(size = general_size + 2, face = "bold"),
         strip.text = element_blank(),
         axis.title = element_text(size = general_size + 1, face = "bold"),
         axis.text.x = element_text(angle = 90, size = general_size),
         axis.text.y = element_text(size = general_size)) 
 
+core_environment_supplement
 
+ggsave("~/Documents/plots_project2/core_environment_no_raw_unique_filter.svg", core_environment + theme(legend.position = "none"), width = 90, height = 140, unit = "mm") 
+ggsave("~/Documents/plots_project2/sup_core_environment_no_raw_unique_filter.svg", core_environment + theme(legend.position = "none"), width = 90, height = 140, unit = "mm") 
 
-ggsave("~/Documents/plots_project/pan_environment_no_raw_unique_filter.svg", pan_environment, width = 130, height = 120, unit = "mm") 
-
-
+plot_env
 ##################################################################################################################################################################
 ##################################################################################################################################################################
 ##################################################################################################################################################################
@@ -1829,220 +2410,6 @@ core_class_tool <- core_class_tool %>%
 core_class_tool %>% ungroup() %>% arrange(desc(recall))
 
 
-ggplot(core_class_tool %>% filter(tool %in% c("RGI (DIAMOND - nt)", "DeepARG (nt)", "fARGene (nt)", "ResFinder (nt)")) %>%
-         filter(as.numeric(habitat_ref) < as.numeric(habitat_comp)), aes(x = habitat_ref, y = habitat_comp, fill = shared)) +
-  geom_tile() +
-  scale_fill_viridis_c(na.value = 0) + 
-  facet_wrap(. ~ tool) +
-  theme_minimal() +
-  xlab("") +
-  ylab("") +
-  labs(fill = "Shared core genes") +
-  theme(axis.title.y = element_blank(),
-        legend.position = "bottom",
-        panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
-        axis.text.x = element_text(angle = 90, size = general_size),
-        axis.text.y = element_text(size = general_size),
-        strip.text = element_text(size = general_size, face = "bold"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        axis.title = element_text(size = general_size + 1, face = "bold"))
-
-
-ggplot(core_class_tool %>% filter(tool %in% "RGI (DIAMOND - nt)"), aes(x = habitat_ref, y = habitat_comp, fill = shared)) +
-  geom_tile() +
-  scale_fill_viridis_c(na.value = 0) + 
-  facet_grid(. ~ tool, scales = "free_x") +
-  theme_minimal() +
-  xlab("") +
-  ylab("") +
-  labs(fill = "Shared core genes") +
-  theme(axis.title.y = element_blank(),
-        legend.position = "bottom",
-        panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
-        axis.text.x = element_text(angle = 90, size = general_size),
-        axis.text.y = element_text(size = general_size),
-        strip.text = element_text(size = general_size, face = "bold"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        axis.title = element_text(size = general_size + 1, face = "bold"))
-
-
-ggplot(core_class_tool %>% filter(tool %in% "fARGene (nt)"), aes(x = habitat_ref, y = habitat_comp, fill = shared)) +
-  geom_tile() +
-  scale_fill_viridis_c(na.value = 0) + 
-  facet_grid(. ~ tool, scales = "free_x") +
-  theme_minimal() +
-  xlab("") +
-  ylab("") +
-  labs(fill = "Shared core genes") +
-  theme(axis.title.y = element_blank(),
-        legend.position = "bottom",
-        panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
-        axis.text.x = element_text(angle = 90, size = general_size),
-        axis.text.y = element_text(size = general_size),
-        strip.text = element_text(size = general_size, face = "bold"),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        axis.title = element_text(size = general_size + 1, face = "bold"))
-
-
-
-
-
-
-top20 <- sumcore %>% filter(habitat %in% c("human gut")) %>% ungroup() %>% 
-  arrange(desc(unigenes)) %>% group_by(tool) %>% slice_head(n = 5) %>% ungroup() %>% select(new_level) %>% distinct() %>% pull()
-
-top20 <- unique(c(top20, "Cell wall charge"))
-
-top20 <- factor(c(top20, "Other"), levels = c(top20, "Other"))
-
-
-
-pig_pan <- sumpan %>% filter(habitat %in% c("pig gut")) %>% ungroup() %>% 
-  mutate(gene_class = ifelse(as.character(gene_class) %in% levels(top20), gene_class, "Other")) %>% 
-  mutate(pattern = ifelse(as.character(gene_class) %in% levels(top20)[1:round(length(top20)/2)], "yes", "no")) %>% 
-  mutate(gene_class = factor(gene_class, levels = top20)) %>% ungroup() %>% 
-  mutate(d = "Pan-resistome") %>% 
-  rename(new_level = gene_class, unigenes = md) %>% select(tool, habitat, new_level, unigenes, pattern, d)
-
-pig_core <- sumcore %>% filter(habitat %in% c("pig gut")) %>% ungroup() %>% 
-  mutate(unigenes = as.numeric(unigenes)) %>% 
-  mutate(new_level = ifelse(as.character(new_level) %in% levels(top20), new_level, "Other")) %>% 
-  mutate(pattern = ifelse(as.character(new_level) %in% levels(top20)[1:round(length(top20)/2)], "yes", "no")) %>% 
-  mutate(d = "Core-resistome") %>%
-  mutate(new_level = factor(new_level, levels = top20))
-
-pig_resistome <- bind_rows(pig_pan, pig_core) %>% 
-  mutate(tool = as.character(tool)) %>% 
-  mutate(tool = factor(tool, levels = tool_2)) 
-
-
-p1 <- pig_resistome %>% filter(d %in% "Core-resistome") %>% 
-  ggplot(aes(x = tool, y = unigenes, fill = tool)) +
-  geom_col() +
-  theme_minimal() +
-  labs(fill = "") +
-  scale_x_discrete( labels = tool_label) +
-  xlab("") +
-  ylab("Total") +
-  scale_fill_manual(values = pal_10_q) +
-  theme(legend.position = "none",
-        legend.text = element_text(size = general_size),
-        panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        plot.margin = margin(0, 0, 0, 0, unit = "pt"),
-        legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
-        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
-        panel.spacing = unit(0, "pt"),
-        strip.text = element_blank(),
-        axis.title = element_text(size = general_size + 1, face = "bold"),
-        axis.text.x = element_text(size = general_size),
-        axis.text.y = element_blank()) +
-  coord_flip()
-
-p2 <- pig_resistome %>% filter(d %in% "Core-resistome") %>% 
-  group_by(tool, habitat, new_level) %>% 
-  summarise(unigenes = sum(unigenes), d = d[1], pattern = pattern[1]) %>%
-  ggplot(aes(x = new_level, y = unigenes, fill = tool)) +
-  geom_col(position = position_dodge2(preserve = "single")) +
-  theme_minimal() +
-  labs(fill = "") +
-  xlab("") +
-  ylab("Unigenes per class") +
-  scale_fill_manual(values = c(pal_10_q), labels = tool_label) +
-  theme(legend.position = "right",
-        panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
-        axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
-        axis.text.y = element_text(size = general_size),
-        strip.text = element_text(size = general_size, face = "bold"),
-        plot.margin = margin(0, 0, 0, 0, unit = "pt"),
-        legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
-        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
-        panel.spacing = unit(0, "pt"),
-        legend.text = element_text(size = general_size),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        axis.title = element_text(size = general_size + 1, face = "bold"))
-
-p3_core <- p2 +
-  annotation_custom(
-    grob = ggplotGrob(p1),
-    xmin = 5, xmax = 13.5,   # positioning within the data coordinates of p_main
-    ymin = 350, ymax = 1100
-  )
-
-p3_core
-
-ggsave("~/Documents/plots_project/core_pig_gut_no_raw_unique_filter.svg", p3_core, width = 130, height = 120, unit = "mm")  
-
-
-
-
-p1 <- pig_resistome %>% filter(d %in% "Pan-resistome") %>% 
-  ggplot(aes(x = tool, y = unigenes, fill = tool)) +
-  geom_col() +
-  theme_minimal() +
-  labs(fill = "") +
-  scale_x_discrete( labels = tool_label) +
-  xlab("") +
-  ylab("Total") +
-  scale_fill_manual(values = pal_10_q) +
-  theme(legend.position = "none",
-        legend.text = element_text(size = general_size),
-        panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
-        #panel.grid.major.x = element_blank(),
-        #panel.grid.minor.x = element_blank(),
-        panel.grid.major.y = element_blank(),
-        panel.grid.minor.y = element_blank(),
-        plot.margin = margin(0, 0, 0, 0, unit = "pt"),
-        legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
-        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
-        panel.spacing = unit(0, "pt"),
-        strip.text = element_blank(),
-        axis.title = element_text(size = general_size + 1, face = "bold"),
-        axis.text.x = element_text(size = general_size),
-        axis.text.y = element_blank()) +
-  #axis.text.y = element_text(size = general_size)) +
-  coord_flip()
-
-p2 <- pig_resistome %>% filter(d %in% "Pan-resistome") %>% 
-  group_by(tool, habitat, new_level) %>% 
-  summarise(unigenes = sum(unigenes), d = d[1], pattern = pattern[1]) %>%
-  ggplot(aes(x = new_level, y = unigenes, fill = tool)) +
-  geom_col(position = position_dodge2(preserve = "single")) +
-  theme_minimal() +
-  labs(fill = "") +
-  xlab("") +
-  ylab("Unigenes per class") +
-  scale_fill_manual(values = c(pal_10_q), labels = tool_label) +
-  theme(legend.position = "right",
-        panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
-        axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
-        axis.text.y = element_text(size = general_size),
-        strip.text = element_text(size = general_size, face = "bold"),
-        plot.margin = margin(0, 0, 0, 0, unit = "pt"),
-        legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
-        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
-        panel.spacing = unit(0, "pt"),
-        legend.text = element_text(size = general_size),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        axis.title = element_text(size = general_size + 1, face = "bold"))
-
-p3_pan <- p2 +
-  annotation_custom(
-    grob = ggplotGrob(p1),
-    xmin = 5, xmax = 13,   # positioning within the data coordinates of p_main
-    ymin = 3500, ymax = 8000
-  )
-
-
-dev.off()
-
-ggsave("~/Documents/plots_project/pan_pig_gut.svg", p3_pan, width = 130, height = 120, unit = "mm") 
 
 ################
 
@@ -2050,41 +2417,93 @@ ggsave("~/Documents/plots_project/pan_pig_gut.svg", p3_pan, width = 130, height 
 sumpan2 <- pan %>% ungroup() %>% group_by(tool, habitat, aggregation, epoch) %>% 
   summarise(s = sum(unigenes)) %>%
   ungroup() %>% group_by(tool, habitat, aggregation) %>% 
-  summarise(md = median(s), mn = mean(s), sd = sd(s)) %>%
-  filter(aggregation == "new_level", !habitat %in% c( "amplicon", "isolate"),
-         tool %in% tool_2) %>% mutate(tool = factor(tool, levels = tool_2)) %>% 
-  mutate(tool = factor(tool, levels = tools_levels))
+  summarise(md = median(s), mn = mean(s), sd = sd(s)) 
 
 
 #sumpan %>% filter(aggregation %in% "new_level", habitat %in% c("human gut", "wastewater", "pig gut", "marine", "soil", "built-environment")) %>% 
-sumpan2 %>% filter(aggregation %in% "new_level") %>% #, habitat %in% c("human gut", "wastewater", "pig gut", "marine", "soil", "built-environment")) %>% 
-  ggplot(aes(x = tool, y = mn, fill = habitat)) +
-  geom_col(position = position_dodge2(preserve = "single")) +
-  geom_errorbar(aes(ymin = mn-sd, ymax = mn+sd), width=.2,
+
+plot_env <- c("human gut", "human skin", "pig gut", "wastewater", "marine", "freshwater", "soil")
+
+pan_resistome_plot_environment <- sumpan2 %>% 
+  filter(habitat %in% plot_env) %>% 
+  filter(aggregation %in% "new_level") %>% #, habitat %in% c("human gut", "wastewater", "pig gut", "marine", "soil", "built-environment")) %>% 
+  ggplot(aes(x = mn + 1, y = habitat, fill = tool)) +
+  geom_col(position = position_dodge2(preserve = "single", width = 1), width = 1) +
+  geom_errorbar(aes(xmin = mn-sd, xmax = mn+sd), width=.2,
                 position = position_dodge(.9)) +
   theme_minimal() +
   labs(fill = "") +
+  facet_grid(habitat ~ ., scales = "free_y") + 
+  ylab("") +
   xlab("") +
-  ylab("Pan-resistome per class") +
-  scale_fill_manual(values = c(pal_10_q,pal_10_q)) +
-  theme(legend.position = "right",
+  ggtitle("A") + 
+  scale_x_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
+                labels = scales::trans_format("log10", scales::math_format(10^.x))) + 
+  coord_cartesian(xlim = c(100,24000)) + 
+  scale_fill_manual(values = pal_10_q, labels = tool_label) +
+  theme(legend.position = "bottom",
         panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
         axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
         axis.text.y = element_text(size = general_size),
-        strip.text = element_text(size = general_size, face = "bold"),
+        strip.text = element_blank(),
         plot.margin = margin(0, 0, 0, 0, unit = "pt"),
         legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
         legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+        title = element_text(size = general_size + 2, face = "bold"),
         panel.spacing = unit(0, "pt"),
         legend.text = element_text(size = general_size),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
         axis.title = element_text(size = general_size + 1, face = "bold"))
 
+pan_resistome_plot_environment 
+
+ggsave("~/Documents/plots_project2/pan_environment_no_raw_unique_filter.svg", pan_resistome_plot_environment + theme(legend.position = "none"), width = 90, height = 140, unit = "mm") 
+ggsave("~/Documents/plots_project2/pan_legend.svg", g_legend(pan_resistome_plot_environment), width = 180, height = 10, unit = "mm")
+
+
+pan_resistome_plot_environment_supplement <- sumpan2 %>% 
+  filter(!habitat %in% plot_env) %>% 
+  filter(aggregation %in% "new_level") %>% #, habitat %in% c("human gut", "wastewater", "pig gut", "marine", "soil", "built-environment")) %>% 
+  ggplot(aes(x = mn + 1, y = habitat, fill = tool)) +
+  geom_col(position = position_dodge2(preserve = "single", width = 1), width = 1) +
+  geom_errorbar(aes(xmin = mn-sd, xmax = mn+sd), width=.2,
+                position = position_dodge(.9)) +
+  theme_minimal() +
+  labs(fill = "") +
+  facet_grid(habitat ~ ., scales = "free_y") + 
+  ylab("") +
+  xlab("") +
+  ggtitle("A") + 
+  scale_x_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
+                labels = scales::trans_format("log10", scales::math_format(10^.x))) + 
+  coord_cartesian(xlim = c(100,5000)) + 
+  scale_fill_manual(values = pal_10_q, labels = tool_label) +
+  theme(legend.position = "bottom",
+        panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+        axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+        axis.text.y = element_text(size = general_size),
+        strip.text = element_blank(),
+        plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+        legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+        title = element_text(size = general_size + 2, face = "bold"),
+        panel.spacing = unit(0, "pt"),
+        legend.text = element_text(size = general_size),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        axis.title = element_text(size = general_size + 1, face = "bold"))
+
+pan_resistome_plot_environment_supplement
+
+
+ggsave("~/Documents/plots_project2/sup_pan_environment_no_raw_unique_filter.svg", pan_resistome_plot_environment_supplement + theme(legend.position = "none"), width = 90, height = 140, unit = "mm") 
 
 sumpan2 %>% filter(tool %in% c("ResFinder (nt)", "ABRicate (ResFinder - nt)")) %>% arrange(habitat) %>% group_by(habitat) %>% summarise(d = mn[1] - mn[2], p = (mn[1] - mn[2])/mn[1] )
 sumpan2 %>% filter(tool %in% c("AMRFinderPlus (aa)", "ABRicate (NCBI - nt)")) %>% arrange(habitat) %>% group_by(habitat) %>% summarise(d = mn[1] - mn[2], p = (mn[1] - mn[2])/mn[1] ) %>% mutate(m = mean(p))
 sumpan2 %>% filter(tool %in% c("RGI (DIAMOND - nt)", "ABRicate (CARD - nt)")) %>% arrange(habitat) %>% group_by(habitat) %>% summarise(d = mn[1] - mn[2], p = (mn[1] - mn[2])/mn[1] )
+
+
 
 
 sumcore2 <- core %>% filter(cut %in% 0.5 & cnt > 900, !habitat %in% c( "amplicon", "isolate" ),
@@ -2131,49 +2550,94 @@ sumcore2 %>% ungroup() %>% arrange(habitat) %>%
 
 
 
-sumcore2 %>% #, habitat %in% c("human gut", "wastewater", "pig gut", "marine", "soil", "built-environment")) %>% 
-  ggplot(aes(x = tool, y = unigenes, fill = habitat)) +
-  geom_col(position = position_dodge2(preserve = "single")) +
-  theme_minimal() +
-  labs(fill = "") +
-  xlab("") +
-  ylab("Core-resistome") +
-  scale_fill_manual(values = c(pal_10_q,pal_10_q)) +
-  theme(legend.position = "right",
-        panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
-        axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
-        axis.text.y = element_text(size = general_size),
-        strip.text = element_text(size = general_size, face = "bold"),
-        plot.margin = margin(0, 0, 0, 0, unit = "pt"),
-        legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
-        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
-        panel.spacing = unit(0, "pt"),
-        legend.text = element_text(size = general_size),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        axis.title = element_text(size = general_size + 1, face = "bold"))
+
+
+# core_resistome_plot_environment_jitter <- sumcore2 %>% #, habitat %in% c("human gut", "wastewater", "pig gut", "marine", "soil", "built-environment")) %>% 
+#   ggplot(aes(x = unigenes, y = habitat, color = tool)) +
+#   geom_jitter(width = 0.2, size = 2) +
+#   labs(fill = "", color = "") +
+#   facet_grid( habitat ~ . , scales = "free_y" ) +
+#   theme_minimal() +
+#   xlab("") +
+#   ylab("") +
+#   ggtitle("B") + 
+#   scale_color_manual(values = pal_10_q, label = tool_label) +
+#   scale_x_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
+#                 labels = scales::trans_format("log10", scales::math_format(10^.x)))  +
+#   theme(legend.position = "bottom",
+#         panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+#         axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+#         axis.text.y = element_text(size = general_size),
+#         strip.text = element_blank(),
+#         plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+#         legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+#         legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+#         panel.spacing = unit(0, "pt"),
+#         legend.text = element_text(size = general_size),
+#         panel.grid.major.x = element_blank(),
+#         panel.grid.minor.x = element_blank(),
+#         axis.title = element_text(size = general_size + 1, face = "bold"))
+# 
+# core_resistome_plot_environment_jitter
+# 
+# ggsave("~/Documents/plots_project2/core_environment.svg", core_resistome_plot_environment, width = 300, height = 100, unit = "mm")
+# ggsave("~/Documents/plots_project2/pan_environment.svg", pan_resistome_plot_environment, width = 300, height = 100, unit = "mm")
+# 
+# ggsave("~/Documents/plots_project2/core_environment_jitter.svg", core_resistome_plot_environment_jitter, width = 80, height = 120, unit = "mm")
+# ggsave("~/Documents/plots_project2/pan_environment_jitter.svg", pan_resistome_plot_environment_jitter, width = 80, height = 120, unit = "mm")
 
 
 
-top20 <- sumcore %>% filter(habitat %in% c("human gut")) %>% ungroup() %>% 
-  arrange(desc(unigenes)) %>% group_by(tool) %>% slice_head(n = 5) %>% ungroup() %>% select(new_level) %>% distinct() %>% pull()
-top20 <- unique(c(top20, "Cell wall charge"))
+sumcore2 %>% ungroup() %>% arrange(habitat) %>%  
+  group_by(habitat) %>%  
+  mutate(deeparg = unigenes[tool == "DeepARG (nt)"][1],
+         rgi = unigenes[tool == "RGI (DIAMOND - nt)"][1]) %>%
+  mutate(dp = deeparg / unigenes, drgi = rgi / unigenes) %>% 
+  filter(!tool %in% c("DeepARG (nt)", "RGI (DIAMOND - nt)")) %>% 
+  summarise(m_da = mean(dp), m_rgi = mean(drgi))
+
 
 sumcore_human_class <- sumcore %>% filter(habitat %in% "human gut") %>% 
   ungroup() %>% group_by(tool) %>% mutate(total = sum(unigenes)) %>% 
-  filter( new_level %in% top20) %>% mutate(p = unigenes / total )
+  mutate(p = unigenes / total )
 
-data.frame(sumcore_human_class)
+data.frame(sumcore_human_class %>% 
+  arrange(tool, desc(unigenes)) %>%  ungroup() %>% group_by(tool) %>% 
+  slice_head(n = 5))
 
+sumcore2 %>% filter(habitat %in% "human gut")
+
+
+sumcore_human_class %>% filter(new_level %in% "rpoB") %>% ungroup() %>%
+  mutate(deeparg = unigenes[tool == "DeepARG (nt)"][1],
+         rgi = unigenes[tool == "RGI (DIAMOND - nt)"][1]) %>%
+  mutate(dp = deeparg / unigenes, drgi = rgi / unigenes)
+
+
+sumcore_human_class %>% filter(new_level %in% "GPA") %>% ungroup() %>%
+  mutate(deeparg = unigenes[tool == "DeepARG (nt)"][1],
+         rgi = unigenes[tool == "RGI (DIAMOND - nt)"][1]) %>%
+  mutate(dp = deeparg / unigenes, drgi = rgi / unigenes)
+
+sumcore_human_class %>% filter(new_level %in% "Efflux p.") %>% ungroup() %>%
+  mutate(deeparg = unigenes[tool == "DeepARG (nt)"][1],
+         rgi = unigenes[tool == "RGI (DIAMOND - nt)"][1]) %>%
+  mutate(dp = deeparg / unigenes, drgi = rgi / unigenes)
+
+
+sumcore_human_class %>% filter(new_level %in% "TET - RPG") %>% ungroup() %>%
+  mutate(deeparg = unigenes[tool == "DeepARG (nt)"][1],
+         rgi = unigenes[tool == "RGI (DIAMOND - nt)"][1]) %>%
+  mutate(dp = deeparg / unigenes, drgi = rgi / unigenes) %>%
+  summarise(m = mean(drgi))
 
 #
 
-
-sets0 <- core %>% filter(cut %in% 0.5 & cnt > 900, habitat %in% c( "human gut" ), tool %in% tool_2) %>%
+sets0 <- core %>% filter(cut %in% 0.5 & cnt > 900, habitat %in% c( "human gut" )) %>%
   group_by(tool) %>%
   summarise(query = list(X), .groups = "drop")
 
-sets1 <- core %>% filter(cut %in% 0.5 & cnt > 900, habitat %in% c( "human gut" ), tool %in% tool_2) %>%
+sets1 <- core %>% filter(cut %in% 0.5 & cnt > 900, habitat %in% c( "human gut" )) %>%
   group_by(new_level, tool) %>%
   summarise(query = list(X), .groups = "drop")
 
@@ -2220,6 +2684,33 @@ new_difference <- function(qc_ref, q_ref, qc_comp, q_comp){
   return(r)
 }
 
+new_union <- function(qc_ref, q_ref, qc_comp, q_comp){
+  A <-  unlist(qc_ref)
+  B <- unlist(q_ref)
+  C <- unlist(qc_comp)
+  D <- unlist(q_comp)
+  x <- intersect(A, setdiff(D, C))
+  y <- setdiff(C, intersect(C, setdiff(B, A)))
+  z <- union(x, y)
+  d <- union(A, z)
+  r <- ifelse(length(d) == 0, 0, length(d))
+  return(r)
+}
+
+new_intersect2 <- function(qc_ref, q_ref, qc_comp, q_comp){
+  A <-  unlist(qc_ref)
+  B <- unlist(q_ref)
+  C <- unlist(qc_comp)
+  D <- unlist(q_comp)
+  x <- intersect(A, setdiff(D, C))
+  y <- setdiff(C, intersect(C, setdiff(B, A)))
+  z <- union(x, y)
+  d <- intersect(A, z)
+  r <- ifelse(length(z) == 0, NA, length(d))
+  return(r)
+}
+
+
 JI_core_class <- pairwise %>%
   left_join(sets1, by = c("new_level", "tool_ref" = "tool")) %>%
   rename(qc_ref = query) %>%
@@ -2232,8 +2723,12 @@ JI_core_class <- pairwise %>%
 
 JI_core_class <- JI_core_class %>% rowwise() %>% mutate(recall = new_intersect(qc_ref, q_ref, qc_comp, q_comp))
 JI_core_class <- JI_core_class %>% rowwise() %>% mutate(fnr = new_difference(qc_ref, q_ref, qc_comp, q_comp))
+JI_core_class <- JI_core_class %>% rowwise() %>% mutate(union = new_union(qc_ref, q_ref, qc_comp, q_comp))
+JI_core_class <- JI_core_class %>% rowwise() %>% mutate(intersect = new_intersect2(qc_ref, q_ref, qc_comp, q_comp))
 JI_core_class <- JI_core_class %>% 
   mutate(ref_n_class = length(qc_ref), comp_n_class = length(qc_comp), ref_n_all = length(q_ref), comp_n_all = length(q_comp))
+JI_core_class <- JI_core_class %>% 
+  mutate(jaccard = intersect / union)
 JI_core_class <- JI_core_class %>% 
   ungroup() %>% filter(tool_ref != tool_comp) %>% 
   select(-c(qc_ref, qc_comp, q_ref, q_comp))
@@ -2242,12 +2737,61 @@ JI_core_class <- JI_core_class %>%
 data.frame(JI_core_class %>% filter(new_level %in% top20) )
 
 
+JI_core_class %>% ungroup() %>% group_by(new_level, tool_ref) %>%
+  rowwise() %>%
+  mutate(t1 = min(as.character(tool_ref), as.character(tool_comp)), 
+         t2 = max(as.character(tool_ref), as.character(tool_comp))) %>%
+  ungroup() %>% group_by(new_level, t1, t2) %>% slice_head(n = 1) %>% 
+  filter(new_level %in% c("TET - RPG", "ERM", "Class A")) %>%
+  ungroup() %>% group_by(new_level) %>% summarise(mn = mean(jaccard), md = median(jaccard))
 
+data.frame(JI_core_class %>% filter(new_level %in% c("TET - RPG", "ERM", "Class A")))
+
+JI_core_class %>% ungroup() %>% group_by(new_level, tool_ref) %>%
+  rowwise() %>%
+  mutate(t1 = min(as.character(tool_ref), as.character(tool_comp)), 
+         t2 = max(as.character(tool_ref), as.character(tool_comp))) %>%
+  ungroup() %>% group_by(new_level, t1, t2) %>% slice_head(n = 1) %>% 
+  ungroup() %>% group_by(new_level) %>% summarise(mn = mean(jaccard), md = median(jaccard))
+
+
+core_jaccard_human <- JI_core_class %>% ungroup() %>% #complete(tool, new_level, fill = list(unigenes = 0, total = 0)) %>%
+  ungroup() %>% 
+  filter(as.numeric(tool_ref) > as.numeric(tool_comp)) %>% 
+  ggplot(aes(x = tool_ref, y = tool_comp, fill = jaccard)) +
+  geom_tile() +
+  scale_x_discrete(labels = tool_label) +
+  scale_y_discrete(labels = tool_label) +
+  facet_wrap(new_level ~ .) +
+  scale_fill_viridis_c() + 
+  theme_minimal() +
+  labs(fill = "") +
+  xlab("") +
+  ylab("") +
+  ggtitle("") + 
+  theme(
+    legend.position = "bottom",
+    legend.text = element_text(size = general_size ),
+    panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+    #panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+    legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+    legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+    panel.spacing = unit(0, "pt"),
+    strip.text = element_text(size = general_size + 1, face = "bold"),
+    axis.title = element_text(size = general_size + 1, face = "bold"),
+    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+    axis.text.y = element_text(size = general_size))
+
+core_jaccard_human
+
+ggsave("~/Documents/plots_project2/jaccard_class_core.svg", core_jaccard_human, width = 300, height = 300, unit = "mm") 
 
 
 ###
 
-sets0 <- core %>% filter(cut %in% 0.5 & cnt > 900, habitat %in% c( "human gut" ), tool %in% tool_2) %>%
+sets0 <- core %>% filter(cut %in% 0.5 & cnt > 900, habitat %in% c( "human gut" )) %>%
   group_by(tool) %>%
   summarise(query = list(X), .groups = "drop")
 
@@ -2261,248 +2805,152 @@ new_intersect2 <- function( q_ref, q_comp){
   return(r)
 }
 
+new_union2 <- function( q_ref, q_comp){
+  A <- unlist(q_ref)
+  B <- unlist(q_comp)
+  d <- union(A, B)
+  r <- ifelse(length(d) == 0, 0, length(d))
+  return(r)
+}
+
 JI_core_overlap <- pairwise %>%
   left_join(sets0, by = c("tool_ref" = "tool")) %>%
   rename(q_ref = query) %>%
   left_join(sets0, by = c("tool_comp" = "tool")) %>%
   rename(q_comp = query)
 
-JI_core_overlap <- JI_core_overlap %>% rowwise() %>% mutate(inter = new_intersect2(q_ref, q_comp)) %>% 
+JI_core_overlap <- JI_core_overlap %>% rowwise() %>% 
+  mutate(inter = new_intersect2(q_ref, q_comp), union = new_union2(q_ref, q_comp)) %>% 
   mutate(ref_n = length(q_ref), comp_n = length(q_comp)) %>% select(-c(q_ref, q_comp)) 
 
-
-
-JI_core_overlap <- JI_core_overlap %>% mutate(recall = inter / comp_n, diff = (ref_n - inter)/ref_n)
+JI_core_overlap <- JI_core_overlap %>% 
+  mutate(recall = inter / comp_n, diff = (ref_n - inter)/ref_n, Jac = inter / union)
 
 data.frame(JI_core_overlap)
 
 JI_core_overlap %>% filter(tool_comp %in% "fARGene (nt)") %>% select(-c(diff))
 JI_core_overlap %>% filter(tool_ref %in% "fARGene (nt)") 
 
-
-
-##### abundance Radial per tool
-
-
-## factors for new_level, we take the highest abundance per ontology by tool
-
-# factor_aro <- abundance %>% ungroup() %>% filter(aggregation %in% "ARO") %>%
-#   group_by(aggregation, tool, gene ) %>% summarise(total = sum(normed10m)) %>%
-#   ungroup() %>% arrange(aggregation, tool, desc(total)) %>% 
-#   group_by(aggregation, tool, gene) %>%  ungroup() %>% select(gene) %>% distinct() %>% pull()
-#   
-# factor_parent <- abundance %>% ungroup() %>% filter(aggregation %in% "parent_description") %>%
-#   group_by(aggregation, tool, gene ) %>% summarise(total = sum(normed10m)) %>%
-#     ungroup() %>% arrange(aggregation, tool, desc(total)) %>% 
-#     group_by(aggregation, tool, gene) %>%  ungroup() %>% select(gene) %>% distinct() %>% pull()
-#   
-# factor_new_level <- abundance %>% ungroup() %>% filter(aggregation %in% "new_level") %>%
-#   group_by(aggregation, tool, gene ) %>% summarise(total = sum(normed10m)) %>%
-#     ungroup() %>% arrange(aggregation, tool, desc(total)) %>% 
-#     group_by(aggregation, tool, gene) %>%  ungroup() %>% select(gene) %>% distinct() %>% pull()
-
-# this is mainly for the circular / radial plots
-# factor_new_level2 <- c(factor_new_level[seq(1, length(factor_new_level), by = 3)],
-#                        factor_new_level[seq(1, length(factor_new_level), by = 3) + 1],
-#                        factor_new_level[seq(1, length(factor_new_level), by = 3) + 2])
+JI_core_overlap %>% ungroup() %>% group_by(tool_ref) %>% summarise(md = median(Jac))
 
 
 
-rad0 <- abundance_parent %>% filter(!habitat %in% not_env, tool %in% tool_selected, !sample %in% extreme_samples) %>% 
-  ungroup() %>% mutate(N = n_distinct(sample)) %>%  # total number of sampls
-  group_by(tool, new_level) %>% summarise(mn = log10(sum(normed10m)/N[1] +1))  %>% # average 
-  ungroup() %>% arrange(tool, desc(mn)) %>%
-  pivot_longer(-c(tool, new_level), names_to = "variable", values_to = "value") %>%
-  ungroup() %>%
-  complete(tool, new_level, variable, fill = list(value = 0)) %>%
-  group_by(tool, variable) %>%
-  mutate(angle = 2 * pi * (row_number() - 1) / n(),  # angle for each variable
-         x = sin(angle) * value,
-         y = cos(angle) * value)
+sumcore_human_class
 
+sumpan_human_class <- sumpan %>% filter(habitat %in% "human gut") %>% 
+  ungroup() %>% group_by(tool) %>% mutate(total = sum(mn)) %>% 
+  mutate(p = mn / total )
 
-# adding the first point to close the polygone
-df_poly_mn <- rad0 %>% filter(variable %in% "mn") %>%
-  group_by(tool, variable) %>%
-  do(rbind(., slice(., 1))) %>%
-  mutate(group = rep(unique(df$group), each = nrow(rad0) + 1)) 
-
-
-make_circle <- function(radius, n = 500, center_x = 0, center_y = 0) {
-  tibble(
-    x = cos(seq(0, 2 * pi, length.out = n)) * radius + center_x,
-    y = sin(seq(0, 2 * pi, length.out = n)) * radius + center_y,
-    r = radius
-  )
-}
-
-# Combine all circles into one dataframe
-circles_abundance <- bind_rows(lapply(c( 0.5, 1, 1.5, 2, 2.5, 3), make_circle))
-
-df_radial_plot <- df_poly_mn %>% filter( tool %in% c("fargene","deeparg", "rgi.diamond", "resfinder"), value > 0) %>% 
-  ungroup() %>% group_by(tool, new_level) %>% 
-  mutate(label = if_else(value == max(value) & value > 1, new_level, "")) %>% 
-  mutate(hjust_val = ifelse(x < 0, 1, 0)) %>%
-  mutate(hjust_val = ifelse(angle %in% c(0, pi / 2, pi, pi*3/2), 0.5, hjust_val)) %>%
-  mutate(angle_text = abs(atan2(x,y)* 180/pi) + 90) %>%
-  mutate(angle_text = ifelse(x > 0 & y > 0, 180 - angle_text, 
-                             ifelse(x > 0 & y < 0, 180 - angle_text, 
-                                    ifelse( x < 0 & y > 0,  angle_text - 180, 
-                                            ifelse(x < 0 & y < 0, angle_text - 180, angle_text )))))
-
-df_radial_plot1 <- bind_rows(df_radial_plot, df_radial_plot %>% mutate(x = 0, y = 0, label = ""))
+complete(sample, gene, tool, 
+         fill = list(normed10m = 0, scaled = 0, raw = 0, raw_unique = 0, unigenes = 0))
 
 
 
-fig2_2 <- df_radial_plot1 %>%
-  ggplot( aes(x = x, y = y)) +
-  geom_polygon(aes(fill = tool), alpha = 0.4) +
-  geom_point(aes(color = tool),  size = 2, alpha = 0.6) +
-  geom_text(aes(label = label, hjust = hjust_val, angle = angle_text), vjust = -0.5, size = 2) +
-  geom_path(data = circles_abundance, aes(x, y, group = r), color = "grey",  show.legend = F, alpha = 0.4) + 
-  geom_line(aes(group = new_level), alpha = 0.4) +
-  scale_fill_manual(values = pal4) +
-  scale_color_manual(values = pal4) +
-  coord_equal() +
-  facet_grid(. ~ tool) +
-  #geom_point(data = data.frame(x = 0, y = 0, tool="a"), aes(x = x, y = y), color = "black", size = 2, show.legend = F) +
+core_human_medians_heatmap <- sumcore_human_class %>% ungroup() %>% complete(tool, new_level, fill = list(unigenes = 0, total = 0)) %>%
+  ungroup() %>% 
+  group_by(new_level) %>% 
+  mutate(mx =  max(unigenes, na.rm = T)) %>% 
+  filter(mx > 0) %>% 
+  mutate(norm  = log(unigenes + 1) / log(mx + 1)) %>%
+  ggplot(aes(x = tool, y = new_level, fill = norm)) +
+  geom_tile() +
+  scale_x_discrete(labels = tool_label) +
+  scale_fill_viridis_c() + 
   theme_minimal() +
+  labs(fill = "") +
   xlab("") +
-  ylab("") +
-  labs(fill = "", color="") +
+  ylab("Gene class") +
+  ggtitle("B") + 
   theme(
-    strip.text = element_text(face = "bold"),
-    strip.background = element_rect(fill = "lightgrey", color = NA),
-    plot.title = element_text(face = "bold"),
-    legend.position = "none",
-    axis.text = element_blank(),
-    axis.ticks = element_blank(),
-    panel.grid = element_blank()) +
-  labs(title = "")
-
-fig2_2
-
-
-
-tool_name = c("rgi.diamond", "rgi.diamond.prot", "rgi.blast", "deeparg", "deeparg.prot", 
-  "fargene", "fargene.prot", "resfinder", "amrfinder", "amrfinder.prot", "abricate.argannot", 
-  "abricate.card", "abricate.megares", "abricate.ncbi", "abricate.resfinder")
-
-names(tool_name) <- c("rgi.diamond", "rgi.diamond.prot", "rgi.blast", "deeparg.norm", "deeparg.norm.prot",
-                      "fargene", "fargene.prot", "resfinder.norm", "amrfinder.norm", "amrfinder.norm.prot", "abricate.argannot.norm", 
-                      "abricate.card.norm", "abricate.megares.norm", "abricate.ncbi.norm", "abricate.resfinder.norm")
+    legend.position = "bottom",
+    legend.text = element_text(size = general_size ),
+    panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+    legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+    legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+    panel.spacing = unit(0, "pt"),
+    axis.title = element_text(size = general_size + 1, face = "bold"),
+    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+    axis.text.y = element_text(size = general_size))
 
 
 
-
-
-
-
-rad2 <- diversity_parent %>% filter(!habitat %in% not_env, tool %in% tool_selected, !sample %in% extreme_samples) %>% 
-  ungroup() %>% mutate(N = n_distinct(sample)) %>%  # total number of sampls
-  group_by(tool, new_level) %>% summarise(mn = log10(sum(unigenes)/N[1] +1))  %>% # average 
-  ungroup() %>% arrange(tool, desc(mn)) %>%
-  pivot_longer(-c(tool, new_level), names_to = "variable", values_to = "value") %>%
-  ungroup() %>%
-  complete(tool, new_level, variable, fill = list(value = 0)) %>%
-  group_by(tool, variable) %>%
-  mutate(angle = 2 * pi * (row_number() - 1) / n(),  # angle for each variable
-         x = sin(angle) * value,
-         y = cos(angle) * value)
-
-
-# adding the first point to close the polygone
-df_poly_mn_2 <- rad2 %>% filter(variable %in% "mn") %>%
-  group_by(tool, variable) %>%
-  do(rbind(., slice(., 1))) %>%
-  mutate(group = rep(unique(df$group), each = nrow(rad2) + 1)) 
-
-
-
-# Combine all circles into one dataframe
-circles_diversity <- bind_rows(lapply(c( 0.5, 1, 1.5, 2, 2.5, 3), make_circle))
-
-df_radial_plot_2 <- df_poly_mn_2 %>% filter( tool %in% c("fargene","deeparg", "rgi.diamond", "resfinder"), value > 0) %>% 
-  ungroup() %>% group_by(tool, new_level) %>% 
-  mutate(label = if_else(value == max(value) & value > 1, new_level, "")) %>% 
-  select(-angle) %>%
-  left_join(df_radial_plot %>% select(tool, new_level, angle, hjust_val, angle_text), by = c("tool", "new_level"))
-
-df_radial_plot_21 <- bind_rows(df_radial_plot_2, df_radial_plot_2 %>% mutate(x = 0, y = 0, label = ""))
-
-
-
-fig3_2 <- df_radial_plot_21 %>%
-  ggplot( aes(x = x, y = y)) +
-  geom_polygon(aes(fill = tool), alpha = 0.4) +
-  geom_point(aes(color = tool),  size = 2, alpha = 0.6) +
-  geom_text(aes(label = label, hjust = hjust_val, angle = angle_text), vjust = -0.5, size = 2) +
-  geom_path(data = circles_abundance, aes(x, y, group = r), color = "grey",  show.legend = F, alpha = 0.4) + 
-  geom_line(aes(group = new_level), alpha = 0.4) +
-  scale_fill_manual(values = pal4) +
-  scale_color_manual(values = pal4) +
-  coord_equal() +
-  facet_grid(. ~ tool) +
-  #geom_point(data = data.frame(x = 0, y = 0, tool="a"), aes(x = x, y = y), color = "black", size = 2, show.legend = F) +
+pan_human_medians_heatmap <- sumpan_human_class %>% ungroup() %>% complete(tool, gene_class, fill = list(md = 0, total = 0)) %>%
+  ungroup() %>% 
+  group_by(gene_class) %>% 
+  mutate(mx =  max(md, na.rm = T)) %>% 
+  filter(mx > 0) %>% 
+  mutate(norm  = log(md + 1) / log(mx + 1)) %>%
+  ggplot(aes(x = tool, y = gene_class, fill = norm)) +
+  geom_tile() +
+  scale_x_discrete(labels = tool_label) +
+  scale_fill_viridis_c() + 
   theme_minimal() +
+  labs(fill = "") +
   xlab("") +
-  ylab("") +
-  labs(fill = "", color="") +
+  ylab("Gene class") +
+  ggtitle("C") + 
   theme(
-    strip.text = element_text(face = "bold"),
-    strip.background = element_rect(fill = "lightgrey", color = NA),
-    plot.title = element_text(face = "bold"),
-    legend.position = "none",
-    axis.text = element_blank(),
-    axis.ticks = element_blank(),
-    panel.grid = element_blank()) +
-  labs(title = "")
+    legend.position = "bottom",
+    legend.text = element_text(size = general_size ),
+    panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+    legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+    legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+    panel.spacing = unit(0, "pt"),
+    axis.title = element_text(size = general_size + 1, face = "bold"),
+    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+    axis.text.y = element_text(size = general_size))
 
-fig3_2
-
-
-
-
-#abu_div <- abundance_parent %>% select(sample, tool, habitat, habitat2, parent_label, new_level, normed10m) %>% 
-#  left_join(diversity_parent %>% select(sample, tool, new_level, habitat, habitat2, parent_label, unigenes)) %>%
-#  ungroup() %>% mutate(N = n_distinct(sample)) %>%  group_by(sample, tool, new_level) %>% summarise(N = max(N), normed10m = sum(normed10m), unigenes = sum(unigenes)) %>% 
-#  ungroup() %>% mutate(ratio = normed10m  / unigenes) %>% mutate(logratio = log10(ratio + 1))
-
-#abu_div2 <- data.frame(abu_div %>% group_by(tool, new_level) %>% summarise(sr = sum(ratio), slr= sum(logratio), mn = sum(ratio)/max(N), mn_log = sum(logratio)/max(N)) %>% 
-#  ungroup() %>% group_by(tool) %>% mutate(normratio = (mn - mean(mn)) /sd(mn), sd = sd(mn), normrlogratio = (mn_log - mean(mn_log)) /sd(mn_log), sdlog = sd(mn_log) ))
+ggsave("~/Documents/plots_project2/core_human_heatmap.svg", core_human_medians_heatmap, width = 60, height = 100, unit = "mm")
 
 
 
+sumcore_pig_class <- sumcore %>% filter(habitat %in% "pig gut") %>% 
+  ungroup() %>% group_by(tool) %>% mutate(total = sum(unigenes)) %>% 
+  mutate(p = unigenes / total ) %>% arrange(desc(unigenes))
 
+sumcore_pig_class %>% filter(new_level %in% "GPA")
 
+sumcore_human_class %>% filter(new_level %in% "GPA")
 
-g_legend <- function(a.gplot){
-  tmp <- ggplotGrob(a.gplot)
-  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
-  legend <- tmp$grobs[[leg]]
-  return(legend)
-}
+sumcore_human_class %>% arrange(desc(unigenes))
 
-g_legend(fig2)
+sumcore %>% filter(habitat %in% c("human gut", "pig gut")) %>% ungroup() %>% 
+  group_by(tool, habitat) %>% summarise(t = sum(unigenes)) %>% mutate(pig = t[2]) %>% 
+  mutate(pig / t)
 
-fig_ab_div <- grid.arrange(fig2_2 + ggtitle("Abundance") + theme(legend.position = "none"), 
-             fig3_2 + ggtitle("Diversity") , 
-             layout_matrix = rbind(rep(1, 5), rep(1, 5), rep(1, 5), rep(1, 5), 
-                                               rep(2, 5), rep(2, 5), rep(2, 5), rep(2, 5)))
-
-
-
-png("fig_ab_div.png", , width = 1600, height = 800, res = 150)
-grid.arrange(fig2_2 + ggtitle("Abundance") + theme(legend.position = "none"), 
-             fig3_2 + ggtitle("Diversity") , 
-             layout_matrix = rbind(rep(1, 5), rep(1, 5), rep(1, 5), rep(1, 5), 
-                                   rep(2, 5), rep(2, 5), rep(2, 5), rep(2, 5)))
-dev.off()
-
-
-# bar saggered plot 
-
-
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
+####################################################################################################
 
 
 ########################################################################################
@@ -2556,376 +3004,6 @@ plot_hm_class_tool <- function(PM_new, cl, cl2, ngenes){
 }
 
 
-cl <- "deeparg.norm" #rgi.diamond, fargene
-cl2 <- "deeparg"     #rgi.diamond, fargene
-
-plot_hm_class_tool(PM_new, "deeparg.norm", "deeparg", ngenes=6)
-plot_hm_class_tool(PM_new, "deeparg.norm", "fargene", ngenes=6)
-plot_hm_class_tool(PM_new, "fargene", "fargene", ngenes=6)
-plot_hm_class_tool(PM_new, "rgi.diamond", "rgi.diamond", ngenes=6)
-plot_hm_class_tool(PM_new, "resfinder.norm", "resfinder", ngenes=6)
-
-
-png("fargene_hm.png",  width= 2000,  height = 2000, res = 150)
-plot_hm_class_tool(PM_new, "fargene", "fargene", ngenes=6)
-dev.off()
-
-png("rgi_hm.png",  width= 2000,  height = 1000, res = 150)
-plot_hm_class_tool(PM_new, "rgi.diamond", "rgi.diamond", ngenes=6)
-dev.off()
-
-png("deeparg_hm.png",  width= 2000,  height = 1000, res = 150)
-plot_hm_class_tool(PM_new, "deeparg.norm", "deeparg", ngenes=6)
-dev.off()
-
-png("deeparg_with_fargene_genes_hm.png",  width= 2000,  height = 1000, res = 150)
-plot_hm_class_tool(PM_new, "deeparg.norm", "fargene", ngenes=6)
-dev.off()
-
-
-
-#########################################################################
-#########################################################################
-#########################################################################
-#########################################################################
-
-
-id.tools <- tools_per_unigene %>% select(tool, query, new_level, id) %>% distinct()
-for(j in unique(id.tools$tool)){
-  id.tools[,j] <- id.tools$query %in% id.tools$query[id.tools$tool==j]
-}
-
-
-ggplot(id.tools %>% filter(new_level %in% fg_classes, !fargene), aes(id, colour = tool, linetype = fargene)) +
-  stat_ecdf() +
-  facet_wrap(. ~ new_level, scales = "free_y")
-
-ggplot(id.tools %>% filter(new_level %in% fg_classes, !fargene), aes(id, colour = tool, linetype = fargene)) +
-  geom_freqpoly(binwidth = 1) +
-  facet_wrap(. ~ new_level, scales = "free_y")
-
-
-id.tools <- id.tools %>% mutate(tool = factor(tool_name[tool], levels = tool_selected))
-
-
-
-plot_positive_id <- function(id.tools, cl, g, ngenes){
-  cl3 <- diversity_parent %>% filter(tool %in% cl) %>% 
-    group_by(new_level) %>%
-    summarise(m = n_distinct(unigenes)) %>% arrange(desc(m)) %>% 
-    ungroup() %>% select(new_level) %>% mutate(as.character(new_level)) %>% pull() 
-  cl3 <- as.character(unique(cl3[1:ngenes]))
-  
-  ggplot(id.tools %>% 
-           #mutate(fargene = ifelse(tool %in% "fargene", !fargene, fargene)) %>% 
-           filter(new_level %in% cl3, !!sym(g)) %>% mutate(new_level = factor(new_level, levels = cl3)) %>%
-           ungroup() %>% group_by(tool, new_level, !!sym(g)) %>% arrange(id), aes( id, colour = tool)) +
-    geom_freqpoly(binwidth = 5, alpha = 0.7, linewidth = 1.5) +
-    facet_wrap(. ~ new_level, scales = "free_y", nrow = 2) +  
-    theme_minimal() +
-    xlab("Identity level") +
-    ylab("Unigenes") +
-    labs(color="Tool") +
-    theme(
-      strip.text = element_text(face = "bold"),
-      strip.background = element_rect(fill = "lightgrey", color = NA),
-      plot.title = element_text(face = "bold"),
-      legend.position = "bottom")
-}
-
-
-
-plot_negative_id <- function(id.tools, cl, cl2, g, ngenes){
-
-  cl3 <- diversity_parent %>% filter(tool %in% cl) %>% 
-    group_by(new_level) %>%
-    summarise(m = n_distinct(unigenes)) %>% arrange(desc(m)) %>% 
-    ungroup() %>% select(new_level) %>% mutate(as.character(new_level)) %>% pull() 
-  cl3 <- as.character(unique(cl3[1:ngenes]))
-  
-  dftemp <- id.tools %>% 
-    mutate(gr = ifelse(tool %in% cl2, !!sym(g), !!sym(g))) %>% 
-    filter(new_level %in% cl3, !gr) %>% mutate(new_level = factor(new_level, levels = cl3)) %>%
-    ungroup() %>% group_by(tool, new_level, gr) %>% arrange(id)
-  
-  ggplot(dftemp, aes( id, colour = tool)) +
-    geom_freqpoly(binwidth = 5, alpha = 0.7,  linewidth = 1.5) +
-    scale_color_discrete(drop = FALSE) +
-    facet_wrap(. ~ new_level, scales = "free_y", nrow = 2) +  
-    theme_minimal() +
-    xlab("Identity level") +
-    ylab("Unigenes") +
-    labs(color="Tool") +
-    theme(
-      strip.text = element_text(face = "bold"),
-      strip.background = element_rect(fill = "lightgrey", color = NA),
-      plot.title = element_text(face = "bold"),
-      legend.position = "bottom")
-}
-
-fgpos <- plot_positive_id(id.tools, "fargene", "fargene", 6)
-fgneg <- plot_negative_id(id.tools, "fargene", "fargene", "fargene", 6)
-
-rgipos <- plot_positive_id(id.tools, "rgi.diamond", "rgi.diamond", 6)
-rgineg <- plot_negative_id(id.tools, "rgi.diamond", "rgi.diamond", "rgi.diamond", 6)
-
-rgipos_fg <- plot_positive_id(id.tools, "fargene", "rgi.diamond", 6)
-rgineg_fg <- plot_negative_id(id.tools, "fargene", "rgi.diamond", "rgi.diamond", 6)
-
-deepargpos <- plot_positive_id(id.tools,  "fargene", "deeparg.norm", 6)
-deepargneg <-plot_negative_id(id.tools, "fargene","deeparg", "deeparg.norm", 6)
-
-deepargpos_fg <- plot_positive_id(id.tools,  "fargene", "deeparg.norm", 6)
-deepargneg_fg <-plot_negative_id(id.tools, "fargene","deeparg", "deeparg.norm", 6)
-
-deepargpos <- plot_positive_id(id.tools, "deeparg", "deeparg.norm", 6)
-deepargneg <-plot_negative_id(id.tools, "deeparg", "deeparg", "deeparg.norm", 6)
-
-rfpos <- plot_positive_id(id.tools, "resfinder", "resfinder.norm", 6)
-rfneg <- plot_negative_id(id.tools, "resfinder", "resfinder", "resfinder.norm", 6)
-
-
-he = 500
-wi = 900
-
-png("fargene_pos.png",  width= wi,  height = he, res = 150)
-fgpos
-dev.off()
-
-png("fargene_neg.png",  width= wi,  height = he, res = 150)
-fgneg
-dev.off()
-
-png("rgi_pos.png",  width= wi,  height = he, res = 150)
-rgipos
-dev.off()
-
-png("rgi_neg.png",  width= wi,  height = he, res = 150)
-rgineg
-dev.off()
-
-png("deep_pos.png",  width= wi,  height = he, res = 150)
-deepargpos
-dev.off()
-
-png("deep_neg.png",  width= wi,  height = he, res = 150)
-deepargneg
-dev.off()
-
-png("deep_pos_with_fg_gene.png",  width= wi,  height = he, res = 150)
-deepargpos_fg
-dev.off()
-
-png("deep_neg_with_fg_gene.png.png",  width= wi,  height = he, res = 150)
-deepargneg_fg
-dev.off()
-
-
-
-
-
-###
-
-lst$rgi.diamond$new_level <- new_level_df$new[match(lst$rgi.diamond$parent_description, new_level_df$old)]
-ggplot(lst$rgi.diamond %>% filter(new_level %in% c("GPA", "TET - RPG")),
-       aes(Best_Hit_Bitscore, colour = new_level)) +
-  geom_freqpoly(binwidth = 5, alpha = 0.7,  linewidth = 1.5) +
-  scale_color_discrete(drop = FALSE) +
-  facet_wrap(. ~ new_level, scales = "free_y", nrow = 2) +  
-  scale_x_continuous(breaks = seq(0,1200, 100)) +
-  theme_minimal() +
-  xlab("Bitscore") +
-  ylab("Unigenes") +
-  labs(color="") +
-  theme(
-    strip.text = element_text(face = "bold"),
-    strip.background = element_rect(fill = "lightgrey", color = NA),
-    plot.title = element_text(face = "bold"),
-    legend.position = "none")
-  
-
-ggplot(lst$rgi.diamond,
-       aes(x = parent_description, fill = new_level)) +
-  geom_bar() +
-  scale_color_discrete(drop = FALSE) +
-  facet_grid(. ~ new_level, scales = "free_x") +  
-  theme_minimal() +
-  xlab("") +
-  scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
-                labels = scales::trans_format("log10", scales::math_format(10^.x)))  +
-  ylab("Unigenes") +
-  labs(color="") +
-  theme(
-    legend.position = "none",
-    panel.grid.major.x = element_blank(),
-    panel.grid.minor.x = element_blank(),
-    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
-
-
-
-lst$deeparg.norm$new_level <- new_level_df$new[match(lst$deeparg.norm$parent_description, new_level_df$old)]
-ggplot(lst$deeparg.norm,
-       aes(x = parent_description, fill = new_level)) +
-  geom_bar() +
-  scale_color_discrete(drop = FALSE) +
-  facet_grid(. ~ new_level, scales = "free_x") +  
-  theme_minimal() +
-  xlab("") +
-  #scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
-  #              labels = scales::trans_format("log10", scales::math_format(10^.x)))  +
-  ylab("Unigenes") +
-  labs(color="") +
-  theme(
-    legend.position = "none",
-    panel.grid.major.x = element_blank(),
-    panel.grid.minor.x = element_blank(),
-    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
-
-
-lst$deeparg.norm %>% group_by(new_level, ARG.class) %>% summarise(n = n()) %>% arrange(desc(n))
-##
-##
-
-
-
-saveRDS(df2, file = "~/df2.rds")
-unique(df2$Parent_Label)
-
-
-
-
-#########################################
-#########################################
-
-
-##### abundance Radial per tool
-
-rad0_env <- abundance_parent %>% filter(habitat %in% c("human gut", "wastewater"), tool %in% c("deeparg","rgi.diamond","fargene"), !sample %in% extreme_samples) %>% 
-  ungroup() %>% group_by(habitat) %>% mutate(N = n_distinct(sample)) %>%  # total number of sampls
-  ungroup() %>% group_by(tool, habitat, new_level) %>% summarise(mn = log10(sum(normed10m)/N[1] +1))  %>% # average 
-  ungroup() %>% arrange(tool, desc(mn)) %>%
-  pivot_longer(-c(tool, habitat, new_level), names_to = "variable", values_to = "value") %>%
-  ungroup() %>%
-  complete(tool, habitat, new_level, variable, fill = list(value = 0)) %>%
-  group_by(tool, habitat, variable) %>%
-  mutate(angle = 2 * pi * (row_number() - 1) / n(),  # angle for each variable
-         x = sin(angle) * value,
-         y = cos(angle) * value)
-
-
-# adding the first point to close the polygone
-df_poly_mn_env <- rad0_env %>% filter(variable %in% "mn") %>%
-  group_by(tool, habitat, variable) %>%
-  do(rbind(., slice(., 1))) %>%
-  mutate(group = rep(unique(df$group), each = nrow(rad0) + 1)) 
-
-# Combine all circles into one dataframe
-circles_abundance <- bind_rows(lapply(c( 0.5, 1, 1.5, 2, 2.5, 3), make_circle))
-
-df_radial_plot_env <- df_poly_mn_env %>% filter( value > 0) %>% 
-  ungroup() %>% group_by(tool, habitat, new_level) %>% 
-  mutate(label = if_else(value == max(value) & value > 1, new_level, "")) %>% 
-  mutate(hjust_val = ifelse(x < 0, 1, 0)) %>%
-  mutate(hjust_val = ifelse(angle %in% c(0, pi / 2, pi, pi*3/2), 0.5, hjust_val)) %>%
-  mutate(angle_text = abs(atan2(x,y)* 180/pi) + 90) %>%
-  mutate(angle_text = ifelse(x > 0 & y > 0, 180 - angle_text, 
-                             ifelse(x > 0 & y < 0, 180 - angle_text, 
-                                    ifelse( x < 0 & y > 0,  angle_text - 180, 
-                                            ifelse(x < 0 & y < 0, angle_text - 180, angle_text )))))
-
-df_radial_plot1_env <- bind_rows(df_radial_plot_env, df_radial_plot_env %>% mutate(x = 0, y = 0, label = ""))
-
-
-
-fig2_2_env <- df_radial_plot1_env %>%
-  ggplot( aes(x = x, y = y)) +
-  geom_polygon(aes(fill = tool), alpha = 0.4) +
-  geom_point(aes(color = tool),  size = 2, alpha = 0.6) +
-  geom_text(aes(label = label, hjust = hjust_val, angle = angle_text), vjust = -0.5, size = 2) +
-  geom_path(data = circles_abundance, aes(x, y, group = r), color = "grey",  show.legend = F, alpha = 0.4) + 
-  geom_line(aes(group = new_level), alpha = 0.4) +
-  scale_fill_manual(values = pal4) +
-  scale_color_manual(values = pal4) +
-  coord_equal() +
-  facet_grid(habitat ~ tool) +
-  #geom_point(data = data.frame(x = 0, y = 0, tool="a"), aes(x = x, y = y), color = "black", size = 2, show.legend = F) +
-  theme_minimal() +
-  xlab("") +
-  ylab("") +
-  labs(fill = "", color="") +
-  theme(
-    strip.text = element_text(face = "bold"),
-    strip.background = element_rect(fill = "lightgrey", color = NA),
-    plot.title = element_text(face = "bold"),
-    legend.position = "none",
-    axis.text = element_blank(),
-    axis.ticks = element_blank(),
-    panel.grid = element_blank()) +
-  labs(title = "")
-
-fig2_2_env
-
-
-
-
-rad2_env <- diversity_parent %>% filter(habitat %in% c("human gut", "wastewater"), tool %in% c("deeparg","rgi.diamond","fargene"), !sample %in% extreme_samples) %>% 
-  ungroup() %>% group_by(habitat) %>% mutate(N = n_distinct(sample)) %>%  # total number of sampls
-  group_by(tool, habitat, new_level) %>% summarise(mn = log10(sum(unigenes)/N[1] +1))  %>% # average 
-  ungroup() %>% arrange(tool, desc(mn)) %>%
-  pivot_longer(-c(tool, habitat, new_level), names_to = "variable", values_to = "value") %>%
-  ungroup() %>%
-  complete(tool, habitat, new_level, variable, fill = list(value = 0)) %>%
-  group_by(tool, habitat, variable) %>%
-  mutate(angle = 2 * pi * (row_number() - 1) / n(),  # angle for each variable
-         x = sin(angle) * value,
-         y = cos(angle) * value)
-
-
-# adding the first point to close the polygone
-df_poly_mn_2_env <- rad2_env %>% filter(variable %in% "mn") %>%
-  group_by(tool, habitat, variable) %>%
-  do(rbind(., slice(., 1))) %>%
-  mutate(group = rep(unique(df$group), each = nrow(rad2) + 1)) 
-
-
-df_radial_plot_21_env <- df_poly_mn_2_env %>% filter(  value > 0) %>% 
-  ungroup() %>% group_by(tool, habitat, new_level) %>% 
-  mutate(label = if_else(value == max(value) & value > 1, new_level, "")) %>% 
-  select(-angle) %>%
-  left_join(df_radial_plot_env %>% select(tool, habitat, new_level, angle, hjust_val, angle_text), by = c("tool", "habitat", "new_level"))
-
-df_radial_plot_21_env <- bind_rows(df_radial_plot_21_env, df_radial_plot_21_env %>% mutate(x = 0, y = 0, label = ""))
-
-
-
-fig3_2_env <- df_radial_plot_21_env %>%
-  ggplot( aes(x = x, y = y)) +
-  geom_polygon(aes(fill = tool), alpha = 0.4) +
-  geom_point(aes(color = tool),  size = 2, alpha = 0.6) +
-  geom_text(aes(label = label, hjust = hjust_val, angle = angle_text), vjust = -0.5, size = 2) +
-  geom_path(data = circles_abundance, aes(x, y, group = r), color = "grey",  show.legend = F, alpha = 0.4) + 
-  geom_line(aes(group = new_level), alpha = 0.4) +
-  scale_fill_manual(values = pal4) +
-  scale_color_manual(values = pal4) +
-  coord_equal() +
-  facet_grid(habitat ~ tool) +
-  #geom_point(data = data.frame(x = 0, y = 0, tool="a"), aes(x = x, y = y), color = "black", size = 2, show.legend = F) +
-  theme_minimal() +
-  xlab("") +
-  ylab("") +
-  labs(fill = "", color="") +
-  theme(
-    strip.text = element_text(face = "bold"),
-    strip.background = element_rect(fill = "lightgrey", color = NA),
-    plot.title = element_text(face = "bold"),
-    legend.position = "none",
-    axis.text = element_blank(),
-    axis.ticks = element_blank(),
-    panel.grid = element_blank()) +
-  labs(title = "")
-
-fig3_2_env
-
 
 
 
@@ -2934,56 +3012,165 @@ fig3_2_env
 # Venn diagrams
 
 
-rgi.ven = ggVennDiagram(list(FNA = lst$rgi.diamond$query,
-                             FNA.blast = lst$rgi.blast$query,
-                             FAA = lst$rgi.diamond.prot$query),
-                        color = 1, lwd = 0.7, label_size = 3, set_size = 3) + 
-  scale_fill_gradient(low = "#F4FAFE", high = pal[length(pal)]) +
+card.ven <- ggVennDiagram(list(a1 = lst$rgi.diamond$query,
+                             a2 = lst$abricate.card.norm$query),
+                        color = 1, lwd = 0.7, label_size = 2, set_size = 2) + 
+  scale_fill_gradientn(colors = c(pal_10_q[3], pal_10_q[4]), "white") +
   theme(legend.position = "none") +
-  ggtitle("RGI")
+  ggtitle("") +
+  theme(
+    legend.text = element_text(size = general_size),
+    legend.title = element_text(size = general_size + 1),
+    text = element_text(size = general_size),
+    axis.text  = element_blank(),
+    title = element_text(size = general_size + 2, , face = "bold"))
 
-rgi.diamond.ven = ggVennDiagram(list(FNA = lst$rgi.diamond$query,
-                                     FAA = lst$rgi.diamond.prot$query),
-                                color = 1, lwd = 0.7, label_size = 3, set_size = 3) + 
-  scale_fill_gradient(low = "#F4FAFE", high = pal[length(pal)]) +
-  theme(legend.position = "none") +
-  ggtitle("RGI")
+card.ven + coord_flip()
 
-deeparg.ven = ggVennDiagram(list(FNA = lst$deeparg.norm$query,
-                                 FAA = lst$deeparg.norm.prot$query),
-                            color = 1, lwd = 0.7, label_size = 3, set_size = 3) + 
-  scale_fill_gradient(low = "#F4FAFE", high = pal[length(pal)]) +
-  theme(legend.position = "none") +
-  ggtitle("deepARG")
+card.ven@region$fill_color <- c(
+  pal_10_q[3],     # color for a1 only
+  pal_10_q[4],     # color for a2 only
+  "white"          # color for a1 ∩ a2
+)
 
-fargene.ven = ggVennDiagram(list(FNA = lst$fargene$query,
-                                 FAA = lst$fargene.prot$query),
-                            color = 1, lwd = 0.7, label_size = 3, set_size = 3) + 
-  scale_fill_gradient(low = "#F4FAFE", high = pal[length(pal)]) +
+rf.ven = ggVennDiagram(list(a1 = lst$resfinder.norm$query,
+                              a2 = lst$abricate.resfinder.norm$query),
+                         color = 1, lwd = 0.7, label_size = 2, set_size = 2) + 
+  scale_fill_gradientn(colors = c(pal_10_q[7], pal_10_q[8]), "white") +
   theme(legend.position = "none") +
-  ggtitle("fARGene")
+  ggtitle("") +
+  theme(
+    legend.text = element_text(size = general_size),
+    legend.title = element_text(size = general_size + 1),
+    text = element_text(size = general_size),
+    axis.text  = element_blank(),
+    title = element_text(size = general_size + 2, , face = "bold"))
+
+rf.ven + coord_flip()
+ggsave("~/Documents/plots_project2/rf.ven.svg", rf.ven + coord_flip(), width = 70, height = 20, unit = "mm")
+
+fit <- euler(c('A' = sum(!lst$abricate.resfinder.norm$query %in% lst$resfinder.norm$query), 
+               'B' = sum(!lst$resfinder.norm$query %in% lst$abricate.resfinder.norm$query), 
+               'A&B' = sum(lst$resfinder.norm$query %in% lst$abricate.resfinder.norm$query)))
+
+ggsave(file="~/Documents/plots_project2/rf.ven.svg", 
+       plot=plot(fit, fill=c(pal_10_q[8], pal_10_q[7], "white"), 
+                 labels = list(cex = 0.5), quantities = list(cex = 0.5)), width = 150, height = 20, unit = "mm")
+
+fit <- euler(c('A' = sum(!lst$abricate.card.norm$query %in% lst$rgi.diamond$query), 
+               'B' = sum(!lst$rgi.diamond$query %in% lst$abricate.card.norm$query), 
+               'A&B' = sum(lst$rgi.diamond$query %in% lst$abricate.card.norm$query)))
+
+ggsave(file="~/Documents/plots_project2/card.ven.svg", 
+       plot=plot(fit, fill=c(pal_10_q[4], pal_10_q[3], "white"), 
+                 labels = list(cex = 0.5), quantities = list(cex = 0.5)), width = 150, height = 20, unit = "mm")
+
+
+
+fit <- euler(c('A' = sum(!lst$abricate.ncbi.norm$query %in% lst$amrfinder.norm.prot$query), 
+               'B' = sum(!lst$amrfinder.norm.prot$query %in% lst$abricate.ncbi.norm$query), 
+               'A&B' = sum(lst$amrfinder.norm.prot$query %in% lst$abricate.ncbi.norm$query)))
+
+ggsave(file="~/Documents/plots_project2/ncbi.ven.svg", 
+       plot=plot(fit, fill=c(pal_10_q[6], pal_10_q[5], "white"), 
+                 labels = list(cex = 0.5), quantities = list(cex = 0.5)), width = 150, height = 20, unit = "mm")
+
+
+
+rgi.ven = ggVennDiagram(list(a1 = lst$rgi.diamond$query,
+                             a2 = lst$rgi.blast$query,
+                             b1 = lst$rgi.diamond.prot$query),
+                        color = 1, lwd = 0.7, label_size = 2, set_size = 2) + 
+  scale_fill_gradient(low = "#F4FAFE", high = pal_10_q[3]) +
+  theme(legend.position = "none") +
+  ggtitle("A") +
+  theme(
+    legend.text = element_text(size = general_size),
+    legend.title = element_text(size = general_size + 1),
+    text = element_text(size = general_size),
+    axis.text  = element_blank(),
+    title = element_text(size = general_size + 2, , face = "bold"))
+
+rgi.ven
+
+rgi.diamond.ven = ggVennDiagram(list(a = lst$rgi.diamond$query,
+                                     b = lst$rgi.diamond.prot$query),
+                                color = 1, lwd = 0.7, label_size = 2, set_size = 2) + 
+  scale_fill_gradient(low = "#F4FAFE", high = pal_10_q[3]) +
+  theme(legend.position = "none") +
+  ggtitle("RGI") +
+  theme(
+    legend.text = element_text(size = general_size),
+    legend.title = element_text(size = general_size + 1),
+    text = element_text(size = general_size),
+    axis.text  = element_blank(),
+    title = element_text(size = general_size + 2, , face = "bold"))
+
+rgi.diamond.ven
+
+deeparg.ven = ggVennDiagram(list(a = lst$deeparg.norm$query,
+                                 b = lst$deeparg.norm.prot$query),
+                                 color = 1, lwd = 0.1, label_size = 2, set_size = 2) + 
+  scale_fill_gradient(low = "#F4FAFE", high = pal_10_q[1]) +
+  theme(legend.position = "none") +
+  ggtitle("B") +
+  theme(
+    legend.text = element_text(size = general_size),
+    legend.title = element_text(size = general_size + 1),
+    text = element_text(size = general_size),
+    axis.text  = element_blank(),
+    title = element_text(size = general_size + 2, , face = "bold"))
+
+deeparg.ven
+
+fargene.ven = ggVennDiagram(list(a = lst$fargene$query,
+                                 b = lst$fargene.prot$query),
+                            color = 1, lwd = 0.1, label_size = 2, set_size = 2) + 
+  scale_fill_gradient(low = "#F4FAFE", high = pal_10_q[2]) +  theme(legend.position = "none") +
+  ggtitle("C") +
+  theme(
+    legend.text = element_text(size = general_size),
+    legend.title = element_text(size = general_size + 1),
+    text = element_text(size = general_size),
+    axis.text  = element_blank(),
+    title = element_text(size = general_size + 2, , face = "bold"))
+
 fargene.ven
 
-amrfinder.ven = ggVennDiagram(list(FNA = lst$amrfinder.norm$query,
-                                   FAA = lst$amrfinder.norm.prot$query),
-                              color = 1, lwd = 0.7, label_size = 3, set_size = 3) + 
-  scale_fill_gradient(low = "#F4FAFE", high = pal[length(pal)]) +
-  theme(legend.position = "none") +
-  ggtitle("amrfinder")
+amrfinder.ven = ggVennDiagram(list(a = lst$amrfinder.norm$query,
+                                   b = lst$amrfinder.norm.prot$query),
+                              color = 1, lwd = 0.1, label_size = 2, set_size = 2) + 
+  scale_fill_gradient(low = "#F4FAFE", high = pal_10_q[4]) +  theme(legend.position = "none") +
+  ggtitle("D") +
+  theme(
+    legend.text = element_text(size = general_size),
+    legend.title = element_text(size = general_size + 1),
+    text = element_text(size = general_size),
+    axis.text  = element_blank(),
+    title = element_text(size = general_size + 2, , face = "bold"))
+
+amrfinder.ven
 
 abricate.ven = ggVennDiagram(list(argannot = lst$abricate.argannot.norm$query,
                                   card = lst$abricate.card.norm$query,
                                   megares = lst$abricate.megares.norm$query,
                                   ncbi = lst$abricate.ncbi.norm$query,
                                   resfinder = lst$abricate.resfinder.norm$query),
-                             color = 1, lwd = 0.7, label_size = 3, set_size = 3) + 
-  scale_fill_gradient(low = "#F4FAFE", high = pal[length(pal)]) +
-  theme(legend.position = "none") +
-  ggtitle("abricate")
+                                  color = 1, lwd = 0.1, label_size = 2, set_size = 2) + 
+  scale_fill_gradient(low = "#F4FAFE", high = pal_10_q[2]) +  theme(legend.position = "none") +
+  ggtitle("abricate") +
+  theme(
+    legend.text = element_text(size = general_size),
+    legend.title = element_text(size = general_size + 1),
+    text = element_text(size = general_size),
+    axis.text  = element_blank(),
+    title = element_text(size = general_size + 2, , face = "bold"))
+
+
+ggsave("~/Documents/plots_project2/venn_diag.svg", grid.arrange(rgi.ven, deeparg.ven, fargene.ven, amrfinder.ven, nrow = 2), width = 70, height = 70, unit = "mm")
 
 
 
-grid.arrange(rgi.ven, deeparg.ven, fargene.ven, amrfinder.ven, nrow = 2)
 
 png("venn_fargene.png",  width= wi,  height = he, res = 150)
 fargene.ven
@@ -3004,3 +3191,345 @@ dev.off()
 png("venn_abricate.png",  width= wi,  height = he, res = 150)
 abricate.ven
 dev.off()
+
+
+
+
+
+
+
+########
+
+
+abundance  %>% 
+  group_by(tool, sample, aggregation) %>% 
+  summarise(total = sum(normed10m)) %>%
+  ungroup() %>% group_by(tool, aggregation) %>%
+  summarise(md = median(total)+1, q25 = quantile(total, 0.25) + 1, q75 = quantile(total, 0.75) + 1) 
+
+
+abundance  %>% 
+  group_by(tool, sample, aggregation) %>% 
+  summarise(total = sum(unigenes)) %>%
+  ungroup() %>% group_by(tool, aggregation) %>%
+  summarise(md = median(total)+1, q25 = quantile(total, 0.25) + 1, q75 = quantile(total, 0.75) + 1) 
+
+
+abundance_medians_h2 <- abundance  %>% 
+  group_by(habitat2, location, tool, sample, aggregation) %>% 
+  summarise(total = sum(normed10m)) %>%
+  ungroup() %>% group_by(habitat2, location, tool, aggregation) %>%
+  summarise(md = median(total)+1, q25 = quantile(total, 0.25) + 1, q75 = quantile(total, 0.75) + 1) 
+
+diversity_medians_h2 <- abundance  %>% 
+  group_by(habitat2, location, tool, sample, aggregation) %>% 
+  summarise(total = sum(unigenes)) %>%
+  ungroup() %>% group_by(habitat2, location, tool, aggregation) %>%
+  summarise(md = median(total)+1, q25 = quantile(total, 0.25) + 1, q75 = quantile(total, 0.75) + 1)
+
+
+abundance_medians_h2 <- abundance_medians_h2 %>% mutate(habitat2_factor = as.numeric(habitat2)) %>%
+  mutate(habitat2_factor = ifelse(tool %in% c("RGI (DIAMOND - nt)"), habitat2_factor + 0.3, habitat2_factor)) %>%
+  mutate(habitat2_factor = ifelse(tool %in% c("ABRicate (CARD - nt)"), habitat2_factor + 0.35, habitat2_factor)) %>%
+  mutate(habitat2_factor = ifelse(tool %in% c("AMRFinderPlus (aa)"), habitat2_factor + 0.5, habitat2_factor)) %>%
+  mutate(habitat2_factor = ifelse(tool %in% c("ABRicate (NCBI - nt)"), habitat2_factor + 0.55, habitat2_factor)) %>%
+  mutate(habitat2_factor = ifelse(tool %in% c("ResFinder (nt)"), habitat2_factor + 0.65, habitat2_factor)) %>% 
+  mutate(habitat2_factor = ifelse(tool %in% c("ABRicate (ResFinder - nt)"), habitat2_factor + 0.7, habitat2_factor)) %>% 
+  mutate(habitat2_factor = ifelse(tool %in% c("fARGene (nt)"), habitat2_factor + 0.05, habitat2_factor)) %>%
+  mutate(habitat2_factor = ifelse(tool %in% c("ABRicate (ARG-ANNOT - nt)"), habitat2_factor + 0.1, habitat2_factor))  %>%
+  mutate(habitat2_factor = ifelse(tool %in% c("ABRicate (MEGARES - nt)"), habitat2_factor + 0.15, habitat2_factor)) 
+
+diversity_medians_h2 <- diversity_medians_h2 %>% mutate(habitat2_factor = as.numeric(habitat2)) %>%
+  mutate(habitat2_factor = ifelse(tool %in% c("RGI (DIAMOND - nt)"), habitat2_factor + 0.3, habitat2_factor)) %>%
+  mutate(habitat2_factor = ifelse(tool %in% c("ABRicate (CARD - nt)"), habitat2_factor + 0.35, habitat2_factor)) %>%
+  mutate(habitat2_factor = ifelse(tool %in% c("AMRFinderPlus (aa)"), habitat2_factor + 0.5, habitat2_factor)) %>%
+  mutate(habitat2_factor = ifelse(tool %in% c("ABRicate (NCBI - nt)"), habitat2_factor + 0.55, habitat2_factor)) %>%
+  mutate(habitat2_factor = ifelse(tool %in% c("ResFinder (nt)"), habitat2_factor + 0.65, habitat2_factor)) %>% 
+  mutate(habitat2_factor = ifelse(tool %in% c("ABRicate (ResFinder - nt)"), habitat2_factor + 0.7, habitat2_factor)) %>% 
+  mutate(habitat2_factor = ifelse(tool %in% c("fARGene (nt)"), habitat2_factor + 0.05, habitat2_factor)) %>%
+  mutate(habitat2_factor = ifelse(tool %in% c("ABRicate (ARG-ANNOT - nt)"), habitat2_factor + 0.1, habitat2_factor))  %>%
+  mutate(habitat2_factor = ifelse(tool %in% c("ABRicate (MEGARES - nt)"), habitat2_factor + 0.15, habitat2_factor)) 
+
+abundance_plot_2 <- abundance_medians_h2  %>% 
+  ggplot(aes( x = habitat2_factor, y = md, fill = tool, color = tool, group = interaction(tool, location))) +
+  geom_rect(data = rects, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, alpha = alpha), fill = "grey", inherit.aes = FALSE) +
+  geom_line(linetype = 3, linewidth = 0.7, show.legend = FALSE) +
+  geom_rect(aes(
+    xmin = as.numeric(habitat2_factor) - 0.03,
+    xmax = as.numeric(habitat2_factor) + 0.03,
+    ymin = q25,
+    ymax = q75), color = "black", linewidth = 0.2) + 
+  geom_point(shape = 15, color = "black") +
+  scale_color_manual(values = pal_10_q, labels = tool_label) +
+  scale_fill_manual(values = pal_10_q, labels = tool_label) +
+  theme_minimal() +
+  scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
+                labels = scales::trans_format("log10", scales::math_format(10^.x)),
+                limits = c(1, 27300), expand = c(0, 0)) + 
+  scale_x_continuous(limits = c(0.9, 7), expand = c(0, 0), breaks = c(1.5, 2.5, 3.5, 4.5, 5.5, 6.5), labels = levels(abundance_medians_h2$habitat2)) + 
+  scale_alpha(range = c(0, 0.3), guide = "none") +
+  ylab("Abundance") +
+  xlab("") +
+  labs(fill = "") +
+  ggtitle("B") +
+  theme(
+    legend.position = "bottom",
+    legend.text = element_text(size = general_size ),
+    panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+    legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+    legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+    panel.spacing = unit(0, "pt"),
+    title = element_text(size = general_size + 2, face = "bold"),
+    axis.title = element_text(size = general_size + 1, face = "bold"),
+    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+    axis.text.y = element_text(size = general_size))
+
+abundance_plot_2
+
+
+
+diversity_plot_2 <- diversity_medians_h2  %>% 
+  ggplot(aes( x = habitat2_factor, y = md, fill = tool, color = tool, group = interaction(tool, location))) +
+  geom_rect(data = rects2, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, alpha = alpha), fill = "grey", inherit.aes = FALSE) +
+  geom_line(linetype = 3, linewidth = 0.7, show.legend = FALSE) +
+  geom_rect(aes(
+    xmin = as.numeric(habitat2_factor) - 0.03,
+    xmax = as.numeric(habitat2_factor) + 0.03,
+    ymin = q25,
+    ymax = q75), color = "black", linewidth = 0.2) + 
+  geom_point(shape = 15, color = "black") +
+  scale_color_manual(values = pal_10_q, labels = tool_label) +
+  scale_fill_manual(values = pal_10_q, labels = tool_label) +
+  theme_minimal() +
+  scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
+                labels = scales::trans_format("log10", scales::math_format(10^.x)),
+                limits = c(1, 1400), expand = c(0, 0)) + 
+  scale_x_continuous(limits = c(0.9, 7), expand = c(0, 0), breaks = c(1.5, 2.5, 3.5, 4.5, 5.5, 6.5), labels = levels(abundance_medians_h2$habitat2)) + 
+  scale_alpha(range = c(0, 0.3), guide = "none") +
+  ylab("Diversity") +
+  xlab("") +
+  labs(fill = "") +
+  ggtitle("C") +
+  theme(
+    legend.position = "bottom",
+    legend.text = element_text(size = general_size ),
+    panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank(),
+    plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+    legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+    legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+    panel.spacing = unit(0, "pt"),
+    title = element_text(size = general_size + 2, face = "bold"),
+    axis.title = element_text(size = general_size + 1, face = "bold"),
+    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+    axis.text.y = element_text(size = general_size))
+
+diversity_plot_2
+
+
+df <- data.frame(
+  x = 1:7,
+  y = c(1:7)
+)
+
+max_y <- max(27300)
+
+# Create a data frame for the rectangles
+rects <- data.frame(
+  xmin = df$x - .1,
+  xmax = df$x + .9,
+  ymin = 1,
+  ymax = max_y,
+  alpha = rep( c(0, .1), length.out = nrow(df))
+)
+
+rects2 <- data.frame(
+  xmin = df$x - .1,
+  xmax = df$x + .9,
+  ymin = 1,
+  ymax = 1400,
+  alpha = rep( c(0, .1), length.out = nrow(df))
+)
+
+unigenes
+
+
+
+abundance_3 <- abundance  %>% 
+  group_by(tool, aggregation) %>% 
+  summarise(total = sum(normed10m), 
+            md = median(normed10m), 
+            mn = mean(normed10m), 
+            q25 = quantile(normed10m, 0.25) , 
+            q75 = quantile(total, 0.75))
+
+abundance_3 <- abundance_3 %>% left_join(unigenes  %>% group_by(tool) %>% summarise(n = n_distinct(query)) %>% ungroup() %>% arrange(n))
+
+
+ggplot(abundance_3, aes(x = log(n), y = log(total), color = tool, fill = tool)) +
+  geom_point() + 
+  geom_smooth(aes(x = log(n), y = log(total)), method = "lm", se = FALSE, color = "black", linetype = "dashed", inherit.aes = FALSE) 
+
+plot(log(abundance_3$n), log(abundance_3$total))
+abline(a = 0, b = 1, col = "red", lty = 2)
+
+
+
+
+ggsave("~/Documents/plots_project2/abundance_2.svg", abundance_plot_2 + theme( legend.position = "none"), width = 180, height = 70, unit = "mm")
+ggsave("~/Documents/plots_project2/diversity_2.svg", diversity_plot_2 + theme( legend.position = "none"), width = 180, height = 70, unit = "mm")
+ggsave("~/Documents/plots_project2/abundance_legend_2.svg", g_legend(abundance_plot_2), width = 180, height = 15, unit = "mm")
+
+
+
+
+hab_plot <- unique(abundance_class$habitat)
+hab_plot <- hab_plot[hab_plot != "human gut"] 
+names(hab_plot) <- stringr::str_replace_all(hab_plot, " ", "")
+
+
+for(j in 1:length(hab_plot)){
+  abundance_medians_env <- abundance_class %>% ungroup() %>%
+    group_by(tool, gene) %>% filter(habitat %in% hab_plot[j]) %>%
+    summarise(md = median(normed10m), q75 = quantile(normed10m, 0.75), q25 = quantile(normed10m, 0.25))
+  
+  top_abundance_env <- abundance_medians_env %>% 
+    ungroup() %>% 
+    group_by(gene) %>% 
+    mutate(mx =  max(md)) %>% 
+    filter(md > 0) %>% select(gene) %>% distinct() %>% pull()
+  
+  top20_env <- abundance_class %>% 
+    filter(habitat %in% hab_plot[j], tool %in% tool_2) %>% 
+    ungroup() %>% 
+    group_by(tool, gene) %>%
+    summarise(mn = median(normed10m), s = sum(normed10m)) %>% 
+    arrange(desc(mn)) %>% 
+    ungroup() %>%
+    group_by(tool) %>% 
+    arrange(desc(mn), desc(s)) %>% 
+    #filter(mn > 0) %>% 
+    slice_head(n = 5) %>% 
+    ungroup() %>%
+    select(gene) %>% 
+    distinct() %>% 
+    pull()
+  
+  top20_env <- unique(c(top20_env, "Cell wall charge", "ERM", "Class C", "Target-modifying enzyme", "ABC-F"))
+  top20_env <- factor(c(top20_env, "Other"), levels = c(top20_env, "Other"))
+  
+  top_abundance_env <- unique(c(top_abundance_env, as.character(top20_env)))
+  
+  abundance_medians_env_non_zero <- abundance_medians_env %>% filter(q75 > 0) 
+  
+  abundance_class_plot_env <- abundance_class  %>% 
+    filter(habitat %in% hab_plot[j]) %>% 
+    ungroup() %>%
+    mutate(g2 = ifelse(gene %in% top_abundance_env, gene, "Other")) %>% 
+    mutate(g2 = factor(g2, levels = top_abundance_env)) %>% 
+    group_by(habitat, tool, g2, sample) %>% summarise(total = sum(normed10m)) %>%
+    filter(paste(g2, tool) %in% paste(abundance_medians_env_non_zero$gene, abundance_medians_env_non_zero$tool)) %>%
+    ggplot(aes( x = g2, y = total +1, fill = tool)) +
+    geom_boxplot(position = position_dodge2(preserve = "single"),  outlier.shape = NA, coef = 0, width = 1, linewidth = 0.2) +
+    scale_fill_manual(values = pal_10_q, labels = tool_label) +
+    facet_grid(. ~ g2, scales = "free_x") +
+    theme_minimal() +
+    scale_y_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
+                  labels = scales::trans_format("log10", scales::math_format(10^.x))) + #,
+    #limits = c(1, 10000)) + 
+    coord_cartesian(ylim = c(1, 5000)) +
+    ylab("Abundance") +
+    xlab("") +
+    labs(fill = "") +
+    ggtitle("") +
+    theme(
+      legend.position = "bottom",
+      legend.text = element_text(size = general_size ),
+      panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor.x = element_blank(),
+      plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+      legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+      legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+      panel.spacing = unit(0, "pt"),
+      strip.text.x = element_blank(),
+      title = element_text(size = general_size + 2, face = "bold"),
+      strip.text.y = element_blank(),
+      axis.title = element_text(size = general_size + 1, face = "bold"),
+      axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+      axis.text.y = element_text(size = general_size)) 
+  
+  abundance_class_plot_env
+  
+  ggsave(paste0("~/Documents/plots_project2/fig_s_abundance_",names(hab_plot)[j],".svg"), abundance_class_plot_env, width = 180, height = 70, unit = "mm")
+}
+ 
+
+
+for(j in 1:length(hab_plot)){
+  env_pan <- sumpan %>% filter(habitat %in% hab_plot[j]) %>% ungroup() %>% 
+    mutate(gene_class = ifelse(as.character(gene_class) %in% levels(top20), gene_class, "Other")) %>% 
+    mutate(pattern = ifelse(as.character(gene_class) %in% levels(top20)[1:round(length(top20)/2)], "yes", "no")) %>% 
+    mutate(gene_class = factor(gene_class, levels = top20)) %>% ungroup() %>% 
+    mutate(d = "Pan-resistome") %>% 
+    rename(new_level = gene_class, unigenes = md) %>% select(tool, habitat, new_level, unigenes, pattern, d)
+  
+  env_core <- sumcore %>% filter(habitat %in% hab_plot[j]) %>% ungroup() %>% 
+    mutate(unigenes = as.numeric(unigenes)) %>% 
+    mutate(new_level = ifelse(as.character(new_level) %in% levels(top20), new_level, "Other")) %>% 
+    mutate(pattern = ifelse(as.character(new_level) %in% levels(top20)[1:round(length(top20)/2)], "yes", "no")) %>% 
+    mutate(d = "Core-resistome") %>%
+    mutate(new_level = factor(new_level, levels = top20))
+  
+  top20_env_2 <- sumcore %>% filter(habitat %in% hab_plot[j]) %>% ungroup() %>% 
+    arrange(desc(unigenes)) %>% group_by(tool) %>% slice_head(n = 6) %>% ungroup() %>% select(new_level) %>% distinct() %>% pull()
+  
+  env_resistome <- bind_rows(env_pan, env_core) %>% 
+    mutate(tool = as.character(tool)) %>% 
+    mutate(tool = factor(tool, levels = tools_levels)) 
+  
+  lim_min_plot <- ifelse(max(env_resistome$unigenes[env_resistome$d %in% "Core-resistome"]) < 50, 0, 
+                         ifelse(max(env_resistome$unigenes[env_resistome$d %in% "Core-resistome"]) > 200, -4, 0))
+  
+  lim_max_plot <- ifelse(max(env_resistome$unigenes[env_resistome$d %in% "Core-resistome"]) < 20, max(env_resistome$unigenes[env_resistome$d %in% "Core-resistome"]), 
+                         max(env_resistome$unigenes[env_resistome$d %in% "Core-resistome"]) + 2)
+  
+  p_core_env <- env_resistome %>% filter(d %in% "Core-resistome") %>% 
+    group_by(tool, habitat, new_level) %>% 
+    summarise(unigenes = sum(unigenes), d = d[1], pattern = pattern[1]) %>%
+    ggplot(aes(y = unigenes, x = new_level, fill = tool)) +
+    #geom_jitter(height = 0.6, size = 2) +
+    geom_col(position = position_dodge2(preserve = "single"), color = "black", linewidth = 0.1) +
+    theme_minimal() +
+    labs(color = "") +
+    facet_grid(. ~ new_level, scales = "free_x") + 
+    xlab("") +
+    ylab("") +
+    ggtitle("") +
+    scale_fill_manual(values = c(pal_10_q), labels = tool_label) +
+    scale_y_continuous(limits = c(lim_min_plot, lim_max_plot), expand = c(0, 0)) +
+    theme(legend.position = "bottom",
+          panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
+          axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+          axis.text.y = element_text(size = general_size),
+          #strip.text = element_text(size = general_size, face = "bold"),
+          strip.text = element_blank(),
+          plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+          legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+          legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+          panel.spacing = unit(0, "pt"),
+          legend.text = element_text(size = general_size),
+          title = element_text(size = general_size + 2, face = "bold"),
+          panel.grid.major.x = element_blank(),
+          panel.grid.minor.x = element_blank(),
+          axis.title = element_text(size = general_size + 1, face = "bold"))
+  
+  p_core_env
+  
+  ggsave(paste0("~/Documents/plots_project2/fig_s_core_",names(hab_plot)[j],".svg"), p_core_env, width = 180, height = 70, unit = "mm")
+
+}
