@@ -76,7 +76,19 @@ lst <- readRDS("output_abundance_diversity_resistome/results_tools.rds")
 metadata <- read.delim("../data/metadata_GMGC10.sample.meta.tsv")
 
 # abundance aggreatated per ARO and per gene class considering all the detected genes per tool
-abundance <- readRDS("output_abundance_diversity_resistome/abundance_diversity.rds")
+# abundance <- readRDS("output_abundance_diversity_resistome/abundance_diversity.rds")
+abundance <- bind_rows(readRDS("output_abundance_diversity_resistome/abundance_diversity_part1.rds"),
+                       readRDS("output_abundance_diversity_resistome/abundance_diversity_part2.rds"),
+                       readRDS("output_abundance_diversity_resistome/abundance_diversity_part3.rds"))
+
+# needs to be loaded and cocatenated 3 times if the file is split
+# abundance1 <- abundance[1:5327637,]
+# abundance2 <- abundance[(5327637+1):10655274,]
+# abundance3 <- abundance[(10655274+1):15982911,]
+
+# saveRDS(abundance1, "output_abundance_diversity_resistome/abundance_diversity_part1.rds", compress = T)
+# saveRDS(abundance2, "output_abundance_diversity_resistome/abundance_diversity_part2.rds", compress = T)
+# saveRDS(abundance3, "output_abundance_diversity_resistome/abundance_diversity_part3.rds", compress = T)
 
 # the column distinct_unigenes_rarefied <- alpha diversity (number of different genes after rarefaction) 
 # no need to complete information here
