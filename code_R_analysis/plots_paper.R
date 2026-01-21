@@ -889,6 +889,8 @@ abu_class_human <- df_abundance_class_human %>%
     strip.text = element_blank())
 
 
+
+
 ########################################################################################
 type_tools <- c("solid", "solid", "solid", "dotted")
 
@@ -1078,13 +1080,16 @@ ggsave("output_plots/overlaps_megares.svg", plot_megares, width = 160, height = 
 
 
 alluvial_all <- list()
+abundance_class_all <- list()
 
 for(e in EN[-c(14:16)]){
   alluvial_all[[e]] <- alluvial_pan_core_env(sumcore, pan, e, tools_levels, pal_10_complete, general_size)
+  abundance_class_all[[e]] <- plot_abundance_class_environment(abundance_class, e, general_size , pal_10_q)  
 }
 
 for(e in EN[-c(14:16)]){
-  ggsave(gsub(" ", "", paste0("output_plots/s_", e, ".svg")), alluvial_all[[e]], width = 180, height = 210, unit = "mm")
+  ggsave(gsub(" ", "", paste0("output_plots/s_", e, ".svg")), alluvial_all[[e]], width = 180, height = 180, unit = "mm")
+  ggsave(gsub(" ", "", paste0("output_plots/s2_", e, ".svg")), abundance_class_all[[e]], width = 180, height = 100, unit = "mm")
 }
 
 ################################################################################################
@@ -1391,3 +1396,9 @@ fig_numbe_genes_core <- core %>% filter(habitat %in% "human gut", cut %in% 0.5, 
 
 
 #######
+
+
+
+
+
+
