@@ -21,7 +21,7 @@ library(scales)
 
 options(dplyr.summarise.inform = FALSE)
 
-source("helper.R")
+source("code_R_analysis/helper.R")
 
 # Defining constants
 general_size <- 10
@@ -368,6 +368,7 @@ dashboardPage(
     )
   )
 )
+
 
 
 
