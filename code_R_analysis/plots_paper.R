@@ -39,6 +39,8 @@ pal_10_q <- pal_7[c(1,2,3,4,5,5,6,6,7,7)]
 pal_10_complete <- brewer.pal(10, "BrBG")
 pal_10_complete <- pal_10_complete[c(-1,-10)]
 
+# pattern for plots
+
 pattern_density <- 0.001 
 pattern_spacing <- 0.025
 pattern_fill <- "white"
@@ -50,6 +52,7 @@ EN <- c("human gut", "human oral",  "human skin", "human nose", "human vagina",
         "freshwater", "soil" , "amplicon", "isolate",  "built-environment" )
 
 # SOURCE FOR EACH HABITAT
+
 SO <- c(rep("humans", 5), rep("mammals", 4),  
         "wastewater", "marine", "freshwater", 
         "soil", rep("other", 2), "built-environment")
@@ -106,6 +109,7 @@ abundance <- bind_rows(readRDS("output_abundance_diversity_resistome/abundance_d
 
 # the column distinct_unigenes_rarefied <- alpha diversity (number of different genes after rarefaction) 
 # no need to complete information here
+
 abundance <- abundance %>% 
   mutate(unigenes = distinct_unigenes_rarefied) %>%  # alpha diversity (number of different genes after rarefaction) 
   mutate(habitat = factor(habitat, levels = EN), # convert to factors for ordering the plots
@@ -222,13 +226,10 @@ JI_all <- return_overlap_tools(unigenes)
 # Jaccard index, recall/class specific concordance, fnr/class specific non-overlap
 # JI_core_class <- create_class_overlaps_core(core, 0.5, 450, "human gut")
 
-JI_core_class <- return_overlap_tools(core %>% 
-  filter(cut %in% 0.5 & cnt > 450, habitat %in% "human gut") %>% 
-  rename(query = X))
+#JI_core_class <- return_overlap_tools(core %>% 
+#  filter(cut %in% 0.5 & cnt > 450, habitat %in% "human gut") %>% 
+#  rename(query = X))
 
-
-top20 <- c("van", "efflux pump", "cell wall charge", "rpoB", "tet RPG", "class A beta-lactamase", "class B beta-lactamase", "class C beta-lactamase", "class D beta-lactamase", 
-           "aac", "aph", "MFS efflux pump", "erm", "target-modifying enzyme", "tet enzyme", "mph", "fos", "cat", "abcF")
 
 
 pan_core_env <- c("human gut", "human skin", "pig gut", "dog gut", "wastewater",  "marine", "freshwater", "soil")
@@ -417,7 +418,7 @@ ps18 <- pan_core %>% select(!c(md, sd)) %>% pivot_longer(cols = c(mn, core), nam
 ps18
 
 
-p_alluvial  <- plot_alluvial_classes(unigenes, levels_unigenes, 0.95, 0.01, tools_levels, tools_labels, tools_levels, pal_10_q, general_size, gene_classes_list) +
+p_alluvial  <- plot_alluvial_classes(unigenes, levels_unigenes, 0.99, 0.005, tools_levels, tools_labels, tools_levels, pal_10_q, general_size, gene_classes_list) +
   theme(panel.background = element_rect(colour = "black", fill = NA)) +
   scale_x_discrete(labels = function(x) {
     x <- gsub("-", "-\n", x)
@@ -533,7 +534,6 @@ fig5a2 <- recall_fnr %>%
   summarise(recall = median(recall)) %>%
   ggplot(aes(x = "All classes medians", fill = tool_ref, y = recall)) +
   geom_violin() +
-  #geom_boxplot(outlier.shape = NA, position = position_dodge2(preserve = "single")) + 
   geom_jitter(aes(shape = texture), size = 1.5, width = 0.4, height = 0) + 
   scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe')) +
   scale_fill_manual(values = pal_10_q[tools_levels %in% c("DeepARG", "fARGene", "ABRicate-MEGARes", "RGI-DIAMOND","AMRFinderPlus", "ResFinder")], 
@@ -580,7 +580,6 @@ fig5b1 <- recall_fnr %>%
   mutate(new_level = factor(new_level, levels = top20)) %>%
   ggplot(aes(x = new_level, fill = tool_ref, y = fnr)) +
   geom_violin() +
-  #geom_boxplot(outlier.shape = NA, position = position_dodge2(preserve = "single")) + 
   geom_jitter(aes(fill = tool_comp, shape = texture), color = "black", stroke = 0.3, size = 1.5, width = 0.4, height = 0) + 
   scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe')) +
   scale_fill_manual(values = pal2, 
@@ -789,22 +788,6 @@ p5 <- plot_grid( plot5a, plot5b, plot5c, p5_legend, ncol = 1,
 
 ggsave("output_plots/fig5.svg", p5, width = 180, height = 210, unit = "mm")
 
-
-
-# ggsave("output_plots/fig1c.svg", p1a, width = 60, height = 75, unit = "mm")
-# ggsave("output_plots/fig1c_legends_1.svg", p1a_legends_1, width = 120, height = 75, unit = "mm")
-# ggsave("output_plots/fig1c_legends.svg", p1a_legends, width = 120, height = 75, unit = "mm")
-# ggsave("output_plots/figS19.svg", p1b + ggtitle(""), width = 90, height = 75, unit = "mm")
-# ggsave("output_plots/fig2.svg", p2a, width = 90, height = 140, unit = "mm")
-# ggsave("output_plots/figS1.svg", p2b, width = 90, height = 140, unit = "mm")
-# ggsave("output_plots/fig3.svg", p2 + theme(legend.position = "none"), width = 180, height = 120, unit = "mm")
-# ggsave("output_plots/fig3_supp.svg", p2_other + theme(legend.position = "none"), width = 180, height = 120, unit = "mm")
-
-# for( e in EN2){
-#  ggsave(paste0("output_plots/pan_core_class_", e,".svg"), 
-#         grid.arrange(list_plot_core_class[[e]], list_plot_pan_class[[e]], nrow = 2) , 
-#         width = 180, height = 180, unit = "mm")
-#}
 
 
 abu_class_legend0 <- df_abundance_class_human %>%
@@ -1091,79 +1074,6 @@ for(e in EN[-c(14:16)]){
   ggsave(gsub(" ", "", paste0("output_plots/s_", e, ".svg")), alluvial_all[[e]], width = 180, height = 180, unit = "mm")
   ggsave(gsub(" ", "", paste0("output_plots/s2_", e, ".svg")), abundance_class_all[[e]], width = 180, height = 100, unit = "mm")
 }
-
-################################################################################################
-# Fig S2
-
-
-
-
-# ggsave("~/Documents/plots_project6/figS3.svg", ps2, width = 180, height = 150, unit = "mm")
-# ggsave("~/Documents/plots_project6/figS4.svg", ps2, width = 180, height = 150, unit = "mm")
-# ggsave("~/Documents/plots_project6/figS5.svg", ps2, width = 180, height = 150, unit = "mm")
-
-
-################################################################################################
-# Fig S3
-
-
-# class overlap for core resistome 
-
-
-# data.frame(JI_core_class %>% ungroup() %>% group_by(new_level) %>% summarise(m = sum(jaccard), n = n()) %>% mutate(m = ifelse(is.na(m), 0, m / 90)) %>% arrange(desc(m)))
-# length(unique(paste(JI_core_class$tool_ref, JI_core_class$tool_comp)))
-# 
-# core_jaccard_human <- JI_core_class %>% ungroup() %>% 
-#   filter(as.numeric(tool_comp) < as.numeric(tool_ref)) %>% #complete(tool, new_level, fill = list(unigenes = 0, total = 0)) %>%
-#   ungroup() %>% 
-#   filter(as.numeric(tool_ref) != as.numeric(tool_comp)) %>% 
-#   ggplot(aes(x = tool_ref, y = tool_comp, fill = jaccard)) +
-#   geom_tile(na.rm = T) +
-#   scale_x_discrete(labels = tools_levels) +
-#   scale_y_discrete(labels = tools_levels) +
-#   facet_wrap(new_level ~ .) +
-#   scale_fill_gradientn(colors = RColorBrewer::brewer.pal(9, "YlOrBr"), na.value = "white") +
-#   theme_minimal() +
-#   labs(fill = "") +
-#   xlab("") +
-#   ylab("") +
-#   ggtitle("") + 
-#   theme(
-#     legend.position = "bottom",
-#     legend.text = element_text(size = general_size ),
-#     panel.border = element_rect(fill = "transparent", color = "black", linewidth = 1),
-#     #panel.grid.major.x = element_blank(),
-#     panel.grid.minor.x = element_blank(),
-#     plot.margin = margin(0, 0, 0, 0, unit = "pt"),
-#     legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
-#     legend.margin = margin(0, 0, 0, 0, unit = "pt"),
-#     panel.spacing = unit(0, "pt"),
-#     strip.text = element_text(size = general_size + 1, face = "bold"),
-#     axis.title = element_text(size = general_size + 1, face = "bold"),
-#     axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
-#     axis.text.y = element_text(size = general_size))
-# 
-# core_jaccard_human
-# 
-# ggsave("~/Documents/plots_project6/figS6.svg", core_jaccard_human, width = 300, height = 300, unit = "mm") 
-
-
-################################################################################################
-# Fig S4
-
-##  Tables 
-
-# sum(table(abundance$habitat[!duplicated(abundance$sample)]))
-# table(abundance$habitat[!duplicated(abundance$sample)])
-
-# write.csv(abundance %>% ungroup() %>% select(sample, habitat) %>% filter(!habitat %in% c("amplicon","built-environment","isolate")) %>%
-#  rename(accession = sample) %>% group_by(accession) %>% slice_head(n = 1), "~/Documents/plots_project3/accession_metagenomes.csv", row.names = FALSE)
-
-# write.csv(abundance %>% ungroup() %>% select(sample, habitat) %>% filter(!habitat %in% c("amplicon","built-environment","isolate")) %>%
-#             rename(accession = sample) %>% group_by(accession) %>% slice_head(n = 1) %>% 
-#            ungroup() %>% group_by(habitat) %>% summarise(samples = n()), "~/Documents/plots_project3/summary_metagenomes.csv", row.names = FALSE)
-
-
 
 
 ###

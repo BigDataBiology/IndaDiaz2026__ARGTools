@@ -1765,7 +1765,7 @@ plot_pan_core_class <- function(pan, sumcore, top20, tools_labels, tools_to_plot
 
 plot_alluvial_classes <- function(unigenes = unigenes, 
                                   levels_unigenes = levels_unigenes, 
-                                  threshold_plot = 0.95,
+                                  threshold_plot = 0.99,
                                   remove_class_threshold = 0.01,
                                   tools_to_plot = tools_levels, 
                                   tools_labels = tools_labels, 
@@ -2043,3 +2043,12 @@ plot_abundance_class_environment <- function(abundance_class, e, general_size, p
       strip.text = element_blank())
   return(p)
 } 
+
+
+# function to make breaks in the axis names  of the plots
+lab_fn <- function(x) {
+  x <- gsub("-", "-\n", x)
+  x <- gsub(" ", "\n", x)
+  x <- gsub("/", "/\n", x)
+  x
+}
