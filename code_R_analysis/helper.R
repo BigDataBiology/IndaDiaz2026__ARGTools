@@ -268,7 +268,7 @@ plot_count_genes_tool <- function(unigenes, tools_for_figure, general_size, pal_
                      pattern_key_scale_factor = 0.6) +
     scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe')) +
     scale_fill_manual(values = values_plot, labels = labels_plot) +
-    scale_x_discrete( labels =  labels_plot) +
+    scale_x_discrete( labels =  lab_fn(labels_plot)) +
     theme_minimal() +
     ylab("Number of ARGs") +
     xlab("") +
@@ -1772,7 +1772,7 @@ plot_alluvial_classes <- function(unigenes = unigenes,
                                   tools_factors = tools_levels, 
                                   pal_10_q = pal_10_q, general_size = general_size, 
                                   gene_classes_list = gene_classes_list){
-  
+
   unigenes_class <- get_unigenes_class(unigenes, tools_to_plot,  unique(unigenes$new_level)) %>% 
     ungroup() %>%
     filter(tool %in% tools_to_plot) %>%
@@ -1783,8 +1783,7 @@ plot_alluvial_classes <- function(unigenes = unigenes,
     ungroup() %>%
     mutate( new_level = factor(as.character(new_level), 
                                levels = rev(levels_unigenes))) %>% 
-    mutate(tool = factor(as.character(tool), levels = tools_levels[tools_to_plot %in% tools_levels]))
-  
+    mutate(tool = factor(as.character(tool), levels = tools_factors[tools_factors %in% tools_to_plot]))
   
   unigenes_class <- unigenes_class %>%
     group_by(tool) %>%
@@ -1811,8 +1810,9 @@ plot_alluvial_classes <- function(unigenes = unigenes,
     mutate(gene_name = factor(gene_name, 
                               levels = gene_classes_list[levels(unigenes_class$new_level)]))
   
-  labels_plot  <- tools_labels[tools_to_plot %in% tools_levels]
+  labels_plot  <- tools_labels[tools_factors %in% tools_to_plot]
   
+    
   p_alluvial <- ggplot(unigenes_class,
                        aes(x = tool,
                            stratum = gene_name,
@@ -1832,7 +1832,7 @@ plot_alluvial_classes <- function(unigenes = unigenes,
                        limits = c(0, 1), 
                        breaks = pretty_breaks(n = 5)) +
     scale_fill_manual(values = c(rep(pal_10_complete,10)))+
-    scale_x_discrete( labels =  labels_plot) +
+    scale_x_discrete( labels =  lab_fn(labels_plot)) +
     theme_minimal() +
     theme(
       legend.position = "none",

@@ -286,11 +286,7 @@ p2a <- plot_count_genes_tool(
   pal_10_q = pal_10_q, 
   tool_label = tools_labels , 
   tools_levels = tools_levels, 
-  texture = tools_texture) +# which tools have stripes
-  scale_x_discrete(labels = function(x) {
-    x <- gsub("-", "-\n", x)
-    x <- gsub(" ", "\n", x)
-    x}) +
+  texture = tools_texture) + # which tools have stripes
   theme(panel.background = element_rect(colour = "black", fill = NA))
 
 p2a <- p2a + 
@@ -419,11 +415,7 @@ ps18
 
 
 p_alluvial  <- plot_alluvial_classes(unigenes, levels_unigenes, 0.99, 0.005, tools_levels, tools_labels, tools_levels, pal_10_q, general_size, gene_classes_list) +
-  theme(panel.background = element_rect(colour = "black", fill = NA)) +
-  scale_x_discrete(labels = function(x) {
-    x <- gsub("-", "-\n", x)
-    x <- gsub(" ", "\n", x)
-    x}) 
+  theme(panel.background = element_rect(colour = "black", fill = NA))
 
 
 ##########
