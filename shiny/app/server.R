@@ -1,15 +1,22 @@
 library(shiny)
 
 # Detect the working directory
-# setwd("r_shiny") 
+setwd("r_shiny") 
 
 # Set the paths to data
-DATA_DIR <- "../../code_R_analysis/output_abundance_diversity_resistome"
-METADATA_PATH <- "../../data/metadata_GMGC10.sample.meta.tsv"
+DATA_DIR <- "code_R_analysis/output_abundance_diversity_resistome"
+METADATA_PATH <- "data/metadata_GMGC10.sample.meta.tsv"
 
 # Defining constants
 general_size <- 10
 
+# Label formatting function
+lab_fn <- function(x) {
+  x <- gsub("-", "-\n", x)
+  x <- gsub(" ", "\n", x)
+  x <- gsub("/", "/\n", x)
+  x
+}
 
 # Color palettes
 pal_7 <- brewer.pal(8, "BrBG")
@@ -43,7 +50,6 @@ tools_levels <- c("DeepARG", "fARGene",
                   "RGI-DIAMOND", "ABRicate-CARD",
                   "AMRFinderPlus", "ABRicate-NCBI",
                   "ResFinder", "ABRicate-ResFinder")
-
 tools_labels <- c("DeepARG", "fARGene",
                   "ABRicate-ARGANNOT", "ABRicate-MEGARes",
                   "RGI-CARD", "ABRicate-CARD",

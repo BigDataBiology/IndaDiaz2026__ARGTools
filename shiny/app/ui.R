@@ -1,6 +1,5 @@
 library(shiny)
-#library(shinydashboard)
-library(bslib)
+library(shinydashboard)
 library(tidyverse)
 library(shinyWidgets)
 library(plotly)
@@ -22,10 +21,18 @@ library(scales)
 
 options(dplyr.summarise.inform = FALSE)
 
-source("../../code_R_analysis/helper.R")
+source("code_R_analysis/helper.R")
 
 # Defining constants
 general_size <- 10
+
+# Label formatting function
+lab_fn <- function(x) {
+  x <- gsub("-", "-\n", x)
+  x <- gsub(" ", "\n", x)
+  x <- gsub("/", "/\n", x)
+  x
+}
 
 # Color palettes
 pal_7 <- brewer.pal(8, "BrBG")
@@ -76,183 +83,293 @@ EN2 <- EN[!EN %in% not_env]
 h2 <- c("humans", "mammals", "wastewater", "freshwater", "soil", "marine")  
 
 # Boxplot calculation function
-page_navbar(
-  theme = "yeti",
-  #title = "How ARG Detection Tools Shape Our View of the Resistome",
-  #bg = "#2D89C8",
-  inverse = TRUE,
-  nav_panel(title = "Introduction", p(intro_page)),
-  nav_panel(title = "Fig 1", p(psb1)),
-  nav_panel(title = "Fig 2", p(psb1_2)),
-  nav_panel(title = "Fig 3", p(psb2)),
-  nav_panel(title = "Fig 4", p(psb3)),
-  nav_panel(title = "Fig 5", p(psb4)),
-  nav_panel(title = "Fig 6", p(psb5)),
-  nav_panel(title = "Table S1", p(tab1)),
-  nav_panel(title = "Table S2", p(tab2)),
-  nav_panel(title = "Table S3", p(tab3)),
-  nav_spacer(),
-  nav_menu(
-    title = "Links",
-    align = "right",
-    nav_item(tags$a("Big Data Biology Lab", href = "https://www.big-data-biology.org")),
-    nav_item(tags$a("CMR", href = "https://research.qut.edu.au/cmr/"))
+calc_boxplot_stat <- function(x) {
+  coef <- 1.5
+  n <- sum(!is.na(x))
+  stats <- quantile(x, probs = c(0.25, 0.5, 0.75), na.rm = TRUE)
+  iqr <- diff(stats[c(1, 3)])
+  
+  list(
+    ymin = max(min(x, na.rm = TRUE), stats[1] - coef * iqr),
+    lower = stats[1],
+    middle = stats[2],
+    upper = stats[3],
+    ymax = min(max(x, na.rm = TRUE), stats[3] + coef * iqr)
+  )
+}
+
+
+# Define UI for the argCompare application
+dashboardPage(
+  skin = "green",
+  
+  dashboardHeader(title = "ARG Detection Tools Comparison"),
+  
+  dashboardSidebar(
+    sidebarMenu(
+      menuItem("Overview", tabName = "overview", icon = icon("dashboard")),
+      menuItem("Abundance & Diversity", tabName = "abundance", icon = icon("chart-bar")),
+      menuItem("Pan & Core Resistome", tabName = "pancore", icon = icon("layer-group")),
+      menuItem("Tool Overlap", tabName = "overlap", icon = icon("circle-notch")),
+      menuItem("Gene Class Analysis", tabName = "geneclass", icon = icon("dna")),
+      menuItem("Data Summary", tabName = "summary", icon = icon("table"))
+    ),
+    
+    hr(),
+    
+    h4("Filters", style = "padding-left: 15px;"),
+    
+    pickerInput(
+      inputId = "select_tools",
+      label = "Select Tools:",
+      choices = tools_levels,
+      selected = tools_levels,
+      multiple = TRUE,
+      options = list(`actions-box` = TRUE)
+    ),
+    
+    pickerInput(
+      inputId = "select_habitats",
+      label = "Select Habitats:",
+      choices = EN2,
+      selected = c("human gut", "pig gut", "soil"),
+      multiple = TRUE,
+      options = list(`actions-box` = TRUE)
+    ),
+    
+    sliderInput(
+      inputId = "core_threshold",
+      label = "Core Resistome Threshold (prevalence):",
+      min = 0.1,
+      max = 1.0,
+      value = 0.5,
+      step = 0.1
+    ),
+    
+    numericInput(
+      inputId = "min_samples",
+      label = "Minimum Samples:",
+      value = 450,
+      min = 100,
+      max = 1000,
+      step = 50
+    )
+  ),
+  
+  dashboardBody(
+    tags$head(
+      tags$style(HTML("
+        .content-wrapper { background-color: #ecf0f5; }
+        .box { margin-bottom: 20px; }
+        .info-box { min-height: 90px; }
+        .nav-tabs-custom { margin-bottom: 20px; }
+      "))
+    ),
+    
+    tabItems(
+      
+      # Overview Tab
+      
+      tabItem(
+        tabName = "overview",
+        fluidRow(
+          box(
+            title = "About This App",
+            width = 12,
+            status = "primary",
+            solidHeader = TRUE,
+            HTML("
+              <h4>Antibiotic Resistance Gene (ARG) Detection Tool Comparison</h4>
+              <p>This interactive application allows you to explore and compare different antibiotic resistance genes detection tools
+              across various habitats and environments.</p>
+              <h5>Features:</h5>
+              <ul>
+                <li><strong>Abundance & Diversity:</strong> Compare ARG abundance and diversity metrics across tools and habitats</li>
+                <li><strong>Pan & Core Resistome:</strong> Explore pan-resistome and core-resistome patterns</li>
+                <li><strong>Tool Overlap:</strong> Visualize agreement and overlap between different detection tools</li>
+                <li><strong>Gene Class Analysis:</strong> Examine specific antibiotic resistance gene classes</li>
+              </ul>
+              <h5>Tools Included:</h5>
+              <p>DeepARG, fARGene, ABRicate (with ARG-ANNOT, CARD, MEGARes, NCBI & ResFinder databases), RGI-DIAMOND, AMRFinderPlus, and ResFinder</p>
+              <h5>Getting Started:</h5>
+              <p>Use the sidebar filters to select tools, habitats, and adjust parameters. Navigate through the tabs to explore different analyses.</p>
+            ")
+          )
+        ),
+        
+        fluidRow(
+          valueBoxOutput("total_samples_box", width = 3),
+          valueBoxOutput("total_tools_box", width = 3),
+          valueBoxOutput("total_habitats_box", width = 3),
+          valueBoxOutput("total_genes_box", width = 3)
+        )
+      ),
+      
+      # Abundance & Diversity Tab
+      tabItem(
+        tabName = "abundance",
+        fluidRow(
+          box(
+            title = "Abundance by Tool and Habitat",
+            width = 12,
+            status = "primary",
+            solidHeader = TRUE,
+            collapsible = TRUE,
+            plotOutput("plot_abundance", height = "600px")
+          )
+        ),
+        fluidRow(
+          box(
+            title = "Diversity (Alpha Diversity)",
+            width = 12,
+            status = "primary",
+            solidHeader = TRUE,
+            collapsible = TRUE,
+            plotOutput("plot_diversity", height = "600px")
+          )
+        )
+      ),
+      
+      # Pan & Core Resistome Tab
+      tabItem(
+        tabName = "pancore",
+        fluidRow(
+          box(
+            title = "Pan vs Core Resistome Size",
+            width = 12,
+            status = "primary",
+            solidHeader = TRUE,
+            collapsible = TRUE,
+            plotOutput("plot_pancore", height = "600px")
+          )
+        ),
+        fluidRow(
+          box(
+            title = "Core Resistome",
+            width = 6,
+            status = "info",
+            solidHeader = TRUE,
+            collapsible = TRUE,
+            plotOutput("plot_core_prevalence", height = "400px")
+          ),
+          box(
+            title = "Pan Resistome",
+            width = 6,
+            status = "info",
+            solidHeader = TRUE,
+            collapsible = TRUE,
+            plotOutput("plot_pan_growth", height = "400px")
+          )
+        )
+      ),
+      
+      # Tool Overlap Tab
+      tabItem(
+        tabName = "overlap",
+        fluidRow(
+          box(
+            title = "Tool Agreement Heatmap",
+            width = 12,
+            status = "primary",
+            solidHeader = TRUE,
+            collapsible = TRUE,
+            selectInput(
+              inputId = "overlap_habitat",
+              label = "Select Habitat:",
+              choices = EN2,
+              selected = "human gut"
+            ),
+            plotOutput("plot_overlap_heatmap", height = "600px")
+          )
+        ),
+        fluidRow(
+          box(
+            title = "Venn Diagram (Select 2-5 tools)",
+            width = 6,
+            status = "info",
+            solidHeader = TRUE,
+            collapsible = TRUE,
+            pickerInput(
+              inputId = "venn_tools",
+              label = "Select Tools for Venn:",
+              choices = tools_levels,
+              selected = tools_levels[1:3],
+              multiple = TRUE,
+              options = list(`max-options` = 5)
+            ),
+            plotOutput("plot_venn", height = "500px")
+          ),
+          box(
+            title = "Overlap Statistics",
+            width = 6,
+            status = "info",
+            solidHeader = TRUE,
+            collapsible = TRUE,
+            reactableOutput("table_overlap_stats")
+          )
+        )
+      ),
+      
+      # Gene Class Analysis Tab
+      tabItem(
+        tabName = "geneclass",
+        fluidRow(
+          box(
+            title = "Gene Class Distribution",
+            width = 12,
+            status = "primary",
+            solidHeader = TRUE,
+            collapsible = TRUE,
+            selectInput(
+              inputId = "geneclass_habitat",
+              label = "Select Habitat:",
+              choices = EN2,
+              selected = "human gut"
+            ),
+            plotOutput("plot_geneclass", height = "600px")
+          )
+        ),
+        fluidRow(
+          box(
+            title = "Top Gene Classes",
+            width = 12,
+            status = "info",
+            solidHeader = TRUE,
+            collapsible = TRUE,
+            reactableOutput("table_geneclass")
+          )
+        )
+      ),
+      
+      # Data Summary Tab
+      tabItem(
+        tabName = "summary",
+        fluidRow(
+          box(
+            title = "Sample Summary by Habitat",
+            width = 12,
+            status = "primary",
+            solidHeader = TRUE,
+            collapsible = TRUE,
+            reactableOutput("table_sample_summary")
+          )
+        ),
+        fluidRow(
+          box(
+            title = "Tool Detection Summary",
+            width = 12,
+            status = "primary",
+            solidHeader = TRUE,
+            collapsible = TRUE,
+            reactableOutput("table_tool_summary")
+          )
+        )
+      )
+    )
   )
 )
 
 
 
-# Define server logic 
-server <- function(input, output) {
-  
-  ################################################################################################
-  # Table 1
-  
-  #output$table1 <-  renderTable(df2 %>% arrange(desc(new_level)), striped = TRUE)
-  
-  # Table 
-  
-  output$tables1 <- renderReactable({
-    reactable(
-      t1,
-      showPageSizeOptions = TRUE,           # show the dropdown
-      pageSizeOptions = c(25, 50, 100, nrow(t1)),  # options in the dropdown
-      defaultPageSize = 25
-    )
-  })
-  
-  
-  output$tables2 <- renderReactable({
-    reactable(
-      t2,
-      showPageSizeOptions = F,           # show the dropdown
-      #pageSizeOptions = c(25, 50, 100, nrow(t1)),  # options in the dropdown
-      defaultPageSize = nrow(t2)
-    )
-  })
-  
-  
-  output$tables3 <- renderReactable({
-    reactable(
-      df2,
-      defaultSorted = list(Term_ID = "asc", new_level = "asc"),
-      showPageSizeOptions = TRUE,           # show the dropdown
-      pageSizeOptions = c(25, 50, 100, nrow(df2)),  # options in the dropdown
-      defaultPageSize = 25
-    )
-  })
-  
-  # Fig 1
-  
-  output$unigenes_tool <- renderPlot({
-    req(input$tools_unigenes_fig1)
-    plot_count_genes_tool(unigenes , input$tools_unigenes_fig1, general_size, pal_10_q, tool_label, tools_levels_2) 
-  })
-  
-  
-  output$overlap_heatmap <- renderPlot({ 
-    return_heatmap_overalp(overlap_tools, input$tools_unigenes_fig1, general_size, tool_label, tools_levels_2)
-  })
-  
-  # Fig 2
-  
-  abundance_medians_h2_fixed <- reactive({fix_abundance_diversity_medians_h2(abundance_medians_h2,
-                                                                             input$environments_plot, 
-                                                                             hab2 = c("Humans","Mammals","Wastewater", "Freshwater","Soil", "Marine"))
-  })
-  
-  diversity_medians_h2_fixed <- reactive({fix_abundance_diversity_medians_h2(diversity_medians_h2,
-                                                                             input$environments_plot, 
-                                                                             hab2 = c("Humans","Mammals","Wastewater", "Freshwater","Soil", "Marine"))
-  })
-  
-  abundance_medians_h2_fixed_v2 <- reactive({fix_abundance_diversity_medians_version2(abundance_medians_h2,
-                                                                                      input$tools_unigenes, 
-                                                                                      input$environments_plot)
-  })
-  
-  
-  diversity_medians_h2_fixed_v2 <- reactive({fix_abundance_diversity_medians_version2(diversity_medians_h2,
-                                                                                      input$tools_unigenes, 
-                                                                                      input$environments_plot)
-  })
-  
-  
-  output$abundance_tool <- renderPlot({
-    plot_total_abundance_diversity_tool(abundance_medians_h2_fixed(), input$tools_unigenes, input$environments_plot , general_size, "abundance", pal_10_q, tool_label, tools_levels_2)
-  })
-  
-  output$diversity_tool <- renderPlot({
-    plot_total_abundance_diversity_tool(diversity_medians_h2_fixed(), input$tools_unigenes, input$environments_plot , general_size, "diversity", pal_10_q, tool_label, tools_levels_2)
-  })
-  
-  output$abundance_tool_2 <- renderPlot({
-    plot_total_abundance_diversity_tool_version2(abundance_medians_h2_fixed_v2(), input$tools_unigenes, input$environments_plot , general_size, "abundance", pal_6, tool_label, h2, tools_levels_2)
-  })
-  
-  output$diversity_tool_2 <- renderPlot({
-    plot_total_abundance_diversity_tool_version2(diversity_medians_h2_fixed_v2(), input$tools_unigenes, input$environments_plot , general_size, "diversity", pal_6, tool_label, h2, tools_levels_2)
-  })
-  
-  ################################################################################################
-  # Fig 2
-  
-  sumcore <- reactive({sum_core_adjust(core, input$cnt_subset, input$threshold_samples )
-  })
-  
-  output$pan_core_tool <- renderPlot({
-    pan_resistome_plot(sumpan2, input$tools_levels_fig2, input$environments_plot_fig2, general_size, pal_10_q, tool_label, h2, tools_levels_2)
-  })
-  
-  output$pan_core_tool <- renderPlot({
-    plot_fig2(pan_resistome_plot(sumpan2, input$tools_levels_fig2, input$environments_plot_fig2, general_size, pal_10_q, tool_label, h2, tools_levels_2),
-              core_resistome_plot(sumcore(), input$tools_levels_fig2, input$environments_plot_fig2, general_size, pal_10_q, tool_label, h2, tools_levels_2))
-  })
-  
-  ################################################################################################   
-  # Fig 3
-  abundance_env_class <- reactive({abundance_medians_env_class(abundance_class, input$environments_plot_fig3, input$tools_levels_fig3, input$classes_plot_fig3)
-  })  
-  
-  
-  unigenes_class <- reactive({get_unigenes_class(unigenes, input$tools_levels_fig3,  input$classes_plot_fig3)
-  })
-  
-  
-  output$fig3A <- renderPlot({
-    plot_unigenes_env_tool_class(unigenes_class(),  general_size, pal_10_q, tool_label, tools_levels_2, input$tools_levels_fig3)
-  })
-  
-  output$fig3B <- renderPlot({
-    plot_abundance_env_tool_class(abundance_env_class(), input$tools_levels_fig3, input$environments_plot_fig3, input$classes_plot_fig3, general_size, pal_10_q, tool_label, tools_levels_2)
-  })
-  
-  output$fig3C <- renderPlot({
-    plot_core_env_tool_class(sumcore(), input$tools_levels_fig3, input$environments_plot_fig3, input$classes_plot_fig3, general_size, pal_10_q, tool_label, tools_levels_2)
-  })
-  
-  ################################################################################################
-  # Fig 4
-  
-  
-  output$fig4A <- renderPlot({plot_recall_fnr(recall_fnr, input$tool_fig4, input$class_fig4, tool_label, pal_10_q, general_size, tools_levels_2)
-  })
-  
-  output$fig4B <- renderPlot({plot_recall_detailed(recall_fnr, input$tool_fig4, input$class_fig4, tool_label, pal_10_q, general_size, tools_levels_2)
-  })
-  
-  output$fig4C <- renderPlot({plot_fnr_detailed(recall_fnr, input$tool_fig4, input$class_fig4, tool_label, pal_10_q, general_size, tools_levels_2)
-  })
-  
-  ################################################################################################
-  # Fig 5
-  
-  output$fig5A <- renderPlot({
-    plot_id_levels(unigenes, tools_levels_2, pal_10_q, tool_label, general_size)
-  })  
-  
-  output$fig5B <- renderPlot({
-    merge_recall_fnr_id(unigenes, recall_fnr, input$tool_2_fig5, input$tool_3_fig5, pal_10_q, general_size, tool_label, tools_levels_2)
-  })
-  
-}
+
+
