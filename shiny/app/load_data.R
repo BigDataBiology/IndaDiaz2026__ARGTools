@@ -138,50 +138,50 @@ load_abundances <- function(DATA_DIR = "../../code_R_analysis/output_abundance_d
 }
 
 
-# load_pan_core <- function(DATA_DIR = "../../code_R_analysis/output_abundance_diversity_resistome", 
-#                           core_file = "core_resistome.rds", 
-#                           pan_file = "pan_resistome.rds", 
-#                           data_list = list()){
-#   tryCatch({
-#     core <- readRDS(file.path(DATA_DIR, "core_resistome.rds"))
-#     pan <- readRDS(file.path(DATA_DIR, "pan_resistome.rds"))
-#     
-#     core <- core %>% 
-#       rename(new_level = new_level_centroid, 
-#              X = centroid) %>% 
-#       filter(tool %in% tools_levels, 
-#              !habitat %in% not_env) %>% 
-#       mutate(habitat = factor(habitat, levels = EN2), 
-#              tool = factor(tool, levels =  tools_levels)) %>% 
-#       mutate(tool = factor(tool, levels = tools_levels))
-#     
-#     pan <- pan %>% 
-#       filter(tool %in% tools_levels, 
-#              !habitat %in% not_env, 
-#              aggregation %in% "new_level_centroid") %>% 
-#       mutate(habitat = factor(habitat, levels = EN2), 
-#              tool = factor(tool, levels =  tools_levels)) %>% 
-#       mutate(tool = factor(tool, levels = tools_levels))
-#     
-#     sumpan2 <- pan %>% ungroup() %>% 
-#       group_by(tool, habitat, aggregation, epoch) %>% 
-#       summarise(s = sum(unigenes)) %>%
-#       ungroup() %>% 
-#       group_by(tool, habitat, aggregation) %>% 
-#       summarise(md = median(s), mn = mean(s), sd = sd(s))
-#     
-#     
-#     data_list$core = core
-#     data_list$pan = pan
-#     data_list$sumpan2 = sumpan2
-#     
-#   }, error = function(e) {
-#     print("Error in core/pan")
-#     data_list = ifelse(length(data_list) == 0, NULL, data_list)
-#   })
-#   return(data_list)
-# }
-# 
+load_pan_core <- function(DATA_DIR = "../../code_R_analysis/output_abundance_diversity_resistome",
+                          core_file = "core_resistome.rds",
+                          pan_file = "pan_resistome.rds") {
+  
+  tryCatch({
+    
+    core <- readRDS(file.path(DATA_DIR, "core_resistome.rds"))
+    pan <- readRDS(file.path(DATA_DIR, "pan_resistome.rds"))
+    
+    core <- core %>%
+      rename(new_level = new_level_centroid,
+             X = centroid) %>%
+      filter(tool %in% tools_levels,
+             !habitat %in% not_env) %>%
+      mutate(habitat = factor(habitat, levels = EN2),
+             tool = factor(tool, levels =  tools_levels)) %>%
+      mutate(tool = factor(tool, levels = tools_levels))
 
+    pan <- pan %>%
+      filter(tool %in% tools_levels,
+             !habitat %in% not_env,
+             aggregation %in% "new_level_centroid") %>%
+      mutate(habitat = factor(habitat, levels = EN2),
+             tool = factor(tool, levels =  tools_levels)) %>%
+      mutate(tool = factor(tool, levels = tools_levels))
 
+    sumpan2 <- pan %>% ungroup() %>%
+      group_by(tool, habitat, aggregation, epoch) %>%
+      summarise(s = sum(unigenes)) %>%
+      ungroup() %>%
+      group_by(tool, habitat, aggregation) %>%
+      summarise(md = median(s), mn = mean(s), sd = sd(s))
+
+    list(
+      pan = pan,
+      core = core,
+      sumpan2 = sumpan2
+    )
+    
+  }, error = function(e) {
+    
+    message("Error in load_pan_core(): ", e$message)
+    
+    NULL
+  })
+}
 

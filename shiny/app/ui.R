@@ -106,6 +106,63 @@ ps_args <- page_sidebar(
 )
 
 
+ps_pan_core <- page_sidebar(
+  #title = "Pan and Core resistome",
+  sidebar = sidebar(
+    helpText(
+      ""
+    ),
+    selectInput(
+      "tool_pan_core",
+      "Choose the tools you want to compare:",
+      tool_choices,
+      as.vector(tools_levels),
+      multiple = TRUE
+    ),
+    selectInput(
+      "environment_pan_core",
+      "Choose the tools you want to compare:",
+      as.list(EN2),
+      selected = EN2[c(1,9,10,13)],
+      multiple = TRUE
+    ),
+    radioButtons(
+      "threshold_proportion",
+      "Proportion of metagenomic samples where the gene appears in each subsampling event",
+      choices = list(">= 30%" = 0.3, ">= 40%" = 0.4, ">= 50%" = 0.5, ">= 60%" = 0.6, ">= 70%" = 0.7, ">= 80%" = 0.8, ">= 90%" = 0.9),
+      selected = 0.5
+    ),
+    sliderInput(
+      "threshold_samples",
+      "Minimum number of subsets the gene has to be part of the subsample core-resistome",
+      min = 200,
+      max = 499,
+      value = 450
+    )
+  ),
+  
+  card(
+    full_screen = TRUE, 
+    height = "100%", # Occupy full vertical space available
+    card_header("Pan- and core-resitomes."),
+    card_body(
+      fillable = TRUE, 
+      padding = 0,
+      layout_column_wrap(
+        width = 1, 
+        fill = TRUE,
+        heights_equal = "row",
+        card(
+          card_header("Again pan- core-resistomes"),
+          plotOutput("plot_pan_core_resistome", height = "100%") # Height 100% is key
+        )
+      )
+    ),
+    
+    card_footer("Note:")
+  )
+)
+
 
 
 # Define UI for the argCompare application
@@ -116,7 +173,7 @@ page_navbar(
   inverse = TRUE,
   nav_panel(title = "Introduction", p(ps_intro)),
   nav_panel(title = "ARGs", p(ps_args)),
-  # nav_panel(title = "Abundance/Diversity", p(psb2)),
+  nav_panel(title = "Pan-/core-resistome", p(ps_pan_core)),
   # nav_panel(title = "Core-/pan-resistome", p(psb3)),
   # nav_panel(title = "Overlap", p(psb4)),
   # nav_panel(title = "Table S1", p(tab1)),

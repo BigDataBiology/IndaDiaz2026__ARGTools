@@ -17,6 +17,8 @@ library(ggalluvial)
 library(cowplot)
 library(scales)
 
+options(dplyr.summarise.inform = FALSE)
+
 # Path Configuration
 DATA_DIR <- "../../code_R_analysis/output_abundance_diversity_resistome"
 METADATA_PATH <- "../../data/metadata_GMGC10.sample.meta.tsv"
@@ -101,3 +103,9 @@ data_list <- c(data_list,
                  file3 = "abundance_diversity_part3.rds",
                  data_list$metadata))
   
+
+data_list <- c(data_list, 
+               load_pan_core(
+                 DATA_DIR = DATA_DIR,
+                 core_file = "core_resistome.rds",
+                 pan_file = "pan_resistome.rds"))
