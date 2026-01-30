@@ -2,43 +2,60 @@
 
 
 ps_intro <- fluidPage(
-  title = "How ARG Detection Tools Shape Our View of the Resistome",
-  card(
-    #card_header(""),
-    card_image("../../code_R_analysis/output_plots/fig1.svg", height = "600px"),
-    card_footer("The GMGC dataset was analyzed in nucleotide and/or amino acid format by the ARG detection tools to obtain a list of putative resistance genes. We quantified the resistome (abundance, diversity, pan- and core-resistome) using the putative ARGs in host-associated and external environments.")
-  ),
-  card(
-    #card_header("Summary"),
-    tags$p("This shiny app shows the main and supplementary figures form the manuscript ", 
-           tags$b(tags$i("How ARG Detection Tools Shape Our View of the Resistome")), 
-           "and allows to control different parameters."),
-    tags$p(tags$b("Genes")),
-    tags$p("The genes used correspond to the unigenes from",  tags$a(href="https://gmgc.embl.de/", "GMGC"),
-           "and are accessible", tags$a(href="https://gmgc.embl.de/download.cgi", "here.")),
-    tags$p(tags$b("Metagenomes")),
-    tags$p("The table with the metagenomes and their accession numbers can be found in Table S2 and ",
-           tags$a(href="https://gmgc.embl.de/downloads/v1.0/metadata/GMGC10.sample.meta.tsv.gz", "here"), ". We did not consider the environments amplicon, isolate, and built-environment for this study.",
-           "The abundance of each gene in the metagenomes can be accessed", tags$a(href="https://gmgc.embl.de/downloads/v1.0/GMGC10.sample-abundance.tsv.xz", "here. The summary of metagenomic samples per habitat can be found in Table S2.")),
-    tags$p(tags$b("Ontology")),
-    "We provide the table that links each ARO to the gene classes used in this project Table S3.",
-    tags$p(tags$b("Tools")),
-    "To avoid redundance, we show the results of running the genes in:",
-    tags$ul(
-      tags$li("nucleotide format through:"),
-      tags$ul(
-        tags$li("DeepARG"),
-        tags$li("fARGene"), 
-        tags$li("RGI with DIAMOND aligner"), 
-        tags$li("ResFinder, and"), 
-        tags$li("ABRicate with the databases: CARD, ResFinder, NCBI, ARG-ANNOT, and MEGARES 2.0.;")
+  card_header(tags$b(tags$i("Introduction"))),
+  full_screen = TRUE, 
+  height = "100%", # Occupy full vertical space available
+  
+
+  card_body(
+    fillable = TRUE, 
+    padding = 0,
+    layout_column_wrap(
+      width = 1/2, 
+      fill = TRUE,      # This forces the columns to fill the card height
+      heights_equal = "row",
+      
+      # Sub-card for Plot A
+      card(
+        tags$p("This shiny app shows the main and supplementary figures form the manuscript ", 
+               tags$b(tags$i("How ARG Detection Tools Shape Our View of the Resistome")), 
+               "and allows to control different parameters."),
+        tags$p(tags$b("302,655,267 unigenes")),
+        tags$p("The unigenes are representative sequences after clustering 2.3 billion bacterial genes at 95% identity. The unigenes come from ",  tags$a(href="https://gmgc.embl.de/", "GMGC"),
+               "and are accessible", tags$a(href="https://gmgc.embl.de/download.cgi", "here.")),
+        tags$p(tags$b("13,174 metagenomic samples from 16 different habitats")),
+        tags$p("The metagenomic samples come from GMGC and are available ",
+               tags$a(href="https://gmgc.embl.de/downloads/v1.0/metadata/GMGC10.sample.meta.tsv.gz", "here"), ". In this app, we did not consider the habitats amplicon, isolate, and built-environment.",
+               "The abundance of each gene in the metagenomes can be accessed", tags$a(href="https://gmgc.embl.de/downloads/v1.0/GMGC10.sample-abundance.tsv.xz", "here"), ". The summary of metagenomic samples per habitat can be found in Table S2."),
+        tags$p(tags$b("ARG classes")),
+        tags$p("Ontology normalization was done with", tags$a(href="https://github.com/BigDataBiology/argNorm", "argNorm"), ". Gene classes were manually curated after. The gene classes used in this project can be found in Table S3."),
+        tags$p(tags$b("Tools")),
+        "We used full-sized gene in all tools. For each tool, we chose a single parameter:",
+        tags$ul(
+          tags$li("Nucleotide sequences through:"),
+          tags$ul(
+            tags$li("ResFinder, and"), 
+            tags$li("ABRicate with the databases: CARD, ResFinder, NCBI, ARG-ANNOT, and MEGARES 2.0.;")
+          ),
+          tags$li("Amino acid sequences through:"),
+          tags$ul(
+            tags$li("DeepARG"),
+            tags$li("fARGene"), 
+            tags$li("RGI with DIAMOND aligner"), 
+            tags$li("AMRFinderPlus.")
+          )
+        )
       ),
-      tags$li("amino acid format through:"),
-      tags$ul(
-        tags$li("AMRFinderPlus.")
-      ))
-  ),
-)
+      
+      card(
+        card_header("Pipeline"),
+        card_image("../../code_R_analysis/output_plots/fig1.svg", height = "100%"),
+        card_footer("The GMGC dataset was analyzed in nucleotide and/or amino acid format by the ARG detection tools to obtain a list of putative resistance genes. We quantified the resistome (abundance, diversity, pan- and core-resistome) using the putative ARGs in host-associated and external environments.")
+        )
+      )#,
+    #card_footer("Note:")
+    )
+  )
 
 
 ps_args <- page_sidebar(
@@ -55,14 +72,6 @@ ps_args <- page_sidebar(
       multiple = TRUE
     )
   ),
-  # navset_card_underline(
-  #   title = "Inter-tool differences in the number and classes of ARGs detected.",
-  #   nav_panel("A", "The number of putative ARGs detected by each tool.", 
-  #             plotOutput("plot_count_genes_tool")),
-  #   nav_panel("B", "Proportion of ARGs per class identified by each tool. Genes forming at least 99% and with 0.5% proportion are shown.", 
-  #             plotOutput("plot_alluvial_classes"))
-  # )
-  
   card(
     full_screen = TRUE, 
     height = "100%", # Occupy full vertical space available
@@ -125,3 +134,10 @@ page_navbar(
 
 
 # Define server logic 
+# navset_card_underline(
+#   title = "Inter-tool differences in the number and classes of ARGs detected.",
+#   nav_panel("A", "The number of putative ARGs detected by each tool.", 
+#             plotOutput("plot_count_genes_tool")),
+#   nav_panel("B", "Proportion of ARGs per class identified by each tool. Genes forming at least 99% and with 0.5% proportion are shown.", 
+#             plotOutput("plot_alluvial_classes"))
+# )
