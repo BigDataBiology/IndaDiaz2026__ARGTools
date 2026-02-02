@@ -188,6 +188,15 @@ lst_abundance_diversity70 <- lst_abundance_diversity70 %>%
 lst_abundance_diversity80 <- lst_abundance_diversity80 %>% 
   mutate(habitat2 = SO[lst_abundance_diversity80$habitat])
 
+lst_abundance_diversity60 <- lst_abundance_diversity60 %>% 
+  mutate(tool = ifelse(tool == "DeepARG-aa", "DeepARG", "RGI-DIAMOND"))
+
+lst_abundance_diversity70 <- lst_abundance_diversity70 %>% 
+  mutate(tool = ifelse(tool == "DeepARG-aa", "DeepARG", "RGI-DIAMOND"))
+
+lst_abundance_diversity80 <- lst_abundance_diversity80 %>% 
+  mutate(tool = ifelse(tool == "DeepARG-aa", "DeepARG", "RGI-DIAMOND"))
+
 # save abundance and diversity
 saveRDS(lst_abundance_diversity60, file = "code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_60.rds", compress = T)
 saveRDS(lst_abundance_diversity70, file = "code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_70.rds", compress = T)

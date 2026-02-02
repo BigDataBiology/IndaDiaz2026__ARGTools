@@ -71,9 +71,9 @@ load_abundances <- function(DATA_DIR = "../../code_R_analysis/output_abundance_d
   tryCatch({
     # Load abundance files 
     abundance <- bind_rows(
-      readRDS(file.path(DATA_DIR, "abundance_diversity_part1.rds")),
-      readRDS(file.path(DATA_DIR, "abundance_diversity_part2.rds")),
-      readRDS(file.path(DATA_DIR, "abundance_diversity_part3.rds"))
+      readRDS(file.path(DATA_DIR, file1)),
+      readRDS(file.path(DATA_DIR, file2)),
+      readRDS(file.path(DATA_DIR, file3))
     )
     
     # the column distinct_unigenes_rarefied <- alpha diversity (number of different genes after rarefaction) 
@@ -282,3 +282,75 @@ load_pan_core <- function(DATA_DIR = "../../code_R_analysis/output_abundance_div
   })
 }
 
+
+
+
+
+load_abundances_thresholds <- function(DATA_DIR = "../../code_R_analysis/output_abundance_diversity_resistome", 
+                            file = "abundance_diversity_60.rds",
+                            metadata){
+  tryCatch({
+    # Load abundance files 
+    abundance <- readRDS(file.path(DATA_DIR, file))
+
+    
+    # the column distinct_unigenes_rarefied <- alpha diversity (number of different genes after rarefaction) 
+    # no need to complete information here
+    
+    abundance <- abundance %>% 
+      mutate(unigenes = distinct_unigenes_rarefied) %>%  # alpha diversity (number of different genes after rarefaction) 
+      mutate(habitat = factor(habitat, levels = EN), # convert to factors for ordering the plots
+             habitat2 = factor(SO[habitat], levels = h2), # convert to factors for ordering the plots
+             tool = factor(tool, levels = tools_levels)) %>%  # convert to factors for ordering the plots
+      mutate(location = ifelse(habitat2 %in% c("humans","mammals","wastewater","built-environment"), "human-related","external")) %>% 
+      mutate(location = factor(location, levels = c("human-related","external"))) %>% 
+      filter(tool %in% tools_levels & !habitat %in% not_env) %>%
+      filter(aggregation %in% "new_level") %>%  # take only gene class aggregation
+      mutate(habitat2 = factor(as.character(habitat2), h2))
+    
+    # normed10m is abundance, unigenes is the diversity (number of different genes )
+    # we need to complete information, we need to make sure all samples appear in all tools 
+    
+    abundance_tool_sample <- abundance %>%
+      group_by(tool, sample, habitat, habitat2) %>%  
+      summarise(normed10m = sum(normed10m), unigenes = sum(unigenes)) %>% # sum the abundance and diversity
+      ungroup() %>% 
+      complete(sample, tool) %>% # complete with NAs
+      left_join(abundance %>% select(sample, habitat, habitat2) %>% 
+                  distinct(), by = "sample") %>% # get habitat and habitat2 
+      mutate(habitat  = coalesce(habitat.x, habitat.y), 
+             habitat2 = coalesce(habitat2.x, habitat2.y)) %>%
+      select(-habitat.x, -habitat.y, -habitat2.x, -habitat2.y) %>% 
+      mutate(normed10m = replace_na(normed10m, 0)) %>%  # change NAs to 0
+      mutate(unigenes = replace_na(unigenes, 0)) %>% # change NAs to 0
+      arrange(tool, sample)
+    
+    # normed10m is abundance, unigenes is the diversity (number of different genes )
+    # we need to complete information, we need to make sure all samples have all gene classes and appear in all tools 
+    
+    abundance_class <- abundance %>% 
+      ungroup() %>% 
+      filter(tool %in% tools_levels, 
+             !habitat %in% not_env, aggregation %in% "new_level") %>% 
+      mutate(gene = factor(gene), sample = factor(sample), 
+             tool = factor(tool, levels = tools_levels)) %>%
+      select(!c(raw, raw_unique, scaled, distinct_unigenes_rarefied, 
+                distinct_unigenes_raw, distinct_unigenes_raw_unique)) %>% 
+      complete( sample, gene, tool, 
+                fill = list(normed10m = 0,  unigenes = 0)) %>% ## complete for all samples, tools, and gene classes
+      mutate(aggregation = "new_level", 
+             gene = as.character(gene),
+             habitat = metadata$habitat[match(sample, metadata$sample_id)],
+             habitat2 = metadata$habitat2[match(sample, metadata$sample_id)],
+             location = metadata$location[match(sample, metadata$sample_id)])  # not so dplyr way to fetch habitat and environment
+    
+    list(
+      abundance = abundance,
+      abundance_tool_sample = abundance_tool_sample,
+      abundance_class = abundance_class)
+    
+  }, error = function(e) {
+    message("Error in load_abundances(): ", e$message)
+    NULL
+  })
+}

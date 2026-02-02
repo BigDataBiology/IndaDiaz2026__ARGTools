@@ -2045,6 +2045,85 @@ plot_abundance_class_environment <- function(abundance_class, e, general_size, p
 } 
 
 
+
+plot_abundance_class_more_environments <- function(abundance_class, e, 
+                                                   general_size, pal_10_q, 
+                                                   top20, data_type, other){
+  
+  if(data_type == "abundance"){
+    df_abundance_class_env <- abundance_class %>% 
+      filter(habitat %in% e) %>% 
+      mutate(total = normed10m) %>%
+      mutate(gene = ifelse(gene %in% top20, gene, "Other")) %>% 
+      mutate(texture = ifelse(tool %in% tools_texture, "yes", "no")) %>%
+      mutate(gene = factor(gene, levels = c(top20, "Other"))) %>%
+      ungroup() %>% 
+      group_by(sample, habitat, tool, gene) %>%
+      summarise(total = sum(total), texture = texture[1])
+  } else if(data_type == "diversity"){
+    df_abundance_class_env <- abundance_class %>% 
+      filter(habitat %in% e) %>% 
+      mutate(total = unigenes) %>%
+      mutate(gene = ifelse(gene %in% top20, gene, "Other")) %>% 
+      mutate(texture = ifelse(tool %in% tools_texture, "yes", "no")) %>%
+      mutate(gene = factor(gene, levels = c(top20, "Other"))) %>%
+      ungroup() %>% 
+      group_by(sample, habitat, tool, gene) %>%
+      summarise(total = sum(total), texture = texture[1])
+  }
+  
+  if(other == "No") { 
+    df_abundance_class_env <- df_abundance_class_env %>% 
+      filter(!gene %in% "Other") %>% 
+      mutate(gene = factor(as.character(gene), levels = top20))
+  }
+  
+  p <- df_abundance_class_env %>%
+    ggplot(aes(x = gene, y = total, fill = tool, pattern = texture)) + 
+    stat_summary(fun.data = calc_boxplot_stat, geom="boxplot_pattern", 
+                 position = position_dodge2(preserve = "single"), 
+                 color = "black", linewidth = 0.2, 
+                 pattern_color = "white",
+                 pattern_density = pattern_density, 
+                 pattern_spacing = pattern_spacing, 
+                 pattern_fill = pattern_fill,
+                 pattern_size = pattern_size,
+                 pattern_key_scale_factor = 1.2, outlier.shape = NA, outlier.size = 0) +
+    scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe')) +
+    scale_fill_manual(values = pal_10_q, 
+                      labels = lab_fn(tools_levels)) +
+    #scale_y_continuous(expand = c(0, 0), breaks = seq(0, floor(max_abun_class_en/1000) * 1000, length.out = 4),
+    #                   labels = scales::label_number()) + 
+    theme_minimal() +
+    facet_grid(habitat ~ gene, scales = "free") + 
+    scale_x_discrete(labels = function(x) {
+      x <- gsub("-", "-\n", x)
+      x <- gsub(" ", "\n", x)
+      x})  + 
+    ylab("Relative abundance") +
+    xlab("") +
+    labs(fill = "") +
+    #ggtitle(e) +
+    theme(
+      legend.position = "bottom",
+      legend.text = element_text(size = general_size ),
+      panel.border = element_blank(),
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor.x = element_blank(),
+      plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+      legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+      legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+      #panel.spacing = unit(0, "pt"),
+      title = element_text(size = general_size + 2, face = "bold"),
+      axis.title = element_text(size = general_size + 1, face = "bold"),
+      axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+      axis.text.y = element_text(size = general_size),
+      panel.background = element_rect(colour = "black", fill = NA),
+      strip.text.y = element_text(size = general_size, face = "bold"),
+      strip.text.x = element_blank())
+  return(p)
+} 
+
 # function to make breaks in the axis names  of the plots
 lab_fn <- function(x) {
   x <- gsub("-", "-\n", x)
