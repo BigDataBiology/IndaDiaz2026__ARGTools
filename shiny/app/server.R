@@ -184,4 +184,156 @@ server <- function(input, output, session) {
           panel.background = element_rect(colour = "black", fill = NA))  
   })
   
+  
+  abundance_tool_sample_reactive <- reactive({ 
+    if(input$threshold_abundance_id == 60.0) {
+      data_list$abundance %>%
+        filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>% 
+        bind_rows(data_list$abundance60) %>%
+        group_by(tool, sample, habitat, habitat2) %>%  
+        summarise(normed10m = sum(normed10m), unigenes = sum(unigenes)) %>% # sum the abundance and diversity
+        ungroup() %>% 
+        complete(sample, tool) %>% # complete with NAs
+        
+        left_join((data_list$abundance %>%
+                     filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>% 
+                     bind_rows(data_list$abundance60)) %>% select(sample, habitat, habitat2) %>% 
+                    distinct(), by = "sample") %>% # get habitat and habitat2 
+        mutate(habitat  = coalesce(habitat.x, habitat.y), 
+               habitat2 = coalesce(habitat2.x, habitat2.y)) %>%
+        select(-habitat.x, -habitat.y, -habitat2.x, -habitat2.y) %>% 
+        mutate(normed10m = replace_na(normed10m, 0)) %>%  # change NAs to 0
+        mutate(unigenes = replace_na(unigenes, 0)) %>% # change NAs to 0
+        arrange(tool, sample)
+      
+    } else if(input$threshold_abundance_id == 70.0) {
+      
+      data_list$abundance %>%
+        filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>% 
+        bind_rows(data_list$abundance70) %>%
+        group_by(tool, sample, habitat, habitat2) %>%  
+        summarise(normed10m = sum(normed10m), unigenes = sum(unigenes)) %>% # sum the abundance and diversity
+        ungroup() %>% 
+        complete(sample, tool) %>% # complete with NAs
+        
+        left_join((data_list$abundance %>%
+                     filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>% 
+                     bind_rows(data_list$abundance70)) %>% select(sample, habitat, habitat2) %>% 
+                    distinct(), by = "sample") %>% # get habitat and habitat2 
+        mutate(habitat  = coalesce(habitat.x, habitat.y), 
+               habitat2 = coalesce(habitat2.x, habitat2.y)) %>%
+        select(-habitat.x, -habitat.y, -habitat2.x, -habitat2.y) %>% 
+        mutate(normed10m = replace_na(normed10m, 0)) %>%  # change NAs to 0
+        mutate(unigenes = replace_na(unigenes, 0)) %>% # change NAs to 0
+        arrange(tool, sample)
+      
+    } else if (input$threshold_abundance_id == 80.0) {
+      
+      data_list$abundance %>%
+        filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>% 
+        bind_rows(data_list$abundance80) %>%
+        group_by(tool, sample, habitat, habitat2) %>%  
+        summarise(normed10m = sum(normed10m), unigenes = sum(unigenes)) %>% # sum the abundance and diversity
+        ungroup() %>% 
+        complete(sample, tool) %>% # complete with NAs
+        
+        left_join((data_list$abundance %>%
+                     filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>% 
+                     bind_rows(data_list$abundance80)) %>% select(sample, habitat, habitat2) %>% 
+                    distinct(), by = "sample") %>% # get habitat and habitat2 
+        mutate(habitat  = coalesce(habitat.x, habitat.y), 
+               habitat2 = coalesce(habitat2.x, habitat2.y)) %>%
+        select(-habitat.x, -habitat.y, -habitat2.x, -habitat2.y) %>% 
+        mutate(normed10m = replace_na(normed10m, 0)) %>%  # change NAs to 0
+        mutate(unigenes = replace_na(unigenes, 0)) %>% # change NAs to 0
+        arrange(tool, sample)
+      
+    } else {
+      data_list$abundance %>%
+        group_by(tool, sample, habitat, habitat2) %>%  
+        summarise(normed10m = sum(normed10m), unigenes = sum(unigenes)) %>% # sum the abundance and diversity
+        ungroup() %>% 
+        complete(sample, tool) %>% # complete with NAs
+        left_join(data_list$abundance %>% select(sample, habitat, habitat2) %>% 
+                    distinct(), by = "sample") %>% # get habitat and habitat2 
+        mutate(habitat  = coalesce(habitat.x, habitat.y), 
+               habitat2 = coalesce(habitat2.x, habitat2.y)) %>%
+        select(-habitat.x, -habitat.y, -habitat2.x, -habitat2.y) %>% 
+        mutate(normed10m = replace_na(normed10m, 0)) %>%  # change NAs to 0
+        mutate(unigenes = replace_na(unigenes, 0)) %>% # change NAs to 0
+        arrange(tool, sample)
+    }
+  })
+      
+  output$plot_abundance <- renderPlot({
+
+    plot_total_abundance_diversity_new_version(
+      dataset = abundance_tool_sample_reactive(), # 
+      tools_labels = tools_labels,  #
+      tools_to_plot = input$tool_abundance,  #
+      environments_plot = input$environment_abundance, # habitats to plot (aggregated humans and mammals)
+      general_size = general_size, # font size
+      pal_10_q = pal_10_q , # pallet
+      metric = "abundance", # metric (abundance or diversity)
+      sd = 2025, # seed to plot random samples in the distribution 
+      obs = 200,  # number of samples to plot as dots per environment
+      texture = tools_texture) + # texture for repeated color 
+      theme(legend.position = "none")
+    
+  })
+  
+  output$plot_diversity <- renderPlot({
+    
+    plot_total_abundance_diversity_new_version(
+      dataset = abundance_tool_sample_reactive(), # 
+      tools_labels = tools_labels,  #
+      tools_to_plot = input$tool_abundance,  #
+      environments_plot = input$environment_abundance, # habitats to plot (aggregated humans and mammals)
+      general_size = general_size, # font size
+      pal_10_q = pal_10_q , # pallet
+      metric = "diversity", # metric (abundance or diversity)
+      sd = 2025, # seed to plot random samples in the distribution 
+      obs = 200,  # number of samples to plot as dots per environment
+      texture = tools_texture) + # texture for repeated color 
+      theme(legend.position = "none")
+    
+  })
+
+  
+  abundance_class_reactice <- reactive({ 
+    if(input$threshold_abundance_id == 60.0) {
+      data_list$abundance_class %>% 
+        filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>% 
+        bind_rows(data_list$abundance_class60)
+      
+    } else if(input$threshold_abundance_id == 70.0){
+      data_list$abundance_class %>% 
+        filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>% 
+        bind_rows(data_list$abundance_class70)
+      
+    } else if(input$threshold_abundance_id == 80.0) {
+      data_list$abundance_class %>% 
+        filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>% 
+        bind_rows(data_list$abundance_class80)
+      
+    } else {data_list$abundance_class}
+    
+  })
+  
+  output$plot_abundance_class  <- renderPlot({
+    plot_abundance_class_more_environments(abundance_class_reactice(), 
+      input$environment_abundance, general_size , pal_10_q, 
+      input$abundance_genes, data_type = "abundance", other = input$plot_other) +
+      theme(legend.position = "none")
+  })
+  
+  output$plot_diversity_class  <- renderPlot({
+    plot_abundance_class_more_environments(abundance_class_reactice(), 
+      input$environment_abundance, general_size , pal_10_q, 
+      input$abundance_genes, data_type = "diversity", other = input$plot_other) +
+      theme(legend.position = "none")
+  })
+  
 }
+
+

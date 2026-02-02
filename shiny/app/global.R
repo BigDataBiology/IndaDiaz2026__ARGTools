@@ -109,3 +109,36 @@ data_list <- c(data_list,
                  DATA_DIR = DATA_DIR,
                  core_file = "core_resistome.rds",
                  pan_file = "pan_resistome.rds"))
+
+top20 <- c("van", "efflux pump", "cell wall charge", "rpoB", "tet RPG", "class A beta-lactamase", 
+           "aph", "MFS efflux pump", "erm", "target-modifying enzyme", "tet enzyme")
+
+abundance_threshold <- load_abundances_thresholds(
+  DATA_DIR = "../../code_R_analysis/output_abundance_diversity_resistome", 
+  file = "abundance_diversity_60.rds",
+  data_list$metadata)
+
+data_list <- c(data_list, 
+               list(abundance60 = abundance_threshold$abundance,
+               abundance_tool_sample60 = abundance_threshold$abundance_tool_sample,
+               abundance_class60 = abundance_threshold$abundance_class))
+
+abundance_threshold <- load_abundances_thresholds(
+  DATA_DIR = "../../code_R_analysis/output_abundance_diversity_resistome", 
+  file = "abundance_diversity_70.rds",
+  data_list$metadata)
+
+data_list <- c(data_list, 
+               list(abundance70 = abundance_threshold$abundance,
+               abundance_tool_sample70 = abundance_threshold$abundance_tool_sample,
+               abundance_class70 = abundance_threshold$abundance_class))
+
+abundance_threshold <- load_abundances_thresholds(
+  DATA_DIR = "../../code_R_analysis/output_abundance_diversity_resistome", 
+  file = "abundance_diversity_80.rds",
+  data_list$metadata)
+
+data_list <- c(data_list, 
+               list(abundance80 = abundance_threshold$abundance,
+               abundance_tool_sample80 = abundance_threshold$abundance_tool_sample,
+               abundance_class80 = abundance_threshold$abundance_class))

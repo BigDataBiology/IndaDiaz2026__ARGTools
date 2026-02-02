@@ -2,21 +2,10 @@
 
 
 ps_intro <- fluidPage(
-  card_header(tags$b(tags$i("Introduction"))),
-  full_screen = TRUE, 
-  height = "100%", # Occupy full vertical space available
-  
-
-  card_body(
-    fillable = TRUE, 
-    padding = 0,
-    layout_column_wrap(
-      width = 1/2, 
-      fill = TRUE,      # This forces the columns to fill the card height
-      heights_equal = "row",
-      
-      # Sub-card for Plot A
+  layout_column_wrap( 
+    width = 1/2,
       card(
+        card_header("Introduction"),
         tags$p("This shiny app shows the main and supplementary figures form the manuscript ", 
                tags$b(tags$i("How ARG Detection Tools Shape Our View of the Resistome")), 
                "and allows to control different parameters."),
@@ -49,17 +38,15 @@ ps_intro <- fluidPage(
       
       card(
         card_header("Pipeline"),
-        card_image("../../code_R_analysis/output_plots/fig1.svg", height = "100%"),
+        card_image("../../code_R_analysis/output_plots/fig1_shiny.svg", height = "100%"),
         card_footer("The GMGC dataset was analyzed in nucleotide and/or amino acid format by the ARG detection tools to obtain a list of putative resistance genes. We quantified the resistome (abundance, diversity, pan- and core-resistome) using the putative ARGs in host-associated and external environments.")
         )
-      )#,
-    #card_footer("Note:")
-    )
+      )
   )
+  
 
 
 ps_args <- page_sidebar(
-  #title = "Genes detected as ARGS",
   sidebar = sidebar(
     helpText(
       ""
@@ -74,46 +61,28 @@ ps_args <- page_sidebar(
     radioButtons(
       "threshold_unigenes_id",
       "Identity threshold DeepARG/RGI (amino acid)",
-      choices = list("None" = 0.0, "= 60%" = 60.0, "= 70%" = 70.0, "= 80%" = 80.0),
+      choices = list("Default" = 0.0, ">= 60%" = 60.0, ">= 70%" = 70.0, ">= 80%" = 80.0),
       selected = 0.0
     )
   ),
-  card(
-    full_screen = TRUE, 
-    height = "100%", # Occupy full vertical space available
-    card_header("Inter-tool differences in the number and classes of ARGs detected."),
+  layout_column_wrap( 
+    width = 1/2,
     
-    # card_body with fill = TRUE allows the contents to expand dynamically
-    card_body(
-      fillable = TRUE, 
-      padding = 0,
-      layout_column_wrap(
-        width = 1/2, 
-        fill = TRUE,      # This forces the columns to fill the card height
-        heights_equal = "row",
-        
-        # Sub-card for Plot A
         card(
           card_header("A: Number of putative ARGs"),
-          plotOutput("plot_count_genes_tool", height = "100%") # Height 100% is key
+          plotOutput("plot_count_genes_tool", height = "100%") 
         ),
         
-        # Sub-card for Plot B
         card(
           card_header("B: Proportion of ARGs per class"),
-          plotOutput("plot_alluvial_classes", height = "100%") # Height 100% is key
+          plotOutput("plot_alluvial_classes", height = "100%"), 
+          card_footer("Genes forming at least 99% and with 0.5% proportion are shown.")
         )
       )
-    ),
-    
-    card_footer("Note: In B, genes forming at least 99% and with 0.5% proportion are shown.")
-  )
-  
 )
 
 
 ps_pan_core <- page_sidebar(
-  #title = "Pan and Core resistome",
   sidebar = sidebar(
     helpText(
       ""
@@ -148,33 +117,137 @@ ps_pan_core <- page_sidebar(
     radioButtons(
       "threshold_pan_core_id",
       "Identity threshold DeepARG/RGI (amino acid)",
-      choices = list("None" = 0.0, "= 60%" = 60.0, "= 70%" = 70.0, "= 80%" = 80.0),
+      choices = list("Default" = 0.0, ">= 60%" = 60.0, ">= 70%" = 70.0, ">= 80%" = 80.0),
       selected = 0.0
     )
   ),
   
-  card(
-    full_screen = TRUE, 
-    height = "100%", # Occupy full vertical space available
-    card_header("Pan- and core-resitomes"),
-    card_body(
-      fillable = TRUE, 
-      padding = 0,
-      layout_column_wrap(
-        width = 1, 
-        fill = TRUE,
-        heights_equal = "row",
-        card(
-          card_header("Number of genes"),
-          plotOutput("plot_pan_core_resistome", height = "100%") # Height 100% is key
-        )
+  layout_column_wrap( 
+    width = 1/2,
+      card(
+        card_header("Number of genes"),
+        plotOutput("plot_pan_core_resistome", width = "100%") 
+      ),
+      card(
+        card_header("Proportion of genes"),
+        
       )
-    ),
-    
-    card_footer("Note:")
-  )
+    )
 )
 
+ps_abundance_diversity <- page_sidebar(
+  sidebar = sidebar(
+    helpText(
+      ""
+    ),
+    selectInput(
+      "tool_abundance",
+      "Choose the tools you want to compare:",
+      tool_choices,
+      as.vector(tools_levels),
+      multiple = TRUE
+    ),
+    selectInput(
+      "environment_abundance",
+      "Choose the tools you want to show:",
+      as.list(EN2),
+      selected = EN2[c(1,9)],
+      multiple = TRUE
+    ),
+    radioButtons(
+      "threshold_abundance_id",
+      "Identity threshold DeepARG/RGI (amino acid)",
+      choices = list("Default" = 0.0, ">= 60%" = 60.0, ">= 70%" = 70.0, ">= 80%" = 80.0),
+      selected = 0.0
+    ),
+    selectInput(
+      "abundance_genes",
+      "Choose the genes you want to show:",
+      as.list(as.character(gene_classes)),
+      top20,
+      multiple = TRUE
+    ),
+    selectInput(
+      "plot_other",
+      "Plot other gene classes together:",
+      as.list(c("Yes","No")),
+      "Yes",
+      multiple = FALSE
+    )
+  ),
+  
+
+    page_fillable(
+      title = "Abundance and diversity",
+      layout_column_wrap( 
+        width = 1/2,
+        card(
+          card_header("Abundance per sample"),
+          #"This is outcome",
+          plotOutput("plot_abundance", height = "100%") 
+        ),
+        card(
+          card_header("Diversity per sample"),
+          #"This is outcome 2",
+          plotOutput("plot_diversity", height = "100%") 
+        ),
+        card(
+          card_header("Median abundance per class"),
+          #"This is outcome",
+          plotOutput("plot_abundance_class", height = "100%") 
+        ),
+        card(
+          card_header("Median diversity per class"),
+          plotOutput("plot_diversity_class", height = "100%") 
+        )#,
+        #card(
+        #  card_header("Median diversity per class"),
+          #plotOutput("plot_diversity_class", height = "100%") 
+        #)
+      )
+    )
+)
+
+
+
+ps_overlap <- page_sidebar(
+  sidebar = sidebar(
+    helpText(
+      ""
+    ),
+    selectInput(
+      "tool_overlap",
+      "Choose the tools you want to compare:",
+      tool_choices,
+      as.vector(tools_levels),
+      multiple = TRUE
+    ),
+    radioButtons(
+      "threshold_overlap_id",
+      "Identity threshold DeepARG/RGI (amino acid)",
+      choices = list("Default" = 0.0, ">= 60%" = 60.0, ">= 70%" = 70.0, ">= 80%" = 80.0),
+      selected = 0.0
+    )
+  ),
+  
+    page_fillable(
+      title = "Abundance and diversity",
+      layout_column_wrap( 
+        width = 1/2, 
+        card(
+          card_header("Plot 1"),
+          #plotOutput("plot_abundance_resistome", height = "100%") 
+        ),
+        card(
+          card_header("Plot 2"),
+          #plotOutput("plot_abundance_resistome", height = "100%") 
+        )
+      )
+    )#,
+    
+    #card_footer("Note:")
+  
+)
 
 
 # Define UI for the argCompare application
@@ -185,9 +258,9 @@ page_navbar(
   inverse = TRUE,
   nav_panel(title = "Introduction", p(ps_intro)),
   nav_panel(title = "ARGs", p(ps_args)),
-  nav_panel(title = "Pan-/core-resistome", p(ps_pan_core)),
-  # nav_panel(title = "Core-/pan-resistome", p(psb3)),
-  # nav_panel(title = "Overlap", p(psb4)),
+  nav_panel(title = "Abundance and diversity", p(ps_abundance_diversity)),
+  nav_panel(title = "Pan- and core-resistome", p(ps_pan_core)),
+  nav_panel(title = "Overlap", p(ps_overlap)),
   # nav_panel(title = "Table S1", p(tab1)),
   # nav_panel(title = "Table S2", p(tab2)),
   # nav_panel(title = "Table S3", p(tab3)),
@@ -202,11 +275,3 @@ page_navbar(
 
 
 
-# Define server logic 
-# navset_card_underline(
-#   title = "Inter-tool differences in the number and classes of ARGs detected.",
-#   nav_panel("A", "The number of putative ARGs detected by each tool.", 
-#             plotOutput("plot_count_genes_tool")),
-#   nav_panel("B", "Proportion of ARGs per class identified by each tool. Genes forming at least 99% and with 0.5% proportion are shown.", 
-#             plotOutput("plot_alluvial_classes"))
-# )
