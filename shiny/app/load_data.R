@@ -144,8 +144,8 @@ load_pan_core <- function(DATA_DIR = "../../code_R_analysis/output_abundance_div
   
   tryCatch({
     
-    core <- readRDS(file.path(DATA_DIR, "core_resistome.rds"))
-    pan <- readRDS(file.path(DATA_DIR, "pan_resistome.rds"))
+    core <- readRDS(file.path(DATA_DIR, core_file))
+    pan <- readRDS(file.path(DATA_DIR, pan_file))
     
     core <- core %>%
       rename(new_level = new_level_centroid,
@@ -170,11 +170,108 @@ load_pan_core <- function(DATA_DIR = "../../code_R_analysis/output_abundance_div
       ungroup() %>%
       group_by(tool, habitat, aggregation) %>%
       summarise(md = median(s), mn = mean(s), sd = sd(s))
+    
+## 60
+    core60 <- readRDS(file.path(DATA_DIR, "core_resistome60.rds"))
+    pan60 <- readRDS(file.path(DATA_DIR, "pan_resistome60.rds"))
+    
+    core60 <- core60 %>%
+      rename(new_level = new_level_centroid,
+             X = centroid) %>%
+      filter(tool %in% tools_levels,
+             !habitat %in% not_env) %>%
+      mutate(habitat = factor(habitat, levels = EN2),
+             tool = factor(tool, levels =  tools_levels)) %>%
+      mutate(tool = factor(tool, levels = tools_levels))
+    
+    pan60 <- pan60 %>%
+      filter(tool %in% tools_levels,
+             !habitat %in% not_env,
+             aggregation %in% "new_level_centroid") %>%
+      mutate(habitat = factor(habitat, levels = EN2),
+             tool = factor(tool, levels =  tools_levels)) %>%
+      mutate(tool = factor(tool, levels = tools_levels))
+    
+    sumpan2_60 <- pan60 %>% ungroup() %>%
+      group_by(tool, habitat, aggregation, epoch) %>%
+      summarise(s = sum(unigenes)) %>%
+      ungroup() %>%
+      group_by(tool, habitat, aggregation) %>%
+      summarise(md = median(s), mn = mean(s), sd = sd(s))
 
+## 70
+    core70 <- readRDS(file.path(DATA_DIR, "core_resistome70.rds"))
+    pan70 <- readRDS(file.path(DATA_DIR, "pan_resistome70.rds"))
+    
+    core70 <- core70 %>%
+      rename(new_level = new_level_centroid,
+             X = centroid) %>%
+      filter(tool %in% tools_levels,
+             !habitat %in% not_env) %>%
+      mutate(habitat = factor(habitat, levels = EN2),
+             tool = factor(tool, levels =  tools_levels)) %>%
+      mutate(tool = factor(tool, levels = tools_levels))
+    
+    pan70 <- pan70 %>%
+      filter(tool %in% tools_levels,
+             !habitat %in% not_env,
+             aggregation %in% "new_level_centroid") %>%
+      mutate(habitat = factor(habitat, levels = EN2),
+             tool = factor(tool, levels =  tools_levels)) %>%
+      mutate(tool = factor(tool, levels = tools_levels))
+    
+    sumpan2_70 <- pan70 %>% ungroup() %>%
+      group_by(tool, habitat, aggregation, epoch) %>%
+      summarise(s = sum(unigenes)) %>%
+      ungroup() %>%
+      group_by(tool, habitat, aggregation) %>%
+      summarise(md = median(s), mn = mean(s), sd = sd(s))
+
+    ## 70
+    core80 <- readRDS(file.path(DATA_DIR, "core_resistome80.rds"))
+    pan80 <- readRDS(file.path(DATA_DIR, "pan_resistome80.rds"))
+    
+    core80 <- core80 %>%
+      rename(new_level = new_level_centroid,
+             X = centroid) %>%
+      filter(tool %in% tools_levels,
+             !habitat %in% not_env) %>%
+      mutate(habitat = factor(habitat, levels = EN2),
+             tool = factor(tool, levels =  tools_levels)) %>%
+      mutate(tool = factor(tool, levels = tools_levels))
+    
+    pan80 <- pan80 %>%
+      filter(tool %in% tools_levels,
+             !habitat %in% not_env,
+             aggregation %in% "new_level_centroid") %>%
+      mutate(habitat = factor(habitat, levels = EN2),
+             tool = factor(tool, levels =  tools_levels)) %>%
+      mutate(tool = factor(tool, levels = tools_levels))
+    
+    sumpan2_80 <- pan80 %>% ungroup() %>%
+      group_by(tool, habitat, aggregation, epoch) %>%
+      summarise(s = sum(unigenes)) %>%
+      ungroup() %>%
+      group_by(tool, habitat, aggregation) %>%
+      summarise(md = median(s), mn = mean(s), sd = sd(s))
+
+    
     list(
       pan = pan,
       core = core,
-      sumpan2 = sumpan2
+      sumpan2 = sumpan2,
+      
+      pan60 = pan60,
+      core60 = core60,
+      sumpan2_60 = sumpan2_60,
+      
+      pan70 = pan70,
+      core70 = core70,
+      sumpan2_70 = sumpan2_70,
+      
+      pan80 = pan80,
+      core80 = core80,
+      sumpan2_80 = sumpan2_80
     )
     
   }, error = function(e) {

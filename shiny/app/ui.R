@@ -70,6 +70,12 @@ ps_args <- page_sidebar(
       tool_choices,
       as.vector(tools_levels),
       multiple = TRUE
+    ),
+    radioButtons(
+      "threshold_unigenes_id",
+      "Identity threshold DeepARG/RGI (amino acid)",
+      choices = list("None" = 0.0, "= 60%" = 60.0, "= 70%" = 70.0, "= 80%" = 80.0),
+      selected = 0.0
     )
   ),
   card(
@@ -138,13 +144,19 @@ ps_pan_core <- page_sidebar(
       min = 200,
       max = 499,
       value = 450
+    ),
+    radioButtons(
+      "threshold_pan_core_id",
+      "Identity threshold DeepARG/RGI (amino acid)",
+      choices = list("None" = 0.0, "= 60%" = 60.0, "= 70%" = 70.0, "= 80%" = 80.0),
+      selected = 0.0
     )
   ),
   
   card(
     full_screen = TRUE, 
     height = "100%", # Occupy full vertical space available
-    card_header("Pan- and core-resitomes."),
+    card_header("Pan- and core-resitomes"),
     card_body(
       fillable = TRUE, 
       padding = 0,
@@ -153,7 +165,7 @@ ps_pan_core <- page_sidebar(
         fill = TRUE,
         heights_equal = "row",
         card(
-          card_header("Again pan- core-resistomes"),
+          card_header("Number of genes"),
           plotOutput("plot_pan_core_resistome", height = "100%") # Height 100% is key
         )
       )
