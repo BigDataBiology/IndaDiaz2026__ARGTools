@@ -67,7 +67,6 @@ ps_args <- page_sidebar(
   ),
   layout_column_wrap( 
     width = 1/2,
-    
         card(
           card_header("A: Number of putative ARGs"),
           plotOutput("plot_count_genes_tool", height = "100%") 
@@ -151,7 +150,7 @@ ps_abundance_diversity <- page_sidebar(
       "environment_abundance",
       "Choose the tools you want to show:",
       as.list(EN2),
-      selected = EN2[c(1,9)],
+      selected = EN2[c(1)],
       multiple = TRUE
     ),
     radioButtons(
@@ -167,20 +166,20 @@ ps_abundance_diversity <- page_sidebar(
       top20,
       multiple = TRUE
     ),
-    selectInput(
+    radioButtons(
       "plot_other",
       "Plot other gene classes together:",
       as.list(c("Yes","No")),
-      "Yes",
-      multiple = FALSE
+      "Yes"
     )
   ),
   
 
     page_fillable(
-      title = "Abundance and diversity",
-      layout_column_wrap( 
-        width = 1/2,
+      #title = "Abundance and diversity",
+      layout_columns(
+        col_widths = c(6, 6, 6, 6, 12),
+        row_heights = c("1fr", "1fr", "0.3fr"),
         card(
           card_header("Abundance per sample"),
           #"This is outcome",
@@ -199,11 +198,11 @@ ps_abundance_diversity <- page_sidebar(
         card(
           card_header("Median diversity per class"),
           plotOutput("plot_diversity_class", height = "100%") 
-        )#,
-        #card(
+        ),
+        card(
         #  card_header("Median diversity per class"),
-          #plotOutput("plot_diversity_class", height = "100%") 
-        #)
+          plotOutput("plot_diversity_class_legend", height = "100%") 
+        )
       )
     )
 )
@@ -217,9 +216,23 @@ ps_overlap <- page_sidebar(
     ),
     selectInput(
       "tool_overlap",
-      "Choose the tools you want to compare:",
+      "Choose the tools you want to show:",
+      tool_choices,
+      as.vector(tools_levels[c(1,2,4,5)]),
+      multiple = TRUE
+    ),
+    selectInput(
+      "tool_overlap_calc",
+      "Choose the tools you want to include in the calculation:",
       tool_choices,
       as.vector(tools_levels),
+      multiple = TRUE
+    ),
+    selectInput(
+      "overlap_genes",
+      "Choose the genes you want to show:",
+      as.list(as.character(gene_classes)),
+      top20,
       multiple = TRUE
     ),
     radioButtons(
@@ -231,16 +244,28 @@ ps_overlap <- page_sidebar(
   ),
   
     page_fillable(
-      title = "Abundance and diversity",
-      layout_column_wrap( 
-        width = 1/2, 
+      layout_columns(
+        col_widths = c(10, 2, 10, 2, 10), 
+        row_heights = c("1fr", "1fr", "0.3fr"),
         card(
-          card_header("Plot 1"),
-          #plotOutput("plot_abundance_resistome", height = "100%") 
+          card_header("CSTC"),
+          plotOutput("overlap_cstc", height = "100%") 
         ),
         card(
-          card_header("Plot 2"),
-          #plotOutput("plot_abundance_resistome", height = "100%") 
+          card_header("Medians per class"),
+          plotOutput("overlap_cstc_summary", height = "100%") 
+        ),
+        card(
+          card_header("CSNO"),
+          plotOutput("overlap_csno", height = "100%") 
+        ),
+        card(
+          card_header("Medians per class"),
+          plotOutput("overlap_csno_summary", height = "100%") 
+        ),
+        card(
+          card_header(""),
+          plotOutput("overlap_legend", height = "100%") 
         )
       )
     )#,

@@ -305,7 +305,8 @@ p3a <- plot_total_abundance_diversity_new_version(
   metric = "abundance", # metric (abundance or diversity)
   sd = 2025, # seed to plot random samples in the distribution 
   obs = 200,  # number of samples to plot as dots per environment
-  texture = tools_texture) # texture for repeated color 
+  texture = tools_texture,
+  tools_levels = tools_levels) # texture for repeated color 
 
 ps4 <- plot_total_abundance_diversity_new_version(
   dataset = abundance_tool_sample, # 
@@ -317,7 +318,8 @@ ps4 <- plot_total_abundance_diversity_new_version(
   metric = "diversity", # metric (abundance or diversity)
   sd = 2025, # seed to plot random samples in the distribution 
   obs = 200,  # number of samples to plot as dots per environment
-  texture = tools_texture) # texture for repeated color 
+  texture = tools_texture,
+  tools_levels = tools_levels) # texture for repeated color 
 
 
 
@@ -478,42 +480,43 @@ fig5a1 <- recall_fnr %>%
   mutate(texture = ifelse(tool_comp %in% tools_texture, "yes", "no")) %>%
   mutate(new_level = factor(new_level, levels = top20)) %>%
   ggplot(aes(x = new_level, fill = tool_ref, y = recall)) +
-  geom_violin() +
-  #geom_boxplot(outlier.shape = NA, position = position_dodge2(preserve = "single")) + 
-  geom_jitter(aes(fill = tool_comp, shape = texture), color = "black", stroke = 0.3, size = 1.5, width = 0.4,  height = 0) + 
-  scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe')) +
-  scale_fill_manual(values = pal2, 
-                    labels = tools_levels) +
-  scale_color_manual(values = pal2, 
-                     labels = tools_levels) +
-  scale_x_discrete(labels = function(x) {
-    x <- gsub("-", "-\n", x)
-    x <- gsub(" ", "\n", x)
-    x}) + 
-  scale_shape_manual(values = c("no" = 21, "yes" = 24)) +
-  facet_grid(tool_ref ~ new_level, scales = "free_x") +
-  scale_y_continuous(limits = c(-0.2,1.2), 
-                     breaks = seq(0, 1, length.out = 3),
-                     labels = scales::label_number()) + 
-  ylab("CSTC") + 
-  xlab("") + 
-  theme(
-    legend.position = "none",
-    legend.text = element_text(size = general_size ),
-    panel.border = element_blank(),
-    panel.grid.major.x = element_blank(),
-    panel.grid.minor.x = element_blank(),
-    plot.margin = margin(0, 0, 0, 0, unit = "pt"),
-    legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
-    legend.margin = margin(0, 0, 0, 0, unit = "pt"),
-    panel.spacing = unit(0, "pt"),
-    title = element_text(size = general_size + 2, face = "bold"),
-    axis.title = element_text(size = general_size + 1, face = "bold"),
-    axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
-    axis.text.y = element_text(size = general_size),
-    panel.background = element_rect(colour = "black", fill = NA),
-    strip.text = element_blank(),
-    strip.background = element_blank())
+    geom_violin() +
+    #geom_boxplot(outlier.shape = NA, position = position_dodge2(preserve = "single")) + 
+    geom_jitter(aes(fill = tool_comp, shape = texture), color = "black", 
+                stroke = 0.3, size = 1.5, width = 0.4,  height = 0) + 
+    scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe')) +
+    scale_fill_manual(values = pal2, 
+                      labels = tools_levels) +
+    scale_color_manual(values = pal2, 
+                       labels = tools_levels) +
+    scale_x_discrete(labels = function(x) {
+      x <- gsub("-", "-\n", x)
+      x <- gsub(" ", "\n", x)
+      x}) + 
+    scale_shape_manual(values = c("no" = 21, "yes" = 24)) +
+    facet_grid(tool_ref ~ new_level, scales = "free_x") +
+    scale_y_continuous(limits = c(-0.2,1.2), 
+                       breaks = seq(0, 1, length.out = 3),
+                       labels = scales::label_number()) + 
+    ylab("CSTC") + 
+    xlab("") + 
+    theme(
+      legend.position = "none",
+      legend.text = element_text(size = general_size ),
+      panel.border = element_blank(),
+      panel.grid.major.x = element_blank(),
+      panel.grid.minor.x = element_blank(),
+      plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+      legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+      legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+      panel.spacing = unit(0, "pt"),
+      title = element_text(size = general_size + 2, face = "bold"),
+      axis.title = element_text(size = general_size + 1, face = "bold"),
+      axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5, size = general_size),
+      axis.text.y = element_text(size = general_size),
+      panel.background = element_rect(colour = "black", fill = NA),
+      strip.text = element_blank(),
+      strip.background = element_blank())
 
 fig5a1
 

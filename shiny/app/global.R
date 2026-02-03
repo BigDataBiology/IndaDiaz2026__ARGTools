@@ -18,6 +18,8 @@ library(cowplot)
 library(scales)
 
 options(dplyr.summarise.inform = FALSE)
+options(shiny.usecairo = TRUE)
+options(shiny.userrender.type = "svg")
 
 # Path Configuration
 DATA_DIR <- "../../code_R_analysis/output_abundance_diversity_resistome"

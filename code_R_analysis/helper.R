@@ -1411,14 +1411,22 @@ plot_total_abundance_diversity_new_version <- function(
     pattern_density = 0.005,
     pattern_spacing = 0.025,
     pattern_fill = "white",
-    pattern_size = 0.3){
+    pattern_size = 0.3, tools_levels){
+  
   set.seed(sd)
   dataset2 <- dataset %>% filter(tool %in% tools_to_plot, habitat %in% environments_plot) %>%
     mutate(texture = ifelse(tool %in% texture, "yes", "no"))
   
-  labels_plot  = tools_labels[tools_to_plot %in% dataset2$tool]
-  values_plot = pal_10_q[tools_to_plot %in%  dataset2$tool]
+  #labels_plot  = tools_labels[tools_to_plot %in% dataset2$tool]
+  #values_plot = pal_10_q[tools_to_plot %in%  dataset2$tool]
   
+  tools_order <- match(tools_to_plot, tools_levels)
+  new_texture <- rep('none',length(tools_levels))
+  new_texture[tools_levels %in% texture] <- 'stripe'
+  texture2 <- new_texture[tools_order]
+  pal_figure <- pal_10_q[tools_order]
+  labels_plot <- tools_labels[tools_order]
+    
   if(metric == "abundance"){
     
     dataset_abundance <- dataset2 %>% filter(normed10m > 0) %>%
@@ -1440,7 +1448,8 @@ plot_total_abundance_diversity_new_version <- function(
     
     p <- dataset2 %>%
       ggplot(aes(x = tool, fill = tool)) +
-      geom_boxplot_pattern(aes(y = normed10m + 1e-20, pattern = texture), position = position_dodge2(preserve = "single"),  
+      geom_boxplot_pattern(aes(y = normed10m + 1e-20, pattern = texture), 
+                           position = position_dodge2(preserve = "single"),  
                            linewidth = 0.2, outlier.shape = NA, color = "black",
         pattern_color = "white",
         pattern_density = pattern_density, 
@@ -1449,16 +1458,25 @@ plot_total_abundance_diversity_new_version <- function(
         pattern_size = pattern_size,
         pattern_key_scale_factor = 0.6) +
       scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe')) +
-      geom_jitter(aes(y = p+1e-20), alpha =0.15, size = 0.3, width = 0.25, height = 0, color = "black") +
-      scale_fill_manual(values = values_plot, labels = labels_plot) +
+      geom_jitter(aes(y = p+1e-20), 
+                  alpha =0.15, size = 0.3, width = 0.25, height = 0, color = "black") +
+      scale_fill_manual(values = pal_figure, labels = labels_plot) +
       facet_wrap(~ habitat, scales = "free_x", nrow = 2) +
-      scale_y_log10(labels = scales::math_format(10^.x)(0:5), expand = c(0, 0),
+      #scale_y_log10(labels = scales::math_format(10^.x)(0:5), 
+      scale_y_log10(labels = scales::label_scientific(digit_separator = ""),                       
+                    expand = expansion(mult = c(0, 0.1)),
                     breaks = 10^(0:5)) +
       coord_cartesian(ylim = c(9e-1, 5e4)) +
       xlab("") +
       labs(fill = "") +
       ylab("Relative abundance") +
+      guides(
+        fill = guide_legend(
+          override.aes = list(
+            pattern = texture2,
+            fill  = pal_figure)), pattern = "none") +
       ggtitle("") +
+      labs(pattern = "") + 
       theme_minimal() +
       theme(
         legend.position = "bottom",
@@ -1496,7 +1514,8 @@ plot_total_abundance_diversity_new_version <- function(
 
       p <- dataset2 %>%
         ggplot(aes(x = tool, fill = tool)) +
-        geom_boxplot_pattern(aes(y = unigenes + 1e-20, pattern = texture), position = position_dodge2(preserve = "single"),  
+        geom_boxplot_pattern(aes(y = unigenes + 1e-20, pattern = texture), 
+                             position = position_dodge2(preserve = "single"),  
                      linewidth = 0.2, outlier.shape = NA, color = "black", 
                      pattern_color = "white",
                      pattern_density = pattern_density, 
@@ -1505,16 +1524,25 @@ plot_total_abundance_diversity_new_version <- function(
                      pattern_size = pattern_size,
                      pattern_key_scale_factor = 0.6) +
         scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe')) +
-        geom_jitter(aes(y = p+1e-20), alpha =0.15, size = 0.3, width = 0.25, height = 0, color = "black") +
-        scale_fill_manual(values = values_plot, labels = labels_plot) +
+        geom_jitter(aes(y = p+1e-20), 
+                    alpha =0.15, size = 0.3, width = 0.25, height = 0, color = "black") +
+        scale_fill_manual(values = pal_figure, labels = labels_plot) +
         facet_wrap(~ habitat, scales = "free_x", nrow = 2) +
-        scale_y_log10(labels = scales::math_format(10^.x)(0:4), expand = c(0, 0),
+        #scale_y_log10(labels = scales::math_format(10^.x)(0:4), 
+        scale_y_log10(labels = scales::label_scientific(digit_separator = ""),                       
+                      expand = expansion(mult = c(0, 0.1)),
                       breaks = 10^(0:4)) +
         coord_cartesian(ylim = c(9e-1, 5e3)) +
         xlab("") +
         ylab("Diversity") +
+        guides(
+          fill = guide_legend(
+            override.aes = list(
+              pattern = texture2,
+              fill  = pal_figure)), pattern = "none") +
         labs(fill = "") +
         ggtitle("") +
+        labs(pattern = "") + 
         theme_minimal() +
         theme(
           legend.position = "bottom",
@@ -1823,10 +1851,19 @@ plot_alluvial_classes <- function(unigenes = unigenes,
     geom_flow(alpha = 0.5) +
     xlab("") + 
     geom_stratum(color = "black") +
-    geom_text(data = unigenes_class[unigenes_class$proportion > remove_class_threshold, ],  
-              stat = "stratum",
-              size = 2,color = "black",hjust = 0.5,
-              position = position_jitter(width = 0, height = 0)) +
+    #geom_text(data = unigenes_class[unigenes_class$proportion > remove_class_threshold, ],  
+    #          stat = "stratum",
+    #          size = 2, color = "black", hjust = 0.5,
+    #          position = position_jitter(width = 0, height = 0)) +
+    
+    geom_text(
+      data = unigenes_class[unigenes_class$proportion > remove_class_threshold, ],  
+      stat = "stratum",
+      size = 2,
+      color = "black",
+      inherit.aes = TRUE 
+    ) +
+  
     scale_y_continuous(expand = c(.01, .01), 
                        name = "Proportion", 
                        limits = c(0, 1), 
@@ -2048,8 +2085,24 @@ plot_abundance_class_environment <- function(abundance_class, e, general_size, p
 
 plot_abundance_class_more_environments <- function(abundance_class, e, 
                                                    general_size, pal_10_q, 
-                                                   top20, data_type, other){
+                                                   top20, data_type, other,
+                                                   tools_levels, 
+                                                   tools_to_plot, 
+                                                   texture,
+                                                   pattern_density,
+                                                   pattern_spacing,
+                                                   pattern_fill,
+                                                   pattern_size){
   
+
+  tools_order <- match(tools_to_plot, tools_levels)
+  new_texture <- rep('none',length(tools_levels))
+  new_texture[tools_levels %in% texture] <- 'stripe'
+  texture2 <- new_texture[tools_order]
+  pal_figure <- pal_10_q[tools_order]
+  labels_plot <- tools_labels[tools_order]
+  
+    
   if(data_type == "abundance"){
     df_abundance_class_env <- abundance_class %>% 
       filter(habitat %in% e) %>% 
@@ -2060,6 +2113,8 @@ plot_abundance_class_more_environments <- function(abundance_class, e,
       ungroup() %>% 
       group_by(sample, habitat, tool, gene) %>%
       summarise(total = sum(total), texture = texture[1])
+    
+    y_lab_name <- "Relative abundance"
   } else if(data_type == "diversity"){
     df_abundance_class_env <- abundance_class %>% 
       filter(habitat %in% e) %>% 
@@ -2070,6 +2125,9 @@ plot_abundance_class_more_environments <- function(abundance_class, e,
       ungroup() %>% 
       group_by(sample, habitat, tool, gene) %>%
       summarise(total = sum(total), texture = texture[1])
+    
+    y_lab_name <- "Diversity"
+    
   }
   
   if(other == "No") { 
@@ -2090,17 +2148,20 @@ plot_abundance_class_more_environments <- function(abundance_class, e,
                  pattern_size = pattern_size,
                  pattern_key_scale_factor = 1.2, outlier.shape = NA, outlier.size = 0) +
     scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe')) +
-    scale_fill_manual(values = pal_10_q, 
-                      labels = lab_fn(tools_levels)) +
-    #scale_y_continuous(expand = c(0, 0), breaks = seq(0, floor(max_abun_class_en/1000) * 1000, length.out = 4),
-    #                   labels = scales::label_number()) + 
+    scale_fill_manual(values = pal_figure, 
+                      labels = lab_fn(labels_plot)) +
+    guides(
+      fill = guide_legend(
+        override.aes = list(
+          pattern = texture2,
+          fill  = pal_figure)), pattern = "none") +
     theme_minimal() +
     facet_grid(habitat ~ gene, scales = "free") + 
     scale_x_discrete(labels = function(x) {
       x <- gsub("-", "-\n", x)
       x <- gsub(" ", "\n", x)
       x})  + 
-    ylab("Relative abundance") +
+    ylab(y_lab_name) +
     xlab("") +
     labs(fill = "") +
     #ggtitle(e) +

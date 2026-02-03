@@ -25,12 +25,22 @@ load_results_tools <- function(DATA_DIR = "../../code_R_analysis/output_abundanc
       pull(new_level)
     
     recall_fnr <- create_class_overlaps(unigenes)
+    recall_fnr60 <- create_class_overlaps((unigenes %>% 
+                        filter(!(tool %in% c("DeepARG","RGI-DIAMOND") & id < 60))))
+    recall_fnr70 <- create_class_overlaps((unigenes %>% 
+                        filter(!(tool %in% c("DeepARG","RGI-DIAMOND") & id < 70))))
+    recall_fnr80 <- create_class_overlaps((unigenes %>% 
+                        filter(!(tool %in% c("DeepARG","RGI-DIAMOND") & id < 80))))
+    
     
     list(
       lst = lst,
       unigenes = unigenes,
       recall_fnr = recall_fnr,
-      levels_unigenes = levels_unigenes
+      levels_unigenes = levels_unigenes,
+      recall_fnr60 = recall_fnr60,
+      recall_fnr70 = recall_fnr70,
+      recall_fnr80 = recall_fnr80
     )
     
   }, error = function(e) {
