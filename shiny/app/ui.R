@@ -118,17 +118,27 @@ ps_pan_core <- page_sidebar(
       "Identity threshold DeepARG/RGI (amino acid)",
       choices = list("Default" = 0.0, ">= 60%" = 60.0, ">= 70%" = 70.0, ">= 80%" = 80.0),
       selected = 0.0
+    ),
+    radioButtons(
+      "single_environment_pan_core",
+      "Environment",
+      as.list(EN2),
+      #choices = unique(data_list$sumpan2$habitat),
+      selected = "human gut"
     )
   ),
   
   layout_column_wrap( 
     width = 1/2,
+      #Sub-card for Plot A
       card(
         card_header("Number of genes"),
         plotOutput("plot_pan_core_resistome", width = "100%") 
       ),
+      #Sub-card for Plot B
       card(
         card_header("Proportion of genes"),
+        plotOutput("plot_pan_core_proportion", height = "100%")
         
       )
     )
