@@ -656,6 +656,78 @@ server <- function(input, output, session) {
         legend.key = element_blank(), 
         legend.background = element_blank())))
   })
+
+  ### Pan-/Core-resistome proportion
+  pan_reactive <- reactive({
+    
+    if (input$threshold_pan_core_id == 60.0) {
+      bind_rows(
+        data_list$pan %>% filter(!tool %in% c("DeepARG", "RGI-DIAMOND")),
+        data_list$pan60)
+    } else if (input$threshold_pan_core_id == 70.0) {
+      bind_rows(
+        data_list$pan %>% filter(!tool %in% c("DeepARG", "RGI-DIAMOND")),
+        data_list$pan70)
+    } else if (input$threshold_pan_core_id == 80.0) {
+      bind_rows(
+        data_list$pan %>% filter(!tool %in% c("DeepARG", "RGI-DIAMOND")),
+        data_list$pan80)
+    } else {
+      data_list$pan
+    }
+  })
+  
+  sumcore_reactive <- reactive({
+    
+    core_data <-
+      if (input$threshold_pan_core_id == 60.0) {
+        sum_core_adjust(bind_rows(
+          data_list$core %>% filter(!tool %in% c("DeepARG", "RGI-DIAMOND")),
+          data_list$core60
+        ), input$threshold_samples, input$threshold_proportion )
+      } else if (input$threshold_pan_core_id == 70.0) {
+        sum_core_adjust(bind_rows(
+          data_list$core %>% filter(!tool %in% c("DeepARG", "RGI-DIAMOND")),
+          data_list$core70), input$threshold_samples, input$threshold_proportion
+        )
+      } else if (input$threshold_pan_core_id == 80.0) {
+        sum_core_adjust(bind_rows(
+          data_list$core %>% filter(!tool %in% c("DeepARG", "RGI-DIAMOND")),
+          data_list$core80), input$threshold_samples, input$threshold_proportion)
+      } else {
+        sum_core_adjust(data_list$core, 
+                        input$threshold_samples, 
+                        input$threshold_proportion)
+      }
+  })
+  
+  
+  output$plot_pan_core_proportion <- renderPlot({
+    
+
+    alluvial_pan_core_env(
+      sumcore = sumcore_reactive() %>%
+        filter(tool %in% input$tool_pan_core,
+               habitat %in% input$single_environment_pan_core) %>%
+        mutate(
+          tool = factor(as.character(tool), 
+                 levels = tools_levels[tools_levels %in% input$tool_pan_core])),
+      pan     = pan_reactive() %>%
+        filter(tool %in% input$tool_pan_core,
+               habitat %in% input$single_environment_pan_core) %>%
+        mutate(
+          tool = factor(as.character(tool), 
+                 levels = tools_levels[tools_levels %in% input$tool_pan_core])),
+      h       = input$single_environment_pan_core,
+      tools   = input$tool_pan_core,
+      pal     = pal_10_complete,
+      general_size = general_size
+    ) 
+    
+      
+  })
+
+    
 }
 
 
