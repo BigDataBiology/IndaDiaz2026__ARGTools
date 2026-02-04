@@ -1891,7 +1891,7 @@ plot_alluvial_classes <- function(unigenes = unigenes,
 }
 
 
-alluvial_pan_core_env <- function(sumcore, pan, h, tools_included, pal_10_complete, general_size){
+alluvial_pan_core_env <- function(sumcore, pan, h, tools_included, pal_10_complete, general_size, levels_unigenes){
   pan_core_env <- bind_rows(
     sumcore %>% filter(habitat %in% h) %>% ungroup() %>% mutate(dt = "core"),
     pan %>% 

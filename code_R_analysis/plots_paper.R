@@ -428,7 +428,7 @@ p_alluvial  <- plot_alluvial_classes(unigenes, levels_unigenes, 0.99, 0.005, too
 p4b <- alluvial_pan_core_env(sumcore, pan, "human gut", 
                              c("DeepARG", "fARGene", "ABRicate-MEGARes", 
                                "RGI-DIAMOND","AMRFinderPlus", "ResFinder"),
-                             pal_10_complete, general_size) + 
+                             pal_10_complete, general_size, levels_unigenes) + 
   theme(title = element_blank())
 
 
@@ -1061,7 +1061,7 @@ alluvial_all <- list()
 abundance_class_all <- list()
 
 for(e in EN[-c(14:16)]){
-  alluvial_all[[e]] <- alluvial_pan_core_env(sumcore, pan, e, tools_levels, pal_10_complete, general_size)
+  alluvial_all[[e]] <- alluvial_pan_core_env(sumcore, pan, e, tools_levels, pal_10_complete, general_size, levels_unigenes)
   abundance_class_all[[e]] <- plot_abundance_class_environment(abundance_class, e, general_size , pal_10_q)  
 }
 
