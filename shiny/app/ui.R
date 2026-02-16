@@ -215,7 +215,7 @@ ps_abundance_diversity <- page_sidebar(
           plotOutput("plot_diversity_class_overview", height = "450px")
         ),
         card(
-          plotOutput("plot_diversity_class_legend_overview", height = "100%")
+          plotOutput("plot_diversity_class_legend_overview", height = "50px")
         )
       )
     ),
@@ -225,7 +225,8 @@ ps_abundance_diversity <- page_sidebar(
       "Abundance",
       page_fillable(
         layout_columns(
-          col_widths = c(6, 6),
+          col_widths = c(6, 6, 12),
+          row_heights = c("1fr", "0.3fr"),
           
           card(
             card_header("Abundance per sample"),
@@ -236,7 +237,7 @@ ps_abundance_diversity <- page_sidebar(
             plotOutput("plot_abundance_class", height = "100%")
           ),
           card(
-            plotOutput("plot_abundance_class_legend", height = "100%")
+            plotOutput("plot_abundance_class_legend", height = "160px")
           )
         )
       )
@@ -259,7 +260,7 @@ ps_abundance_diversity <- page_sidebar(
             plotOutput("plot_diversity_class", height = "100%")
           ),
           card(
-            plotOutput("plot_diversity_class_legend", height = "100%")
+            plotOutput("plot_diversity_class_legend", height = "160px")
           )
         )
       )
@@ -327,7 +328,7 @@ ps_overlap <- page_sidebar(
           plotOutput("overlap_csno_summary_overview", height = "450px")
         ),
         card(
-          plotOutput("overlap_legend", height = "100%")
+          plotOutput("overlap_legend", height = "50px")
         )
       )
     ),
@@ -347,7 +348,7 @@ ps_overlap <- page_sidebar(
           plotOutput("overlap_cstc_summary", height = "100%")
         ),
         card(
-          plotOutput("plot_cstc_legend", height = "100%")
+          plotOutput("plot_cstc_legend", height = "160px")
         )
       )
     ),
@@ -367,7 +368,7 @@ ps_overlap <- page_sidebar(
           plotOutput("overlap_csno_summary", height = "100%")
         ),
         card(
-          plotOutput("plot_csno_legend", height = "100%")
+          plotOutput("plot_csno_legend", height = "160px")
         )
       )
     )

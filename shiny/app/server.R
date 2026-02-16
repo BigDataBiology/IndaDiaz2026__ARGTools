@@ -39,396 +39,399 @@ server <- function(input, output, session) {
   # Core Resistome plot
   
   pan_core <- reactive({
-      
-    if(input$threshold_pan_core_id == 60.0) {
-      data_list$sumpan2 %>%
-        filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>%
-        bind_rows(data_list$sumpan2_60) %>%
-        left_join(
-          (
-            sum_core_adjust(
-              (data_list$core %>%
-                 filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>%
-                 bind_rows(data_list$core60)),
-              input$threshold_samples, input$threshold_proportion) %>%
-              ungroup() %>%
-              group_by(tool, habitat) %>%
-              summarise(core = sum(unigenes))),
-          by = c("tool", "habitat")) %>%
-        mutate(core = ifelse(is.na(core), 0, core)) %>%
-        mutate(prop = core / md) %>%
-        ungroup() %>% group_by(tool, habitat) %>%
-        mutate(texture = ifelse(tool %in% tools_texture, "yes", "no")) %>%
-        filter(tool %in% input$tool_pan_core,
-               habitat %in% input$environment_pan_core) %>%
-        mutate(tool = factor(as.character(tool),
-                             levels = tools_levels[tools_levels %in% input$tool_pan_core]))
-
-    } else if(input$threshold_pan_core_id == 70.0) {
-      data_list$sumpan2 %>%
-        filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>%
-        bind_rows(data_list$sumpan2_70) %>%
-        left_join(
-          (
-            sum_core_adjust(
-              (data_list$core %>%
-                 filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>%
-                 bind_rows(data_list$core70)),
-              input$threshold_samples, input$threshold_proportion) %>%
-              ungroup() %>%
-              group_by(tool, habitat) %>%
-              summarise(core = sum(unigenes))),
-          by = c("tool", "habitat")) %>%
-        mutate(core = ifelse(is.na(core), 0, core)) %>%
-        mutate(prop = core / md) %>%
-        ungroup() %>% group_by(tool, habitat) %>%
-        mutate(texture = ifelse(tool %in% tools_texture, "yes", "no")) %>%
-        filter(tool %in% input$tool_pan_core,
-               habitat %in% input$environment_pan_core) %>%
-        mutate(tool = factor(as.character(tool),
-                             levels = tools_levels[tools_levels %in% input$tool_pan_core]))
-
-    } else if(input$threshold_pan_core_id == 80.0) {
-      data_list$sumpan2 %>%
-        filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>%
-        bind_rows(data_list$sumpan2_80) %>%
-        left_join(
-          (
-            sum_core_adjust(
-              (data_list$core %>%
-                 filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>%
-                 bind_rows(data_list$core80)),
-              input$threshold_samples, input$threshold_proportion) %>%
-              ungroup() %>%
-              group_by(tool, habitat) %>%
-              summarise(core = sum(unigenes))),
-          by = c("tool", "habitat")) %>%
-        mutate(core = ifelse(is.na(core), 0, core)) %>%
-        mutate(prop = core / md) %>%
-        ungroup() %>% group_by(tool, habitat) %>%
-        mutate(texture = ifelse(tool %in% tools_texture, "yes", "no")) %>%
-        filter(tool %in% input$tool_pan_core,
-               habitat %in% input$environment_pan_core) %>%
-        mutate(tool = factor(as.character(tool),
-                             levels = tools_levels[tools_levels %in% input$tool_pan_core]))
-
-
+    req(input$threshold_pan_core_id, input$threshold_samples, input$threshold_proportion,
+        input$tool_pan_core, input$environment_pan_core)
+    
+    tools_excl <- c("DeepARG", "RGI-DIAMOND")
+    thr <- as.character(input$threshold_pan_core_id)
+    
+    # Pick threshold-specific "extra" tables (or NULL/default)
+    extra_sumpan2 <- switch(
+      thr,
+      "60" = data_list$sumpan2_60,
+      "70" = data_list$sumpan2_70,
+      "80" = data_list$sumpan2_80,
+      NULL
+    )
+    
+    extra_core <- switch(
+      thr,
+      "60" = data_list$core60,
+      "70" = data_list$core70,
+      "80" = data_list$core80,
+      NULL
+    )
+    
+    # Base tables:
+    sumpan2_df <- if (is.null(extra_sumpan2)) {
+      data_list$sumpan2
     } else {
-      data_list$sumpan2  %>%
-        left_join(
-          (
-            sum_core_adjust(
-              data_list$core,
-              input$threshold_samples,
-              input$threshold_proportion) %>%
-              ungroup() %>%
-              group_by(tool, habitat) %>%
-              summarise(core = sum(unigenes))),
-          by = c("tool", "habitat")) %>%
-        mutate(core = ifelse(is.na(core), 0, core)) %>%
-        mutate(prop = core / md) %>%
-        ungroup() %>% group_by(tool, habitat) %>%
-        mutate(texture = ifelse(tool %in% tools_texture, "yes", "no")) %>%
-        filter(tool %in% input$tool_pan_core,
-               habitat %in% input$environment_pan_core) %>%
-        mutate(tool = factor(as.character(tool),
-                             levels = tools_levels[tools_levels %in% input$tool_pan_core]))
+      dplyr::bind_rows(
+        data_list$sumpan2 %>% dplyr::filter(!tool %in% tools_excl),
+        extra_sumpan2
+      )
     }
-      
-  })
-
-
+    
+    core_df <- if (is.null(extra_core)) {
+      data_list$core
+    } else {
+      dplyr::bind_rows(
+        data_list$core %>% dplyr::filter(!tool %in% tools_excl),
+        extra_core
+      )
+    }
+    
+    # Compute core summary once
+    core_sum <- sum_core_adjust(
+      core_df,
+      input$threshold_samples,
+      input$threshold_proportion
+    ) %>%
+      dplyr::ungroup() %>%
+      dplyr::group_by(tool, habitat) %>%
+      dplyr::summarise(core = sum(unigenes, na.rm = TRUE), .groups = "drop")
+    
+    # Apply join + common transforms once
+    sumpan2_df %>%
+      dplyr::left_join(core_sum, by = c("tool", "habitat")) %>%
+      dplyr::mutate(
+        core = tidyr::replace_na(core, 0),
+        prop = core / md,
+        texture = ifelse(tool %in% tools_texture, "yes", "no")
+      ) %>%
+      dplyr::filter(
+        tool %in% input$tool_pan_core,
+        habitat %in% input$environment_pan_core
+      ) %>%
+      dplyr::mutate(
+        tool = factor(as.character(tool),
+                      levels = tools_levels[tools_levels %in% input$tool_pan_core])
+      )
+  }) %>% bindCache(
+    input$threshold_pan_core_id,
+    input$threshold_samples,
+    input$threshold_proportion,
+    sort(input$tool_pan_core),
+    sort(input$environment_pan_core)
+  )
+  
+  
   output$plot_pan_core_resistome <- renderPlot({
+    req(input$tool_pan_core, input$environment_pan_core)
     
     tools_order <- match(input$tool_pan_core, tools_levels)
+    
     shape_tools <- rep(21, length(tools_levels))
     shape_tools[tools_levels %in% tools_texture] <- 24
     shape_tools <- shape_tools[tools_order]
+    
     pal_figure <- pal_10_q[tools_order]
     tools_labels_figure <- tools_labels[tools_order]
-
-    pan_core() %>% select(!c(md, sd)) %>% pivot_longer(cols = c(mn, core), names_to = "metric", values_to = "value") %>%
-      mutate(metric = ifelse(metric %in% "mn", "Pan-resistome", metric)) %>%
-      mutate(metric = ifelse(metric %in% "core", "Core-resistome", metric)) %>%
-      mutate(metric = factor(metric, levels = c("Pan-resistome", "Core-resistome"))) %>%
-      ggplot(aes(x = habitat, y =  value)) +
-      geom_jitter(aes(fill = tool, shape = texture),  color = "black", stroke = 0.3, size = 2.5, width = 0.5, height = 0) +
-      facet_grid(metric ~ habitat, scales = "free") +
-      scale_fill_manual(values = pal_figure, labels = lab_fn(tools_labels_figure), name = NULL) +
-      scale_shape_manual(values = c(21, 24)) +
-      guides(
-        fill = guide_legend(
-          override.aes = list(
-            shape = shape_tools,
-            fill  = pal_figure)), shape = "none") +
-      theme_minimal() +
-      xlab("") +
-      ylab("ARGs") +
-      theme(
+    
+    pan_core() %>%
+      dplyr::select(!c(md, sd)) %>%
+      tidyr::pivot_longer(cols = c(mn, core), names_to = "metric", values_to = "value") %>%
+      dplyr::mutate(
+        metric = dplyr::recode(metric, mn = "Pan-resistome", core = "Core-resistome"),
+        metric = factor(metric, levels = c("Pan-resistome", "Core-resistome"))
+      ) %>%
+      ggplot2::ggplot(ggplot2::aes(x = habitat, y = value)) +
+      ggplot2::geom_jitter(
+        ggplot2::aes(fill = tool, shape = texture),
+        color = "black", stroke = 0.3, size = 2.5,
+        width = 0.5, height = 0
+      ) +
+      ggplot2::facet_grid(metric ~ habitat, scales = "free") +
+      ggplot2::scale_fill_manual(values = pal_figure, labels = lab_fn(tools_labels_figure), name = NULL) +
+      ggplot2::scale_shape_manual(values = c(21, 24)) +
+      ggplot2::guides(
+        fill = ggplot2::guide_legend(
+          override.aes = list(shape = shape_tools, fill = pal_figure)
+        ),
+        shape = "none"
+      ) +
+      ggplot2::theme_minimal() +
+      ggplot2::xlab("") +
+      ggplot2::ylab("ARGs") +
+      ggplot2::theme(
         legend.position = "bottom",
-        strip.text.x   = element_text(size = general_size),
-        legend.text = element_text(size = general_size),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        plot.margin = margin(0, 0, 0, 0, unit = "pt"),
-        legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
-        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
-        panel.spacing = unit(0, "pt"),
-        title = element_text(size = general_size + 2, face = "bold"),
-        axis.title = element_text(size = general_size + 1, face = "bold"),
-        axis.text.x = element_blank(),
-        axis.text.y = element_text(size = general_size),
-        panel.border = element_blank(),
-        panel.background = element_rect(colour = "black", fill = NA))
+        strip.text.x   = ggplot2::element_text(size = general_size),
+        legend.text    = ggplot2::element_text(size = general_size),
+        panel.grid.major.x = ggplot2::element_blank(),
+        panel.grid.minor.x = ggplot2::element_blank(),
+        plot.margin = ggplot2::margin(0, 0, 0, 0, unit = "pt"),
+        legend.box.margin = ggplot2::margin(0, 0, 0, 0, unit = "pt"),
+        legend.margin = ggplot2::margin(0, 0, 0, 0, unit = "pt"),
+        panel.spacing = grid::unit(0, "pt"),
+        title = ggplot2::element_text(size = general_size + 2, face = "bold"),
+        axis.title = ggplot2::element_text(size = general_size + 1, face = "bold"),
+        axis.text.x = ggplot2::element_blank(),
+        axis.text.y = ggplot2::element_text(size = general_size),
+        panel.border = ggplot2::element_blank(),
+        panel.background = ggplot2::element_rect(colour = "black", fill = NA)
+      )
   })
-  
   
   
   
   ### ABUNDANCE
   
   abundance_tool_sample_reactive <- reactive({
-    if(input$threshold_abundance_id == 60.0) {
-      data_list$abundance %>%
-        filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>%
-        bind_rows(data_list$abundance60) %>%
-        group_by(tool, sample, habitat, habitat2) %>%
-        summarise(normed10m = sum(normed10m), unigenes = sum(unigenes)) %>% # sum the abundance and diversity
-        ungroup() %>%
-        complete(sample, tool) %>% # complete with NAs
-
-        left_join((data_list$abundance %>%
-                     filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>%
-                     bind_rows(data_list$abundance60)) %>% select(sample, habitat, habitat2) %>%
-                    distinct(), by = "sample") %>% # get habitat and habitat2
-        mutate(habitat  = coalesce(habitat.x, habitat.y),
-               habitat2 = coalesce(habitat2.x, habitat2.y)) %>%
-        select(-habitat.x, -habitat.y, -habitat2.x, -habitat2.y) %>%
-        mutate(normed10m = replace_na(normed10m, 0)) %>%  # change NAs to 0
-        mutate(unigenes = replace_na(unigenes, 0)) %>% # change NAs to 0
-        arrange(tool, sample)
-
-    } else if(input$threshold_abundance_id == 70.0) {
-
-      data_list$abundance %>%
-        filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>%
-        bind_rows(data_list$abundance70) %>%
-        group_by(tool, sample, habitat, habitat2) %>%
-        summarise(normed10m = sum(normed10m), unigenes = sum(unigenes)) %>% # sum the abundance and diversity
-        ungroup() %>%
-        complete(sample, tool) %>% # complete with NAs
-
-        left_join((data_list$abundance %>%
-                     filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>%
-                     bind_rows(data_list$abundance70)) %>% select(sample, habitat, habitat2) %>%
-                    distinct(), by = "sample") %>% # get habitat and habitat2
-        mutate(habitat  = coalesce(habitat.x, habitat.y),
-               habitat2 = coalesce(habitat2.x, habitat2.y)) %>%
-        select(-habitat.x, -habitat.y, -habitat2.x, -habitat2.y) %>%
-        mutate(normed10m = replace_na(normed10m, 0)) %>%  # change NAs to 0
-        mutate(unigenes = replace_na(unigenes, 0)) %>% # change NAs to 0
-        arrange(tool, sample)
-
-    } else if (input$threshold_abundance_id == 80.0) {
-
-      data_list$abundance %>%
-        filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>%
-        bind_rows(data_list$abundance80) %>%
-        group_by(tool, sample, habitat, habitat2) %>%
-        summarise(normed10m = sum(normed10m), unigenes = sum(unigenes)) %>% # sum the abundance and diversity
-        ungroup() %>%
-        complete(sample, tool) %>% # complete with NAs
-
-        left_join((data_list$abundance %>%
-                     filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>%
-                     bind_rows(data_list$abundance80)) %>% select(sample, habitat, habitat2) %>%
-                    distinct(), by = "sample") %>% # get habitat and habitat2
-        mutate(habitat  = coalesce(habitat.x, habitat.y),
-               habitat2 = coalesce(habitat2.x, habitat2.y)) %>%
-        select(-habitat.x, -habitat.y, -habitat2.x, -habitat2.y) %>%
-        mutate(normed10m = replace_na(normed10m, 0)) %>%  # change NAs to 0
-        mutate(unigenes = replace_na(unigenes, 0)) %>% # change NAs to 0
-        arrange(tool, sample)
-
-    } else {
-      data_list$abundance %>%
-        group_by(tool, sample, habitat, habitat2) %>%
-        summarise(normed10m = sum(normed10m), unigenes = sum(unigenes)) %>% # sum the abundance and diversity
-        ungroup() %>%
-        complete(sample, tool) %>% # complete with NAs
-        left_join(data_list$abundance %>% select(sample, habitat, habitat2) %>%
-                    distinct(), by = "sample") %>% # get habitat and habitat2
-        mutate(habitat  = coalesce(habitat.x, habitat.y),
-               habitat2 = coalesce(habitat2.x, habitat2.y)) %>%
-        select(-habitat.x, -habitat.y, -habitat2.x, -habitat2.y) %>%
-        mutate(normed10m = replace_na(normed10m, 0)) %>%  # change NAs to 0
-        mutate(unigenes = replace_na(unigenes, 0)) %>% # change NAs to 0
-        arrange(tool, sample)
-    }
-  })
+    req(input$threshold_abundance_id)
+    
+    switch(
+      as.character(input$threshold_abundance_id),
+      "60" = abundance_prepped[["60"]],
+      "70" = abundance_prepped[["70"]],
+      "80" = abundance_prepped[["80"]],
+      abundance_prepped[["default"]]
+    )
+  }) %>% bindCache(input$threshold_abundance_id)
+  
+  
+  # Filter by selected tools + environments
+  abundance_filtered <- reactive({
+    req(input$tool_abundance, input$environment_abundance)
+    
+    abundance_tool_sample_reactive() %>%
+      dplyr::filter(
+        tool %in% input$tool_abundance,
+        habitat %in% input$environment_abundance
+      )
+  }) %>% bindCache(
+    input$threshold_abundance_id,
+    sort(input$tool_abundance),
+    sort(input$environment_abundance)
+  )
+  
+  
 
   plot_abundance_reactive <- reactive({
+    req(input$tool_abundance, input$environment_abundance, input$threshold_abundance_id)
+    
+    df <- abundance_filtered() %>%
+      dplyr::mutate(tool = factor(tool, levels = input$tool_abundance))
+    
     plot_total_abundance_diversity_new_version_shiny(
-      dataset = abundance_tool_sample_reactive(), #
-      tools_labels = tools_labels,  #
-      tools_to_plot = input$tool_abundance,  #
-      environments_plot = input$environment_abundance, # habitats to plot (aggregated humans and mammals)
-      general_size = general_size, # font size
-      pal_10_q = pal_10_q, # pallet
-      metric = "abundance", # metric (abundance or diversity)
-      sd = 2025, # seed to plot random samples in the distribution
-      obs = 200,  # number of samples to plot as dots per environment
-      texture = tools_texture, # texture for repeated color
-      tools_levels = tools_levels) +
+      dataset = df,
+      tools_labels = tools_labels,
+      tools_to_plot = input$tool_abundance,       
+      environments_plot = input$environment_abundance,
+      general_size = general_size,
+      pal_10_q = pal_10_q,
+      metric = "abundance",
+      sd = 2025,
+      obs = 200,
+      texture = tools_texture,
+      tools_levels = tools_levels
+    ) +
       theme(legend.position = "none")
-
-  })
+  }) %>% bindCache(
+    input$threshold_abundance_id,
+    sort(input$tool_abundance),                      
+    sort(input$environment_abundance)
+  )
+  
 
   ## Adding this so it can be rendered separately well in the submenus
-  output$plot_abundance <- renderPlot({plot_abundance_reactive ()})
-  output$plot_abundance_overview <- renderPlot({plot_abundance_reactive ()})
-
-
-  plot_diversity_reactive <- reactive({
-    plot_total_abundance_diversity_new_version_shiny(
-      dataset = abundance_tool_sample_reactive(), #
-      tools_labels = tools_labels,  #
-      tools_to_plot = input$tool_abundance,  #
-      environments_plot = input$environment_abundance, # habitats to plot (aggregated humans and mammals)
-      general_size = general_size, # font size
-      pal_10_q = pal_10_q, # pallet
-      metric = "diversity", # metric (abundance or diversity)
-      sd = 2025, # seed to plot random samples in the distribution
-      obs = 200,  # number of samples to plot as dots per environment
-      texture = tools_texture, # texture for repeated color
-      tools_levels = tools_levels) +
-      theme(legend.position = "none")
-  })
-
-  ## Adding this so it can be rendered seperately well in the submenus
-  output$plot_diversity <- renderPlot({plot_diversity_reactive()})
-  output$plot_diversity_overview <- renderPlot({plot_diversity_reactive()})
-
-
-  abundance_class_reactice <- reactive({
-    if(input$threshold_abundance_id == 60.0) {
-      data_list$abundance_class %>%
-        filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>%
-        bind_rows(data_list$abundance_class60) %>%
-        filter(tool %in% input$tool_abundance)
-
-    } else if(input$threshold_abundance_id == 70.0){
-      data_list$abundance_class %>%
-        filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>%
-        bind_rows(data_list$abundance_class70) %>%
-        filter(tool %in% input$tool_abundance)
-
-    } else if(input$threshold_abundance_id == 80.0) {
-      data_list$abundance_class %>%
-        filter(!tool %in% c("DeepARG","RGI-DIAMOND")) %>%
-        bind_rows(data_list$abundance_class80) %>%
-        filter(tool %in% input$tool_abundance)
-
-    } else {data_list$abundance_class %>%
-        filter(tool %in% input$tool_abundance)}
-
-  })
-
-  plot_abundance_class_reactive <- reactive({
-    plot_abundance_class_more_environments(abundance_class_reactice(),
-                                           input$environment_abundance, general_size ,
-                                           pal_10_q,
-                                           input$abundance_genes,
-                                           data_type = "abundance",
-                                           other = input$plot_other,
-                                           tools_levels,
-                                           input$tool_abundance,
-                                           tools_texture,
-                                           pattern_density = pattern_density,
-                                           pattern_spacing = pattern_spacing,
-                                           pattern_fill = pattern_fill,
-                                           pattern_size = pattern_size) +
-      theme(legend.position = "none")
-  })
-
-  ## Adding this so it can be rendered seperately well in the submenus
-  output$plot_abundance_class <- renderPlot({plot_abundance_class_reactive()})
-  output$plot_abundance_class_overview <- renderPlot({plot_abundance_class_reactive()})
-
-
-
-  plot_diversity_class_reactive <- reactive({
-    plot_abundance_class_more_environments(abundance_class_reactice(),
-                                           input$environment_abundance, general_size ,
-                                           pal_10_q,
-                                           input$abundance_genes,
-                                           data_type = "diversity",
-                                           other = input$plot_other,
-                                           tools_levels,
-                                           input$tool_abundance,
-                                           tools_texture,
-                                           pattern_density = pattern_density,
-                                           pattern_spacing = pattern_spacing,
-                                           pattern_fill = pattern_fill,
-                                           pattern_size = pattern_size) +
-      theme(legend.position = "none")
-  })
-
-  ## Adding this so it can be rendered seperately well in the submenus
-  output$plot_diversity_class <- renderPlot({plot_diversity_class_reactive()})
-  output$plot_diversity_class_overview <- renderPlot({plot_diversity_class_reactive()})
-
-
-  plot_diversity_class_legend <- reactive ({
-    grid.draw(g_legend(plot_abundance_class_more_environments(abundance_class_reactice(),
-                                                              input$environment_abundance, general_size ,
-                                                              pal_10_q,
-                                                              input$abundance_genes,
-                                                              data_type = "diversity",
-                                                              other = input$plot_other,
-                                                              tools_levels,
-                                                              input$tool_abundance,
-                                                              tools_texture,
-                                                              pattern_density = 0.01,
-                                                              pattern_spacing = 0.005,
-                                                              pattern_fill = "white",
-                                                              pattern_size = 0.4) +
-                         theme(legend.position = "bottom")))
-  })
-
-  ## Adding this so the legend can be rendered in the plot
-  output$plot_diversity_class_legend <- renderPlot({plot_diversity_class_legend()})
-
-  output$plot_diversity_class_legend_overview <- renderPlot({plot_diversity_class_legend()})
-
-
-  plot_abundance_class_legend <- reactive ({
-    grid.draw(
-      g_legend(
-        plot_abundance_class_more_environments(
-          abundance_class_reactice(),
-          input$environment_abundance,
-          general_size,
-          pal_10_q,
-          input$abundance_genes,
-          data_type = "abundance",
-          other = input$plot_other,
-          tools_levels,
-          input$tool_abundance,
-          tools_texture,
-          pattern_density = 0.01,
-          pattern_spacing = 0.005,
-          pattern_fill = "white",
-          pattern_size = 0.4
-        ) +
-          theme(legend.position = "bottom")
-      )
-    )
-  })
-
-  ## Adding this so the legend can be rendered in the plot
-  output$plot_abundance_class_legend <- renderPlot({plot_abundance_class_legend()})
+  output$plot_abundance <- renderPlot(plot_abundance_reactive())
+  output$plot_abundance_overview <- renderPlot(plot_abundance_reactive())
   
+  
+  plot_diversity_reactive <- reactive({
+    req(input$tool_abundance, input$environment_abundance, input$threshold_abundance_id)
+    
+    df <- abundance_filtered() %>%
+      dplyr::mutate(tool = factor(tool, levels = input$tool_abundance))
+    
+    plot_total_abundance_diversity_new_version_shiny(
+      dataset = df,
+      tools_labels = tools_labels,
+      tools_to_plot = input$tool_abundance,         
+      environments_plot = input$environment_abundance,
+      general_size = general_size,
+      pal_10_q = pal_10_q,
+      metric = "diversity",
+      sd = 2025,
+      obs = 200,
+      texture = tools_texture,
+      tools_levels = tools_levels
+    ) +
+      theme(legend.position = "none")
+  }) %>% bindCache(
+    input$threshold_abundance_id,
+    sort(input$tool_abundance),                      
+    sort(input$environment_abundance)
+  )
+
+  ## Adding this so it can be rendered separately well in the submenus
+  output$plot_diversity <- renderPlot(plot_diversity_reactive())
+  output$plot_diversity_overview <- renderPlot(plot_diversity_reactive())
+  
+  ##Suspend any hidden plots
+  outputOptions(output, "plot_abundance", suspendWhenHidden = TRUE)
+  outputOptions(output, "plot_abundance_overview", suspendWhenHidden = TRUE)
+  outputOptions(output, "plot_diversity", suspendWhenHidden = TRUE)
+  outputOptions(output, "plot_diversity_overview", suspendWhenHidden = TRUE)
+
+  
+  # Median abundance and diversity
+  abundance_class_reactice <- (
+    reactive({
+      req(input$threshold_abundance_id, input$tool_abundance)
+      
+      base <- data_list$abundance_class
+      
+      extra <- switch(
+        as.character(input$threshold_abundance_id),
+        "60" = data_list$abundance_class60,
+        "70" = data_list$abundance_class70,
+        "80" = data_list$abundance_class80,
+        NULL
+      )
+      
+      dplyr::bind_rows(base, extra) %>%
+        dplyr::filter(tool %in% input$tool_abundance) %>%                        
+        dplyr::mutate(tool = factor(tool, levels = input$tool_abundance))       
+    })
+  ) %>% bindCache(
+    input$threshold_abundance_id,
+    sort(input$tool_abundance)
+  )
+
+  
+  plot_abundance_class_reactive <- reactive({
+    req(input$tool_abundance, input$environment_abundance)
+    
+    sel_tools <- intersect(tools_levels, input$tool_abundance)
+    pal_sel   <- pal_for_tools(sel_tools, tools_levels, pal_10_q)
+    
+    plot_abundance_class_more_environments(
+      abundance_class_reactice(),
+      input$environment_abundance, general_size,
+      pal_sel,                      
+      input$abundance_genes,
+      data_type = "abundance",
+      other = input$plot_other,
+      tools_levels,
+      sel_tools,                     
+      tools_texture,
+      pattern_density = pattern_density,
+      pattern_spacing = pattern_spacing,
+      pattern_fill = pattern_fill,
+      pattern_size = pattern_size
+    ) +
+      theme(legend.position = "none")
+  })
+  
+  ## Adding this so it can be rendered seperately well in the submenus
+  output$plot_abundance_class <- renderPlot(plot_abundance_class_reactive())
+  output$plot_abundance_class_overview <- renderPlot(plot_abundance_class_reactive())
+  
+  
+  plot_diversity_class_reactive <- reactive({
+    req(input$tool_abundance, input$environment_abundance)
+    
+    sel_tools <- intersect(tools_levels, input$tool_abundance)
+    pal_sel   <- pal_for_tools(sel_tools, tools_levels, pal_10_q)
+    
+    plot_abundance_class_more_environments(
+      abundance_class_reactice(),
+      input$environment_abundance, general_size,
+      pal_sel,                        
+      input$abundance_genes,
+      data_type = "diversity",
+      other = input$plot_other,
+      tools_levels,
+      sel_tools,
+      tools_texture,
+      pattern_density = pattern_density,
+      pattern_spacing = pattern_spacing,
+      pattern_fill = pattern_fill,
+      pattern_size = pattern_size
+    ) +
+      theme(legend.position = "none")
+  })
+  
+  ## Adding this so it can be rendered seperately well in the submenus
+  output$plot_diversity_class <- renderPlot(plot_diversity_class_reactive())
+  output$plot_diversity_class_overview <- renderPlot(plot_diversity_class_reactive())
+  
+  plot_diversity_class_legend <- reactive({
+    req(input$threshold_abundance_id, input$environment_abundance, input$tool_abundance)
+
+    sel_tools <- intersect(tools_levels, input$tool_abundance)
+    pal_sel   <- pal_for_tools(sel_tools, tools_levels, pal_10_q)
+
+    p <- plot_abundance_class_more_environments(
+      abundance_class_reactice(),
+      input$environment_abundance, general_size,
+      pal_sel,       #So the input of the user reflects in the plot                 
+      input$abundance_genes,
+      data_type = "diversity",
+      other = input$plot_other,
+      tools_levels,
+      sel_tools,
+      tools_texture,
+      pattern_density = 0.01,
+      pattern_spacing = 0.005,
+      pattern_fill = "white",
+      pattern_size = 0.4
+    ) +
+      theme(legend.position = "bottom")
+
+    g_legend(p)
+  })
+  
+  
+  ## Adding this so the legend can be rendered in the plot
+  output$plot_diversity_class_legend <- renderPlot({
+    grid::grid.newpage()
+    grid::grid.draw(plot_diversity_class_legend())
+  })
+  
+  output$plot_diversity_class_legend_overview <- renderPlot({
+    grid::grid.newpage()
+    grid::grid.draw(plot_diversity_class_legend())
+  })
+  
+
+  plot_abundance_class_legend <- reactive({
+    req(input$threshold_abundance_id,
+        input$environment_abundance,
+        input$tool_abundance)
+    
+    sel_tools <- intersect(tools_levels, input$tool_abundance)
+    pal_sel   <- pal_for_tools(sel_tools, tools_levels, pal_10_q)
+    
+    p <- plot_abundance_class_more_environments(
+      abundance_class_reactice(),
+      input$environment_abundance,
+      general_size,
+      pal_sel,
+      input$abundance_genes,
+      data_type = "abundance",
+      other = input$plot_other,
+      tools_levels,
+      sel_tools,
+      tools_texture,
+      pattern_density = 0.01,
+      pattern_spacing = 0.005,
+      pattern_fill = "white",
+      pattern_size = 0.4
+    ) +
+      theme(legend.position = "bottom")
+    
+    g_legend(p)
+  })
+  
+  ## Adding this so the legend can be rendered in the plot
+  output$plot_abundance_class_legend <- renderPlot({
+    grid::grid.newpage()
+    grid::grid.draw(plot_abundance_class_legend())
+  })
+  
+
   
   ### OVERLAPS
   

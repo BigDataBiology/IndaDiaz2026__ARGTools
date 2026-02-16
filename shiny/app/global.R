@@ -16,6 +16,7 @@ library(Cairo)
 library(ggalluvial)
 library(cowplot)
 library(scales)
+library(tidyr)
 
 options(dplyr.summarise.inform = FALSE)
 options(shiny.usecairo = TRUE)
@@ -144,3 +145,106 @@ data_list <- c(data_list,
                list(abundance80 = abundance_threshold$abundance,
                abundance_tool_sample80 = abundance_threshold$abundance_tool_sample,
                abundance_class80 = abundance_threshold$abundance_class))
+
+
+
+
+# Precomputing everything needed to speed up load time for abundance and diversity overview
+
+abundance_tools_excl <- c("DeepARG", "RGI-DIAMOND")
+
+# --- Ensure factor levels are consistent across all abundance tables ---
+# Sample as factor once (master)
+data_list$abundance <- data_list$abundance %>%
+  dplyr::mutate(sample = factor(sample))
+
+# Make sure tool is a factor too (and keep the full tool universe from the master table)
+# If it's already a factor, this is harmless.
+data_list$abundance <- data_list$abundance %>%
+  dplyr::mutate(tool = factor(tool))
+
+all_samples <- levels(data_list$abundance$sample)
+all_tools   <- levels(data_list$abundance$tool)  # <- this is your full "10 tools" universe
+
+# Align threshold tables to the master factor levels
+data_list$abundance60 <- data_list$abundance60 %>%
+  dplyr::mutate(
+    sample = factor(sample, levels = all_samples),
+    tool   = factor(tool,   levels = all_tools)
+  )
+
+data_list$abundance70 <- data_list$abundance70 %>%
+  dplyr::mutate(
+    sample = factor(sample, levels = all_samples),
+    tool   = factor(tool,   levels = all_tools)
+  )
+
+data_list$abundance80 <- data_list$abundance80 %>%
+  dplyr::mutate(
+    sample = factor(sample, levels = all_samples),
+    tool   = factor(tool,   levels = all_tools)
+  )
+
+# --- Build a fixed sample x tool grid (forces all tools to exist, even if absent in data) ---
+sample_tool_grid <- tidyr::expand_grid(
+  sample = all_samples,
+  tool   = all_tools
+)
+
+# --- Precompute summaries (matches original behavior, but faster + stable tool counts) ---
+prep_abundance <- function(df) {
+  
+  # Map habitat/habitat2 from sample (like your original left_join distinct(sample, habitat...))
+  habitat_map <- df %>%
+    dplyr::group_by(sample) %>%
+    dplyr::summarise(
+      habitat  = dplyr::first(habitat[!is.na(habitat)]),
+      habitat2 = dplyr::first(habitat2[!is.na(habitat2)]),
+      .groups = "drop"
+    )
+  
+  # Aggregate abundance + diversity per tool x sample
+  summ <- df %>%
+    dplyr::group_by(tool, sample) %>%
+    dplyr::summarise(
+      normed10m = sum(normed10m, na.rm = TRUE),
+      unigenes  = sum(unigenes,  na.rm = TRUE),
+      .groups = "drop"
+    )
+  
+  sample_tool_grid %>%
+    dplyr::left_join(summ, by = c("sample", "tool")) %>%
+    dplyr::left_join(habitat_map, by = "sample") %>%
+    dplyr::mutate(
+      normed10m = tidyr::replace_na(normed10m, 0),
+      unigenes  = tidyr::replace_na(unigenes, 0)
+    ) %>%
+    dplyr::arrange(tool, sample)
+}
+
+# --- Build prepped datasets ---
+# Default branch in your original code did NOT exclude DeepARG/RGI-DIAMOND
+abundance_base_all <- data_list$abundance
+
+# Threshold branches in your original code excluded DeepARG/RGI-DIAMOND before binding extras
+abundance_base_excl <- data_list$abundance %>%
+  dplyr::filter(!tool %in% abundance_tools_excl)
+
+abundance_prepped <- list(
+  "default" = prep_abundance(abundance_base_all),
+  "60"      = prep_abundance(dplyr::bind_rows(abundance_base_excl, data_list$abundance60)),
+  "70"      = prep_abundance(dplyr::bind_rows(abundance_base_excl, data_list$abundance70)),
+  "80"      = prep_abundance(dplyr::bind_rows(abundance_base_excl, data_list$abundance80))
+)
+
+dplyr::count(abundance_prepped[["default"]], tool) %>% print(n = Inf)
+dplyr::count(abundance_prepped[["60"]], tool) %>% print(n = Inf)
+
+
+#For median abundance and diversity plot
+pal_for_tools <- function(selected_tools, tools_levels, pal_10_q) {
+  sel <- intersect(tools_levels, selected_tools)
+  cols <- pal_10_q[match(sel, tools_levels)]
+  stats::setNames(cols, sel)   # named vector is key
+}
+
