@@ -17,14 +17,31 @@ library(ggalluvial)
 library(cowplot)
 library(scales)
 library(tidyr)
+library(magrittr)
 
 options(dplyr.summarise.inform = FALSE)
 options(shiny.usecairo = TRUE)
 options(shiny.userrender.type = "svg")
 
-# Path Configuration
-DATA_DIR <- "../../code_R_analysis/output_abundance_diversity_resistome"
-METADATA_PATH <- "../../data/metadata_GMGC10.sample.meta.tsv"
+# Definging the root and app directory 
+APP_DIR  <- normalizePath(getwd(), mustWork = TRUE)                
+ROOT_DIR <- normalizePath(file.path(APP_DIR, "..", ".."), mustWork = TRUE)
+
+# Building paths from ROOT_DIR to ensure they are correct regardless of where the app is launched from
+DATA_DIR      <- file.path(ROOT_DIR, "code_R_analysis", "output_abundance_diversity_resistome")
+METADATA_PATH <- file.path(ROOT_DIR, "data", "metadata_GMGC10.sample.meta.tsv")
+
+# Sourcing the scripts using the constructed paths
+source(file.path(ROOT_DIR, "code_R_analysis", "helper.R"), local = TRUE)
+source(file.path(APP_DIR, "load_data.R"), local = TRUE)
+
+# After: source(file.path(ROOT_DIR, "code_R_analysis", "helper.R"), local = TRUE)
+
+if (!exists("plot_total_abundance_diversity_new_version_shiny", mode = "function") &&
+    exists("plot_total_abundance_diversity_new_version", mode = "function")) {
+  plot_total_abundance_diversity_new_version_shiny <- plot_total_abundance_diversity_new_version
+}
+
 
 # Constants
 general_size <- 10
@@ -80,9 +97,9 @@ tool_choices <- c("DeepARG" = "DeepARG", "fARGene" = "fARGene",
                   "ABRicate-ResFinder" = "ABRicate-ResFinder")
 
 
-# Source External Scripts
-source("../../code_R_analysis/helper.R")
-source("load_data.R")
+# # Source External Scripts
+# source("../../code_R_analysis/helper.R")
+# source("load_data.R")
 
 # Load Data
 data_list <- list()
@@ -127,7 +144,7 @@ data_list <- c(data_list,
                abundance_class60 = abundance_threshold$abundance_class))
 
 abundance_threshold <- load_abundances_thresholds(
-  DATA_DIR = "../../code_R_analysis/output_abundance_diversity_resistome", 
+  DATA_DIR = DATA_DIR, 
   file = "abundance_diversity_70.rds",
   data_list$metadata)
 
@@ -137,7 +154,7 @@ data_list <- c(data_list,
                abundance_class70 = abundance_threshold$abundance_class))
 
 abundance_threshold <- load_abundances_thresholds(
-  DATA_DIR = "../../code_R_analysis/output_abundance_diversity_resistome", 
+  DATA_DIR = DATA_DIR,  
   file = "abundance_diversity_80.rds",
   data_list$metadata)
 
@@ -234,8 +251,8 @@ abundance_prepped <- list(
   "80"      = prep_abundance(dplyr::bind_rows(abundance_base_excl, data_list$abundance80))
 )
 
-dplyr::count(abundance_prepped[["default"]], tool) %>% print(n = Inf)
-dplyr::count(abundance_prepped[["60"]], tool) %>% print(n = Inf)
+# dplyr::count(abundance_prepped[["default"]], tool) %>% print(n = Inf)
+# dplyr::count(abundance_prepped[["60"]], tool) %>% print(n = Inf)
 
 
 #For median abundance and diversity plot

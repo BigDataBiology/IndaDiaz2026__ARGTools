@@ -212,7 +212,7 @@ server <- function(input, output, session) {
     df <- abundance_filtered() %>%
       dplyr::mutate(tool = factor(tool, levels = input$tool_abundance))
     
-    plot_total_abundance_diversity_new_version_shiny(
+    plot_total_abundance_diversity_new_version(
       dataset = df,
       tools_labels = tools_labels,
       tools_to_plot = input$tool_abundance,       
@@ -244,7 +244,7 @@ server <- function(input, output, session) {
     df <- abundance_filtered() %>%
       dplyr::mutate(tool = factor(tool, levels = input$tool_abundance))
     
-    plot_total_abundance_diversity_new_version_shiny(
+    plot_total_abundance_diversity_new_version(
       dataset = df,
       tools_labels = tools_labels,
       tools_to_plot = input$tool_abundance,         
