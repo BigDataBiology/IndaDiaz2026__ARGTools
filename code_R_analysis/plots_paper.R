@@ -14,10 +14,11 @@ library(ggalluvial)
 library(cowplot)
 library(scales)
 
-setwd("~/Documents/GitHub/arg_compare/code_R_analysis") 
+#setwd("~/Documents/GitHub/arg_compare/code_R_analysis") 
 options(dplyr.summarise.inform = FALSE)
 
-source("helper.R")
+# source("helper.R")
+# source(file.path(dirname(getwd()), "..", "code_R_analysis", "helper.R"))
 
 # Sourced gene classes 
 # gene_classes_list is a vector for labeling the plots 
