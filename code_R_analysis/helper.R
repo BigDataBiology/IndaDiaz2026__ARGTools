@@ -1462,8 +1462,7 @@ plot_total_abundance_diversity_new_version <- function(
                   alpha =0.15, size = 0.3, width = 0.25, height = 0, color = "black") +
       scale_fill_manual(values = pal_figure, labels = labels_plot) +
       facet_wrap(~ habitat, scales = "free_x", nrow = 2) +
-      #scale_y_log10(labels = scales::math_format(10^.x)(0:5), 
-      scale_y_log10(labels = scales::label_scientific(digit_separator = ""),                       
+      scale_y_log10(labels = scales::math_format(10^.x)(0:5),  #labels = scales::label_scientific(digit_separator = ""),                       
                     expand = expansion(mult = c(0, 0.1)),
                     breaks = 10^(0:5)) +
       coord_cartesian(ylim = c(9e-1, 5e4)) +
@@ -1528,8 +1527,7 @@ plot_total_abundance_diversity_new_version <- function(
                     alpha =0.15, size = 0.3, width = 0.25, height = 0, color = "black") +
         scale_fill_manual(values = pal_figure, labels = labels_plot) +
         facet_wrap(~ habitat, scales = "free_x", nrow = 2) +
-        #scale_y_log10(labels = scales::math_format(10^.x)(0:4), 
-        scale_y_log10(labels = scales::label_scientific(digit_separator = ""),                       
+        scale_y_log10(labels = scales::math_format(10^.x)(0:4),  #labels = scales::label_scientific(digit_separator = ""),                       
                       expand = expansion(mult = c(0, 0.1)),
                       breaks = 10^(0:4)) +
         coord_cartesian(ylim = c(9e-1, 5e3)) +
