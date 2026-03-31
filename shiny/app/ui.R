@@ -41,7 +41,7 @@ ps_intro <- fluidPage(
       
       card(
         card_header("Pipeline"),
-        card_image("../../code_R_analysis/output_plots/fig0_shiny.svg", height = "100%"),
+        card_image("../../code_R_analysis/output_plots/fig0_shiny.svg", height = "600px"),
         card_footer("The GMGC dataset was analyzed in nucleotide and/or amino acid format by the ARG detection tools to obtain a list of putative resistance genes. We quantified the resistome (abundance, diversity, pan- and core-resistome) using the putative ARGs in host-associated and external environments.")
         )
       )
@@ -72,7 +72,7 @@ ps_args <- page_sidebar(
           full_screen = TRUE,  # optional but nice
           fill = TRUE,  
           card_header("(a) Number of putative ARGs and (b) gene class proportion"),
-          withSpinner(plotOutput("plot_count_genes_tool", height = "1000px"), type = 8, color = "#1b9e77") # Spinner + Stable height 
+          withSpinner(plotOutput("plot_count_genes_tool", height = "600px"), type = 8, color = "#1b9e77") # Spinner + Stable height 
         )
       )
 )
@@ -164,7 +164,7 @@ ps_pan_core <- page_sidebar(
     width = 1,
       card(
         card_header("Number of genes"),
-        #withSpinner(plotOutput("pan_core", height = "1000px"), type = 8, color = "#1b9e77") 
+        withSpinner(plotOutput("pan_core", height = "600px"), type = 8, color = "#1b9e77") 
       )
   )
 )
@@ -239,7 +239,7 @@ ps_abundance_diversity <- page_sidebar(
           card(
             fill = TRUE,
             card_header("Relaltive abundance per sample and gene class"),
-            withSpinner(plotOutput("plot_abundance", height = "1000px", fill = TRUE), type = 8, color = "#1b9e77")
+            withSpinner(plotOutput("plot_abundance", height = "600px", fill = TRUE), type = 8, color = "#1b9e77")
           )
         )
       )

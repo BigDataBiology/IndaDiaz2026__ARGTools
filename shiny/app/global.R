@@ -132,7 +132,6 @@ recall_fnr <- lst_results$recall_fnr
 abundance_class_summary <- lst_results$abundance_class_summary
 rm(lst_results)
 
-
 top_abundance <- c("efflux pump", "van" , "class A beta-lactamase", 
                    "tet RPG",  "cell wall charge", "MFS efflux pump", 
                    "rpoB", "erm")
@@ -172,7 +171,6 @@ gene_classes <- unigenes %>%
   ungroup() %>% 
   pull(new_level)
 
-
 unigenes_propotion <- unigenes %>% 
   group_by(tool, tools_labels, tools_db, new_level) %>% 
   summarise(n = n()) %>% 
@@ -191,8 +189,6 @@ unigenes_propotion <- unigenes %>%
   mutate(new_level = gsub("variant or","variant or\n", new_level)) 
 
 
-shape_tools <- rep(21, length(tools_labels))
-shape_tools[tools_levels %in% tools_texture] <- 24
 
 
 sum_core_adjust <- function(core, cnt_subset = 900, threshold_samples = 0.5){
@@ -203,5 +199,54 @@ sum_core_adjust <- function(core, cnt_subset = 900, threshold_samples = 0.5){
            summarise(unigenes = n_distinct(X)))
 }
 
-names(shape_tools) <- 
+
+
+
+shape_tools <- rep(21, length(tools_labels))
+shape_tools[tools_levels %in% tools_texture] <- 24
+shape_tools[tools_levels %in% c("DeepARG70", "RGI-DIAMOND70")] <- 22
+shape_tools[tools_levels %in% c("DeepARG80", "RGI-DIAMOND80")] <- 23
+shape_tools[tools_levels %in% c("DeepARG90", "RGI-DIAMOND90")] <- 25
+
+names(shape_tools) <- tools_levels
 names(pal_7) <- tools_db_factor
+
+
+abundance_tool_sample <- 
+  abundance_tool_sample %>% 
+  mutate(texture = ifelse(tool %in% c("DeepARG70", "RGI-DIAMOND70"), "y70",
+  ifelse(tool %in% c("DeepARG80", "RGI-DIAMOND80"), "y80",
+  ifelse(tool %in% c("DeepARG90", "RGI-DIAMOND90"), "y90", 
+  texture))))
+
+unigenes_propotion <- 
+  unigenes_propotion %>% 
+  mutate(texture = abundance_tool_sample$texture[match(tool, abundance_tool_sample$tool)])
+
+abundance_class_summary <- 
+  abundance_class_summary %>% 
+  mutate(texture = ifelse(tool %in% c("DeepARG70", "RGI-DIAMOND70"), "y70",
+                          ifelse(tool %in% c("DeepARG80", "RGI-DIAMOND80"), "y80",
+                                 ifelse(tool %in% c("DeepARG90", "RGI-DIAMOND90"), "y90", 
+                                        texture))))
+
+recall_fnr <- 
+  recall_fnr %>% 
+  mutate(texture = abundance_tool_sample$texture[match(tool_ref, abundance_tool_sample$tool)])
+
+unigenes <- 
+  unigenes %>% 
+  mutate(texture = ifelse(tool %in% c("DeepARG70", "RGI-DIAMOND70"), "y70",
+                          ifelse(tool %in% c("DeepARG80", "RGI-DIAMOND80"), "y80",
+                                 ifelse(tool %in% c("DeepARG90", "RGI-DIAMOND90"), "y90", 
+                                        texture))))
+
+
+
+g_legend <- function(a.gplot){
+  tmp <- ggplotGrob(a.gplot)
+  leg <- which(sapply(tmp$grobs, function(x) x$name) == "guide-box")
+  legend <- tmp$grobs[[leg]]
+  return(legend)
+}
+
