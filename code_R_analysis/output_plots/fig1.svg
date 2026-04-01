@@ -24,15 +24,15 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="pt"
-     inkscape:zoom="0.85206702"
-     inkscape:cx="286.36245"
-     inkscape:cy="222.98715"
-     inkscape:window-width="1344"
-     inkscape:window-height="755"
-     inkscape:window-x="0"
-     inkscape:window-y="38"
+     inkscape:zoom="1.8269711"
+     inkscape:cx="338.53847"
+     inkscape:cy="223.32044"
+     inkscape:window-width="2384"
+     inkscape:window-height="921"
+     inkscape:window-x="1750"
+     inkscape:window-y="251"
      inkscape:window-maximized="0"
-     inkscape:current-layer="g475" />
+     inkscape:current-layer="g476" />
   <g
      class="svglite"
      id="g476">
@@ -180,28 +180,14 @@
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHwzMTEuODE=)"
        id="g13" />
     <defs
-       id="defs13">
-      <clipPath
-         id="cpNS40OHwyNDMuNzJ8MTU4Ljg5fDMwNi4zMw==">
-        <rect
-           x="5.48"
-           y="158.89"
-           width="238.24"
-           height="147.44"
-           id="rect13" />
-      </clipPath>
-    </defs>
-    <g
-       clip-path="url(#cpNS40OHwyNDMuNzJ8MTU4Ljg5fDMwNi4zMw==)"
-       id="g14">
-      <rect
-         x="5.48"
-         y="158.89"
-         width="238.24"
-         height="147.44"
-         style="stroke-width: 1.07; stroke: none; fill: #FFFFFF;"
-         id="rect14" />
-    </g>
+       id="defs13" />
+    <rect
+       x="5.48"
+       y="158.89"
+       width="238.24001"
+       height="147.44"
+       style="fill:#ffffff;stroke:none;stroke-width:1.07"
+       id="rect14" />
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHwzMTEuODE=)"
        id="g15" />
@@ -1063,191 +1049,187 @@
          style="stroke-width: 2.13; stroke: #66A61E; stroke-linecap: butt;"
          id="polyline114" />
     </g>
-    <g
-       clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHwzMTEuODE=)"
-       id="g135">
-      <text
-         x="42.00"
-         y="237.86"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="11.70px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text114">0.00</text>
-      <text
-         x="42.00"
-         y="222.55"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="11.70px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text115">0.25</text>
-      <text
-         x="42.00"
-         y="207.24"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="11.70px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text116">0.50</text>
-      <text
-         x="42.00"
-         y="191.93"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="11.70px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text117">0.75</text>
-      <text
-         x="42.00"
-         y="176.63"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="11.70px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text118">1.00</text>
-      <text
-         transform="translate(50.05,241.87) rotate(-90)"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="3.34px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text119">0</text>
-      <text
-         transform="translate(98.76,241.87) rotate(-90)"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="6.69px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text120">25</text>
-      <text
-         transform="translate(147.47,241.87) rotate(-90)"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="6.69px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text121">50</text>
-      <text
-         transform="translate(196.19,241.87) rotate(-90)"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="6.69px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text122">75</text>
-      <text
-         transform="translate(244.90,241.87) rotate(-90)"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="10.03px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text123">100</text>
-      <text
-         x="145.33"
-         y="281.26001"
-         text-anchor="middle"
-         style="font-weight:bold;font-size:6px;font-family:Arial"
-         textLength="28.379999"
-         lengthAdjust="spacingAndGlyphs"
-         id="text124"
-         transform="translate(0,-7.5)">% Identity</text>
-      <text
-         transform="translate(9.78,205.09) rotate(-90)"
-         text-anchor="middle"
-         style="font-size: 6.00px; font-weight: bold; font-family: &quot;Arial&quot;;"
-         textLength="62.75px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text125">Empirical Cumulative </text>
-      <text
-         transform="translate(16.26,205.09) rotate(-90)"
-         text-anchor="middle"
-         style="font-size: 6.00px; font-weight: bold; font-family: &quot;Arial&quot;;"
-         textLength="60.75px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text126">Distribution Function</text>
-      <line
-         x1="60.990002"
-         y1="288.35001"
-         x2="68.93"
-         y2="288.35001"
-         style="stroke:#1b9e77;stroke-width:2.13;stroke-linecap:butt"
-         id="line126" />
-      <line
-         x1="109.23"
-         y1="288.35001"
-         x2="117.17"
-         y2="288.35001"
-         style="stroke:#e6ab02;stroke-width:2.13;stroke-linecap:butt"
-         id="line127" />
-      <line
-         x1="140.78"
-         y1="288.35001"
-         x2="148.72"
-         y2="288.35001"
-         style="stroke:#7570b3;stroke-width:2.13;stroke-linecap:butt"
-         id="line128" />
-      <line
-         x1="189.36"
-         y1="288.35001"
-         x2="197.3"
-         y2="288.35001"
-         style="stroke:#66a61e;stroke-width:2.13;stroke-linecap:butt"
-         id="line129" />
-      <text
-         x="75.400002"
-         y="298"
-         style="font-size:6px;font-family:Arial"
-         textLength="27.360001"
-         lengthAdjust="spacingAndGlyphs"
-         id="text129"
-         transform="translate(0,-7.5)">DeepARG</text>
-      <text
-         x="123.64"
-         y="298"
-         style="font-size:6px;font-family:Arial"
-         textLength="10.67"
-         lengthAdjust="spacingAndGlyphs"
-         id="text130"
-         transform="translate(0,-7.5)">RGI</text>
-      <text
-         x="155.19"
-         y="294.76001"
-         style="font-size:6px;font-family:Arial"
-         textLength="26.690001"
-         lengthAdjust="spacingAndGlyphs"
-         id="text131"
-         transform="translate(0,-7.5)">ABRicate/</text>
-      <text
-         x="155.19"
-         y="301.23999"
-         style="font-size:6px;font-family:Arial"
-         textLength="27.700001"
-         lengthAdjust="spacingAndGlyphs"
-         id="text132"
-         transform="translate(0,-7.5)">ResFinder</text>
-      <text
-         x="203.77"
-         y="294.76001"
-         style="font-size:6px;font-family:Arial"
-         textLength="32.360001"
-         lengthAdjust="spacingAndGlyphs"
-         id="text133"
-         transform="translate(0,-7.5)">AMRFinder-</text>
-      <text
-         x="203.77"
-         y="301.23999"
-         style="font-size:6px;font-family:Arial"
-         textLength="24.030001"
-         lengthAdjust="spacingAndGlyphs"
-         id="text134"
-         transform="translate(0,-7.5)">Plus (aa)</text>
-      <text
-         x="46.93"
-         y="165.76"
-         style="font-size: 9.60px; font-weight: bold; font-family: &quot;Arial&quot;;"
-         textLength="5.33px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text135">c</text>
-    </g>
+    <text
+       x="42"
+       y="237.86"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="11.7"
+       lengthAdjust="spacingAndGlyphs"
+       id="text114">0.00</text>
+    <text
+       x="42"
+       y="222.55"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="11.7"
+       lengthAdjust="spacingAndGlyphs"
+       id="text115">0.25</text>
+    <text
+       x="42"
+       y="207.24001"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="11.7"
+       lengthAdjust="spacingAndGlyphs"
+       id="text116">0.50</text>
+    <text
+       x="42"
+       y="191.92999"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="11.7"
+       lengthAdjust="spacingAndGlyphs"
+       id="text117">0.75</text>
+    <text
+       x="42"
+       y="176.63"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="11.7"
+       lengthAdjust="spacingAndGlyphs"
+       id="text118">1.00</text>
+    <text
+       transform="rotate(-90,145.96,95.91)"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="3.3399999"
+       lengthAdjust="spacingAndGlyphs"
+       id="text119">0</text>
+    <text
+       transform="rotate(-90,170.315,71.555)"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="6.6900001"
+       lengthAdjust="spacingAndGlyphs"
+       id="text120">25</text>
+    <text
+       transform="rotate(-90,194.67,47.2)"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="6.6900001"
+       lengthAdjust="spacingAndGlyphs"
+       id="text121">50</text>
+    <text
+       transform="rotate(-90,219.03,22.84)"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="6.6900001"
+       lengthAdjust="spacingAndGlyphs"
+       id="text122">75</text>
+    <text
+       transform="rotate(-90,243.385,-1.515)"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="10.03"
+       lengthAdjust="spacingAndGlyphs"
+       id="text123">100</text>
+    <text
+       x="145.33"
+       y="281.26001"
+       text-anchor="middle"
+       style="font-weight:bold;font-size:6px;font-family:Arial"
+       textLength="28.379999"
+       lengthAdjust="spacingAndGlyphs"
+       id="text124"
+       transform="translate(0,-12)">% Identity</text>
+    <text
+       transform="rotate(-90,107.435,97.655)"
+       text-anchor="middle"
+       style="font-weight:bold;font-size:6px;font-family:Arial"
+       textLength="62.75"
+       lengthAdjust="spacingAndGlyphs"
+       id="text125">Empirical Cumulative </text>
+    <text
+       transform="rotate(-90,110.675,94.415)"
+       text-anchor="middle"
+       style="font-weight:bold;font-size:6px;font-family:Arial"
+       textLength="60.75"
+       lengthAdjust="spacingAndGlyphs"
+       id="text126">Distribution Function</text>
+    <line
+       x1="60.990002"
+       y1="283.85001"
+       x2="68.93"
+       y2="283.85001"
+       style="stroke:#1b9e77;stroke-width:2.13;stroke-linecap:butt"
+       id="line126" />
+    <line
+       x1="109.23"
+       y1="283.85001"
+       x2="117.17"
+       y2="283.85001"
+       style="stroke:#e6ab02;stroke-width:2.13;stroke-linecap:butt"
+       id="line127" />
+    <line
+       x1="140.78"
+       y1="283.85001"
+       x2="148.72"
+       y2="283.85001"
+       style="stroke:#7570b3;stroke-width:2.13;stroke-linecap:butt"
+       id="line128" />
+    <line
+       x1="189.36"
+       y1="283.85001"
+       x2="197.3"
+       y2="283.85001"
+       style="stroke:#66a61e;stroke-width:2.13;stroke-linecap:butt"
+       id="line129" />
+    <text
+       x="75.400002"
+       y="298"
+       style="font-size:6px;font-family:Arial"
+       textLength="27.360001"
+       lengthAdjust="spacingAndGlyphs"
+       id="text129"
+       transform="translate(0,-12)">DeepARG</text>
+    <text
+       x="123.64"
+       y="298"
+       style="font-size:6px;font-family:Arial"
+       textLength="10.67"
+       lengthAdjust="spacingAndGlyphs"
+       id="text130"
+       transform="translate(0,-12)">RGI</text>
+    <text
+       x="155.19"
+       y="294.76001"
+       style="font-size:6px;font-family:Arial"
+       textLength="26.690001"
+       lengthAdjust="spacingAndGlyphs"
+       id="text131"
+       transform="translate(0,-12)">ABRicate/</text>
+    <text
+       x="155.19"
+       y="301.23999"
+       style="font-size:6px;font-family:Arial"
+       textLength="27.700001"
+       lengthAdjust="spacingAndGlyphs"
+       id="text132"
+       transform="translate(0,-12)">ResFinder</text>
+    <text
+       x="203.77"
+       y="294.76001"
+       style="font-size:6px;font-family:Arial"
+       textLength="32.360001"
+       lengthAdjust="spacingAndGlyphs"
+       id="text133"
+       transform="translate(0,-12)">AMRFinder-</text>
+    <text
+       x="203.77"
+       y="301.23999"
+       style="font-size:6px;font-family:Arial"
+       textLength="24.030001"
+       lengthAdjust="spacingAndGlyphs"
+       id="text134"
+       transform="translate(0,-12)">Plus (aa)</text>
+    <text
+       x="46.93"
+       y="165.75999"
+       style="font-weight:bold;font-size:9.6px;font-family:Arial"
+       textLength="5.3299999"
+       lengthAdjust="spacingAndGlyphs"
+       id="text135">c</text>
     <defs
        id="defs135">
       <clipPath
@@ -3618,376 +3600,413 @@
          lengthAdjust="spacingAndGlyphs"
          id="text428">Finder</text>
     </g>
-    <g
-       clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHwzMTEuODE=)"
-       id="g475">
-      <text
-         transform="translate(320.47,241.87) rotate(-90)"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="27.36px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text429">DeepARG</text>
-      <text
-         transform="translate(341.19,241.87) rotate(-90)"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="24.70px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text430">fARGene</text>
-      <text
-         transform="translate(361.90,241.87) rotate(-90)"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="25.02px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text431">ABRicate</text>
-      <text
-         transform="translate(382.62,241.87) rotate(-90)"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="25.02px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text432">ABRicate</text>
-      <text
-         transform="translate(403.33,241.87) rotate(-90)"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="10.67px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text433">RGI</text>
-      <text
-         transform="translate(420.59,241.87) rotate(-90)"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="25.02px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text434">ABRicate</text>
-      <text
-         transform="translate(438.07,241.87) rotate(-90)"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="32.36px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text435">AMRFinder-</text>
-      <text
-         transform="translate(444.55,241.87) rotate(-90)"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="11.67px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text436">Plus</text>
-      <text
-         transform="translate(458.57,241.87) rotate(-90)"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="25.02px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text437">ABRicate</text>
-      <text
-         transform="translate(479.29,241.87) rotate(-90)"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="27.70px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text438">ResFinder</text>
-      <text
-         transform="translate(496.55,241.87) rotate(-90)"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="25.02px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text439">ABRicate</text>
-      <text
-         x="303.04"
-         y="234.02"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="9.69px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text440">aac</text>
-      <text
-         x="303.04"
-         y="225.58"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="13.36px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text441">abcF</text>
-      <text
-         x="303.04"
-         y="217.14"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="8.36px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text442">ant</text>
-      <text
-         x="303.04"
-         y="208.71"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="10.03px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text443">aph</text>
-      <text
-         x="303.04"
-         y="197.03"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="31.39px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text444">beta-lactam</text>
-      <text
-         x="303.04"
-         y="203.51"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="13.36px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text445">mod.</text>
-      <text
-         x="303.04"
-         y="191.83"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="8.02px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text446">cat</text>
-      <text
-         x="303.04"
-         y="183.39"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="41.05px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text447">cell wall charge</text>
-      <text
-         x="303.04"
-         y="174.95"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="19.02px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text448">class A</text>
-      <text
-         x="303.04"
-         y="166.52"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="19.34px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text449">class B</text>
-      <text
-         x="303.04"
-         y="158.08"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="19.67px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text450">class C</text>
-      <text
-         x="303.04"
-         y="149.64"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="19.67px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text451">class D</text>
-      <text
-         x="303.04"
-         y="141.20"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="14.25px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text452">efflux</text>
-      <text
-         x="303.04"
-         y="132.76"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="10.34px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text453">erm</text>
-      <text
-         x="303.04"
-         y="124.33"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="8.02px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text454">fos</text>
-      <text
-         x="303.04"
-         y="115.89"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="28.59px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text455">MFS efflux</text>
-      <text
-         x="303.04"
-         y="107.45"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="12.00px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text456">PBP</text>
-      <text
-         x="303.04"
-         y="99.01"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="39.06px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text457">RIF-inact. enz.</text>
-      <text
-         x="303.04"
-         y="90.57"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="12.69px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text458">rpoB</text>
-      <text
-         x="303.04"
-         y="82.14"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="38.72px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text459">self-resistance</text>
-      <text
-         x="303.04"
-         y="70.46"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="17.38px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text460">target-</text>
-      <text
-         x="303.04"
-         y="76.94"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="29.39px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text461">modif. enz.</text>
-      <text
-         x="303.04"
-         y="65.26"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="21.36px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text462">tet RPG</text>
-      <text
-         x="303.04"
-         y="56.82"
-         text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="9.69px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text463">van</text>
-      <text
-         transform="rotate(-90,202.125,-58.855)"
-         text-anchor="middle"
-         style="font-weight:bold;font-size:6px;font-family:Arial"
-         textLength="69.529999"
-         lengthAdjust="spacingAndGlyphs"
-         id="text464">Proportion of ARG class</text>
-      <image
-         width="49.610001"
-         height="9.9200001"
-         x="384.29999"
-         y="279.37"
-         preserveAspectRatio="none"
-         xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAABCAYAAABkOJMpAAAAoElEQVQ4jZ1TSQ7EIAwz/39nvxH3UMIYcOioB5TgDYhEIy8CBECAvYIAYtk7TaGzvvgjK7GYea2suC+e+f50uDtnrEfXsldu0koPox3n1Rg1x2nXFTvWDtzJlzg/6bFUh/UaP80z7qKW2eKPys9+xcSwYVQ9cm+4wnvONBxklJCRoo2+P6fsQ3MG3959LzzzN2oWjB8Lv+gUm/rM2PK89waokw+wDwSsOwAAAABJRU5ErkJggg=="
-         id="image464" />
-      <polyline
-         points="384.39,291.83 384.39,295.29 "
-         style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
-         id="polyline464"
-         transform="translate(0,-6)" />
-      <polyline
-         points="400.22,291.83 400.22,295.29 "
-         style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
-         id="polyline465"
-         transform="translate(0,-6)" />
-      <polyline
-         points="416.06,291.83 416.06,295.29 "
-         style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
-         id="polyline466"
-         transform="translate(0,-6)" />
-      <polyline
-         points="431.90,291.83 431.90,295.29 "
-         style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
-         id="polyline467"
-         transform="translate(0,-6)" />
-      <polyline
-         points="384.39,288.82 384.39,285.37 "
-         style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
-         id="polyline468"
-         transform="translate(0,-6)" />
-      <polyline
-         points="400.22,288.82 400.22,285.37 "
-         style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
-         id="polyline469"
-         transform="translate(0,-6)" />
-      <polyline
-         points="416.06,288.82 416.06,285.37 "
-         style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
-         id="polyline470"
-         transform="translate(0,-6)" />
-      <polyline
-         points="431.90,288.82 431.90,285.37 "
-         style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
-         id="polyline471"
-         transform="translate(0,-6)" />
-      <text
-         x="384.39001"
-         y="305.06"
-         text-anchor="middle"
-         style="font-size:6px;font-family:Arial"
-         textLength="8.6700001"
-         lengthAdjust="spacingAndGlyphs"
-         id="text471"
-         transform="translate(0,-6)">0%</text>
-      <text
-         x="400.22"
-         y="305.06"
-         text-anchor="middle"
-         style="font-size:6px;font-family:Arial"
-         textLength="12.02"
-         lengthAdjust="spacingAndGlyphs"
-         id="text472"
-         transform="translate(0,-6)">20%</text>
-      <text
-         x="416.06"
-         y="305.06"
-         text-anchor="middle"
-         style="font-size:6px;font-family:Arial"
-         textLength="12.02"
-         lengthAdjust="spacingAndGlyphs"
-         id="text473"
-         transform="translate(0,-6)">40%</text>
-      <text
-         x="431.89999"
-         y="305.06"
-         text-anchor="middle"
-         style="font-size:6px;font-family:Arial"
-         textLength="12.02"
-         lengthAdjust="spacingAndGlyphs"
-         id="text474"
-         transform="translate(0,-6)">60%</text>
-      <text
-         x="307.97"
-         y="12.35"
-         style="font-size: 9.60px; font-weight: bold; font-family: &quot;Arial&quot;;"
-         textLength="5.86px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text475">b</text>
-    </g>
+    <text
+       transform="rotate(-90,281.17,-39.3)"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="27.360001"
+       lengthAdjust="spacingAndGlyphs"
+       id="text429">DeepARG</text>
+    <text
+       transform="rotate(-90,291.53,-49.66)"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="24.700001"
+       lengthAdjust="spacingAndGlyphs"
+       id="text430">fARGene</text>
+    <text
+       transform="rotate(-90,301.885,-60.015)"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="25.02"
+       lengthAdjust="spacingAndGlyphs"
+       id="text431">ABRicate</text>
+    <text
+       transform="rotate(-90,312.245,-70.375)"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="25.02"
+       lengthAdjust="spacingAndGlyphs"
+       id="text432">ABRicate</text>
+    <text
+       transform="rotate(-90,322.6,-80.73)"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="10.67"
+       lengthAdjust="spacingAndGlyphs"
+       id="text433">RGI</text>
+    <text
+       transform="rotate(-90,331.23,-89.36)"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="25.02"
+       lengthAdjust="spacingAndGlyphs"
+       id="text434">ABRicate</text>
+    <text
+       transform="rotate(-90,339.97,-98.1)"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="32.360001"
+       lengthAdjust="spacingAndGlyphs"
+       id="text435">AMRFinder-</text>
+    <text
+       transform="rotate(-90,343.21,-101.34)"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="11.67"
+       lengthAdjust="spacingAndGlyphs"
+       id="text436">Plus</text>
+    <text
+       transform="rotate(-90,350.22,-108.35)"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="25.02"
+       lengthAdjust="spacingAndGlyphs"
+       id="text437">ABRicate</text>
+    <text
+       transform="rotate(-90,360.58,-118.71)"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="27.700001"
+       lengthAdjust="spacingAndGlyphs"
+       id="text438">ResFinder</text>
+    <text
+       transform="rotate(-90,369.21,-127.34)"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="25.02"
+       lengthAdjust="spacingAndGlyphs"
+       id="text439">ABRicate</text>
+    <text
+       x="303.04001"
+       y="234.02"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d;-inkscape-font-specification:'Arial, Italic';font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       textLength="9.6899996"
+       lengthAdjust="spacingAndGlyphs"
+       id="text440">aac</text>
+    <text
+       x="303.04001"
+       y="225.58"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d;-inkscape-font-specification:'Arial, Italic';font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       textLength="13.36"
+       lengthAdjust="spacingAndGlyphs"
+       id="text441">abcF</text>
+    <text
+       x="303.04001"
+       y="217.14"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d;-inkscape-font-specification:'Arial, Italic';font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       textLength="8.3599997"
+       lengthAdjust="spacingAndGlyphs"
+       id="text442">ant</text>
+    <text
+       x="303.04001"
+       y="208.71001"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="10.03"
+       lengthAdjust="spacingAndGlyphs"
+       id="text443">aph</text>
+    <text
+       x="303.04001"
+       y="197.03"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="31.389999"
+       lengthAdjust="spacingAndGlyphs"
+       id="text444">beta-lactam</text>
+    <text
+       x="303.04001"
+       y="203.50999"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="13.36"
+       lengthAdjust="spacingAndGlyphs"
+       id="text445">mod.</text>
+    <text
+       x="303.04001"
+       y="191.83"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d;-inkscape-font-specification:'Arial, Italic';font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       textLength="8.0200005"
+       lengthAdjust="spacingAndGlyphs"
+       id="text446">cat</text>
+    <text
+       x="303.04001"
+       y="183.39"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="41.049999"
+       lengthAdjust="spacingAndGlyphs"
+       id="text447">cell wall charge</text>
+    <text
+       x="303.04001"
+       y="174.95"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="19.02"
+       lengthAdjust="spacingAndGlyphs"
+       id="text448">class A</text>
+    <text
+       x="303.04001"
+       y="166.52"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="19.34"
+       lengthAdjust="spacingAndGlyphs"
+       id="text449">class B</text>
+    <text
+       x="303.04001"
+       y="158.08"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="19.67"
+       lengthAdjust="spacingAndGlyphs"
+       id="text450">class C</text>
+    <text
+       x="303.04001"
+       y="149.64"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="19.67"
+       lengthAdjust="spacingAndGlyphs"
+       id="text451">class D</text>
+    <text
+       x="303.04001"
+       y="141.2"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="14.25"
+       lengthAdjust="spacingAndGlyphs"
+       id="text452">efflux</text>
+    <text
+       x="303.04001"
+       y="132.75999"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d;-inkscape-font-specification:'Arial, Italic';font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       textLength="10.34"
+       lengthAdjust="spacingAndGlyphs"
+       id="text453">erm</text>
+    <text
+       x="303.04001"
+       y="124.33"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d;-inkscape-font-specification:'Arial, Italic';font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       textLength="8.0200005"
+       lengthAdjust="spacingAndGlyphs"
+       id="text454">fos</text>
+    <text
+       x="303.04001"
+       y="115.89"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="28.59"
+       lengthAdjust="spacingAndGlyphs"
+       id="text455">MFS efflux</text>
+    <text
+       x="303.04001"
+       y="107.45"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="12"
+       lengthAdjust="spacingAndGlyphs"
+       id="text456">PBP</text>
+    <text
+       x="303.04001"
+       y="99.010002"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="39.060001"
+       lengthAdjust="spacingAndGlyphs"
+       id="text457">RIF-inact. enz.</text>
+    <text
+       x="303.04001"
+       y="90.57"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d;-inkscape-font-specification:'Arial, Italic';font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       textLength="12.69"
+       lengthAdjust="spacingAndGlyphs"
+       id="text458">rpoB</text>
+    <text
+       x="303.04001"
+       y="82.139999"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="38.720001"
+       lengthAdjust="spacingAndGlyphs"
+       id="text459">self-resistance</text>
+    <text
+       x="303.04001"
+       y="70.459999"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="17.379999"
+       lengthAdjust="spacingAndGlyphs"
+       id="text460">target-</text>
+    <text
+       x="303.04001"
+       y="76.940002"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="29.389999"
+       lengthAdjust="spacingAndGlyphs"
+       id="text461">modif. enz.</text>
+    <text
+       x="303.04001"
+       y="65.260002"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+       textLength="21.360001"
+       lengthAdjust="spacingAndGlyphs"
+       id="text462">tet RPG</text>
+    <text
+       x="303.04001"
+       y="56.82"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;fill:#4d4d4d;-inkscape-font-specification:'Arial, Italic';font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       textLength="9.6899996"
+       lengthAdjust="spacingAndGlyphs"
+       id="text463">van</text>
+    <text
+       transform="rotate(-90,200.625,-57.355)"
+       text-anchor="middle"
+       style="font-weight:bold;font-size:6px;font-family:Arial"
+       textLength="69.529999"
+       lengthAdjust="spacingAndGlyphs"
+       id="text464">Proportion of ARG class</text>
+    <image
+       width="49.610001"
+       height="9.9200001"
+       x="384.29999"
+       y="278.89001"
+       preserveAspectRatio="none"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAABCAYAAABkOJMpAAAAoElEQVQ4jZ1TSQ7EIAwz/39nvxH3UMIYcOioB5TgDYhEIy8CBECAvYIAYtk7TaGzvvgjK7GYea2suC+e+f50uDtnrEfXsldu0koPox3n1Rg1x2nXFTvWDtzJlzg/6bFUh/UaP80z7qKW2eKPys9+xcSwYVQ9cm+4wnvONBxklJCRoo2+P6fsQ3MG3959LzzzN2oWjB8Lv+gUm/rM2PK89waokw+wDwSsOwAAAABJRU5ErkJggg=="
+       id="image464" />
+    <polyline
+       points="384.39,291.83 384.39,295.29 "
+       style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
+       id="polyline464"
+       transform="translate(0,-9)" />
+    <polyline
+       points="400.22,291.83 400.22,295.29 "
+       style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
+       id="polyline465"
+       transform="translate(0,-9)" />
+    <polyline
+       points="416.06,291.83 416.06,295.29 "
+       style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
+       id="polyline466"
+       transform="translate(0,-9)" />
+    <polyline
+       points="431.90,291.83 431.90,295.29 "
+       style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
+       id="polyline467"
+       transform="translate(0,-9)" />
+    <polyline
+       points="384.39,288.82 384.39,285.37 "
+       style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
+       id="polyline468"
+       transform="translate(0,-9)" />
+    <polyline
+       points="400.22,288.82 400.22,285.37 "
+       style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
+       id="polyline469"
+       transform="translate(0,-9)" />
+    <polyline
+       points="416.06,288.82 416.06,285.37 "
+       style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
+       id="polyline470"
+       transform="translate(0,-9)" />
+    <polyline
+       points="431.90,288.82 431.90,285.37 "
+       style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
+       id="polyline471"
+       transform="translate(0,-9)" />
+    <text
+       x="384.39001"
+       y="305.06"
+       text-anchor="middle"
+       style="font-size:6px;font-family:Arial"
+       textLength="8.6700001"
+       lengthAdjust="spacingAndGlyphs"
+       id="text471"
+       transform="translate(0,-9)">0%</text>
+    <text
+       x="400.22"
+       y="305.06"
+       text-anchor="middle"
+       style="font-size:6px;font-family:Arial"
+       textLength="12.02"
+       lengthAdjust="spacingAndGlyphs"
+       id="text472"
+       transform="translate(0,-9)">20%</text>
+    <text
+       x="416.06"
+       y="305.06"
+       text-anchor="middle"
+       style="font-size:6px;font-family:Arial"
+       textLength="12.02"
+       lengthAdjust="spacingAndGlyphs"
+       id="text473"
+       transform="translate(0,-9)">40%</text>
+    <text
+       x="431.89999"
+       y="305.06"
+       text-anchor="middle"
+       style="font-size:6px;font-family:Arial"
+       textLength="12.02"
+       lengthAdjust="spacingAndGlyphs"
+       id="text474"
+       transform="translate(0,-9)">60%</text>
+    <text
+       x="307.97"
+       y="12.35"
+       style="font-weight:bold;font-size:9.6px;font-family:Arial"
+       textLength="5.8600001"
+       lengthAdjust="spacingAndGlyphs"
+       id="text475">b</text>
   </g>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6px;line-height:normal;font-family:Arial;-inkscape-font-specification:'Arial, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-decoration-color:#000000;writing-mode:lr-tb;direction:ltr;text-anchor:start;white-space:pre;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-dashoffset:0"
+     x="129.59349"
+     y="20.786777"
+     id="text476"><tspan
+       sodipodi:role="line"
+       id="tspan476"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6px;font-family:Arial;-inkscape-font-specification:'Arial, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke-width:0;stroke-dasharray:none;stroke-dashoffset:0"
+       x="129.59349"
+       y="20.786777">Reference database</tspan></text>
+  <path
+     style="display:inline;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.8;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+     d="M 91.295634,47.875305 H 106.14944"
+     id="path480"
+     inkscape:connector-type="polyline"
+     inkscape:connector-curvature="0" />
+  <path
+     style="display:inline;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.824039;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+     d="m 112.00407,47.875305 h 14.854"
+     id="path481"
+     inkscape:connector-type="polyline"
+     inkscape:connector-curvature="0" />
+  <path
+     style="display:inline;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.8;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+     d="m 131.03437,47.875305 h 32.45049"
+     id="path482"
+     inkscape:connector-type="polyline"
+     inkscape:connector-curvature="0" />
+  <path
+     style="display:inline;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.8;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+     d="m 170.52729,47.875305 h 32.45049"
+     id="path484"
+     inkscape:connector-type="polyline"
+     inkscape:connector-curvature="0" />
+  <path
+     style="display:inline;fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.8;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+     d="m 208.54245,47.875305 h 32.45049"
+     id="path485"
+     inkscape:connector-type="polyline"
+     inkscape:connector-curvature="0" />
 </svg>

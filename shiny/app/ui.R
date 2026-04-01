@@ -270,7 +270,7 @@ ps_overlap <- page_sidebar(
       inputId = "tool_overlap",
       label = "Choose the tools you want to show:",
       choices = tool_choices,
-      selected = as.vector(tools_levels[c(1,2,5)]),
+      selected = c("DeepARG","fARGene", "RGI-DIAMOND"),
       multiple = TRUE,
       options = list(
         `actions-box` = TRUE,           
@@ -283,7 +283,7 @@ ps_overlap <- page_sidebar(
       inputId = "tool_overlap_calc",
       label = "Choose the tools you want to include in the calculation:",
       choices = tool_choices,
-      selected = as.vector(tools_levels),
+      selected = basic_tools,
       multiple = TRUE,
       options = list(
         `actions-box` = TRUE,
@@ -304,21 +304,6 @@ ps_overlap <- page_sidebar(
         `selected-text-format` = "count > 3",
         `count-selected-text` = "{0} genes selected"
       )
-    ),
-    
-    radioGroupButtons(
-      inputId = "threshold_overlap_id",
-      label = "Identity threshold DeepARG/RGI (amino acid):",
-      choices = c(
-        "Default" = "0.0",
-        ">= 60%" = "60.0",
-        ">= 70%" = "70.0",
-        ">= 80%" = "80.0"
-      ),
-      selected = "0.0",
-      status = "primary",
-      size = "sm",
-      justified = TRUE
     )
   ), 
   
@@ -326,79 +311,12 @@ ps_overlap <- page_sidebar(
     
     # Overview panel
     nav_panel(
-      "Overview",
+      "CSC",
       layout_columns(
-        col_widths = c(6, 6, 6, 6, 12),
-        
+        #$col_widths = c(6, 6, 6, 6, 12),
         card(
           full_screen = TRUE,
-          card_header("CSTC"),
-          #withSpinner(plotOutput("overlap_cstc_overview", height = "450px"), type = 8, color = "#1b9e77")
-        ),
-        card(
-          full_screen = TRUE,
-          card_header("CSNO"),
-          #withSpinner(plotOutput("overlap_csno_overview", height = "450px"), type = 8, color = "#1b9e77")
-        ),
-        card(
-          full_screen = TRUE,
-          card_header("CSTC – Medians per class"),
-          #withSpinner(plotOutput("overlap_cstc_summary_overview", height = "450px"), type = 8, color = "#1b9e77")
-        ),
-        card(
-          full_screen = TRUE,
-          card_header("CSNO – Medians per class"),
-          #withSpinner(plotOutput("overlap_csno_summary_overview", height = "450px"), type = 8, color = "#1b9e77")
-        ),
-        card(
-          plotOutput("overlap_legend", height = "50px")
-        )
-      )
-    ),
-    
-    # CSTC only
-    nav_panel(
-      "CSTC",
-      page_fillable( 
-        layout_columns(
-          col_widths = c(6, 6, 12),
-          card(
-            full_screen = TRUE,
-            card_header("CSTC"),
-            #withSpinner(plotOutput("overlap_cstc", height = "600px"), type = 8, color = "#1b9e77")
-          ),
-          card(
-            full_screen = TRUE,
-            card_header("CSTC – Medians per class"),
-            #withSpinner(plotOutput("overlap_cstc_summary", height = "600px"), type = 8, color = "#1b9e77")
-          ),
-          card(
-            #plotOutput("plot_cstc_legend", height = "160px")
-          )
-        )
-      )
-    ),
-    
-    # CSNO only
-    nav_panel(
-      "CSNO",
-      page_fillable( 
-        layout_columns(
-          col_widths = c(6, 6, 12),
-          
-          card(
-            full_screen = TRUE,
-            card_header("CSNO"),
-            #withSpinner(plotOutput("overlap_csno", height = "600px"), type = 8, color = "#1b9e77")
-          ),
-          card(
-            full_screen = TRUE,
-            card_header("CSNO – Medians per class"),
-            #withSpinner(plotOutput("overlap_csno_summary", height = "600px"), type = 8, color = "#1b9e77")
-          ),
-          card(
-            #plotOutput("plot_csno_legend", height = "160px")
-          )
+          withSpinner(plotOutput("overlap", height = "450px"), type = 8, color = "#1b9e77")
         )
       )
     )

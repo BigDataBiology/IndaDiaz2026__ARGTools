@@ -23,15 +23,15 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="pt"
-     inkscape:zoom="1.2040406"
-     inkscape:cx="316.43452"
-     inkscape:cy="200.98991"
-     inkscape:window-width="1368"
-     inkscape:window-height="737"
-     inkscape:window-x="0"
-     inkscape:window-y="38"
+     inkscape:zoom="2.0632274"
+     inkscape:cx="499.70256"
+     inkscape:cy="174.9686"
+     inkscape:window-width="2144"
+     inkscape:window-height="817"
+     inkscape:window-x="1601"
+     inkscape:window-y="519"
      inkscape:window-maximized="0"
-     inkscape:current-layer="g398" />
+     inkscape:current-layer="g397" />
   <g
      class="svglite"
      id="g398">
@@ -1940,17 +1940,18 @@
     </defs>
     <g
        clip-path="url(#cpMjk4LjQ5fDMxOS4zMHw4Ni4zOHwxMTIuNDg=)"
-       id="g208">
+       id="g208"
+       transform="translate(0,-1.7655494)">
       <text
-         transform="translate(309.35,90.76) rotate(90)"
-         style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
-         textLength="15.00px"
+         transform="rotate(90,109.295,200.055)"
+         style="font-size:6px;font-family:Arial;fill:#1a1a1a"
+         textLength="15"
          lengthAdjust="spacingAndGlyphs"
          id="text207">ARG-</text>
       <text
-         transform="translate(302.87,90.76) rotate(90)"
-         style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
-         textLength="21.00px"
+         transform="rotate(90,106.055,196.815)"
+         style="font-size:6px;font-family:Arial;fill:#1a1a1a"
+         textLength="21"
          lengthAdjust="spacingAndGlyphs"
          id="text208">ANNOT</text>
     </g>
@@ -1971,17 +1972,18 @@
     </defs>
     <g
        clip-path="url(#cpMjk4LjQ5fDMxOS4zMHwxMTIuNDh8MTM4LjU5)"
-       id="g210">
+       id="g210"
+       transform="translate(0,-1.3039217)">
       <text
-         transform="translate(309.35,116.87) rotate(90)"
-         style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
-         textLength="19.67px"
+         transform="rotate(90,96.24,213.11)"
+         style="font-size:6px;font-family:Arial;fill:#1a1a1a"
+         textLength="19.67"
          lengthAdjust="spacingAndGlyphs"
          id="text209">MEGA-</text>
       <text
-         transform="translate(302.87,116.87) rotate(90)"
-         style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
-         textLength="10.67px"
+         transform="rotate(90,93,209.87)"
+         style="font-size:6px;font-family:Arial;fill:#1a1a1a"
+         textLength="10.67"
          lengthAdjust="spacingAndGlyphs"
          id="text210">Res</text>
     </g>
@@ -2003,7 +2005,7 @@
     <g
        clip-path="url(#cpMjk4LjQ5fDMxOS4zMHwxMzguNTl8MTg2LjQ0)"
        id="g212"
-       transform="translate(0,10.797742)">
+       transform="translate(0,11.065237)">
       <text
          transform="rotate(90,79.95,222.92)"
          style="font-size:6px;font-family:Arial;fill:#1a1a1a"
@@ -2029,7 +2031,7 @@
     <g
        clip-path="url(#cpMjk4LjQ5fDMxOS4zMHwxODYuNDR8MjM0LjI5)"
        id="g214"
-       transform="translate(0,12.426002)">
+       transform="translate(0,12.421004)">
       <text
          transform="rotate(90,56.025,246.845)"
          style="font-size:6px;font-family:Arial;fill:#1a1a1a"
@@ -2055,7 +2057,7 @@
     <g
        clip-path="url(#cpMjk4LjQ5fDMxOS4zMHwyMzQuMjl8MjgyLjE1)"
        id="g216"
-       transform="translate(0,10.748051)">
+       transform="translate(0,10.743043)">
       <text
          transform="rotate(90,35.335,274.015)"
          style="font-size:6px;font-family:Arial;fill:#1a1a1a"
@@ -3285,17 +3287,6 @@
       </clipPath>
     </defs>
     <g
-       clip-path="url(#cpNDkwLjQyfDUwNC43NnwxOTkuNDl8MjgyLjE1)"
-       id="g359">
-      <text
-         transform="translate(494.81,240.82) rotate(90)"
-         text-anchor="middle"
-         style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
-         textLength="41.00px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text358">RGI-DIAMOND</text>
-    </g>
-    <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHwzMTEuODE=)"
        id="g397">
       <text
@@ -3337,7 +3328,7 @@
          x="367.08"
          y="114.56"
          text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+         style="font-size:6px;fill:#4D4D4D;font-family:Arial;-inkscape-font-specification:'Arial, Italic';font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
          textLength="9.69px"
          lengthAdjust="spacingAndGlyphs"
          id="text364">aac</text>
@@ -3345,7 +3336,7 @@
          x="367.08"
          y="107.17"
          text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+         style="font-size:6px;fill:#4D4D4D;font-family:Arial;-inkscape-font-specification:'Arial, Italic';font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
          textLength="10.03px"
          lengthAdjust="spacingAndGlyphs"
          id="text365">aph</text>
@@ -3393,7 +3384,7 @@
          x="367.08"
          y="62.89"
          text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+         style="font-size:6px;fill:#4D4D4D;font-family:Arial;-inkscape-font-specification:'Arial, Italic';font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
          textLength="10.34px"
          lengthAdjust="spacingAndGlyphs"
          id="text371">erm</text>
@@ -3417,7 +3408,7 @@
          x="367.08"
          y="40.75"
          text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+         style="font-size:6px;fill:#4D4D4D;font-family:Arial;-inkscape-font-specification:'Arial, Italic';font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
          textLength="9.69px"
          lengthAdjust="spacingAndGlyphs"
          id="text374">van</text>
@@ -3425,7 +3416,7 @@
          x="367.08"
          y="196.25"
          text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+         style="font-size:6px;fill:#4D4D4D;font-family:Arial;-inkscape-font-specification:'Arial, Italic';font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
          textLength="9.69px"
          lengthAdjust="spacingAndGlyphs"
          id="text375">aac</text>
@@ -3433,7 +3424,7 @@
          x="367.08"
          y="187.27"
          text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+         style="font-size:6px;fill:#4D4D4D;font-family:Arial;-inkscape-font-specification:'Arial, Italic';font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
          textLength="10.03px"
          lengthAdjust="spacingAndGlyphs"
          id="text376">aph</text>
@@ -3473,7 +3464,7 @@
          x="367.08"
          y="142.34"
          text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+         style="font-size:6px;fill:#4D4D4D;font-family:Arial;-inkscape-font-specification:'Arial, Italic';font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
          textLength="10.34px"
          lengthAdjust="spacingAndGlyphs"
          id="text381">erm</text>
@@ -3497,7 +3488,7 @@
          x="367.08"
          y="279.87"
          text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+         style="font-size:6px;fill:#4D4D4D;font-family:Arial;-inkscape-font-specification:'Arial, Italic';font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
          textLength="9.69px"
          lengthAdjust="spacingAndGlyphs"
          id="text384">aac</text>
@@ -3505,7 +3496,7 @@
          x="367.08"
          y="272.49"
          text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+         style="font-size:6px;fill:#4D4D4D;font-family:Arial;-inkscape-font-specification:'Arial, Italic';font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
          textLength="10.03px"
          lengthAdjust="spacingAndGlyphs"
          id="text385">aph</text>
@@ -3553,7 +3544,7 @@
          x="367.08"
          y="228.21"
          text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+         style="font-size:6px;fill:#4D4D4D;font-family:Arial;-inkscape-font-specification:'Arial, Italic';font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
          textLength="10.34px"
          lengthAdjust="spacingAndGlyphs"
          id="text391">erm</text>
@@ -3577,7 +3568,7 @@
          x="367.08"
          y="206.07"
          text-anchor="end"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+         style="font-size:6px;fill:#4D4D4D;font-family:Arial;-inkscape-font-specification:'Arial, Italic';font-weight:normal;font-style:italic;font-stretch:normal;font-variant:normal;font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
          textLength="9.69px"
          lengthAdjust="spacingAndGlyphs"
          id="text394">van</text>
@@ -3604,5 +3595,14 @@
          lengthAdjust="spacingAndGlyphs"
          id="text397">b</text>
     </g>
+    <text
+       x="56.73"
+       y="175.53999"
+       text-anchor="end"
+       style="font-size:6px;font-family:Arial;white-space:pre;fill:#4d4d4d"
+       textLength="10.67"
+       lengthAdjust="spacingAndGlyphs"
+       id="text236-5"
+       transform="rotate(90,240.44564,429.90435)">RGI</text>
   </g>
 </svg>

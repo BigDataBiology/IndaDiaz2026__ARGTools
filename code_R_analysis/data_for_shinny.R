@@ -181,7 +181,23 @@ core <- core %>%
 sumcore <- sum_core_adjust(core, 450, 0.5) %>%
   mutate(tools_labels = factor(tools_labels[tool], levels = tools_labels_factor),
          texture = ifelse(tool %in% tools_texture, "yes", "no"),
-         tools_db = factor(tools_db[tool], levels = tools_db_factor))
+         tools_db = factor(tools_db[tool], levels = tools_db_factor),
+         cut = 0.5, cnt = 450)
+
+for(cnts in c(250,300,350,400,450)){
+  for(cuts in c(0.3,0.4,0.5,0.6,0.7,0.8,0.9)){
+    if(cnts == 450 & cuts == 0.5) {
+      next} else{
+        sumcore <- sumcore %>% bind_rows(
+          sum_core_adjust(core, 450, 0.5) %>%
+            mutate(tools_labels = factor(tools_labels[tool], levels = tools_labels_factor),
+                   texture = ifelse(tool %in% tools_texture, "yes", "no"),
+                   tools_db = factor(tools_db[tool], levels = tools_db_factor),
+                   cut = 0.5, cnt = 450)) 
+      }
+  }
+}
+
 
 
 ## PAN RESISTOME
@@ -260,8 +276,13 @@ abundance_class_summary <- abundance_class %>%
 
 lst_results <- list(abundance_tool_sample=abundance_tool_sample, 
      core=core, sumpan2=sumpan2, unigenes=unigenes, 
-     recall_fnr=recall_fnr, abundance_class_summary=abundance_class_summary)
+     recall_fnr=recall_fnr, abundance_class_summary=abundance_class_summary,
+     sumcore = sumcore)
 
 saveRDS(lst_results, file = "shiny/app/data.rds", compress = T)
+
+
+
+
 
 
