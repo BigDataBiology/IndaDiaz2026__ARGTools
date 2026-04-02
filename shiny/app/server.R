@@ -55,30 +55,100 @@ server <- function(input, output, session) {
         strip.text.x = element_text(size = general_size, angle = 90, vjust = 0.5, hjust = 0))
   })
   
+  # output$plot_gene_class_proportion <- renderPlot({
+  #   unigenes_propotion %>% 
+  #     filter(tool %in% input$tools_unigenes) %>%
+  #     group_by(new_level) %>%
+  #     filter(new_level %in% input$gene_classes_filter) %>%
+  #     #filter(any(p >= 0.05)) %>%
+  #     #{ if (!is.null(input$gene_classes_filter)) 
+  #     #  filter(., new_level %in% input$gene_classes_filter) 
+  #     #  else . } %>%
+  #     ungroup() %>%
+  #     ggplot(aes(x = tool2, y = new_level, fill = p)) + 
+  #     geom_tile(color = "grey") + 
+  #     scale_fill_gradientn(colors = brewer.pal(9, "YlOrBr"),
+  #                          labels = percent_format(accuracy = 1),
+  #                          breaks = c(0.0001, 0.2, 0.4, 0.6)) + 
+  #     facet_grid(. ~ tools_db, scales = "free_x", space = "free") +
+  #     scale_y_discrete(labels = function(x) {
+  #       out <- ifelse(
+  #         x %in% c("rpoB", "van", "fos", "erm", "cat", "aph", "ant", "aac", "lnu", "nim","vat","mph","qnr"),
+  #         paste0("italic('", x, "')"),
+  #         ifelse(x %in% "abcF", "ABC-F",
+  #                paste0("'", x, "'"))
+  #       )
+  #       parse(text = out)
+  #     }) +
+  #     geom_text(
+  #       data = unigenes_propotion %>% 
+  #         filter(tool %in% input$tools_unigenes) %>% 
+  #         group_by(new_level) %>%
+  #         filter(any(p >= 0.05)) %>%
+  #         ungroup() %>%
+  #         filter(p >= 0.03),
+  #       aes(label = scales::percent(p, accuracy = 1), color = p >= 0.40), 
+  #       size = general_size / .pt, show.legend = FALSE) +
+  #     scale_color_manual(values = c("black", "white")) +
+  #     labs(fill = "") + 
+  #     ylab("Proportion of ARG class") + 
+  #     xlab("Tools") + 
+  #     theme(
+  #       text = element_text(size = general_size, color = "black"),
+  #       title = element_text(size = general_size + 2, face = "bold"),
+  #       axis.title = element_text(size = general_size, face = "bold"),
+  #       strip.text = element_text(size = general_size, angle = 0),
+  #       panel.background = element_blank(),
+  #       axis.text.x = element_text(size = general_size, angle = 45, vjust = 1, hjust = 1),  # changed angle
+  #       axis.text.y = element_text(size = 9, hjust = 1),                          # ensure right-aligned
+  #       plot.margin = margin(10, 20, 10, 120, unit = "pt"),                                  # large left margin for y labels
+  #       legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+  #       legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+  #       panel.spacing = unit(2, "pt"),                                                        # small gap between facets
+  #       legend.text = element_text(size = general_size),
+  #       panel.grid.minor.y = element_blank(),
+  #       legend.position = "bottom", panel.grid = element_blank(),
+  #       panel.border = element_blank(),
+  #       strip.background.x = element_blank(),
+  #       strip.text.x = element_text(size = general_size, angle = 90, vjust = 0.5, hjust = 0))
+  # }, height = 1000, res = 96)   # also set height on renderPlot itself
+  # 
   output$plot_gene_class_proportion <- renderPlot({
-    unigenes_propotion %>% 
+    
+    req(input$tools_unigenes)
+    req(input$gene_classes_filter)
+    #Filtering the data first
+    plot_data <- unigenes_propotion %>% 
       filter(tool %in% input$tools_unigenes) %>%
       group_by(new_level) %>%
-      filter(any(p >= 0.05)) %>%
-      { if (!is.null(input$gene_classes_filter)) 
-        filter(., new_level %in% input$gene_classes_filter) 
-        else . } %>%
-      ungroup() %>%
+      filter(new_level %in% input$gene_classes_filter) %>%
+      ungroup()
+    
+    req(nrow(plot_data) > 0) 
+    
+    plot_data %>% 
       ggplot(aes(x = tool2, y = new_level, fill = p)) + 
       geom_tile(color = "grey") + 
-      scale_fill_gradientn(colors = brewer.pal(9, "YlOrBr"),
-                           labels = percent_format(accuracy = 1),
-                           breaks = c(0.0001, 0.2, 0.4, 0.6)) + 
+      scale_fill_gradientn(
+        colors = brewer.pal(9, "YlOrBr"),
+        labels = percent_format(accuracy = 1),
+        breaks = c(0.0001, 0.2, 0.4, 0.6)
+      ) + 
       facet_grid(. ~ tools_db, scales = "free_x", space = "free") +
+      scale_y_discrete(labels = function(x) {
+        out <- ifelse(
+          x %in% c("rpoB", "van", "fos", "erm", "cat", "aph", "ant", "aac", "lnu", "nim","vat","mph","qnr"),
+          paste0("italic('", x, "')"),
+          ifelse(x %in% "abcF", "ABC-F", paste0("'", x, "'"))
+        )
+        parse(text = out)
+      }) +
       geom_text(
-        data = unigenes_propotion %>% 
-          filter(tool %in% input$tools_unigenes) %>% 
-          group_by(new_level) %>%
-          filter(any(p >= 0.05)) %>%
-          ungroup() %>%
-          filter(p >= 0.03),
+        data = plot_data %>% filter(p >= 0.03), 
         aes(label = scales::percent(p, accuracy = 1), color = p >= 0.40), 
-        size = general_size / .pt, show.legend = FALSE) +
+        size = general_size / .pt, 
+        show.legend = FALSE
+      ) +
       scale_color_manual(values = c("black", "white")) +
       labs(fill = "") + 
       ylab("Proportion of ARG class") + 
@@ -89,19 +159,22 @@ server <- function(input, output, session) {
         axis.title = element_text(size = general_size, face = "bold"),
         strip.text = element_text(size = general_size, angle = 0),
         panel.background = element_blank(),
-        axis.text.x = element_text(size = general_size, angle = 45, vjust = 1, hjust = 1),  # changed angle
-        axis.text.y = element_text(size = 9, hjust = 1),                          # ensure right-aligned
-        plot.margin = margin(10, 20, 10, 120, unit = "pt"),                                  # large left margin for y labels
+        axis.text.x = element_text(size = general_size, angle = 45, vjust = 1, hjust = 1),  
+        axis.text.y = element_text(size = 9, hjust = 1),                          
+        plot.margin = margin(10, 20, 10, 120, unit = "pt"),                                
         legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
         legend.margin = margin(0, 0, 0, 0, unit = "pt"),
-        panel.spacing = unit(2, "pt"),                                                        # small gap between facets
+        panel.spacing = unit(2, "pt"),                                                    
         legend.text = element_text(size = general_size),
         panel.grid.minor.y = element_blank(),
-        legend.position = "bottom", panel.grid = element_blank(),
+        legend.position = "bottom", 
+        panel.grid = element_blank(),
         panel.border = element_blank(),
         strip.background.x = element_blank(),
-        strip.text.x = element_text(size = general_size, angle = 90, vjust = 0.5, hjust = 0))
-  }, height = 1000, res = 96)   # also set height on renderPlot itself
+        strip.text.x = element_text(size = general_size, angle = 90, vjust = 0.5, hjust = 0)
+      )
+    
+  }, height = 1000, res = 96)
   
 
   output$plot_abundance <- renderPlot({
@@ -111,7 +184,7 @@ server <- function(input, output, session) {
       filter(habitat %in% input$environment_abundance) %>% 
       ggplot(aes(x = tool2, y = abundance, fill = tools_db, pattern = texture)) + 
       geom_boxplot_pattern(position = position_dodge2(preserve = "single", width = 1, padding = 0), 
-                           width = 1, pattern_color = "black", pattern_fill = "black", pattern_density = 0.000000001,
+                           pattern_color = "black", pattern_fill = "black", pattern_density = 0.000000001,
                            pattern_spacing = 0.2,
                            pattern_size =  0.3, color = "black", outliers = FALSE, outlier.shape = NA,
                            linewidth = 0.15) +
@@ -164,14 +237,25 @@ server <- function(input, output, session) {
       geom_boxplot_pattern( 
         aes(xmin = q25, xlower = q25, xmiddle = q50, xupper = q75, xmax = q75, pattern = texture),
         stat = "identity", 
-        position = position_dodge2(preserve = "single", width = 0.5, padding = 0), 
+        position = position_dodge2(preserve = "single", padding = 0), 
         pattern_color = "black", pattern_fill = pattern_fill, pattern_spacing = 0.07,
         pattern_density = 0.15,
         pattern_size =  0.07, color = "black", outliers = FALSE, outlier.shape = NA,
         linewidth = 0.1) +
       scale_fill_manual(values = pal_7) +
       scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe', 'y70' = 'crosshatch', 'y80' = 'crosshatch',  'y90' = 'crosshatch')) +
-      facet_grid(gene ~ habitat, scales = "free", space = "free") +
+      facet_grid(gene ~ habitat, scales = "free", space = "free",
+                 labeller = labeller(
+                   gene = as_labeller(function(x) {
+                     out <- ifelse(
+                       x %in% c("rpoB", "van", "fos", "erm", "cat", "aph", "ant", "aac", "lnu", "nim", "vat", "mph", "qnr"),
+                       paste0("italic('", x, "')"),
+                       ifelse(x == "abcF", "ABC-F",
+                              paste0("'", x, "'"))
+                     )
+                     return(out)
+                   }, default = label_parsed)
+                 )) +
       xlab("Relative abundance") +
       ylab("") + 
       labs(fill = "") + 
@@ -326,34 +410,31 @@ server <- function(input, output, session) {
   })
   
 
-  
-  
-  
   output$overlap_gene_class <- renderPlot({
     
     ggplot(recall_fnr %>% 
-                   filter(tool_ref %in% input$tool_overlap, tool_comp %in% input$tool_overlap_calc) %>%
-                   filter(new_level %in% input$overlap_genes),
-                 aes(x = recall*100, y = new_level)) + 
-    geom_boxplot_pattern(aes(fill = tool_ref, pattern = texture),
-                 position = position_dodge2(preserve = "single"),
-                 color = "black", outliers = T,
-                 pattern_color = "black", pattern_fill = pattern_fill, pattern_spacing = 0.07,
-                 pattern_density = 0.15,
-                 pattern_size =  0.07,
-                 linewidth = 0.1) +
-    scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe', 
-                                    'y70' = 'crosshatch', 'y80' = 'crosshatch',  'y90' = 'crosshatch')) + 
-    facet_grid(tool_ref2 ~ " ", scales = "free_y") +
-    scale_fill_manual(values = pal_10_q[tools_levels %in% input$tool_overlap]) +
-    scale_y_discrete(drop = FALSE) +
-    xlab("%") +
-    ylab("ARG class") + 
-    theme_minimal() +
-    theme5 +
-    theme( panel.grid = element_blank(),
-           strip.text.x = element_text(size = general_size, vjust = 0, hjust = 0.5),
-           strip.text.y = element_text(size = general_size, angle = 0, vjust = 0.5, hjust = 0))
+             filter(tool_ref %in% input$tool_overlap, tool_comp %in% input$tool_overlap_calc) %>%
+             filter(new_level %in% input$overlap_genes),
+           aes(x = recall*100, y = new_level)) + 
+      geom_boxplot_pattern(aes(fill = tool_ref, pattern = texture),
+                           position = position_dodge2(preserve = "single"),
+                           color = "black", outliers = T,
+                           pattern_color = "black", pattern_fill = pattern_fill, pattern_spacing = 0.07,
+                           pattern_density = 0.15,
+                           pattern_size =  0.07,
+                           linewidth = 0.1) +
+      scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe', 
+                                      'y70' = 'crosshatch', 'y80' = 'crosshatch',  'y90' = 'crosshatch')) + 
+      facet_grid(tool_ref2 ~ " ", scales = "free_y") +
+      scale_fill_manual(values = pal_10_q[tools_levels %in% input$tool_overlap]) +
+      scale_y_discrete(drop = FALSE) +
+      xlab("%") +
+      ylab("ARG class") + 
+      theme_minimal() +
+      theme5 +
+      theme( panel.grid = element_blank(),
+             strip.text.x = element_text(size = general_size, vjust = 0, hjust = 0.5),
+             strip.text.y = element_text(size = general_size, angle = 0, vjust = 0.5, hjust = 0))
   }, height = 600, res = 96)
   
   

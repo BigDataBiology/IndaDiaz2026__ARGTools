@@ -51,6 +51,7 @@ ps_intro <- fluidPage(
 # ARGs Tab
 ps_args <- page_sidebar(
   sidebar = sidebar(
+    width = 400,
     pickerInput(
       inputId = "tools_unigenes",
       label = "Choose the tools you want to compare:",
@@ -97,10 +98,87 @@ ps_args <- page_sidebar(
    
 
 
+## Abundance and Diversity Tab
+
+ps_abundance_diversity <- page_sidebar(
+  sidebar = sidebar(
+    width = 400,
+
+    pickerInput(
+      inputId = "tool_abundance",
+      label = "Choose the tools you want to show:",
+      choices = tool_choices,
+      selected = basic_tools,
+      multiple = TRUE,
+      options = list(
+        `actions-box` = TRUE,            # Adds "Select All / Deselect All" buttons
+        `selected-text-format` = "count > 2", # Shows "X items selected" if >2 are chosen
+        `count-selected-text` = "{0} tools selected"
+      )
+    ),
+    
+    pickerInput(
+      inputId = "environment_abundance",
+      label = "Choose the environments you want to show:",
+      choices = as.list(EN),
+      selected = EN[1],
+      multiple = TRUE,
+      options = list(
+        `actions-box` = TRUE,
+        `selected-text-format` = "count > 2",
+        `count-selected-text` = "{0} environments selected"
+      )
+    ),
+    
+    pickerInput(
+      inputId = "abundance_genes",
+      label = "Choose the genes you want to show:",
+      choices = as.list(as.character(gene_classes)),
+      selected = top_abundance,
+      multiple = TRUE,
+      options = list(
+        `actions-box` = TRUE,
+        `live-search` = TRUE,             # Adds a search bar to quickly find genes!
+        `selected-text-format` = "count > 3",
+        `count-selected-text` = "{0} genes selected"
+      )
+    ),
+  
+  # radioGroupButtons(
+  #   inputId = "plot_other",
+  #   label = "Plot other gene classes together:",
+  #   choices = c("Yes", "No"),
+  #   selected = "Yes",
+  #   status = "primary",
+  #   size = "sm",
+  #   justified = TRUE
+  # )
+  ),
+  
+  nav_panel(
+    "Relative Abundance per Sample and Gene Class",
+    page_fillable(
+      layout_columns(
+        col_widths = c(6, 6),
+        
+        card(
+          card_header("Relative abundance per sample"),
+          withSpinner(plotOutput("plot_abundance", height = "600px", fill = TRUE), type = 8, color = "#1b9e77")
+        ),
+        card(
+          card_header("Relative Abundance per Gene Class"),
+          withSpinner(plotOutput("plot_abundance_gene_class", height = "600px", fill = TRUE), type = 8, color = "#1b9e77")
+        )
+      )
+    )
+  )
+)
+
 # Pan- and Core-resistome Tab
 ps_pan_core <- page_sidebar(
   sidebar = sidebar(
-
+    width = 400,
+    
     pickerInput(
       inputId = "tool_pan_core",
       label = "Choose the tools you want to show the number of genes for:",
@@ -161,99 +239,24 @@ ps_pan_core <- page_sidebar(
       ),
       selected = 450,
       multiple = FALSE
-    ),
-  
-  
+    )
+  ),
+    
+    
   layout_column_wrap( 
     width = 1,
       card(
         card_header("Number of genes"),
         withSpinner(plotOutput("pan_core", height = "600px"), type = 8, color = "#1b9e77") 
-        )
-    )
-  )
-)
-
-## Abundance and Diversity Tab
-
-ps_abundance_diversity <- page_sidebar(
-  sidebar = sidebar(
-
-    pickerInput(
-      inputId = "tool_abundance",
-      label = "Choose the tools you want to show:",
-      choices = tool_choices,
-      selected = basic_tools,
-      multiple = TRUE,
-      options = list(
-        `actions-box` = TRUE,            # Adds "Select All / Deselect All" buttons
-        `selected-text-format` = "count > 2", # Shows "X items selected" if >2 are chosen
-        `count-selected-text` = "{0} tools selected"
-      )
-    ),
-    
-    pickerInput(
-      inputId = "environment_abundance",
-      label = "Choose the environments you want to show:",
-      choices = as.list(EN),
-      selected = EN[1],
-      multiple = TRUE,
-      options = list(
-        `actions-box` = TRUE,
-        `selected-text-format` = "count > 2",
-        `count-selected-text` = "{0} environments selected"
-      )
-    ),
-    
-    
-    pickerInput(
-      inputId = "abundance_genes",
-      label = "Choose the genes you want to show:",
-      choices = as.list(as.character(gene_classes)),
-      selected = top_abundance,
-      multiple = TRUE,
-      options = list(
-        `actions-box` = TRUE,
-        `live-search` = TRUE,             # Adds a search bar to quickly find genes!
-        `selected-text-format` = "count > 3",
-        `count-selected-text` = "{0} genes selected"
-      )
-    ),
-  
-  # radioGroupButtons(
-  #   inputId = "plot_other",
-  #   label = "Plot other gene classes together:",
-  #   choices = c("Yes", "No"),
-  #   selected = "Yes",
-  #   status = "primary",
-  #   size = "sm",
-  #   justified = TRUE
-  # )
-  ),
-  
-  nav_panel(
-    "Relative Abundanc per Sample and Gene Class",
-    page_fillable(
-      layout_columns(
-        col_widths = c(6, 6),
-        
-        card(
-          card_header("Relative abundance per sample"),
-          withSpinner(plotOutput("plot_abundance", height = "600px", fill = TRUE), type = 8, color = "#1b9e77")
-        ),
-        card(
-          card_header("Relative Abundance per Gene Class"),
-          withSpinner(plotOutput("plot_abundance_gene_class", height = "600px", fill = TRUE), type = 8, color = "#1b9e77")
-        )
       )
     )
   )
-)
 
 
 ## Overlaps Tab
 ps_overlap <- page_sidebar(
   sidebar = sidebar(
+    width = 400,
     pickerInput(
       inputId = "tool_overlap",
       label = "Choose the tools you want to show:",
