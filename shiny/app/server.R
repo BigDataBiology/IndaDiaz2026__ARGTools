@@ -20,86 +20,93 @@ server <- function(input, output, session) {
   ##
   
   output$plot_count_genes_tool <- renderPlot({
-    p1 <- unigenes %>%
-    filter(tool %in% input$tools_unigenes) %>% 
-    ungroup() %>% 
-    group_by(tools_labels, texture, tools_db, tool2) %>% 
-    summarise(n = n_distinct(query)) %>%
-    ggplot(aes (x = tool2, y = n, fill = tools_db, pattern = texture )) +
-    geom_col_pattern(position = position_dodge2(preserve = "single", width = 0.8), 
-                     width = 0.8, pattern_color = "black", pattern_fill = pattern_fill, 
-                     pattern_size =  0.12, color = "black") +
-      scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe', 'y70' = 'crosshatch', 'y80' = 'crosshatch',  'y90' = 'crosshatch')) +
-    facet_grid( . ~ tools_db, scales = "free_x", space = "free") +
-    scale_fill_manual(values = pal_7) +
-    xlab("") + ylab("Number of ARGs") + ggtitle("a") + 
-    scale_y_continuous(labels = scales::comma) + 
-    theme(
-      legend.position = "none",
-      text = element_text(size = general_size, color = "black"),
-      title = element_text(size = general_size + 2, face = "bold"),
-      axis.title = element_text(size = general_size , face = "bold"),
-      strip.text = element_text(size = general_size, angle = 0),
-      panel.background = element_blank(),
-      axis.text.x = element_text(size = general_size, angle = 90),
-      axis.text.y = element_text(size = general_size),
-      plot.margin = margin(0, 0, 0, 0, unit = "pt"),
-      legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
-      legend.margin = margin(0, 0, 0, 0, unit = "pt"),
-      panel.spacing = unit(0, "pt"),
-      legend.text = element_text(size = general_size),
-      panel.grid.minor.y = element_blank(), panel.border = element_blank(),
-          panel.grid.major.x = element_blank(),
-          panel.grid.minor.x = element_blank(),
-          strip.background.x = element_blank(),
-          strip.text.x = element_text(size = general_size, angle = 90, vjust = 0.5, hjust = 0)) 
-  
-    p2 <- unigenes_propotion %>% 
+    unigenes %>%
       filter(tool %in% input$tools_unigenes) %>% 
-      ggplot(aes(x = tool2, y = new_level, fill = p)) + 
-      geom_tile(color = "grey") + 
-      scale_fill_gradientn( colors = brewer.pal(9, "YlOrBr"),
-                            labels = percent_format(accuracy = 1),
-                            breaks = c(0.0001, 0.2, 0.4, 0.6)) + 
-      facet_grid(.~tools_db, scales = "free_x", space = "free") +
-      geom_text(
-        data = unigenes_propotion %>% filter(tool %in% input$tools_unigenes) %>% filter(p >= 0.03),  # only these get labels
-        aes(label = scales::percent(p, accuracy = 1),
-            color = p >= 0.40), 
-        size = general_size / .pt, show.legend = F) +
-      scale_color_manual(values = c( "black", "white")) +
-      labs(fill = "") + 
-      ggtitle("b") + 
-      ylab("Proportion of ARG class") + 
-      xlab("") + 
+      ungroup() %>% 
+      group_by(tools_labels, texture, tools_db, tool2) %>% 
+      summarise(n = n_distinct(query)) %>%
+      ggplot(aes(x = tool2, y = n, fill = tools_db, pattern = texture)) +
+      geom_col_pattern(position = position_dodge2(preserve = "single", width = 0.8), 
+                       width = 0.8, pattern_color = "black", pattern_fill = pattern_fill, 
+                       pattern_size = 0.12, color = "black") +
+      scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe', 'y70' = 'crosshatch', 'y80' = 'crosshatch', 'y90' = 'crosshatch')) +
+      facet_grid(. ~ tools_db, scales = "free_x", space = "free") +
+      scale_fill_manual(values = pal_7) +
+      xlab("Tools") + ylab("Number of ARGs") + 
+      scale_y_continuous(labels = scales::comma) + 
       theme(
+        legend.position = "none",
         text = element_text(size = general_size, color = "black"),
         title = element_text(size = general_size + 2, face = "bold"),
-        axis.title = element_text(size = general_size , face = "bold"),
+        axis.title = element_text(size = general_size, face = "bold"),
         strip.text = element_text(size = general_size, angle = 0),
         panel.background = element_blank(),
-        axis.text.x = element_text(size = general_size, angle = 90,
-                                   vjust = 0.5, hjust = 1),
+        axis.text.x = element_text(size = general_size, angle = 90),
         axis.text.y = element_text(size = general_size),
         plot.margin = margin(0, 0, 0, 0, unit = "pt"),
         legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
         legend.margin = margin(0, 0, 0, 0, unit = "pt"),
         panel.spacing = unit(0, "pt"),
         legend.text = element_text(size = general_size),
-        panel.grid.minor.y = element_blank(),
-        legend.position = "bottom", panel.grid = element_blank(),
-        panel.border =  element_blank(),
+        panel.grid.minor.y = element_blank(), panel.border = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
         strip.background.x = element_blank(),
         strip.text.x = element_text(size = general_size, angle = 90, vjust = 0.5, hjust = 0))
-    
-    (p1 | p2) + patchwork::plot_layout(widths = c(1,1.5))
   })
   
-
+  output$plot_gene_class_proportion <- renderPlot({
+    unigenes_propotion %>% 
+      filter(tool %in% input$tools_unigenes) %>%
+      group_by(new_level) %>%
+      filter(any(p >= 0.05)) %>%
+      { if (!is.null(input$gene_classes_filter)) 
+        filter(., new_level %in% input$gene_classes_filter) 
+        else . } %>%
+      ungroup() %>%
+      ggplot(aes(x = tool2, y = new_level, fill = p)) + 
+      geom_tile(color = "grey") + 
+      scale_fill_gradientn(colors = brewer.pal(9, "YlOrBr"),
+                           labels = percent_format(accuracy = 1),
+                           breaks = c(0.0001, 0.2, 0.4, 0.6)) + 
+      facet_grid(. ~ tools_db, scales = "free_x", space = "free") +
+      geom_text(
+        data = unigenes_propotion %>% 
+          filter(tool %in% input$tools_unigenes) %>% 
+          group_by(new_level) %>%
+          filter(any(p >= 0.05)) %>%
+          ungroup() %>%
+          filter(p >= 0.03),
+        aes(label = scales::percent(p, accuracy = 1), color = p >= 0.40), 
+        size = general_size / .pt, show.legend = FALSE) +
+      scale_color_manual(values = c("black", "white")) +
+      labs(fill = "") + 
+      ylab("Proportion of ARG class") + 
+      xlab("Tools") + 
+      theme(
+        text = element_text(size = general_size, color = "black"),
+        title = element_text(size = general_size + 2, face = "bold"),
+        axis.title = element_text(size = general_size, face = "bold"),
+        strip.text = element_text(size = general_size, angle = 0),
+        panel.background = element_blank(),
+        axis.text.x = element_text(size = general_size, angle = 45, vjust = 1, hjust = 1),  # changed angle
+        axis.text.y = element_text(size = 9, hjust = 1),                          # ensure right-aligned
+        plot.margin = margin(10, 20, 10, 120, unit = "pt"),                                  # large left margin for y labels
+        legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+        panel.spacing = unit(2, "pt"),                                                        # small gap between facets
+        legend.text = element_text(size = general_size),
+        panel.grid.minor.y = element_blank(),
+        legend.position = "bottom", panel.grid = element_blank(),
+        panel.border = element_blank(),
+        strip.background.x = element_blank(),
+        strip.text.x = element_text(size = general_size, angle = 90, vjust = 0.5, hjust = 0))
+  }, height = 1000, res = 96)   # also set height on renderPlot itself
+  
 
   output$plot_abundance <- renderPlot({
 
-    p1 <- abundance_tool_sample %>%
+    abundance_tool_sample %>%
       filter(tool %in% input$tool_abundance) %>% 
       filter(habitat %in% input$environment_abundance) %>% 
       ggplot(aes(x = tool2, y = abundance, fill = tools_db, pattern = texture)) + 
@@ -120,7 +127,6 @@ server <- function(input, output, session) {
       facet_grid(habitat ~ tools_db  , scales = "free") +
       scale_y_continuous(labels = scales::comma) + 
       scale_fill_manual(values = pal_7) +
-      ggtitle("a") + 
       scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe', 'y70' = 'crosshatch', 'y80' = 'crosshatch',  'y90' = 'crosshatch')) +
       theme_minimal() +
       theme(
@@ -143,11 +149,12 @@ server <- function(input, output, session) {
             strip.text.x = element_text(size = general_size, angle = 90, vjust = 0.5, hjust = 0),
             panel.grid.major.x = element_blank(),
             panel.grid.minor.x = element_blank(),
-            plot.margin = margin(10, 10, 10, 10, unit = "pt"))  
+            plot.margin = margin(10, 10, 10, 10, unit = "pt"))
+  }, height = 600, res = 96)
     
-
+  output$plot_abundance_gene_class <- renderPlot({
     
-    p2 <- abundance_class_summary %>% 
+    abundance_class_summary %>% 
       filter(tool %in% input$tool_abundance) %>% 
       filter(habitat %in% input$environment_abundance) %>% 
       filter(gene %in% input$abundance_genes) %>% 
@@ -158,7 +165,7 @@ server <- function(input, output, session) {
         aes(xmin = q25, xlower = q25, xmiddle = q50, xupper = q75, xmax = q75, pattern = texture),
         stat = "identity", 
         position = position_dodge2(preserve = "single", width = 0.5, padding = 0), 
-        width = 1, pattern_color = "black", pattern_fill = pattern_fill, pattern_spacing = 0.07,
+        pattern_color = "black", pattern_fill = pattern_fill, pattern_spacing = 0.07,
         pattern_density = 0.15,
         pattern_size =  0.07, color = "black", outliers = FALSE, outlier.shape = NA,
         linewidth = 0.1) +
@@ -169,7 +176,6 @@ server <- function(input, output, session) {
       ylab("") + 
       labs(fill = "") + 
       scale_x_continuous(labels = scales::comma, expand = c(0,0)) +
-      ggtitle("b") +
       geom_hline(yintercept = 0, color = "black", linewidth = 0.5) +
       theme_minimal() +
       theme(
@@ -196,11 +202,8 @@ server <- function(input, output, session) {
         panel.grid.minor.y = element_blank(),
         panel.border =  element_blank(),
         axis.text.y = element_blank())   
-      
-    (p1 | p2) + patchwork::plot_layout(widths = c(1,1)) 
     
-    
-  })
+  }, height = 600, res = 96)
   
   
     
@@ -326,9 +329,9 @@ server <- function(input, output, session) {
   
   
   
-  output$overlap <- renderPlot({
+  output$overlap_gene_class <- renderPlot({
     
-    cs11 <- ggplot(recall_fnr %>% 
+    ggplot(recall_fnr %>% 
                    filter(tool_ref %in% input$tool_overlap, tool_comp %in% input$tool_overlap_calc) %>%
                    filter(new_level %in% input$overlap_genes),
                  aes(x = recall*100, y = new_level)) + 
@@ -351,8 +354,12 @@ server <- function(input, output, session) {
     theme( panel.grid = element_blank(),
            strip.text.x = element_text(size = general_size, vjust = 0, hjust = 0.5),
            strip.text.y = element_text(size = general_size, angle = 0, vjust = 0.5, hjust = 0))
+  }, height = 600, res = 96)
   
-  cs2 <- ggplot(recall_fnr %>% 
+  
+  output$overlap <- renderPlot({
+  
+  ggplot(recall_fnr %>% 
                   filter(tool_ref %in% input$tool_overlap, tool_comp %in% input$tool_overlap_calc) %>%
                   filter(new_level %in% input$overlap_genes),
                 aes(x = recall*100, y = fct_rev(tool_comp2))) +
@@ -379,9 +386,9 @@ server <- function(input, output, session) {
   
   #  cs11
   #cs2 + patchwork::plot_layout(widths = c(1))
-  (cs2 + ggtitle("a")| cs11 + ggtitle("b")) + patchwork::plot_layout(widths = c(2, 1))
+  # (cs2 + ggtitle("a")| cs11 + ggtitle("b")) + patchwork::plot_layout(widths = c(2, 1))
   
-})
+}, height = 600, res = 96)
   
 }
 

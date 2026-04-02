@@ -20,6 +20,9 @@ library(ggrastr)
 library(ragg)
 library(patchwork)
 
+# Defining the root and app directory 
+APP_DIR  <- normalizePath(getwd(), mustWork = TRUE)                
+ROOT_DIR <- normalizePath(file.path(APP_DIR, "..", ".."), mustWork = TRUE)
 
 options(dplyr.summarise.inform = FALSE)
 options(shiny.useragg = TRUE)
@@ -136,9 +139,9 @@ tools_db_factor <- c("", " ", "ARG-\nANNOT", "MEGA-\nRes",
                      "CARD", "NCBI", "Res-\nFinder")
 
 tools_texture <- c("ABRicate-CARD", "ABRicate-NCBI", "ABRicate-ResFinder")
+#lst_results <- readRDS("data.rds")
 
-
-lst_results <- readRDS("data.rds")
+lst_results <- readRDS(file.path(ROOT_DIR, "shiny", "app", "data.rds"))
 
 abundance_tool_sample <- lst_results$abundance_tool_sample
 core <- lst_results$core
@@ -193,19 +196,19 @@ gene_classes <- unigenes %>%
 unigenes_propotion <- unigenes %>% 
   group_by(tool, tools_labels, tools_db, new_level) %>% 
   summarise(n = n()) %>% 
-  mutate(p = n / sum(n)) %>%
-  ungroup() %>%
-  mutate(new_level = gsub(" beta-lactamase","", new_level)) %>%
-  mutate(new_level = gsub("rifampin inactivation enzyme","RIF-inact. enz.", new_level)) %>%
-  mutate(new_level = gsub("inactivation enzyme","\ninact. enz.", new_level)) %>%
-  mutate(new_level = gsub("cell wall ","cell wall\n", new_level)) %>%
-  mutate(new_level = gsub("MFS efflux pump","MFS efflux", new_level)) %>%
-  mutate(new_level = gsub("efflux pump","efflux", new_level)) %>%
-  mutate(new_level = gsub("beta-lactam modulation resistance","beta-lactam\nmod.", new_level)) %>%
-  mutate(new_level = gsub("target-modifying enzyme","target-\nmodif. enz.", new_level)) %>%
-  mutate(new_level = gsub("self-resistance","self-resistance\n", new_level)) %>% 
-  mutate(new_level = gsub("host-dependent","host-dependent\n", new_level)) %>% 
-  mutate(new_level = gsub("variant or","variant or\n", new_level)) 
+  mutate(p = n / sum(n)) #%>%
+  # ungroup() %>%
+  # mutate(new_level = gsub(" beta-lactamase","", new_level)) %>%
+  # mutate(new_level = gsub("rifampin inactivation enzyme","RIF-inact. enz.", new_level)) %>%
+  # mutate(new_level = gsub("inactivation enzyme","\ninact. enz.", new_level)) %>%
+  # mutate(new_level = gsub("cell wall ","cell wall\n", new_level)) %>%
+  # mutate(new_level = gsub("MFS efflux pump","MFS efflux", new_level)) %>%
+  # mutate(new_level = gsub("efflux pump","efflux", new_level)) %>%
+  # mutate(new_level = gsub("beta-lactam modulation resistance","beta-lactam\nmod.", new_level)) %>%
+  # mutate(new_level = gsub("target-modifying enzyme","target-\nmodif. enz.", new_level)) %>%
+  # mutate(new_level = gsub("self-resistance","self-resistance\n", new_level)) %>% 
+  # mutate(new_level = gsub("host-dependent","host-dependent\n", new_level)) %>% 
+  # mutate(new_level = gsub("variant or","variant or\n", new_level)) 
 
 
 

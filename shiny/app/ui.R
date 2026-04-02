@@ -51,7 +51,6 @@ ps_intro <- fluidPage(
 # ARGs Tab
 ps_args <- page_sidebar(
   sidebar = sidebar(
-    
     pickerInput(
       inputId = "tools_unigenes",
       label = "Choose the tools you want to compare:",
@@ -63,19 +62,42 @@ ps_args <- page_sidebar(
         `selected-text-format` = "count > 2",
         `count-selected-text` = "{0} tools selected"
       )
-    )
     ),
-  
-  layout_column_wrap( 
-    width = 1, fill = TRUE,
-        card(
-          full_screen = TRUE,  # optional but nice
-          fill = TRUE,  
-          card_header("(a) Number of putative ARGs and (b) gene class proportion"),
-          withSpinner(plotOutput("plot_count_genes_tool", height = "600px"), type = 8, color = "#1b9e77") # Spinner + Stable height 
-        )
+    conditionalPanel(
+      condition = "input.args_nav === 'ARG Class Proportion'",
+      pickerInput(
+        inputId = "gene_classes_filter",
+        label = "Filter gene classes:",
+        choices = gene_classes,
+        selected = gene_classes,  
+        multiple = TRUE,
+        options = list(`actions-box` = TRUE)
       )
-)
+    )
+  ), 
+  
+  navset_card_underline(
+    id = "args_nav",
+    nav_panel("Number of ARGs",
+              card(
+                full_screen = TRUE,
+                card_header("Number of ARGs"),
+                withSpinner(plotOutput("plot_count_genes_tool", height = "450px"), type = 8, color = "#1b9e77")
+              )
+    ),
+    
+    nav_panel("ARG Class Proportion",
+              card(
+                full_screen = TRUE,
+                card_header("ARG Class Proportion"),
+                withSpinner(plotOutput("plot_gene_class_proportion", height = "1000px"), type = 8, color = "#1b9e77")
+              )
+    )
+  ) 
+  
+)  
+ 
+
 
 # Pan- and Core-resistome Tab
 ps_pan_core <- page_sidebar(
@@ -143,20 +165,20 @@ ps_pan_core <- page_sidebar(
       multiple = FALSE
     ),
     
-    radioGroupButtons(
-      inputId = "threshold_pan_core_id",
-      label = "Identity threshold DeepARG/RGI (amino acid):",
-      choices = c(
-        "Default" = "0.0",
-        ">= 60%" = "60.0",
-        ">= 70%" = "70.0",
-        ">= 80%" = "80.0"
-      ),
-      selected = "0.0",
-      status = "primary",
-      size = "sm",
-      justified = TRUE
-    )
+    # radioGroupButtons(
+    #   inputId = "threshold_pan_core_id",
+    #   label = "Identity threshold DeepARG/RGI (amino acid):",
+    #   choices = c(
+    #     "Default" = "0.0",
+    #     ">= 60%" = "60.0",
+    #     ">= 70%" = "70.0",
+    #     ">= 80%" = "80.0"
+    #   ),
+    #   selected = "0.0",
+    #   status = "primary",
+    #   size = "sm",
+    #   justified = TRUE
+    # )
 ),
   
   
@@ -216,30 +238,28 @@ ps_abundance_diversity <- page_sidebar(
       )
     ),
   
-  radioGroupButtons(
-    inputId = "plot_other",
-    label = "Plot other gene classes together:",
-    choices = c("Yes", "No"),
-    selected = "Yes",
-    status = "primary",
-    size = "sm",
-    justified = TRUE
-  )
+  # radioGroupButtons(
+  #   inputId = "plot_other",
+  #   label = "Plot other gene classes together:",
+  #   choices = c("Yes", "No"),
+  #   selected = "Yes",
+  #   status = "primary",
+  #   size = "sm",
+  #   justified = TRUE
+  # )
   ),
   
   navset_card_underline(
     nav_panel(
-      "Relative abundance",
+      "Relative abundance per sample",
       fill = TRUE,
       page_fillable(
         layout_columns(
-          #col_widths = c(6, 6, 12),
-          #row_heights = c("1fr", "0.3fr"),
           
           card(
             fill = TRUE,
-            card_header("Relaltive abundance per sample and gene class"),
-            withSpinner(plotOutput("plot_abundance", height = "600px", fill = TRUE), type = 8, color = "#1b9e77")
+            card_header("Relative abundance per sample"),
+            withSpinner(plotOutput("plot_abundance", height = "450px", fill = TRUE), type = 8, color = "#1b9e77")
           )
         )
       )
@@ -247,15 +267,13 @@ ps_abundance_diversity <- page_sidebar(
     
     ## Diversity menu
     nav_panel(
-      "Richness",
+      "Relative abundance per gene class",
       page_fillable(
         layout_columns(
-          col_widths = c(6, 6, 12),
-          row_heights = c("1fr", "0.3fr"),
           
           card(
-            card_header("Richness per sample"),
-            #withSpinner(plotOutput("plot_diversity", height = "600px", fill = TRUE), type = 8, color = "#1b9e77")
+            card_header("Relative abundance per gene class"),
+            withSpinner(plotOutput("plot_abundance_gene_class", height = "600px", fill = TRUE), type = 8, color = "#1b9e77")
           )
         )
       )
@@ -292,36 +310,67 @@ ps_overlap <- page_sidebar(
       )
     ),
     
+  #   pickerInput(
+  #     inputId = "overlap_genes",
+  #     label = "Choose the genes you want to show:",
+  #     choices = as.list(as.character(gene_classes)),
+  #     selected = top_cso,
+  #     multiple = TRUE,
+  #     options = list(
+  #       `actions-box` = TRUE,
+  #       `live-search` = TRUE,             
+  #       `selected-text-format` = "count > 3",
+  #       `count-selected-text` = "{0} genes selected"
+  #     )
+  #   )
+  # ), 
+  
+  conditionalPanel(
+    condition = "input.csc_nav === 'Class-Specific Coverage (CSC) by Gene Class'",
     pickerInput(
       inputId = "overlap_genes",
       label = "Choose the genes you want to show:",
       choices = as.list(as.character(gene_classes)),
-      selected = top_cso,
+      selected = top_cso,  
       multiple = TRUE,
-      options = list(
-        `actions-box` = TRUE,
-        `live-search` = TRUE,             
-        `selected-text-format` = "count > 3",
-        `count-selected-text` = "{0} genes selected"
-      )
+      options = list(`actions-box` = TRUE)
     )
-  ), 
+  )
+),
   
   navset_card_underline(
-    
-    # Overview panel
+    id = "csc_nav",
     nav_panel(
-      "CSC",
-      layout_columns(
-        #$col_widths = c(6, 6, 6, 6, 12),
-        card(
-          full_screen = TRUE,
-          withSpinner(plotOutput("overlap", height = "450px"), type = 8, color = "#1b9e77")
+      "Class-Specific Coverage (CSC)",
+      fill = TRUE,
+      page_fillable(
+        layout_columns(
+          
+          card(
+            fill = TRUE,
+            # card_header("Class-Specific Coverage (CSC)"),
+            withSpinner(plotOutput("overlap", height = "450px", fill = TRUE), type = 8, color = "#1b9e77")
+          )
+        )
+      )
+    ),
+    
+    ## CSC_Gene_Class menu
+    nav_panel(
+      "Class-Specific Coverage (CSC) by Gene Class",
+      page_fillable(
+        layout_columns(
+          
+          card(
+            # card_header("Class-Specific Coverage (CSC) by Gene Class"),
+            withSpinner(plotOutput("overlap_gene_class", height = "600px", fill = TRUE), type = 8, color = "#1b9e77")
+          )
         )
       )
     )
   )
 )
+  
 
   
 # Define UI for the argCompare application
