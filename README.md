@@ -19,7 +19,7 @@ The folder `code_R_analysis` contains the script `retrieve_aros_abundances_diver
 The tools used to detect ARGs are listed below.
 
 | **Tool** | **Availability** | **Database** |
-| :---: | :---: |
+| :---: | :---: | :---: | 
 | fARGene (v0.1) | https://github.com/fannyhb/fargene | |
 | DeepARG (v2) | https://github.com/gaarangoa/deeparg | |
 | AMRFinderPlus (v4.0.15) | https://github.com/ncbi/amr | 2024-12-18.1 |
