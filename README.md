@@ -25,13 +25,7 @@ The tools used to detect ARGs are listed below.
 | AMRFinderPlus (v4.0.15) | https://github.com/ncbi/amr | 2024-12-18.1 |
 | RGI (v6.0.3) | https://github.com/arpcard/rgi | CARD (v4.0.0) |
 | ResFinder (v2.4.0) | https://github.com/cadms/resfinder | |
-| ABRicate v1.0.1 | https://github.com/tseemann/ABRICATE | (all databases updated 2025-01-14 |
-| ^^  | ^^ | ARG-ANNOT |
-| ^^ | ^^ | CARD |
-| ^^ | ^^ | MEGARes v2.0 |
-| ^^ | ^^ | ResFinder |
-| ^^ | ^^ | NCBI |
-
+| ABRicate v1.0.1 | https://github.com/tseemann/ABRICATE | ARG-ANNOT, CARD, MEGARes v2.0, ResFinder, NCBI (all databases updated 2025-01-14) |
 
 ### Normalization
 
