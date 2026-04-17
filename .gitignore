@@ -35,7 +35,7 @@ unigenes_with_abundance.txt
 
 # large outputs 
 code_R_analysis/output_abundance_diversity_resistome/abundance_diversity.csv
-code_R_analysis/output_abundance_diversity_resistome/abundance_diversity.rds
+#code_R_analysis/output_abundance_diversity_resistome/abundance_diversity.rds
 code_R_analysis/output_abundance_diversity_resistome/pan_resistome.csv 
 
 # Metadata for metagenomic samples
