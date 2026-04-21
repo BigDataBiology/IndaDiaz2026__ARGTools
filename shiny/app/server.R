@@ -28,35 +28,27 @@ server <- function(input, output, session) {
       geom_col_pattern(position = position_dodge2(preserve = "single", width = 0.8), 
                        width = 0.8, pattern_color = "black", pattern_fill = pattern_fill, 
                        pattern_size = 0.12, color = "black") +
-      scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe', 'y70' = 'crosshatch', 'y80' = 'crosshatch', 'y90' = 'crosshatch')) +
+      scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe')) +
       facet_grid(. ~ tools_db, scales = "free_x", space = "free") +
       scale_fill_manual(values = pal_7) +
-      xlab("Tools") + ylab("Number of ARGs") + 
-      scale_y_continuous(labels = scales::comma) + 
-      theme(
-        legend.position = "none",
-        text = element_text(size = general_size, color = "black"),
-        title = element_text(size = general_size + 2, face = "bold"),
-        axis.title = element_text(size = general_size, face = "bold"),
-        strip.text = element_text(size = general_size, angle = 0),
-        panel.background = element_blank(),
-        axis.text.x = element_text(size = general_size, angle = 90),
-        axis.text.y = element_text(size = general_size),
-        plot.margin = margin(0, 0, 0, 0, unit = "pt"),
-        legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
-        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
-        panel.spacing = unit(0, "pt"),
-        legend.text = element_text(size = general_size),
-        panel.grid.minor.y = element_blank(), panel.border = element_blank(),
+      xlab("Pipelines") + ylab("Number of ARGs") + 
+      scale_y_continuous(expand = c(0.01, 0.01), 
+                         breaks = c(25000,50000,75000,100000,125000), 
+                         labels = scales::comma) + 
+      guides(fill = guide_legend(
+    override.aes = list(
+      pattern = rep("none", 7),
+      fill  = pal_7)), pattern = "none") + 
+  theme1 +
+  theme(panel.border = element_blank(),
         panel.grid.major.x = element_blank(),
         panel.grid.minor.x = element_blank(),
-        strip.background.x = element_blank(),
-        strip.text.x = element_text(size = general_size, angle = 90, vjust = 0.5, hjust = 0))
+        strip.text.x = element_text(size = general_size, angle = 0, vjust = 0, hjust = 0.5))
   }) %>% bindCache(input$tools_unigenes)
   
-
+  
   output$plot_gene_class_proportion <- renderPlot({
-
+    
     req(input$tools_unigenes)
     req(input$gene_classes_filter)
     plot_data <- unigenes_propotion %>%
@@ -64,9 +56,9 @@ server <- function(input, output, session) {
       group_by(new_level) %>%
       filter(new_level %in% input$gene_classes_filter) %>%
       ungroup()
-
+    
     req(nrow(plot_data) > 0)
-
+    
     plot_data %>%
       ggplot(aes(x = tool2, y = new_level, fill = p)) +
       geom_tile(color = "grey") +
@@ -93,7 +85,7 @@ server <- function(input, output, session) {
       scale_color_manual(values = c("black", "white")) +
       labs(fill = "") +
       ylab("Proportion of ARG class") +
-      xlab("Tools") +
+      xlab("Pipelines") +
       theme(
         text = element_text(size = general_size, color = "black"),
         title = element_text(size = general_size + 2, face = "bold"),
@@ -114,9 +106,9 @@ server <- function(input, output, session) {
         strip.background.x = element_blank(),
         strip.text.x = element_text(size = general_size, angle = 90, vjust = 0.5, hjust = 0)
       )
-
+    
   }, height = 1000, res = 96) %>% bindCache(input$tools_unigenes, input$gene_classes_filter)
-
+  
   
   #ABUNDANCE TAB
   filtered_abundance_data <- reactive({
@@ -161,28 +153,12 @@ server <- function(input, output, session) {
       scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe', 'y70' = 'crosshatch', 'y80' = 'crosshatch',  'y90' = 'crosshatch')) +
       xlab("Tools") +
       ylab("Abundance") +
-      theme_minimal() +
-      theme(
-        legend.position = "none",
-        text = element_text(size = general_size, color = "black"),
-        title = element_text(size = general_size + 2, face = "bold"),
-        axis.title = element_text(size = general_size , face = "bold"),
-        strip.text = element_text(size = general_size, angle = 0),
-        panel.background = element_blank(),
-        axis.text.x = element_text(size = general_size, angle = 90,
-                                   vjust = 0.5, hjust = 1),
-        axis.text.y = element_text(size = general_size),
-        panel.border = element_rect(color =  "black"),
-        legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
-        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
-        panel.spacing = unit(10, "pt"),
-        legend.text = element_text(size = general_size),
-        panel.grid.minor.y = element_blank()) +
-      theme(panel.border = element_blank(),
-            strip.text.x = element_text(size = general_size, angle = 90, vjust = 0.5, hjust = 0),
-            panel.grid.major.x = element_blank(),
-            panel.grid.minor.x = element_blank(),
-            plot.margin = margin(10, 10, 10, 10, unit = "pt"))
+      theme1 + 
+    theme(panel.border = element_blank(),
+          strip.text.x = element_text(size = general_size, angle = 90, vjust = 0.5, hjust = 0),
+          panel.grid.major.x = element_blank(),
+          panel.grid.minor.x = element_blank(),
+          plot.margin = margin(5.5, 5.5, 5.5, 5.5, unit = "pt"))
   }, height = 600, res = 96) %>% bindCache(input$tool_abundance, input$environment_abundance)
   
   
@@ -425,6 +401,5 @@ server <- function(input, output, session) {
   }, height = 600, res = 96) %>% bindCache(input$tool_overlap, input$overlap_genes)
   
 }
-
 
 

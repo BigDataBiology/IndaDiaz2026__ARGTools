@@ -40,7 +40,6 @@ lab_fn <- function(x) {
 pal_7 <- brewer.pal(8, "Dark2")
 pal_7 <- pal_7[-7]
 pal_7 <- pal_7[c(1,2,3,4,6,5,7)]
-#pal_7 <- pal_7[c(1,7,2,6,3,5,4)]
 pal_10_q <- pal_7[c(1,2,3,4,5,5,6,6,7,7)]
 
 pal_10_complete <- brewer.pal(7, "Dark2")
@@ -197,18 +196,18 @@ unigenes_propotion <- unigenes %>%
   group_by(tool, tools_labels, tools_db, new_level) %>% 
   summarise(n = n()) %>% 
   mutate(p = n / sum(n)) #%>%
-  # ungroup() %>%
-  # mutate(new_level = gsub(" beta-lactamase","", new_level)) %>%
-  # mutate(new_level = gsub("rifampin inactivation enzyme","RIF-inact. enz.", new_level)) %>%
-  # mutate(new_level = gsub("inactivation enzyme","\ninact. enz.", new_level)) %>%
-  # mutate(new_level = gsub("cell wall ","cell wall\n", new_level)) %>%
-  # mutate(new_level = gsub("MFS efflux pump","MFS efflux", new_level)) %>%
-  # mutate(new_level = gsub("efflux pump","efflux", new_level)) %>%
-  # mutate(new_level = gsub("beta-lactam modulation resistance","beta-lactam\nmod.", new_level)) %>%
-  # mutate(new_level = gsub("target-modifying enzyme","target-\nmodif. enz.", new_level)) %>%
-  # mutate(new_level = gsub("self-resistance","self-resistance\n", new_level)) %>% 
-  # mutate(new_level = gsub("host-dependent","host-dependent\n", new_level)) %>% 
-  # mutate(new_level = gsub("variant or","variant or\n", new_level)) 
+# ungroup() %>%
+# mutate(new_level = gsub(" beta-lactamase","", new_level)) %>%
+# mutate(new_level = gsub("rifampin inactivation enzyme","RIF-inact. enz.", new_level)) %>%
+# mutate(new_level = gsub("inactivation enzyme","\ninact. enz.", new_level)) %>%
+# mutate(new_level = gsub("cell wall ","cell wall\n", new_level)) %>%
+# mutate(new_level = gsub("MFS efflux pump","MFS efflux", new_level)) %>%
+# mutate(new_level = gsub("efflux pump","efflux", new_level)) %>%
+# mutate(new_level = gsub("beta-lactam modulation resistance","beta-lactam\nmod.", new_level)) %>%
+# mutate(new_level = gsub("target-modifying enzyme","target-\nmodif. enz.", new_level)) %>%
+# mutate(new_level = gsub("self-resistance","self-resistance\n", new_level)) %>% 
+# mutate(new_level = gsub("host-dependent","host-dependent\n", new_level)) %>% 
+# mutate(new_level = gsub("variant or","variant or\n", new_level)) 
 
 
 
@@ -237,9 +236,9 @@ names(pal_7) <- tools_db_factor
 abundance_tool_sample <- 
   abundance_tool_sample %>% 
   mutate(texture = ifelse(tool %in% c("DeepARG70", "RGI-DIAMOND70"), "y70",
-  ifelse(tool %in% c("DeepARG80", "RGI-DIAMOND80"), "y80",
-  ifelse(tool %in% c("DeepARG90", "RGI-DIAMOND90"), "y90", 
-  texture))))
+                          ifelse(tool %in% c("DeepARG80", "RGI-DIAMOND80"), "y80",
+                                 ifelse(tool %in% c("DeepARG90", "RGI-DIAMOND90"), "y90", 
+                                        texture))))
 
 unigenes_propotion <- 
   unigenes_propotion %>% 
@@ -295,7 +294,29 @@ g_legend <- function(a.gplot){
   return(legend)
 }
 
-
+theme1 <- theme_minimal() +
+  theme(
+    legend.position = "none",
+    text = element_text(size = general_size, color = "black"),
+    title = element_text(size = general_size + 2, face = "bold"),
+    axis.title = element_text(size = general_size , face = "bold"),
+    strip.text = element_text(size = general_size, angle = 0),
+    panel.background = element_blank(),
+    axis.text.x = element_text(size = general_size, angle = 90,
+                               vjust = 0.5, hjust = 1),
+    axis.text.y = element_text(size = general_size),
+    panel.border = element_rect(color =  "black"),
+    plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+    legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
+    legend.margin = margin(0, 0, 0, 0, unit = "pt"),
+    panel.spacing = unit(0, "pt"),
+    legend.text = element_text(size = general_size),
+    panel.grid.minor.y = element_blank(),
+    legend.spacing.y = unit(0, "cm"),
+    legend.spacing.x = unit(0.1, "cm"),
+    legend.key.height = unit(0.35, "cm"),
+    legend.key.width  = unit(0.35, "cm"),
+    legend.box.spacing = unit(0.1, "cm"))
 
 theme5 <- theme(
   legend.position = "none",
@@ -336,6 +357,3 @@ abundance_class_summary <- abundance_class_summary %>%
 
 unigenes_propotion <- unigenes_propotion %>% 
   mutate(tool2 = factor(tools_labels2[tool], levels = tools_labels2_factor))
-
-
-
