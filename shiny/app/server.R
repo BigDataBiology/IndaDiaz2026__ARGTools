@@ -53,12 +53,10 @@ server <- function(input, output, session) {
     req(input$gene_classes_filter)
     plot_data <- unigenes_propotion %>%
       filter(tool %in% input$tools_unigenes) %>%
-      group_by(new_level) %>%
-      filter(new_level %in% input$gene_classes_filter) %>%
-      ungroup()
-    
+      filter(new_level %in% input$gene_classes_filter)
+
     req(nrow(plot_data) > 0)
-    
+   
     plot_data %>%
       ggplot(aes(x = tool2, y = new_level, fill = p)) +
       geom_tile(color = "grey") +
@@ -144,7 +142,6 @@ server <- function(input, output, session) {
                     ungroup() %>%
                     group_by(habitat, tool) %>% 
                     filter(abundance < quantile(abundance, 0.75) + 1.5*IQR(abundance)) %>%
-                    mutate(n_group = n()) %>%
                     group_modify(~ dplyr::slice_sample(.x, n = min(100, nrow(.x)))), 
                   width = 0.35, size = 0.4, alpha = 0.1) + 
       facet_grid(habitat ~ tools_db  , scales = "free") +
