@@ -3,6 +3,148 @@ library(bslib)
 library(shinyWidgets)
 library(shinycssloaders)
 
+# Responsive CSS 
+responsive_css <- tags$head(
+  tags$meta(name = "viewport", content = "width=device-width, initial-scale=1.0"),
+  tags$style(HTML("
+
+    /* 1. Base */
+    html, body {
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    .card {
+      min-width: 0;
+      word-break: break-word;
+      height: auto !important;
+    }
+    .card-body {
+      height: auto !important;
+      overflow: visible !important;
+    }
+
+    /* Plots scale to container width */
+    .shiny-plot-output img,
+    .shiny-plot-output canvas {
+      max-width: 100% !important;
+    }
+
+    /* Card images */
+    .card-img, .card-img-top, .card-img-bottom {
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* pickerInput dropdowns */
+    .bootstrap-select .dropdown-menu {
+      max-width: 100%;
+      min-width: 0;
+      word-wrap: break-word;
+      white-space: normal;
+    }
+
+    /* Sidebar text wrap */
+    .sidebar .control-label,
+    .sidebar .shiny-input-container {
+      max-width: 100%;
+      word-break: break-word;
+    }
+
+    /* 2. Removing the height and fill lock*/
+    .bslib-page-sidebar,
+    .bslib-sidebar-layout,
+    .bslib-sidebar-layout > .bslib-sidebar-main,
+    .bslib-sidebar-layout > .main,
+    .tab-content,
+    .tab-pane,
+    .bslib-page-fill {
+      height: auto    !important;
+      max-height: none !important;
+      overflow: visible !important;
+    }
+
+    /* 3. NAVBAR setup */
+    .navbar-nav { flex-wrap: wrap; }
+
+    /* 4. For large screens (>= 1400 px) */
+    @media (min-width: 1400px) {
+      .card-img { max-height: 900px; object-fit: contain; }
+    }
+
+    /* 5. For tablets  (< 992 px) */
+    @media (max-width: 991px) {
+
+      /* Stacking layout_column_wrap (Introduction) */
+      .layout-column-wrap {
+        flex-direction: column !important;
+      }
+      .layout-column-wrap > * {
+        width: 100% !important;
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+      }
+
+      /* Sidebar stacking*/
+      .bslib-sidebar-layout {
+        flex-direction: column !important;
+      }
+      .bslib-sidebar-layout > .sidebar {
+        width: 100% !important;
+        max-width: 100% !important;
+        border-right: none !important;
+        border-bottom: 1px solid #dee2e6;
+        padding-bottom: .75rem;
+      }
+
+      .card-img { max-height: 600px; object-fit: contain; }
+    }
+
+    /* 6. For large phones  (< 768 px) */
+    @media (max-width: 767px) {
+
+      .container-fluid {
+        padding-left:  .5rem !important;
+        padding-right: .5rem !important;
+      }
+
+      .navbar-nav { width: 100%; }
+      .navbar-nav .nav-item { width: 100%; text-align: center; }
+
+      .card-body   { padding: .6rem !important; }
+      .card-header { padding: .5rem .75rem !important; font-size: .95rem; }
+      .card-footer { padding: .5rem .75rem !important; font-size: .8rem;  }
+
+      .bootstrap-select,
+      .bootstrap-select > .dropdown-toggle { width: 100% !important; }
+
+      .sidebar em { font-size: .8rem; }
+
+      .card-img { max-height: 420px; object-fit: contain; }
+
+      .card-body p,
+      .card-body li { font-size: .9rem; line-height: 1.5; }
+    }
+
+    /* 7. For small phones  (< 480 px) */
+    @media (max-width: 479px) {
+
+      .navbar-brand { font-size: 1rem; }
+
+      .container-fluid {
+        padding-left:  .25rem !important;
+        padding-right: .25rem !important;
+      }
+
+      .card-img { max-height: 320px; }
+
+      .card-body p,
+      .card-body li { font-size: .85rem; }
+    }
+
+  "))
+)
+
 
 ps_intro <- fluidPage(
   layout_column_wrap( 
@@ -50,8 +192,9 @@ ps_intro <- fluidPage(
 
 # ARGs Tab
 ps_args <- page_sidebar(
+  fillable = FALSE, 
   sidebar = sidebar(
-    width = 400,
+    width = 300,
     pickerInput(
       inputId = "tools_unigenes",
       label = "Choose the pipelines you want to compare:",
@@ -74,17 +217,13 @@ ps_args <- page_sidebar(
       options = list(`actions-box` = TRUE)
     ),
     
-    markdown(
-      "*Use the sidebar to filter specific pipelines or focus on particular gene classes to see how the resistome profile shifts.*"
-    ),
+    markdown( "*Use the sidebar to filter specific pipelines or focus on particular gene classes to see how the resistome profile shifts.*")
   ),
   
   nav_panel(
     "Number of ARGs and Gene Class Proportion",
-    
-    page_fillable(
       layout_columns(
-        col_widths = c(6, 6),
+        col_widths = breakpoints(xs = 12, xxl = 6),
         
         card(
           card_header("Number of ARGs"),
@@ -94,7 +233,7 @@ ps_args <- page_sidebar(
           A total of 178,107 unigenes from GMGCv1 were reported as antibiotic resistance genes (ARG) by at least one pipeline. 
           The total ARG count varies across pipelines; for example, in the case of ABRicate-ResFinder and DeepARG, there is about a 45-fold difference in the count."
           ),
-          withSpinner(plotOutput("plot_count_genes_tool", height = "600px", fill = TRUE), type = 8, color = "#1b9e77")
+          withSpinner(plotOutput("plot_count_genes_tool", height = "550px"), type = 8, color = "#1b9e77")
         ),
         card(
           card_header("ARG Class Proportion"),
@@ -105,19 +244,19 @@ ps_args <- page_sidebar(
              \n
              From the source file, we merged MFS efflux pumps with all other efflux pumps."
           ),
-          withSpinner(plotOutput("plot_gene_class_proportion", height = "900px", fill = TRUE), type = 8, color = "#1b9e77")
+          withSpinner(plotOutput("plot_gene_class_proportion", height = "850px", fill = TRUE), type = 8, color = "#1b9e77")
         )
       )
-    ),
+    )
   )
-)
 
 
 ## Abundance and Diversity Tab
 
 ps_abundance <- page_sidebar(
+  fillable = FALSE,
   sidebar = sidebar(
-    width = 400,
+    width = 300,
     
     pickerInput(
       inputId = "tool_abundance",
@@ -153,34 +292,31 @@ ps_abundance <- page_sidebar(
       multiple = TRUE,
       options = list(
         `actions-box` = TRUE,
-        `live-search` = TRUE,             # Adds a search bar to quickly find genes!
+        `live-search` = TRUE,             
         `selected-text-format` = "count > 3",
         `count-selected-text` = "{0} genes selected"
       )
     ),
     
-    markdown(
-      "*Use this sidebar to filter specific pipelines, habitats, or focus on particular gene classes to observe these shifts/difference in abundance of genes estimation.*"
-    ),
+    markdown("*Use this sidebar to filter specific pipelines, habitats, or focus on particular gene classes to observe these shifts/difference in abundance of genes estimation.*")
   ),
   
   nav_panel(
     "Relative Abundance per Sample and Gene Class",
-    page_fillable(
-      layout_columns(
-        col_widths = c(6, 6),
-        
+    layout_columns(
+      col_widths = breakpoints(xs = 12, xxl = 6),
+      
         card(
-          card_header("Relative abundance per Sample"),
-          markdown(
-            "This section explores the **Relative Abundance** of Antimicrobial Resistance Genes (ARGs) across different host habitats, highlighting how the choice of pipeline impacts the estimation of the quantity of ARGs.
-            \n
-            This displays the total relative abundance of ARGs detected by each pipeline per sample across various habitats. For interpreting the boxplot, 
-            it would be helpful to note that the center line denotes the median while each box limits is the interquartile range (IQR) and the
-            whiskers extent to 1.5× IQR beyond the first and third quartiles."),
-          
-          withSpinner(plotOutput("plot_abundance", height = "600px", fill = TRUE), type = 8, color = "#1b9e77")
-        ),
+            card_header("Relative abundance per Sample"),
+            markdown(
+              "This section explores the **Relative Abundance** of Antimicrobial Resistance Genes (ARGs) across different host habitats, highlighting how the choice of pipeline impacts the estimation of the quantity of ARGs.
+              \n
+              This displays the total relative abundance of ARGs detected by each pipeline per sample across various habitats. For interpreting the boxplot, 
+              it would be helpful to note that the center line denotes the median while each box limits is the interquartile range (IQR) and the
+              whiskers extent to 1.5× IQR beyond the first and third quartiles."),
+            
+            withSpinner(plotOutput("plot_abundance", height = "550px"), type = 8, color = "#1b9e77")
+          ),
         
         card(
           card_header("Relative Abundance per Gene Class"),
@@ -190,19 +326,18 @@ ps_abundance <- page_sidebar(
             \n
             *From the source file, we merged MFS efflux pumps with all other efflux pumps.*"
           ),
-          withSpinner(plotOutput("plot_abundance_gene_class", height = "600px", fill = TRUE), type = 8, color = "#1b9e77")
+          withSpinner(plotOutput("plot_abundance_gene_class", height = "550px"), type = 8, color = "#1b9e77")
         )
       )
-    ),
-    
     )
   )
 
 
 # Pan- and Core-resistome Tab
 ps_pan_core <- page_sidebar(
+  fillable = FALSE,
   sidebar = sidebar(
-    width = 400,
+    width = 300,
     
     pickerInput(
       inputId = "tool_pan_core",
@@ -230,9 +365,7 @@ ps_pan_core <- page_sidebar(
         `count-selected-text` = "{0} environments selected"
       )
     ),
-    markdown(
-      "*Use the sidebar to compare specific pipelines, select different habitats, or adjust the strictness of the core-resistome threshold.*"
-    ),
+    markdown("*Use the sidebar to compare specific pipelines, select different habitats, or adjust the strictness of the core-resistome threshold.*")
   ),
   
   layout_column_wrap( 
@@ -246,16 +379,18 @@ ps_pan_core <- page_sidebar(
         \n
         * **Core-resistome (Right, Panel b):** This represents the ARGs that are persistently found across almost *all* samples within a habitat. Pipeline-specific detection influences which genes are considered ubiquitous."
       ),
-      withSpinner(plotOutput("pan_core", height = "800px"), type = 8, color = "#1b9e77")
+      withSpinner(plotOutput("pan_core", height = "750px"), type = 8, color = "#1b9e77")
       )
-    ),
+    )
   )
 
 
 ## Overlaps Tab
 ps_overlap <- page_sidebar(
+  fillable = FALSE,
   sidebar = sidebar(
-    width = 400,
+    width = 300,
+    
     pickerInput(
       inputId = "tool_overlap",
       label = "Choose the pipelines you want to show:",
@@ -282,16 +417,13 @@ ps_overlap <- page_sidebar(
         `count-selected-text` = "{0} genes selected"
       )
     ),
-    markdown(
-      "*Use the sidebar to select the pipelines you want to compare or filter specific gene classes to see exactly where the pipelines agree or diverge.*"
-    )
+    markdown("*Use the sidebar to select the pipelines you want to compare or filter specific gene classes to see exactly where the pipelines agree or diverge.*")
   ),
   
   nav_panel(
     "Class-Specific Coverage (CSC)",
-    page_fillable(
-      layout_columns(
-        col_widths = c(6, 6),
+    layout_columns(
+      col_widths = breakpoints(xs = 12, xxl = 6),
         
         card(
           card_header("Class-Specific Coverage by Pipeline"),
@@ -302,7 +434,7 @@ ps_overlap <- page_sidebar(
               \n
               This is the overall percentage of ARGs detected by a reference pipeline that were also successfully identified by the compared pipeline. A higher percentage indicates strong agreement between the pipelines."
           ),
-          withSpinner(plotOutput("overlap", height = "600px", fill = TRUE), type = 8, color = "#1b9e77")
+          withSpinner(plotOutput("overlap", height = "550px"), type = 8, color = "#1b9e77")
         ),
         
         card(
@@ -310,19 +442,18 @@ ps_overlap <- page_sidebar(
           markdown(
             "This plot breaks down this overlap by gene classes based on specific resistance mechanisms. This reveals whether two pipelines might agree perfectly on certain gene classes (like tetracycline resistance) but completely miss each other on others."
           ),
-          withSpinner(plotOutput("overlap_gene_class", height = "600px", fill = TRUE), type = 8, color = "#1b9e77")
+          withSpinner(plotOutput("overlap_gene_class", height = "550px"), type = 8, color = "#1b9e77")
         )
-      ),
-     )
-   )
-)
+      )
+    )
+  )
 
 
 # Define UI for the argCompare application
 page_navbar(
   theme = "yeti",
-  # theme = bs_theme(bootswatch = "yeti", primary = "#1b9e77"),
   inverse = TRUE,
+  header = responsive_css,
   nav_panel(title = "Introduction", p(ps_intro)),
   nav_panel(title = "ARGs", p(ps_args)),
   nav_panel(title = "Abundance", p(ps_abundance)),
