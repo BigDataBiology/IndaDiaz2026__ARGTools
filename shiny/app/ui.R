@@ -151,7 +151,7 @@ ps_intro <- fluidPage(
     width = 1/2,
     card(
       card_header("Introduction"),
-      tags$p("This shiny app shows the main and supplementary figures for the manuscript ", 
+      tags$p("This app shows the main and supplementary figures for the manuscript and allows to create different variants",
              tags$b(tags$i("How ARG Detection Pipelines Shape Our View of the Resistome")), 
              "and allows to control different parameters."),
       tags$p(tags$b("302,655,267 unigenes")),
@@ -184,7 +184,7 @@ ps_intro <- fluidPage(
     card(
       card_header("Pipeline"),
       card_image("../../code_R_analysis/output_plots/fig0_shiny.svg", height = "800px"),
-      card_footer("The GMGC dataset was analyzed in nucleotide and/or amino acid format by the ARG detection pipelines to obtain a list of putative resistance genes. We quantified the resistome (abundance, diversity, pan- and core-resistome) using the putative ARGs in host-associated and external environments.")
+      card_footer("The GMGC dataset was analyzed in nucleotide and/or amino acid format by the ARG detection pipelines to obtain a list of putative resistance genes. We quantified the resistome (abundance, diversity, pan- and core-resistome) using the putative ARGs in host-associated and external habitats")
     )
   )
 )
@@ -197,7 +197,7 @@ ps_args <- page_sidebar(
     width = 300,
     pickerInput(
       inputId = "tools_unigenes",
-      label = "Choose the pipelines you want to compare:",
+      label = "Pipelines to compare:",
       choices = tool_choices,
       selected = basic_tools,
       multiple = TRUE,
@@ -239,10 +239,10 @@ ps_args <- page_sidebar(
           card_header("ARG Class Proportion"),
           markdown(
             "A heatmap illustrating the proportion of ARG classes as reported by each pipeline. Also note that for 
-             this heatmap, only classes representing 5% of the total within at least one pipeline is visualised. Despite the massive differences in absolute counts seen on the left, this plot reveals how the proportional 
+             this heatmap, only classes representing 5% of the total within at least one pipeline is shown. Despite the massive differences in absolute counts seen on the left, this plot reveals how the proportional 
              makeup of gene classes shifts depending on the pipeline chosen.
              \n
-             From the source file, we merged MFS efflux pumps with all other efflux pumps."
+             Note: we merged MFS efflux pumps with other efflux pumps."
           ),
           withSpinner(plotOutput("plot_gene_class_proportion", height = "850px", fill = TRUE), type = 8, color = "#1b9e77")
         )
@@ -260,12 +260,12 @@ ps_abundance <- page_sidebar(
     
     pickerInput(
       inputId = "tool_abundance",
-      label = "Choose the pipelines you want to show:",
+      label = "Pipelines to show:",
       choices = tool_choices,
       selected = basic_tools,
       multiple = TRUE,
       options = list(
-        `actions-box` = TRUE,            
+        `actions-box` = TRUE,
         `selected-text-format` = "count > 2", 
         `count-selected-text` = "{0} pipelines selected"
       )
@@ -273,20 +273,20 @@ ps_abundance <- page_sidebar(
     
     pickerInput(
       inputId = "environment_abundance",
-      label = "Choose the habitats you want to show:",
+      label = "Habitats to show:",
       choices = as.list(EN),
       selected = EN[1],
       multiple = TRUE,
       options = list(
         `actions-box` = TRUE,
         `selected-text-format` = "count > 2",
-        `count-selected-text` = "{0} environments selected"
+        `count-selected-text` = "{0} habitats selected"
       )
     ),
     
     pickerInput(
       inputId = "abundance_genes",
-      label = "Choose the genes you want to show:",
+      label = "Gene classes to show:",
       choices = as.list(as.character(gene_classes)),
       selected = top_abundance,
       multiple = TRUE,
@@ -294,7 +294,7 @@ ps_abundance <- page_sidebar(
         `actions-box` = TRUE,
         `live-search` = TRUE,             
         `selected-text-format` = "count > 3",
-        `count-selected-text` = "{0} genes selected"
+        `count-selected-text` = "{0} gene classes selected"
       )
     ),
     
@@ -307,6 +307,7 @@ ps_abundance <- page_sidebar(
       col_widths = breakpoints(xs = 12, xxl = 6),
       
         card(
+<<<<<<< HEAD
             card_header("Relative abundance per Sample"),
             markdown(
               "This section explores the **Relative Abundance** of Antimicrobial Resistance Genes (ARGs) across different host habitats, highlighting how the choice of pipeline impacts the estimation of the quantity of ARGs.
@@ -317,6 +318,18 @@ ps_abundance <- page_sidebar(
             
             withSpinner(plotOutput("plot_abundance", height = "550px"), type = 8, color = "#1b9e77")
           ),
+=======
+          card_header("Relative abundance per Sample"),
+          markdown(
+            "This section shows the **Relative Abundance** of Antimicrobial Resistance Genes (ARGs) across different habitats and pipelines.
+            \n
+            This displays the total relative abundance of ARGs detected by each pipeline per sample across various habitats. For interpreting the boxplot, 
+            it would be helpful to note that the center line denotes the median while each box limits is the interquartile range (IQR) and the
+            whiskers extent to 1.5× IQR beyond the first and third quartiles."),
+          
+          withSpinner(plotOutput("plot_abundance", height = "600px", fill = TRUE), type = 8, color = "#1b9e77")
+        ),
+>>>>>>> 5869d642b9ee4226c9d108580e793ca8cded8de6
         
         card(
           card_header("Relative Abundance per Gene Class"),
@@ -341,7 +354,7 @@ ps_pan_core <- page_sidebar(
     
     pickerInput(
       inputId = "tool_pan_core",
-      label = "Choose the pipelines you want to show the number of genes for:",
+      label = "Pipelines to show:",
       choices = tool_choices,
       selected = basic_tools,
       multiple = TRUE,
@@ -354,7 +367,7 @@ ps_pan_core <- page_sidebar(
     
     pickerInput(
       inputId = "environment_pan_core",
-      label = "Choose the habitats you want to show:",
+      label = "Habitats to show:",
       choices = as.list(EN),
       selected = EN[c(1,9,10,13)],
       multiple = TRUE,
@@ -362,10 +375,16 @@ ps_pan_core <- page_sidebar(
         `actions-box` = TRUE,
         `live-search` = TRUE,
         `selected-text-format` = "count > 2",
-        `count-selected-text` = "{0} environments selected"
+        `count-selected-text` = "{0} habitats selected"
       )
     ),
+<<<<<<< HEAD
     markdown("*Use the sidebar to compare specific pipelines, select different habitats, or adjust the strictness of the core-resistome threshold.*")
+=======
+    markdown(
+      "*Use the sidebar to compare specific pipelines, select different habitats, or adjust the core-resistome threshold.*"
+    ),
+>>>>>>> 5869d642b9ee4226c9d108580e793ca8cded8de6
   ),
   
   layout_column_wrap( 
@@ -393,7 +412,7 @@ ps_overlap <- page_sidebar(
     
     pickerInput(
       inputId = "tool_overlap",
-      label = "Choose the pipelines you want to show:",
+      label = "Pipelines to show:",
       choices = tool_choices,
       selected = c("DeepARG","fARGene", "RGI-DIAMOND"),
       multiple = TRUE,
@@ -406,7 +425,7 @@ ps_overlap <- page_sidebar(
     
     pickerInput(
       inputId = "overlap_genes",
-      label = "Choose the genes you want to show:",
+      label = "Gene classes to show:",
       choices = as.list(as.character(gene_classes)),
       selected = top_cso,
       multiple = TRUE,
@@ -414,7 +433,7 @@ ps_overlap <- page_sidebar(
         `actions-box` = TRUE,
         `live-search` = TRUE,
         `selected-text-format` = "count > 3",
-        `count-selected-text` = "{0} genes selected"
+        `count-selected-text` = "{0} gene classes selected"
       )
     ),
     markdown("*Use the sidebar to select the pipelines you want to compare or filter specific gene classes to see exactly where the pipelines agree or diverge.*")
