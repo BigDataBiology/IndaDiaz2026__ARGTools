@@ -4,7 +4,7 @@
 
 ## Overview
 
-This dataset contains antibiotic resistance gene (ARG) detection results from unigenes in the Global Microbial Gene Catalog v1.0 ([GMGC](https://gmgc.embl.de/)) using multiple widely used detection pipelines (including DeepARG, RGI, fARGene, ResFinder, AMRFinderPlus, and ABRicate with multiple databases).
+This dataset supports the results presented in the manuscript: *The elusive resistome: a global comparison reveals large discrepancies among detection pipelines*. It contains antibiotic resistance gene (ARG) detection results from unigenes in the Global Microbial Gene Catalog v1.0 ([GMGC](https://gmgc.embl.de/)) using multiple widely used detection pipelines (including DeepARG, RGI, fARGene, ResFinder, AMRFinderPlus, and ABRicate with multiple databases).
 
 Outputs were harmonized using argNorm and manually curated, estimations of ARG abundance and richness as well as pan- and core-resistome were done across 11,519 metagenomic samples spanning 13 habitats (human-associated, animal-associated, and environmental), at the ARG class level. 
 
@@ -16,14 +16,12 @@ This resource supports comparative analyses of how ARG detection pipelines influ
 
 ARG detection was performed using:
 
-| **Tool** | **Availability** | 
-| :---: | :---: | 
-| fARGene (v0.1) | https://github.com/fannyhb/fargene | 
-| DeepARG (v2) | https://github.com/gaarangoa/deeparg | 
-| AMRFinderPlus (v4.0.15), database 2024-12-18.1 | https://github.com/ncbi/amr |
-| RGI (v6.0.3), database CARD (v4.0.0) | https://github.com/arpcard/rgi | 
-| ResFinder (v2.4.0) | https://github.com/cadms/resfinder | 
-| ABRicate v1.0.1, databases: ARG-ANNOT, CARD, MEGARes v2.0, ResFinder, and NCBI (all updated 2025-01-14) | https://github.com/tseemann/ABRICATE |  
+- **fARGene** v0.1, [https://github.com/fannyhb/fargene](https://github.com/fannyhb/fargene) 
+- **DeepARG** v2, [https://github.com/gaarangoa/deeparg](https://github.com/gaarangoa/deeparg) 
+- **AMRFinderPlus** v4.0.15 (DB: 2024-12-18.1), [https://github.com/ncbi/amr](https://github.com/ncbi/amr) 
+- **RGI** v6.0.3 (CARD v4.0.0), [https://github.com/arpcard/rgi](https://github.com/arpcard/rgi) 
+- **ResFinder**: v2.4.0, [https://github.com/cadms/resfinder](https://github.com/cadms/resfinder) 
+- **ABRicate**:  v1.0.1 (DBs: ARG-ANNOT, CARD, MEGARes v2.0, ResFinder, NCBI; updated 2025-01-14), [https://github.com/tseemann/ABRICATE](https://github.com/tseemann/ABRICATE) 
 
 
 ## Normalization
@@ -36,7 +34,7 @@ Outputs from DeepARG, AMRFinderPlus, ABRicate, and ResFinder were standardized u
 
 ### 1. Pipeline outputs 
 
-`pipelines_output/pipeline`
+`pipeline_<name_of_pipeline>.csv`
 
 Contains ARG predictions per pipeline after normalization and manual curation.
 

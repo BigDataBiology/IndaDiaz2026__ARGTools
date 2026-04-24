@@ -240,20 +240,76 @@ unigenes <- readRDS(file = "code_R_analysis/output_abundance_diversity_resistome
 # Jaccard index, recall/class specific concordance, fnr/class specific non-overlap
 # per class and tool
 recall_fnr <- create_class_overlaps(unigenes)
-#recall_fnr0 <- recall_fnr
 
-#recall_fnr2 <- recall_fnr %>% left_join(recall_fnr0, by = c("tool_ref","tool_comp","new_level"))
-#recall_fnr2[recall_fnr2$recall.x != recall_fnr2$recall.y,]
+recall_no_shuffling <- create_class_overlaps_no_shuffling(unigenes)
 
-#max(abs(recall_fnr2$recall.x[recall_fnr2$tool_ref %in% basic_tools & recall_fnr2$tool_comp %in% basic_tools] - recall_fnr2$recall.y[recall_fnr2$tool_ref %in% basic_tools & recall_fnr2$tool_comp %in% basic_tools]), na.rm = T)
+recall_2 <- recall_fnr %>% left_join(recall_no_shuffling, by = c("tool_ref","tool_comp","new_level", "ref_n_class","comp_n_class","ref_n_all", "comp_n_all"))
 
-#check_csc <- data.frame(recall_fnr2 %>% filter(tool_ref != tool_comp, tool_ref %in% basic_tools, tool_comp %in% basic_tools) %>% 
-#  mutate(recall_diff = abs(recall.x - recall.y)) %>% arrange(desc(recall_diff)) %>% 
-#  filter(recall_diff > 0) %>% 
-#  group_by(tool_ref, new_level) %>% 
-#  summarise(n_changes = n(), cummulative_error = round(sum(recall_diff),3), max_error = round(max(recall_diff),3)))
+recall_2 <- recall_2 %>% rename(CSC = recall.x, CSC_no_reorder = recall.y)
+recall_different <- recall_2 %>% filter(CSC != CSC_no_reorder)
+recall_different <- recall_different %>% mutate(dif = CSC - CSC_no_reorder) %>% arrange(desc(abs(dif)))
 
-#write.csv(check_csc, file = "~/Documents/revised_csc.csv", row.names = F)
+recall_different %>% filter(tool_comp %in% basic_tools, tool_ref %in% basic_tools) %>%  
+  ggplot( aes(x = dif)) + 
+  geom_histogram(bins = 20) +
+  facet_wrap(new_level ~ .)
+
+recall_different %>% filter(tool_comp %in% basic_tools, tool_ref %in% basic_tools) %>%  
+  ggplot( aes(x = dif)) + 
+  geom_histogram(bins = 20) +
+  facet_wrap(tool_ref ~ .)
+
+recall_different %>% filter(tool_comp %in% basic_tools, tool_ref %in% basic_tools) %>%  
+  mutate(dif_int = as.character(ceiling(dif * 10) / 10)) %>% 
+  ggplot( aes(x = dif_int, y = dif)) + 
+  geom_boxplot() +
+  facet_wrap(tool_ref ~ .)
+
+ttests <- recall_different %>% filter(tool_comp %in% basic_tools, tool_ref %in% basic_tools) %>%
+  group_by(tool_ref) %>%
+  summarise(
+    test = list(t.test(CSC, CSC_no_reorder, paired = TRUE)),
+    .groups = "drop"
+  ) %>%
+  mutate(tidy = purrr::map(test, broom::tidy)) %>%
+  tidyr::unnest(tidy)
+
+
+ttests_class <- recall_different %>% filter(tool_comp %in% basic_tools, tool_ref %in% basic_tools) %>%
+  group_by(new_level) %>%
+  summarise(
+    test = list(t.test(CSC, CSC_no_reorder, paired = TRUE)),
+    .groups = "drop"
+  ) %>%
+  mutate(tidy = purrr::map(test, broom::tidy)) %>%
+  tidyr::unnest(tidy)
+
+
+ttests %>%
+  mutate(
+    neglog10p = -log10(p.value)
+  ) %>%
+  ggplot(aes(x = estimate, y = neglog10p, label = tool_ref)) +
+  geom_point(size = 3) +
+  geom_vline(xintercept = 0, linetype = "dashed") +
+  geom_text(nudge_y = 0.2, size = 3) +
+  theme_classic() +
+  xlab("Effect size (CSC − CSC_no_reorder)") +
+  ylab("-log10(p-value)")
+
+ttests_class %>%
+  mutate(
+    neglog10p = -log10(p.value)
+  ) %>%
+  ggplot(aes(x = estimate, y = neglog10p, label = new_level)) +
+  geom_point(size = 3) +
+  geom_vline(xintercept = 0, linetype = "dashed") +
+  geom_text(nudge_y = 0.2, size = 3) +
+  theme_classic() +
+  xlab("Effect size (CSC − CSC_no_reorder)") +
+  ylab("-log10(p-value)")
+
+
 
 # per tool
 JI_all <- return_overlap_tools(unigenes)

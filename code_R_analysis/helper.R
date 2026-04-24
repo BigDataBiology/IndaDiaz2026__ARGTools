@@ -188,3 +188,45 @@ return_overlap_tools <- function(unigenes) {
   
 }
 
+
+create_class_overlaps_no_shuffling <- function(unigenes){
+  tools_per_unigene <- unigenes %>% ungroup()  %>% 
+    arrange(query) %>% 
+    group_by(query) %>% 
+    mutate(n_tools = n_distinct(tool)) %>% 
+    mutate(single = (n_tools ==1)) 
+  
+  sets0 <- tools_per_unigene %>%
+    group_by(tool) %>%
+    summarise(query = list(query), .groups = "drop")
+  
+  sets1 <- tools_per_unigene %>%
+    group_by(new_level, tool) %>%
+    summarise(query = list(query), .groups = "drop")  
+  
+  pairwise <- sets1 %>%
+    group_by(new_level) %>%
+    summarise(pairs = list(expand_grid(tool_ref = tool, tool_comp = tool)), .groups = "drop") %>%
+    unnest(pairs)
+  
+  JI_class_other <- pairwise %>%
+    left_join(sets1, by = c("new_level", "tool_ref" = "tool")) %>%
+    rename(qc_ref = query) %>%
+    left_join(sets1, by = c("new_level", "tool_comp" = "tool")) %>%
+    rename(qc_comp = query) %>%
+    left_join(sets0, by = c( "tool_ref" = "tool")) %>%
+    rename(q_ref = query) %>% 
+    left_join(sets0, by = c( "tool_comp" = "tool")) %>%
+    rename(q_comp = query)
+  
+  JI_class_other <- JI_class_other %>% 
+    rowwise() %>%
+    mutate(recall = length(intersect(qc_ref, qc_comp))/ length(qc_comp)) %>% 
+    rowwise() %>% 
+    #mutate(fnr = new_difference_list(qc_ref, q_ref, qc_comp, q_comp)) %>% 
+    mutate(ref_n_class = length(qc_ref), comp_n_class = length(qc_comp), ref_n_all = length(q_ref), comp_n_all = length(q_comp)) %>% 
+    ungroup() %>% 
+    filter(tool_ref != tool_comp) %>% 
+    select(-c(qc_ref, qc_comp, q_ref, q_comp))
+  return(JI_class_other)
+}
