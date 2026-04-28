@@ -23,11 +23,8 @@ lab_fn <- function(x) {
 pal_7 <- brewer.pal(8, "Dark2")
 pal_7 <- pal_7[-7]
 pal_7 <- pal_7[c(1,2,3,4,6,5,7)]
-#pal_7 <- pal_7[c(1,7,2,6,3,5,4)]
 pal_10_q <- pal_7[c(1,2,3,4,5,5,6,6,7,7)]
 
-pal_10_complete <- brewer.pal(7, "Dark2")
-pal_10_complete <- pal_7
 
 # pattern for plots
 
@@ -56,11 +53,10 @@ basic_tools <- c(
   "ResFinder", "ABRicate-ResFinder")
 
 tools_levels <- c(
-  "DeepARG", "DeepARG70","DeepARG80","DeepARG90",
-  "fARGene","ABRicate-ARGANNOT", "ABRicate-MEGARes",
-  "RGI-DIAMOND", "RGI-DIAMOND70","RGI-DIAMOND80","RGI-DIAMOND90",
-  "ABRicate-CARD","AMRFinderPlus", "ABRicate-NCBI",
-  "ResFinder", "ABRicate-ResFinder",
+  "DeepARG", "fARGene","ABRicate-ARGANNOT", "ABRicate-MEGARes",
+  "RGI-DIAMOND", "ABRicate-CARD","AMRFinderPlus", "ABRicate-NCBI",
+  "ResFinder", "ABRicate-ResFinder","DeepARG70","DeepARG80","DeepARG90",
+  "RGI-DIAMOND70","RGI-DIAMOND80","RGI-DIAMOND90",
   "DeepARG-aa", "RGI-BLAST", "RGI-DIAMOND-aa", "fARGene-aa", "AMRFinderPlus-nt")
 
 names(pal_10_q) <- basic_tools
@@ -73,39 +69,44 @@ other <- c(pal_10_q["DeepARG"], pal_10_q["RGI-DIAMOND"],
            pal_10_q["RGI-DIAMOND"],pal_10_q["fARGene"],pal_10_q["AMRFinderPlus"])
 names(other) <- c("DeepARG-aa", "RGI-BLAST", 
                   "RGI-DIAMOND-aa", "fARGene-aa","AMRFinderPlus-nt")
-pal_10_q <- c(pal_10_q[1],da,pal_10_q[2:5],rgi,pal_10_q[6:10],other)
-#pal_10_q <- c(pal_10_q, da, rgi, other)
+# pal_10_q <- c(pal_10_q[1],da,pal_10_q[2:5],rgi,pal_10_q[6:10],other)
+
+pal_10_q <- c(pal_10_q, da, rgi, other)
 rm(da, rgi, other)
 
 tools_labels <- c(
-  "DeepARG", "DeepARG-70%","DeepARG-80%","DeepARG-90%", "fARGene", "ABRicate", "ABRicate",
-  "RGI", "RGI-70%","RGI-80%","RGI-90%",
-  "ABRicate", "AMRFinder-\nPlus", "ABRicate",
-  "ResFinder", "ABRicate",
+  "DeepARG", "fARGene", "ABRicate-\nARGANNOT", "ABRicate-\nMEGARes",
+  "RGI", "ABRicate-\nCARD", "AMRFinder-\nPlus", "ABRicate-\nNCBI",
+  "ResFinder", "ABRicate-\nResFinder",
+  "DeepARG-70%","DeepARG-80%","DeepARG-90%","RGI-70%","RGI-80%","RGI-90%",
   "DeepARG-aa", "RGI/nBLAST", "RGI-aa", "fARGene-aa", "AMRFinder-\nPlus-nt")
 
 names(tools_labels) <- tools_levels
 
 tools_labels_factor <- c(
-  "DeepARG","DeepARG-70%","DeepARG-80%","DeepARG-90%", "fARGene", "RGI",
-  "RGI-70%","RGI-80%","RGI-90%", "AMRFinder-\nPlus", 
-  "ResFinder", "ABRicate",
+  "DeepARG", "fARGene", "ABRicate-\nARGANNOT", "ABRicate-\nMEGARes", 
+  "RGI", "ABRicate-\nCARD", "AMRFinder-\nPlus", "ABRicate-\nNCBI",
+  "ResFinder", "ABRicate-\nResFinder", "DeepARG-70%","DeepARG-80%","DeepARG-90%",
+  "RGI-70%","RGI-80%","RGI-90%",
   "DeepARG-aa", "RGI/nBLAST", "RGI-aa", "fARGene-aa", "AMRFinder-\nPlus-nt")
 
 # one space for DeepARG
 # two spaces for fARGene
 
-tools_db <- c(rep("",4), " ", "ARG-\nANNOT", "MEGA-\nRes", rep("CARD", 4),"CARD",
-              "NCBI","NCBI", 
-              "Res-\nFinder","Res-\nFinder","","CARD","CARD",
-              " ","NCBI")
+tools_db <- c(" ", "  ", "   ", "    ", "CARD", "CARD","NCBI","NCBI", 
+              "ResFinder","ResFinder"," "," "," ","CARD","CARD","CARD",
+              " ", "CARD", "CARD", "  ", "NCBI")
 
 # one space for DeepARG
 # two spaces for fARGene
-tools_db_factor <- c("", " ", "ARG-\nANNOT", "MEGA-\nRes",
-                     "CARD", "NCBI", "Res-\nFinder")
+tools_db_factor <- c(" ", "  ", "   ", "    ",
+                     "CARD", "NCBI", "ResFinder")
 
 tools_texture <- c("ABRicate-CARD", "ABRicate-NCBI", "ABRicate-ResFinder")
+
+top_cso <- c("van", "efflux pump",  "tet RPG", "class A beta-lactamase", 
+             "class B beta-lactamase","class C beta-lactamase", "class D beta-lactamase",
+             "aph", "erm", "aac")
 
 ## DATASETS 
 
@@ -118,10 +119,11 @@ metadata <- read.delim("data/metadata_GMGC10.sample.meta.tsv")
 # abundance <- readRDS("output_abundance_diversity_resistome/abundance_diversity.rds")
 abundance <- readRDS("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity.rds")
 
-
+abundance <- abundance %>%
+  mutate(gene = ifelse(gene == "MFS efflux pump", "efflux pump", gene))
 
 abundance <- abundance %>%
-  mutate(habitat = metadata$habitat[match(sample, metadata$sample)]) %>% 
+  mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)]) %>% 
   mutate(habitat = factor(habitat, levels = EN),
          tool = factor(tool, levels = tools_levels)) %>%
   mutate(tools_labels = factor(tools_labels[tool], levels = tools_labels_factor),
@@ -167,6 +169,9 @@ abundance_class <- abundance %>%
 
 core <- readRDS(file = "code_R_analysis/output_abundance_diversity_resistome/core_resistome.rds")
 
+core <- core %>%
+  mutate(new_level_centroid = ifelse(new_level_centroid == "MFS efflux pump", "efflux pump", new_level_centroid))
+
 core <- core %>% 
   rename(new_level = new_level_centroid, 
          X = centroid) %>% 
@@ -178,31 +183,34 @@ core <- core %>%
          texture = ifelse(tool %in% tools_texture, "yes", "no"),
          tools_db = factor(tools_db[tool], levels = tools_db_factor))
 
-sumcore <- sum_core_adjust(core, 450, 0.5) %>%
-  mutate(tools_labels = factor(tools_labels[tool], levels = tools_labels_factor),
-         texture = ifelse(tool %in% tools_texture, "yes", "no"),
-         tools_db = factor(tools_db[tool], levels = tools_db_factor),
-         cut = 0.5, cnt = 450)
+thresholds_cnt <- c(250, 300, 350, 400, 450)
+thresholds_cut <- c(0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9)
 
-for(cnts in c(250,300,350,400,450)){
-  for(cuts in c(0.3,0.4,0.5,0.6,0.7,0.8,0.9)){
-    if(cnts == 450 & cuts == 0.5) {
-      next} else{
-        sumcore <- sumcore %>% bind_rows(
-          sum_core_adjust(core, 450, 0.5) %>%
-            mutate(tools_labels = factor(tools_labels[tool], levels = tools_labels_factor),
-                   texture = ifelse(tool %in% tools_texture, "yes", "no"),
-                   tools_db = factor(tools_db[tool], levels = tools_db_factor),
-                   cut = 0.5, cnt = 450)) 
-      }
-  }
-}
+
+sumcore <- bind_rows(
+  lapply(thresholds_cnt, function(cnts) {
+    lapply(thresholds_cut, function(cuts) {
+      sum_core_adjust(core, cnts, cuts) %>%
+        mutate(
+          tools_labels = factor(tools_labels[tool], levels = tools_labels_factor),
+          texture      = ifelse(tool %in% tools_texture, "yes", "no"),
+          tools_db     = factor(tools_db[tool], levels = tools_db_factor),
+          cut          = cuts,  
+          cnt          = cnts    
+        )
+    }) %>% bind_rows()
+  }) %>% bind_rows()
+)
 
 
 
 ## PAN RESISTOME
 
 pan <- readRDS(file = "code_R_analysis/output_abundance_diversity_resistome/pan_resistome.rds")
+
+pan <- pan %>%
+  mutate(gene_class = ifelse(gene_class == "MFS efflux pump", "efflux pump", gene_class))
+
 pan <- pan %>% 
   mutate(habitat = factor(habitat, levels = EN), 
          tool = factor(tool, levels = tools_levels)) %>% 
@@ -226,6 +234,7 @@ sumpan2 <- pan %>% ungroup() %>%
 ## unigenes identified by tool
 
 unigenes <- readRDS(file = "code_R_analysis/output_abundance_diversity_resistome/unigenes_per_tool.rds") %>% 
+  mutate(new_level = ifelse(new_level == "MFS efflux pump", "efflux pump", new_level)) %>%
   mutate(tool = factor(tool, levels = tools_levels)) %>%
   mutate(tools_labels = factor(tools_labels[tool], levels = tools_labels_factor),
          texture = ifelse(tool %in% tools_texture, "yes", "no"),
@@ -280,9 +289,3 @@ lst_results <- list(abundance_tool_sample=abundance_tool_sample,
      sumcore = sumcore)
 
 saveRDS(lst_results, file = "shiny/app/data.rds", compress = T)
-
-
-
-
-
-

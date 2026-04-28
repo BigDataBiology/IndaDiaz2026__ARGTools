@@ -2,20 +2,6 @@
 
 server <- function(input, output, session) {
   
-  # Wait 500 milliseconds after the user stops clicking before updating plots
-  genes_debounced <- reactive({ input$abundance_genes }) %>% debounce(500)
-  tools_debounced <- reactive({ input$tool_abundance }) %>% debounce(500)
-  
-  # Helper to translate the UI threshold (e.g., "0.0" or "60.0") to the list name ("default" or "60")
-  get_thr_name <- function(thr_val) {
-    thr_str <- as.character(thr_val)
-    thr_str <- gsub("\\.0$", "", thr_str) # This strips the trailing .0
-    
-    if (thr_str %in% c("0", "default")) {
-      return("default")
-    }
-    return(thr_str)
-  }
   
   #ARGs TAB
   output$plot_count_genes_tool <- renderPlot({
@@ -24,26 +10,26 @@ server <- function(input, output, session) {
       ungroup() %>% 
       group_by(tools_labels, texture, tools_db, tool2) %>% 
       summarise(n = n_distinct(query)) %>%
-      ggplot(aes(x = tool2, y = n, fill = tools_db, pattern = texture)) +
+      ggplot(aes(x = tools_labels, y = n, fill = tools_db, pattern = texture)) +
       geom_col_pattern(position = position_dodge2(preserve = "single", width = 0.8), 
                        width = 0.8, pattern_color = "black", pattern_fill = pattern_fill, 
                        pattern_size = 0.12, color = "black") +
       scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe')) +
       facet_grid(. ~ tools_db, scales = "free_x", space = "free") +
-      scale_fill_manual(values = pal_7) +
+      scale_fill_manual(values = pal_7, drop = TRUE) +
       xlab("Pipelines") + ylab("Number of ARGs") + 
       scale_y_continuous(expand = c(0.01, 0.01), 
                          breaks = c(25000,50000,75000,100000,125000), 
                          labels = scales::comma) + 
       guides(fill = guide_legend(
-    override.aes = list(
-      pattern = rep("none", 7),
-      fill  = pal_7)), pattern = "none") + 
-  theme1 +
-  theme(panel.border = element_blank(),
-        panel.grid.major.x = element_blank(),
-        panel.grid.minor.x = element_blank(),
-        strip.text.x = element_text(size = general_size, angle = 0, vjust = 0, hjust = 0.5))
+        override.aes = list(
+          pattern = rep("none", 7),
+          fill  = pal_7)), pattern = "none") +  
+      theme1 +
+      theme(panel.border = element_blank(),
+            panel.grid.major.x = element_blank(),
+            panel.grid.minor.x = element_blank(),
+            strip.text.x = element_text(size = general_size, angle = 0, vjust = 0, hjust = 0.5))
   }) %>% bindCache(input$tools_unigenes)
   
   
@@ -54,11 +40,11 @@ server <- function(input, output, session) {
     plot_data <- unigenes_propotion %>%
       filter(tool %in% input$tools_unigenes) %>%
       filter(new_level %in% input$gene_classes_filter)
-
+    
     req(nrow(plot_data) > 0)
-   
+    
     plot_data %>%
-      ggplot(aes(x = tool2, y = new_level, fill = p)) +
+      ggplot(aes(x = tools_labels, y = new_level, fill = p)) +
       geom_tile(color = "grey") +
       scale_fill_gradientn(
         colors = brewer.pal(9, "YlOrBr"),
@@ -108,6 +94,7 @@ server <- function(input, output, session) {
   }, height = 1000, res = 96) %>% bindCache(input$tools_unigenes, input$gene_classes_filter)
   
   
+  
   #ABUNDANCE TAB
   filtered_abundance_data <- reactive({
     req(input$tool_abundance, input$environment_abundance)
@@ -130,11 +117,11 @@ server <- function(input, output, session) {
   
   output$plot_abundance <- renderPlot({
     
-    ggplot(filtered_abundance_data(), aes(x = tool2, y = abundance, fill = tools_db, pattern = texture)) + 
+    ggplot(filtered_abundance_data(), aes(x = tools_labels, y = abundance, fill = tools_db, pattern = texture)) + 
       geom_boxplot_pattern(position = position_dodge2(preserve = "single", width = 1, padding = 0), 
                            pattern_color = "black", pattern_fill = "black", pattern_density = 0.000000001,
                            pattern_spacing = 0.2,
-                           pattern_size =  0.3, color = "black", outliers = FALSE, outlier.shape = NA,
+                           pattern_size =  0.3, color = "black", outliers = FALSE, 
                            linewidth = 0.15) +
       scale_x_discrete(expand = expansion(add = 1)) +
       
@@ -144,31 +131,32 @@ server <- function(input, output, session) {
                     filter(abundance < quantile(abundance, 0.75) + 1.5*IQR(abundance)) %>%
                     group_modify(~ dplyr::slice_sample(.x, n = min(100, nrow(.x)))), 
                   width = 0.35, size = 0.4, alpha = 0.4) +
-      facet_grid(habitat ~ tools_db  , scales = "free") +
+      facet_grid(habitat ~ tools_db, scales = "free") +
       scale_y_continuous(labels = scales::comma) + 
       scale_fill_manual(values = pal_7) +
       scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe', 'y70' = 'crosshatch', 'y80' = 'crosshatch',  'y90' = 'crosshatch')) +
-      xlab("Pipeline") +
-      ylab("Relative abundance (per million)") +
+      xlab("Pipelines") +
+      ylab("Relative abundance\n(aligned reads per million)") +
       theme1 + 
-    theme(panel.border = element_blank(),
-          strip.text.x = element_text(size = general_size, angle = 90, vjust = 0.5, hjust = 0),
-          panel.grid.major.x = element_blank(),
-          panel.grid.minor.x = element_blank(),
-          plot.margin = margin(5.5, 5.5, 5.5, 5.5, unit = "pt"))
+      theme(panel.border = element_blank(),
+            strip.text.x = element_text(size = general_size, angle = 0, vjust = 0.5, hjust = 0.5),
+            panel.grid.major.x = element_blank(),
+            panel.grid.minor.x = element_blank(),
+            plot.margin = margin(5.5, 5.5, 5.5, 5.5, unit = "pt"))
+    
   }, height = 600, res = 96) %>% bindCache(input$tool_abundance, input$environment_abundance)
   
   
   output$plot_abundance_gene_class <- renderPlot({
     
-    ggplot(filtered_class_abundance_data(), aes(y = fct_rev(tool2), fill = tools_db, pattern = texture)) +
+    ggplot(filtered_class_abundance_data(), aes(y = fct_rev(tools_labels), fill = tools_db, pattern = texture)) +
       geom_boxplot_pattern( 
         aes(xmin = q25, xlower = q25, xmiddle = q50, xupper = q75, xmax = q75, pattern = texture),
         stat = "identity", 
         position = position_dodge2(preserve = "single", padding = 0), 
         pattern_color = "black", pattern_fill = pattern_fill, pattern_spacing = 0.07,
         pattern_density = 0.15,
-        pattern_size =  0.07, color = "black", outliers = FALSE, outlier.shape = NA,
+        pattern_size =  0.07, color = "black", outliers = FALSE,
         linewidth = 0.1) +
       scale_fill_manual(values = pal_7) +
       scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe', 'y70' = 'crosshatch', 'y80' = 'crosshatch',  'y90' = 'crosshatch')) +
@@ -184,7 +172,7 @@ server <- function(input, output, session) {
                      return(out)
                    }, default = label_parsed)
                  )) +
-      xlab("Relative abundance (per million)") +
+      xlab("Relative abundance\n(aligned reads per million)") +
       ylab("") + 
       labs(fill = "") + 
       scale_x_continuous(labels = scales::comma, expand = c(0,0)) +
@@ -217,6 +205,7 @@ server <- function(input, output, session) {
     
   }, height = 600, res = 96) %>% bindCache(input$tool_abundance, input$environment_abundance, input$abundance_genes)
   
+  
   #PAN- & CORE- RESISTOME TAB
   output$pan_core <- renderPlot({
     
@@ -224,117 +213,112 @@ server <- function(input, output, session) {
       filter(tool %in% input$tool_pan_core,
              habitat %in% input$environment_pan_core) %>% 
       left_join((sumcore2 %>% filter(tool %in% input$tool_pan_core,
-                                     cnt == 450, 
+                                     cnt %in% input$threshold_samples, 
                                      cut == 0.5,
                                      habitat %in% input$environment_pan_core) %>%
                    ungroup() %>%
                    select(-c(cut, cnt, tools_labels, tools_db, texture))), by = c("tool", "habitat", "tool2")) %>%
-      mutate(core = ifelse(is.na(core), 0, core)) %>% 
-      mutate(prop = core / md) %>%
+      mutate(core = ifelse(is.na(core), 0, core),
+             prop = core / md) %>%
       ungroup() 
     
     pan_core_df_plot <- pan_core %>% 
       select(!c(md, sd)) %>% 
       pivot_longer(cols = c(mn, core), names_to = "metric", values_to = "value") %>% 
-      mutate(metric = ifelse(metric %in% "mn", "Pan-resistome", metric)) %>%
-      mutate(metric = ifelse(metric %in% "core", "Core-resistome", metric)) %>%
+      mutate(metric = case_when(
+        metric == "mn"   ~ "Pan-resistome",
+        metric == "core" ~ "Core-resistome"
+      )) %>%
       mutate(metric = factor(metric, levels = c("Pan-resistome", "Core-resistome"))) %>%
       filter(value > 0)
     
+    req(nrow(pan_core_df_plot) > 0)
     
-    p4a1 <- pan_core_df_plot %>% filter(metric %in% "Pan-resistome") %>% 
-      ggplot(aes(y = fct_rev(tool), x =  value)) +
-      geom_point_rast(aes(fill = tool2, shape = texture),  color = "black", stroke = 0.3, size = 3) + 
-      facet_grid(habitat ~ metric, scales = "free") +
-      scale_shape_manual(values = c("no" = 21, "yes" = 24, 'y70' = 22, 'y80' = 23,  'y90' = 25)) +
-      scale_fill_manual(values = pal_10_q_2[names(pal_10_q_2) %in% pan_core_df_plot$tool2]) +
-      theme_minimal() +
-      ylab("") +
-      xlab("Number of ARGs") +
-      labs(fill = "") +
-      ggtitle("a") + 
-      geom_hline(yintercept = 0, color = "black", linewidth = 0.5) +
-      theme_minimal() +
-      guides(fill = guide_legend(
-        override.aes = list(
-          shape = shape_tools_2[names(shape_tools_2) %in% pan_core_df_plot$tool2],
-          fill  = pal_10_q_2[names(pal_10_q_2) %in% pan_core_df_plot$tool2],
-          color  = pal_10_q_2[names(pal_10_q_2) %in% pan_core_df_plot$tool2])), shape = "none") + 
+    # Legend keys — ordered by tools_levels so grouping is correct
+    present_tools <- tools_levels[tools_levels %in% unique(pan_core_df_plot$tool)]
+    legend_fills  <- pal_10_q[present_tools]
+    legend_shapes <- shape_tools[present_tools]
+    legend_labels <- as.vector(tools_labels2[present_tools])
+    
+    # Shared theme for both panels
+    theme_pan_core <- theme_minimal() +
       theme(
-        legend.position = "none",
-        text = element_text(size = 16, color = "black"),
-        title = element_text(size = 16, face = "bold"),
-        axis.title = element_text(size = 16 , face = "bold"),
-        strip.text = element_text(size = 16, angle = 0),
+        text          = element_text(size = 16, color = "black"),
+        title         = element_text(size = 16, face = "bold"),
+        axis.title    = element_text(size = 16, face = "bold"),
+        axis.text.x   = element_text(size = 16, angle = 90, vjust = 0.5, hjust = 1),
+        axis.text.y   = element_blank(),
+        strip.text.x  = element_text(size = 16, angle = 0, vjust = 0, hjust = 0.5),
         panel.background = element_blank(),
-        axis.text.x = element_text(size = 16, angle = 90,
-                                   vjust = 0.5, hjust = 1),
-        axis.text.y = element_text(size = 16),
-        panel.border = element_rect(color =  "black"),
-        plot.margin = margin(5, 5, 5, 5, unit = "pt"),
+        panel.border     = element_blank(),
+        panel.spacing    = unit(0, "pt"),
+        panel.grid.major.y = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        plot.margin      = margin(5, 5, 5, 5, unit = "pt"),
+        legend.position  = "none",
+        legend.text      = element_text(size = general_size),
         legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
-        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
-        panel.spacing = unit(0, "pt"),
-        legend.text = element_text(size = general_size),
-        panel.grid.minor.y = element_blank()) +
-      theme(axis.text.y = element_blank(), 
-            strip.text.x = element_text(size = 16, angle = 0, vjust = 0, hjust = 0.5),
-            strip.text.y = element_text(size = 16, angle = 0, vjust = 0.5, hjust = 0.5),
-            legend.position = "bottom",
-            panel.grid.major.y = element_blank(),
-            panel.grid.minor.y = element_blank(),
-            panel.border = element_blank()) +
-      scale_x_reverse(labels = label_comma()) 
+        legend.margin    = margin(0, 0, 0, 0, unit = "pt")
+      )
     
-    p4a2 <- pan_core_df_plot %>% filter(!metric %in% "Pan-resistome") %>% 
-      ggplot(aes(y = fct_rev(tool), x =  value)) +
-      geom_point_rast(aes(fill = tool2, shape = texture),  color = "black", stroke = 0.3, size = 3) + 
-      facet_grid(habitat ~ metric, scales = "free") +
-      scale_fill_manual(values = pal_10_q_2[names(pal_10_q_2) %in% pan_core_df_plot$tool2]) +
-      scale_shape_manual(values = c("no" = 21, "yes" = 24, 'y70' = 22, 'y80' = 23,  'y90' = 25)) +
-      theme_minimal() +
-      ylab("") +
-      xlab("Number of ARGs") +
-      labs(fill = "") +
-      ggtitle("b") + 
+    # Shared scales
+    scale_fill_pan  <- scale_fill_manual(values = pal_10_q_2[levels(droplevels(pan_core_df_plot$tool2))])
+    scale_shape_pan <- scale_shape_manual(values = c("no" = 21, "yes" = 24, "y70" = 22, "y80" = 23, "y90" = 25))
+    
+    p4a1 <- pan_core_df_plot %>% filter(metric == "Pan-resistome") %>% 
+      ggplot(aes(y = fct_rev(tool), x = value)) +
+      geom_point_rast(aes(fill = tool2, shape = texture), color = "black", stroke = 0.3, size = 3) + 
       geom_hline(yintercept = 0, color = "black", linewidth = 0.5) +
-      theme_minimal() +
+      facet_grid(habitat ~ metric, scales = "free") +
+      scale_fill_pan + scale_shape_pan +
+      scale_x_reverse(labels = label_comma()) +
+      labs(y = "", x = "Number of ARGs", fill = "", title = "a") +
+      theme_pan_core +
+      theme(strip.text.y = element_text(size = 16, angle = 0, vjust = 0.5, hjust = 0.5))
+    
+    p4a2 <- pan_core_df_plot %>% filter(metric == "Core-resistome") %>% 
+      ggplot(aes(y = fct_rev(tool), x = value)) +
+      geom_point_rast(aes(fill = tool2, shape = texture), color = "black", stroke = 0.3, size = 3) + 
+      geom_hline(yintercept = 0, color = "black", linewidth = 0.5) +
+      facet_grid(habitat ~ metric, scales = "free") +
+      scale_fill_pan + scale_shape_pan +
+      scale_x_continuous(labels = label_comma()) +
+      labs(y = "", x = "Number of ARGs", fill = "", title = "b",
+           subtitle = paste0("Core-resistome threshold: >", input$threshold_samples, " subsamples")) +
+      theme_pan_core +
+      theme(strip.text.y = element_blank())
+    
+    # Plot for legend extraction only
+    legend_df <- data.frame(
+      tool2   = factor(legend_labels, levels = legend_labels),
+      x = 1, y = 1,
+      texture = ifelse(legend_shapes == 21, "no",
+                       ifelse(legend_shapes == 24, "yes",
+                              ifelse(legend_shapes == 22, "y70",
+                                     ifelse(legend_shapes == 23, "y80", "y90"))))
+    )
+    
+    legend_dummy <- ggplot(legend_df, aes(x, y, fill = tool2, shape = texture)) +
+      geom_point(size = 3, color = "black", stroke = 0.3) +
+      scale_fill_manual(values = setNames(legend_fills, legend_labels)) +
+      scale_shape_manual(values = c("no" = 21, "yes" = 24, "y70" = 22, "y80" = 23, "y90" = 25)) +
       guides(fill = guide_legend(
-        override.aes = list(
-          shape = shape_tools_2[names(shape_tools_2) %in% pan_core_df_plot$tool2],
-          fill  = pal_10_q_2[names(pal_10_q_2) %in% pan_core_df_plot$tool2],
-          color  = pal_10_q_2[names(pal_10_q_2) %in% pan_core_df_plot$tool2])), shape = "none") + 
-      theme(
-        legend.position = "none",
-        text = element_text(size = 16, color = "black"),
-        title = element_text(size = 16 + 2, face = "bold"),
-        axis.title = element_text(size = 16 , face = "bold"),
-        strip.text = element_text(size = 16, angle = 0),
-        panel.background = element_blank(),
-        axis.text.x = element_text(size = 16, angle = 90,
-                                   vjust = 0.5, hjust = 1),
-        axis.text.y = element_text(size = 16),
-        panel.border = element_rect(color =  "black"),
-        plot.margin = margin(5, 5, 5, 5, unit = "pt"),
-        legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
-        legend.margin = margin(0, 0, 0, 0, unit = "pt"),
-        panel.spacing = unit(0, "pt"),
-        legend.text = element_text(size = general_size),
-        panel.grid.minor.y = element_blank()) +
-      theme(axis.text.y = element_blank(), 
-            strip.text.x = element_text(size = 16, angle = 0, vjust = 0, hjust = 0.5),
-            strip.text.y = element_blank(),
-            legend.position = "none",
-            panel.grid.major.y = element_blank(),
-            panel.grid.minor.y = element_blank(),
-            panel.border = element_blank())
+        override.aes = list(shape = legend_shapes, fill = legend_fills, color = legend_fills),
+        label.theme = element_text(size = general_size),
+        nrow = 2
+      ), shape = "none") +
+      labs(fill = "") +
+      theme_minimal() +
+      theme(legend.position = "bottom",
+            legend.text      = element_text(size = general_size),
+            legend.key.height = unit(0.35, "cm"),
+            legend.key.width  = unit(0.35, "cm"))
     
+    panel1 <- (p4a1 | p4a2) + patchwork::plot_layout(widths = c(1, 1))
+    (panel1 / g_legend(legend_dummy)) + patchwork::plot_layout(heights = c(15, 1))
     
-    panel1 <- (p4a1 + theme(legend.position = "none") | p4a2) + patchwork::plot_layout(widths = c(1,1))
-    p4 <- (panel1 / (g_legend(p4a1) )) + patchwork::plot_layout(heights = c(15,1))
-    p4
-    
-  }) %>% bindCache(input$tool_pan_core, input$environment_pan_core)
+  }) 
+  
   
   #OVERLAP TAB
   filtered_overlap_data <- reactive({
@@ -386,7 +370,7 @@ server <- function(input, output, session) {
       scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe', 
                                       'y70' = 'crosshatch', 'y80' = 'crosshatch',  'y90' = 'crosshatch')) + 
       scale_fill_manual(values = pal_10_q[tools_levels %in% input$tool_overlap]) +
-      xlab("%") +
+      xlab("Percentage (%)") +
       ylab("Pipeline covered") +
       theme_minimal() +
       theme5 +

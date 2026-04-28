@@ -160,7 +160,7 @@ ps_intro <- fluidPage(
       tags$p(tags$b("13,174 metagenomic samples from 16 different habitats")),
       tags$p("The metagenomic samples come from GMGC and are available ",
              tags$a(href="https://gmgc.embl.de/downloads/v1.0/metadata/GMGC10.sample.meta.tsv.gz", "here"), ". In this app, we did not consider the habitats amplicon, isolate, and built-environment.",
-             "The abundance of each gene in the metagenomes can be accessed", tags$a(href="https://gmgc.embl.de/downloads/v1.0/GMGC10.sample-abundance.tsv.xz", "here"), ". The summary of metagenomic samples per habitat can be found in Table S2 in the."),
+             "The abundance of each gene in the metagenomes can be accessed", tags$a(href="https://gmgc.embl.de/downloads/v1.0/GMGC10.sample-abundance.tsv.xz", "here"), ". The summary of metagenomic samples per habitat can be found in Table S2 in the paper."),
       tags$p(tags$b("ARG classes")),
       tags$p("Ontology normalization was done with", tags$a(href="https://github.com/BigDataBiology/argNorm", "argNorm"), ". Gene classes were manually curated after. The gene classes used in this project can be found in Table S3 in the paper."),
       tags$p(tags$b("Pipelines")),
@@ -365,6 +365,22 @@ ps_pan_core <- page_sidebar(
         `count-selected-text` = "{0} habitats selected"
       )
     ),
+    
+    pickerInput(
+      inputId = "threshold_samples",
+      label = "Minimum number of subsets the gene has to be part of the subsample core-resistome:",
+      choices = list(
+        ">= 200" = 200,
+        ">= 250" = 250,
+        ">= 300" = 300,
+        ">= 350" = 350,
+        ">= 400" = 400,
+        ">= 450" = 450
+      ),
+      selected = 450,
+      multiple = FALSE
+    ),
+ 
     markdown("*Use the sidebar to compare specific pipelines, select different habitats, or adjust the strictness of the core-resistome threshold.*")
   ),
   
