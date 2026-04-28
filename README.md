@@ -4,7 +4,7 @@ This repository contains files and scripts to generate analysis and figures in t
 
 > Juan S. Inda-Díaz, Faith Adegoke, Ulrike Löber, Víctor Hugo Jarquín-Díaz, Yiqian Duan, Johan Bengtsson-Palme, Svetlana Ugarcina Perovic, Luis Pedro Coelho
 
-See also the **interactive** app at the [ARG pipelines](https://arg-pipelines/big-data-biology.org).
+See also the **interactive** app at the [ARG pipelines](https://arg-pipelines.big-data-biology.org/).
 
 ## Structure
 
