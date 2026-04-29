@@ -124,14 +124,22 @@ lst <- readRDS("code_R_analysis/output_abundance_diversity_resistome/results_too
 
 # metagenomes' metadata
 metadata <- read.delim("data/metadata_GMGC10.sample.meta.tsv")
+metadata <- metadata %>% filter(!habitat %in% c("amplicon", "isolate", "built-environment"))
+metadata0 <- metadata %>% select(sample_id, habitat) %>% rename(sample = sample_id)
 
 # abundance <- readRDS("output_abundance_diversity_resistome/abundance_diversity.rds")
 abundance <- readRDS("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity.rds")
 abundance <- abundance %>% mutate(gene = ifelse(gene == "MFS efflux pump", "efflux pump", gene))
 
+metadata0 <- metadata0 %>% left_join(abundance, by = "sample")
+metadata0$gene[is.na(metadata0$gene)] <- "efflux pump"
+metadata0$tool[is.na(metadata0$tool)] <- "DeepARG"
+metadata0$abundance[is.na(metadata0$abundance)] <- 0
+metadata0$richness[is.na(metadata0$richness)] <- 0
+metadata0$richness_no_rarified[is.na(metadata0$richness_no_rarified)] <- 0
 
-abundance <- abundance %>%
-  mutate(habitat = metadata$habitat[match(sample, metadata$sample)]) %>% 
+
+abundance <- metadata0 %>%
   mutate(habitat = factor(habitat, levels = EN),
          tool = factor(tool, levels = tools_levels)) %>%
   mutate(tools_labels = factor(tools_labels[tool], levels = tools_labels_factor),
@@ -169,6 +177,8 @@ abundance_class <- abundance %>%
   mutate(tools_labels = factor(tools_labels[tool], levels = tools_labels_factor),
          texture = ifelse(tool %in% tools_texture, "yes", "no"),
          tools_db = factor(tools_db[tool], levels = tools_db_factor))
+
+
 
 ## CORE RESISTOME 
 
@@ -309,7 +319,10 @@ ttests_class %>%
   xlab("Effect size (CSC − CSC_no_reorder)") +
   ylab("-log10(p-value)")
 
+unigenes_more_class <- unigenes %>% filter(tool %in% basic_tools) %>% 
+  group_by(query) %>% mutate(n_class = n_distinct(new_level)) %>% filter(n_class > 1)
 
+unique(unigenes_more_class$query)
 
 # per tool
 JI_all <- return_overlap_tools(unigenes)
@@ -372,6 +385,7 @@ df_abundance_class_human <- abundance_class %>%
 
 ################################################################################################
 # PLot 1 
+
 tools_texture_code <- rep("none", length(tools_labels))
 tools_texture_code[tools_levels %in% tools_texture] <- "stripe"
 
@@ -437,7 +451,7 @@ p2a <- unigenes %>%
 
 p2a
 
-id_plot <- unigenes %>% 
+id_plot_data <- unigenes %>% 
   filter(tool %in% basic_tools) %>% 
   filter(!tool %in% "fARGene") %>% 
   ungroup() %>%
@@ -449,7 +463,17 @@ id_plot <- unigenes %>%
   mutate(tool_2 = factor(tool_2, levels = c("DeepARG", "RGI",  "ABRicate/\nResFinder", "AMRFinder-\nPlus (aa)"))) %>% 
   mutate(data_type = ifelse(tool_2 %in% c("DeepARG", "RGI", "ABRicate/\nResFinder"), "nucleotide", "amino acid")) %>% 
   mutate(data_type = factor(data_type, levels = c( "nucleotide", "amino acid"))) %>% 
-  ggplot(aes(x = id , color = tool_2, fill = tool_2)) +
+  ungroup() %>% 
+  group_by(tool_2) %>% mutate(N_obs = n_distinct(query)) %>% 
+  mutate(tool_3 = paste0(tool_2, "\n(n = ", scales::comma(N_obs), ")"))
+  
+unique(id_plot_data$tool_3)
+
+id_plot <- id_plot_data %>% 
+  mutate(tool_3 = factor(tool_3, levels = c("DeepARG\n(n = 100,075)","RGI\n(n = 65,937)",
+                                            "ABRicate/\nResFinder\n(n = 15,458)", "AMRFinder-\nPlus (aa)\n(n = 3,141)"))) %>% 
+  mutate(data_number = factor(data_type, levels = c( "nucleotide", "amino acid"))) %>% 
+  ggplot(aes(x = id , color = tool_3, fill = tool_3)) +
   stat_ecdf(geom = "step", linewidth = 1) + 
   scale_color_manual(values = pal_7[c(1,5,3, 6)], 
                      guide = guide_legend(nrow = 1)) +
@@ -655,9 +679,12 @@ for(j in 1:length(EN)){
     filter(tool %in% basic_tools) %>% 
     ungroup() %>% summarise(max(w2)) %>% pull()
   
+  
+  
   abu_plots[[j]] <- lims_abundance %>%
     filter(habitat %in% EN[j]) %>%
     filter(tool %in% basic_tools) %>% 
+    mutate(habitat_label = paste0(habitat, "\n(n = ", scales::comma(df_plot$N[1]), ")")) %>%
     ggplot(aes(x = tools_labels, y=median, fill = tools_db))  + 
     geom_boxplot_pattern(aes(ymin = w1, lower = q25, middle = median, upper = q75, ymax = w2, pattern = texture), stat = "identity",
       position = position_dodge2(preserve = "single", width = 0.3, padding = 0), 
@@ -669,7 +696,7 @@ for(j in 1:length(EN)){
                 slice_sample(n = min(100, df_jitter$N[1])), 
                 aes(y = abundance),
                 width = 0.35, size = 0.4, alpha = 0.1) + 
-    facet_grid(habitat ~ tools_db  , scales = "free_x", space = "free_x") +
+    facet_grid(habitat_label ~ tools_db  , scales = "free_x", space = "free_x") +
     scale_y_continuous(labels = scales::comma, limits = c(0, lims_abundance_max + 2)) + 
     scale_fill_manual(values = pal_7) +
     scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe')) +
@@ -729,6 +756,10 @@ names(pal_10_q_2) <- tools_levels
 a0 <- df_a0 %>% 
   filter(tool %in% basic_tools) %>% 
   filter(habitat %in% c("human gut")) %>% 
+  ungroup() %>% group_by(habitat) %>%  
+  mutate(N_samples = length(unique(sample))) %>% 
+  ungroup() %>%
+  mutate(habitat_label = paste0(habitat, "\n(n = ", scales::comma(N_samples[1]), ")")) %>%
   ggplot(aes(x = abundance, y = fct_rev(tool), fill = tool, pattern = texture)) +
   geom_boxplot_pattern(coef = 0, position = position_dodge2(preserve = "single", width = 0.5, padding = 0), 
                        width = 1, pattern_color = "black", pattern_fill = pattern_fill, pattern_spacing = 0.03,
@@ -741,7 +772,7 @@ a0 <- df_a0 %>%
                                 gsub("RGI-DIAMOND", "RGI", basic_tools)))) +
   scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe')) +
   geom_hline(yintercept = 0, color = "black", linewidth = 0.5) +
-  facet_grid(gene ~ habitat, scales = "free", space = "free",
+  facet_grid(gene ~ habitat_label, scales = "free", space = "free",
              labeller = labeller(
                gene = as_labeller(function(x) {
                  out <- ifelse(
@@ -918,8 +949,6 @@ ggsave("code_R_analysis/output_plots/fig3.svg", p4, width = 120, height = 140, u
 #########
 
 
-
-
 theme5 <- theme(
   legend.position = "none",
   legend.text = element_text(size = general_size ),
@@ -958,22 +987,26 @@ d1 <- recall_fnr %>%
   mutate(tools_labels_ref = factor(tools_labels[tool_ref], levels = tools_labels_factor))
 
 
+d1 <- d1 %>% 
+  filter(tool_ref %in% basic_tools, tool_comp %in% basic_tools) %>%
+  mutate(new_level = gsub(" beta-lactamase","", new_level)) %>%
+  mutate(new_level = gsub("MFS efflux pump","MFS efflux", new_level)) %>%
+  mutate(new_level = gsub("efflux pump","efflux", new_level)) %>% 
+  group_by(tool_ref,tools_labels_ref, new_level) %>% mutate(n_obs = n()) %>% 
+  mutate(n_obs = paste0('n = ',n_obs))
+ 
+  
 
-
-cs11 <- ggplot(d1 %>% 
-                 filter(tool_ref %in% basic_tools, tool_comp %in% basic_tools) %>%
-                 #filter(tool_ref %in% c("DeepARG","fARGene", "RGI-DIAMOND")) %>% 
-                 filter(new_level %in% top_cso) %>%
-                 mutate(new_level = gsub(" beta-lactamase","", new_level)) %>%
-                 mutate(new_level = gsub("MFS efflux pump","MFS efflux", new_level)) %>%
-                 mutate(new_level = gsub("efflux pump","efflux", new_level)), 
-               aes(x = recall*100, y = 0)) + 
+cs11 <- d1 %>% 
+  filter(new_level %in% top_cso) %>% 
+  ggplot(aes(x = recall*100, y = 0)) + 
   geom_boxplot_pattern(aes(fill = tool_ref, pattern = texture2),
                        position = position_dodge2(preserve = "single", width = 0.3, padding = 0), 
                        width = 1.3, pattern_color = "black", pattern_fill = "black", pattern_density = 0.000000001,
                        pattern_spacing = 0.2,
                        pattern_size =  0.3, color = "black", outliers = FALSE, outlier.shape = NA, linewidth = 0.15) +
   scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe')) +
+  geom_text(aes(x = 50, y = 0.9, label = n_obs), size = general_size / .pt) + 
   facet_grid(new_level ~ tools_labels_ref, scales = "free_y", space = "free",
              labeller = labeller(
                new_level = as_labeller(function(x) {
@@ -987,14 +1020,13 @@ cs11 <- ggplot(d1 %>%
                }, default = label_parsed)
              )) +
   scale_fill_manual(values = pal_10_q)  + 
-  #scale_y_discrete(drop = FALSE) +
   xlab("Class-specific coverage (%)") +
   ylab("ARG class") + 
   theme_minimal() +
   theme5 +
   theme( panel.grid = element_blank(),
          strip.text.x = element_text(size = general_size, vjust = 0, hjust = 0.5 , angle = 0),
-         strip.text.y = element_text(size = general_size, vjust = 0, hjust = 0, angle = 0),
+         strip.text.y = element_text(size = general_size, vjust = 0.5, hjust = 0, angle = 0),
          panel.spacing = unit(5, "pt")) +
   scale_y_discrete(labels = function(x) {
     out <- ifelse(
@@ -1395,6 +1427,7 @@ for(j in 1:length(EN)){
     ungroup() %>% summarise(max(w2)) %>% pull()
   
   rich_plots[[j]] <- lims_richness %>%
+    mutate(habitat_label = paste0(habitat, "\n(n = ", scales::comma(df_plot$N[1]), ")")) %>%
     filter(habitat %in% EN[j]) %>%
     filter(tool %in% basic_tools) %>% 
     ggplot(aes(x = tools_labels, y=median, fill = tools_db))  + 
@@ -1408,7 +1441,7 @@ for(j in 1:length(EN)){
                   slice_sample(n = min(100, df_jitter$N[1])), 
                 aes(y = abundance),
                 width = 0.35, size = 0.4, alpha = 0.1) + 
-    facet_grid(habitat ~ tools_db , scales = "free_x", space = "free_x") +
+    facet_grid(habitat_label ~ tools_db , scales = "free_x", space = "free_x") +
     scale_y_continuous(labels = scales::comma, limits = c(0, lims_richness_max + 2)) + 
     scale_fill_manual(values = pal_7) +
     scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe')) +
@@ -1447,36 +1480,6 @@ sup_rich_right <-
   patchwork::plot_layout(heights = c(1, 1, 1, 1, 1))
 
 
-# sup_rich_top <- 
-#   ((rich_plots[[1]] + theme(axis.text.x = element_blank(), strip.text.x = element_blank()) + xlab("") + ylab("")) |
-#      (patchwork::plot_spacer()) |
-#         (patchwork::plot_spacer())) +
-#   patchwork::plot_layout(widths = c(1, 1, 1))
-# 
-# sup_rich_sec <- 
-#   ((rich_plots[[2]] + theme(axis.text.x = element_blank(), strip.text.x = element_blank()) + xlab("") + ylab("")) |
-#      (rich_plots[[6]] + theme(axis.text.x = element_blank(), strip.text.x = element_blank()) + xlab("") + ylab("")) |
-#      (rich_plots[[10]] + theme(axis.text.x = element_blank(), strip.text.x = element_blank()) + xlab("") + ylab(""))) +
-#   patchwork::plot_layout(widths = c(1, 1, 1))
-# 
-# 
-# sup_rich_third <- 
-#   ((rich_plots[[3]] + theme(axis.text.x = element_blank(), strip.text.x = element_blank()) + xlab("") + ylab("")) |
-#      (rich_plots[[7]] + theme(axis.text.x = element_blank(), strip.text.x = element_blank()) + xlab("") + ylab("")) |
-#      (rich_plots[[11]] + theme(axis.text.x = element_blank(), strip.text.x = element_blank()) + xlab("") + ylab(""))) +
-#   patchwork::plot_layout(widths = c(1, 1, 1))
-# 
-# sup_rich_fourth <- 
-#   ((rich_plots[[4]] + theme(axis.text.x = element_blank(), strip.text.x = element_blank()) + xlab("") + ylab("")) |
-#      (rich_plots[[8]] + theme(axis.text.x = element_blank(), strip.text.x = element_blank()) + xlab("") + ylab("")) |
-#      (rich_plots[[12]] + theme(axis.text.x = element_blank(), strip.text.x = element_blank()) + xlab("") + ylab(""))) +
-#   patchwork::plot_layout(widths = c(1, 1, 1))
-# 
-# sup_rich_bottom <- 
-#   ((rich_plots[[5]] + theme(axis.text.x = element_blank(), strip.text.x = element_blank()) + xlab("") + ylab("")) |
-#      (rich_plots[[9]] + theme(axis.text.x = element_blank(), strip.text.x = element_blank()) + xlab("") + ylab("")) |
-#      (rich_plots[[13]] + theme(axis.text.x = element_blank(), strip.text.x = element_blank()) + xlab("") + ylab(""))) +
-#   patchwork::plot_layout(widths = c(1, 1, 1))
 
 sup_rich <- sup_rich_left | sup_rich_mid | sup_rich_right 
 
@@ -1544,10 +1547,12 @@ for( j in 1:length(EN)){
       w1 = ifelse(quantile(abundance, 0.25) - 1.5*IQR(abundance)<0,0,
                   quantile(abundance, 0.25) - 1.5*IQR(abundance)),
       w2 = ifelse(quantile(abundance, 0.75) + 1.5*IQR(abundance)<0,0,
-                  quantile(abundance, 0.75) + 1.5*IQR(abundance))) 
+                  quantile(abundance, 0.75) + 1.5*IQR(abundance)),
+      n = n_distinct(sample)) 
   
   abu_class_plots[[j]] <- df_class_summary_plots[[j]] %>% 
     filter(tool %in% basic_tools) %>% 
+    mutate(habitat_label = paste0(habitat, "\n(n = ", scales::comma(n[1]), ")")) %>%
     ggplot(aes(y = fct_rev(tool), fill = tool, pattern = texture)) +
     geom_boxplot_pattern( 
       aes(xmin = q25, xlower = q25, xmiddle = q50, xupper = q75, xmax = q75, pattern = texture),
@@ -1562,7 +1567,7 @@ for( j in 1:length(EN)){
                              gsub("AMRFinderPlus", "AMRFinder-\nPlus", 
                                   gsub("RGI-DIAMOND", "RGI", basic_tools)))) +
     scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe')) +
-    facet_grid(gene ~ habitat, scales = "free", space = "free",
+    facet_grid(gene ~ habitat_label, scales = "free", space = "free",
                labeller = labeller(
                  gene = as_labeller(function(x) {
                    out <- ifelse(
@@ -1581,7 +1586,7 @@ for( j in 1:length(EN)){
     ggtitle("") +
     geom_hline(yintercept = 0, color = "black", linewidth = 0.5) +
     theme1 + 
-    theme(#strip.text.y = element_blank(),
+    theme(strip.text.y = element_text(size = general_size, vjust = 0.5, hjust = 0, angle = -90),
           legend.position = "none",
           panel.grid.major.y = element_blank(),
           panel.grid.minor.y = element_blank(),
@@ -1598,8 +1603,8 @@ for( j in 1:length(EN)){
 
 
 
-sup_class_1 <- (((abu_class_plots[[1]] +  xlab("")) |
-(abu_class_plots[[2]] +  xlab("") + ylab("")) |
+sup_class_1 <- #(((abu_class_plots[[1]] +  xlab("")) |
+(((abu_class_plots[[2]] +  xlab("") + ylab("")) |
 (abu_class_plots[[3]] +   ylab("")) |  
 (abu_class_plots[[4]] +  xlab("") + ylab("")) |  
 (abu_class_plots[[5]] +  xlab("") + ylab(""))) / 
@@ -1642,28 +1647,25 @@ sup_class_3 <- (((abu_class_plots[[10]] +  xlab("")) |
 
 
 ggsave("code_R_analysis/output_plots/sup_abundance_class_human.svg", sup_class_1, width = 180, height = 200, unit = "mm")
-ggsave("code_R_analysis/output_plots/sup_abundance_class_other_animal.svg", sup_class_2, width = 200, height = 180, unit = "mm")
-ggsave("code_R_analysis/output_plots/sup_abundance_class_external_env.svg", sup_class_3, width = 200, height = 180, unit = "mm")
+ggsave("code_R_analysis/output_plots/sup_abundance_class_other_animal.svg", sup_class_2, width = 180, height = 200, unit = "mm")
+ggsave("code_R_analysis/output_plots/sup_abundance_class_external_env.svg", sup_class_3, width = 180, height = 200, unit = "mm")
 
 
 
 
 d2 <- d1 %>% mutate(texture = unigenes$texture[match(tool_ref, unigenes$tool)])
 
-cs11_sup <- ggplot(d1 %>% 
-                             filter(tool_ref %in% basic_tools, tool_comp %in% basic_tools) %>%
-                             #filter(tool_ref %in% c("DeepARG","fARGene", "RGI-DIAMOND")) %>% 
-                             filter(!new_level %in% top_cso) %>%
-                             mutate(new_level = gsub(" beta-lactamase","", new_level)) %>%
-                             mutate(new_level = gsub("MFS efflux pump","MFS efflux", new_level)) %>%
-                             mutate(new_level = gsub("efflux pump","efflux", new_level)), 
-                           aes(x = recall*100, y = 0)) + 
+cs11_sup <- d1 %>% 
+  filter(!new_level %in% top_cso) %>%
+  filter(!new_level %in% c("efflux", "class A", "class B", "class C", "class D")) %>%
+  ggplot(aes(x = recall*100, y = 0)) + 
   geom_boxplot_pattern(aes(fill = tool_ref, pattern = texture2),
                        position = position_dodge2(preserve = "single", width = 0.3, padding = 0), 
                        width = 1.3, pattern_color = "black", pattern_fill = "black", pattern_density = 0.000000001,
                        pattern_spacing = 0.2,
                        pattern_size =  0.3, color = "black", outliers = FALSE, outlier.shape = NA, linewidth = 0.15) +
   scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe')) +
+  geom_text(aes(x = 50, y = 0.8, label = n_obs), size = general_size / .pt) + 
   facet_grid(new_level ~ tools_labels_ref, scales = "free_y", space = "free",
              labeller = labeller(
                new_level = as_labeller(function(x) {

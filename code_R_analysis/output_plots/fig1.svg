@@ -4,7 +4,7 @@
    height="510.24pt"
    viewBox="0 0 510.24 510.24"
    version="1.1"
-   id="svg583"
+   id="svg587"
    sodipodi:docname="fig1.svg"
    inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -13,9 +13,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs583" />
+     id="defs587" />
   <sodipodi:namedview
-     id="namedview583"
+     id="namedview587"
      pagecolor="#ffffff"
      bordercolor="#000000"
      borderopacity="0.25"
@@ -24,18 +24,18 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="pt"
-     inkscape:zoom="0.76733921"
-     inkscape:cx="576.01644"
-     inkscape:cy="336.87839"
-     inkscape:window-width="2064"
-     inkscape:window-height="776"
-     inkscape:window-x="1600"
-     inkscape:window-y="382"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="g583" />
+     inkscape:zoom="0.98400602"
+     inkscape:cx="273.37231"
+     inkscape:cy="355.18075"
+     inkscape:window-width="1472"
+     inkscape:window-height="890"
+     inkscape:window-x="0"
+     inkscape:window-y="38"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g587" />
   <g
      class="svglite"
-     id="g583">
+     id="g587">
     <defs
        id="defs1">
       <style
@@ -186,7 +186,7 @@
     <g
        clip-path="url(#cpOTYuMTd8MTEzLjc3fDM0LjE4fDExOC4zNg==)"
        id="g21"
-       transform="translate(-12)">
+       transform="translate(-22.5)">
       <polyline
          points="96.17,96.91 113.77,96.91 "
          style="stroke:#ebebeb;stroke-width:1.07;stroke-linecap:butt"
@@ -236,7 +236,7 @@
     <g
        clip-path="url(#cpMTEzLjc3fDEzMS4zN3wzNC4xOHwxMTguMzY=)"
        id="g26"
-       transform="translate(-12)">
+       transform="translate(-22.5)">
       <polyline
          points="113.77,96.91 131.37,96.91 "
          style="stroke:#ebebeb;stroke-width:1.07;stroke-linecap:butt"
@@ -286,7 +286,7 @@
     <g
        clip-path="url(#cpMTMxLjM3fDE0OC45N3wzNC4xOHwxMTguMzY=)"
        id="g31"
-       transform="translate(-12)">
+       transform="translate(-22.5)">
       <polyline
          points="131.37,96.91 148.97,96.91 "
          style="stroke:#ebebeb;stroke-width:1.07;stroke-linecap:butt"
@@ -336,7 +336,7 @@
     <g
        clip-path="url(#cpMTQ4Ljk3fDE2Ni41N3wzNC4xOHwxMTguMzY=)"
        id="g36"
-       transform="translate(-12)">
+       transform="translate(-22.5)">
       <polyline
          points="148.97,96.91 166.57,96.91 "
          style="stroke:#ebebeb;stroke-width:1.07;stroke-linecap:butt"
@@ -386,7 +386,7 @@
     <g
        clip-path="url(#cpMTY2LjU3fDE5OC44M3wzNC4xOHwxMTguMzY=)"
        id="g50"
-       transform="translate(-12)">
+       transform="translate(-22.5)">
       <polyline
          points="166.57,96.91 198.83,96.91 "
          style="stroke:#ebebeb;stroke-width:1.07;stroke-linecap:butt"
@@ -418,39 +418,39 @@
          style="fill:#e6ab02;stroke:none;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter"
          id="rect41" />
       <polygon
-         points="195.9,116.89 195.9,117.26 195.44,117.53 194.79,117.53 "
+         points="194.79,117.53 195.9,116.89 195.9,117.26 195.44,117.53 "
          style="fill:#000000;stroke-width:0.26;stroke-linecap:square"
          id="polygon41" />
       <polygon
-         points="195.9,115.03 195.9,115.4 192.21,117.53 191.57,117.53 "
+         points="191.57,117.53 195.9,115.03 195.9,115.4 192.21,117.53 "
          style="fill:#000000;stroke-width:0.26;stroke-linecap:square"
          id="polygon42" />
       <polygon
-         points="195.9,113.17 195.9,113.54 188.99,117.53 188.34,117.53 "
+         points="188.34,117.53 195.9,113.17 195.9,113.54 188.99,117.53 "
          style="fill:#000000;stroke-width:0.26;stroke-linecap:square"
          id="polygon43" />
       <polygon
-         points="195.9,111.3 195.9,111.68 185.76,117.53 185.11,117.53 "
+         points="185.11,117.53 195.9,111.3 195.9,111.68 185.76,117.53 "
          style="fill:#000000;stroke-width:0.26;stroke-linecap:square"
          id="polygon44" />
       <polygon
-         points="195.9,109.44 195.9,109.81 184.17,116.59 184.17,116.21 "
+         points="184.17,116.21 195.9,109.44 195.9,109.81 184.17,116.59 "
          style="fill:#000000;stroke-width:0.26;stroke-linecap:square"
          id="polygon45" />
       <polygon
-         points="195.9,107.95 184.17,114.72 184.17,114.35 195.42,107.85 195.9,107.85 "
+         points="195.42,107.85 195.9,107.85 195.9,107.95 184.17,114.72 184.17,114.35 "
          style="fill:#000000;stroke-width:0.26;stroke-linecap:square"
          id="polygon46" />
       <polygon
-         points="192.19,107.85 192.84,107.85 184.17,112.86 184.17,112.49 "
+         points="184.17,112.49 192.19,107.85 192.84,107.85 184.17,112.86 "
          style="fill:#000000;stroke-width:0.26;stroke-linecap:square"
          id="polygon47" />
       <polygon
-         points="188.97,107.85 189.61,107.85 184.17,111 184.17,110.63 "
+         points="184.17,110.63 188.97,107.85 189.61,107.85 184.17,111 "
          style="fill:#000000;stroke-width:0.26;stroke-linecap:square"
          id="polygon48" />
       <polygon
-         points="185.74,107.85 186.39,107.85 184.17,109.14 184.17,108.76 "
+         points="184.17,108.76 185.74,107.85 186.39,107.85 184.17,109.14 "
          style="fill:#000000;stroke-width:0.26;stroke-linecap:square"
          id="polygon49" />
       <rect
@@ -486,7 +486,7 @@
     <g
        clip-path="url(#cpMTk4LjgzfDIzMS4xMHwzNC4xOHwxMTguMzY=)"
        id="g61"
-       transform="translate(-12)">
+       transform="translate(-22.5)">
       <polyline
          points="198.83,96.91 231.10,96.91 "
          style="stroke:#ebebeb;stroke-width:1.07;stroke-linecap:butt"
@@ -518,27 +518,27 @@
          style="fill:#66a61e;stroke:none;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter"
          id="rect55" />
       <polygon
-         points="228.16,116.89 228.16,117.26 227.7,117.53 227.06,117.53 "
+         points="227.06,117.53 228.16,116.89 228.16,117.26 227.7,117.53 "
          style="fill:#000000;stroke-width:0.26;stroke-linecap:square"
          id="polygon55" />
       <polygon
-         points="228.16,115.03 228.16,115.4 224.48,117.53 223.83,117.53 "
+         points="223.83,117.53 228.16,115.03 228.16,115.4 224.48,117.53 "
          style="fill:#000000;stroke-width:0.26;stroke-linecap:square"
          id="polygon56" />
       <polygon
-         points="226.23,114.28 226.88,114.28 221.25,117.53 220.6,117.53 "
+         points="220.6,117.53 226.23,114.28 226.88,114.28 221.25,117.53 "
          style="fill:#000000;stroke-width:0.26;stroke-linecap:square"
          id="polygon57" />
       <polygon
-         points="223.01,114.28 223.65,114.28 218.02,117.53 217.38,117.53 "
+         points="217.38,117.53 223.01,114.28 223.65,114.28 218.02,117.53 "
          style="fill:#000000;stroke-width:0.26;stroke-linecap:square"
          id="polygon58" />
       <polygon
-         points="219.78,114.28 220.43,114.28 216.43,116.59 216.43,116.21 "
+         points="216.43,116.21 219.78,114.28 220.43,114.28 216.43,116.59 "
          style="fill:#000000;stroke-width:0.26;stroke-linecap:square"
          id="polygon59" />
       <polygon
-         points="216.56,114.28 217.2,114.28 216.43,114.72 216.43,114.35 "
+         points="216.43,114.35 216.56,114.28 217.2,114.28 216.43,114.72 "
          style="fill:#000000;stroke-width:0.26;stroke-linecap:square"
          id="polygon60" />
       <rect
@@ -574,7 +574,7 @@
     <g
        clip-path="url(#cpMjMxLjEwfDI2My4zNnwzNC4xOHwxMTguMzY=)"
        id="g71"
-       transform="translate(-12)">
+       transform="translate(-22.5)">
       <polyline
          points="231.10,96.91 263.36,96.91 "
          style="stroke:#ebebeb;stroke-width:1.07;stroke-linecap:butt"
@@ -606,23 +606,23 @@
          style="fill:#666666;stroke:none;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter"
          id="rect66" />
       <polygon
-         points="260.43,116.89 260.43,117.26 259.97,117.53 259.32,117.53 "
+         points="259.32,117.53 260.43,116.89 260.43,117.26 259.97,117.53 "
          style="fill:#000000;stroke-width:0.26;stroke-linecap:square"
          id="polygon66" />
       <polygon
-         points="259.26,115.71 259.9,115.71 256.74,117.53 256.09,117.53 "
+         points="256.09,117.53 259.26,115.71 259.9,115.71 256.74,117.53 "
          style="fill:#000000;stroke-width:0.26;stroke-linecap:square"
          id="polygon67" />
       <polygon
-         points="256.03,115.71 256.67,115.71 253.51,117.53 252.87,117.53 "
+         points="252.87,117.53 256.03,115.71 256.67,115.71 253.51,117.53 "
          style="fill:#000000;stroke-width:0.26;stroke-linecap:square"
          id="polygon68" />
       <polygon
-         points="252.8,115.71 253.45,115.71 250.29,117.53 249.64,117.53 "
+         points="249.64,117.53 252.8,115.71 253.45,115.71 250.29,117.53 "
          style="fill:#000000;stroke-width:0.26;stroke-linecap:square"
          id="polygon69" />
       <polygon
-         points="249.58,115.71 250.22,115.71 248.7,116.59 248.7,116.21 "
+         points="248.7,116.21 249.58,115.71 250.22,115.71 248.7,116.59 "
          style="fill:#000000;stroke-width:0.26;stroke-linecap:square"
          id="polygon70" />
       <rect
@@ -766,7 +766,7 @@
     <g
        clip-path="url(#cpMTY2LjU3fDE5OC44M3wxOS44NHwzNC4xOA==)"
        id="g81"
-       transform="translate(-12)">
+       transform="translate(-22.5)">
       <text
          x="182.7"
          y="29.790001"
@@ -794,7 +794,7 @@
     <g
        clip-path="url(#cpMTk4LjgzfDIzMS4xMHwxOS44NHwzNC4xOA==)"
        id="g83"
-       transform="translate(-12)">
+       transform="translate(-22.5)">
       <text
          x="214.97"
          y="29.790001"
@@ -822,7 +822,7 @@
     <g
        clip-path="url(#cpMjMxLjEwfDI2My4zNnwxOS44NHwzNC4xOA==)"
        id="g85"
-       transform="translate(-12)">
+       transform="translate(-22.5)">
       <text
          x="247.23"
          y="29.790001"
@@ -833,112 +833,112 @@
          id="text84">ResFinder</text>
     </g>
     <text
-       transform="rotate(-90,109.205,14.085)"
+       transform="rotate(-90,103.955,19.335)"
        text-anchor="end"
        style="font-size:6px;font-family:Arial;fill:#4d4d4d"
        textLength="27.360001"
        lengthAdjust="spacingAndGlyphs"
        id="text85">DeepARG</text>
     <text
-       transform="rotate(-90,118.005,5.285)"
+       transform="rotate(-90,112.755,10.535)"
        text-anchor="end"
        style="font-size:6px;font-family:Arial;fill:#4d4d4d"
        textLength="24.700001"
        lengthAdjust="spacingAndGlyphs"
        id="text86">fARGene</text>
     <text
-       transform="rotate(-90,125.185,-1.895)"
+       transform="rotate(-90,119.935,3.355)"
        text-anchor="end"
        style="font-size:6px;font-family:Arial;fill:#4d4d4d"
        textLength="27.02"
        lengthAdjust="spacingAndGlyphs"
        id="text87">ABRicate-</text>
     <text
-       transform="rotate(-90,128.425,-5.135)"
+       transform="rotate(-90,123.175,0.115)"
        text-anchor="end"
        style="font-size:6px;font-family:Arial;fill:#4d4d4d"
        textLength="34"
        lengthAdjust="spacingAndGlyphs"
        id="text88">ARGANNOT</text>
     <text
-       transform="rotate(-90,133.985,-10.695)"
+       transform="rotate(-90,128.735,-5.445)"
        text-anchor="end"
        style="font-size:6px;font-family:Arial;fill:#4d4d4d"
        textLength="27.02"
        lengthAdjust="spacingAndGlyphs"
        id="text89">ABRicate-</text>
     <text
-       transform="rotate(-90,137.225,-13.935)"
+       transform="rotate(-90,131.975,-8.685)"
        text-anchor="end"
        style="font-size:6px;font-family:Arial;fill:#4d4d4d"
        textLength="28.34"
        lengthAdjust="spacingAndGlyphs"
        id="text90">MEGARes</text>
     <text
-       transform="rotate(-90,144.405,-21.115)"
+       transform="rotate(-90,139.155,-15.865)"
        text-anchor="end"
        style="font-size:6px;font-family:Arial;fill:#4d4d4d"
        textLength="10.67"
        lengthAdjust="spacingAndGlyphs"
        id="text91">RGI</text>
     <text
-       transform="rotate(-90,150.115,-26.825)"
+       transform="rotate(-90,144.865,-21.575)"
        text-anchor="end"
        style="font-size:6px;font-family:Arial;fill:#4d4d4d"
        textLength="27.02"
        lengthAdjust="spacingAndGlyphs"
        id="text92">ABRicate-</text>
     <text
-       transform="rotate(-90,153.355,-30.065)"
+       transform="rotate(-90,148.105,-24.815)"
        text-anchor="end"
        style="font-size:6px;font-family:Arial;fill:#4d4d4d"
        textLength="16.98"
        lengthAdjust="spacingAndGlyphs"
        id="text93">CARD</text>
     <text
-       transform="rotate(-90,158.915,-35.625)"
+       transform="rotate(-90,153.665,-30.375)"
        text-anchor="end"
        style="font-size:6px;font-family:Arial;fill:#4d4d4d"
        textLength="32.360001"
        lengthAdjust="spacingAndGlyphs"
        id="text94">AMRFinder-</text>
     <text
-       transform="rotate(-90,162.155,-38.865)"
+       transform="rotate(-90,156.905,-33.615)"
        text-anchor="end"
        style="font-size:6px;font-family:Arial;fill:#4d4d4d"
        textLength="11.67"
        lengthAdjust="spacingAndGlyphs"
        id="text95">Plus</text>
     <text
-       transform="rotate(-90,166.25,-42.96)"
+       transform="rotate(-90,161,-37.71)"
        text-anchor="end"
        style="font-size:6px;font-family:Arial;fill:#4d4d4d"
        textLength="27.02"
        lengthAdjust="spacingAndGlyphs"
        id="text96">ABRicate-</text>
     <text
-       transform="rotate(-90,169.49,-46.2)"
+       transform="rotate(-90,164.24,-40.95)"
        text-anchor="end"
        style="font-size:6px;font-family:Arial;fill:#4d4d4d"
        textLength="14.33"
        lengthAdjust="spacingAndGlyphs"
        id="text97">NCBI</text>
     <text
-       transform="rotate(-90,176.67,-53.38)"
+       transform="rotate(-90,171.42,-48.13)"
        text-anchor="end"
        style="font-size:6px;font-family:Arial;fill:#4d4d4d"
        textLength="27.700001"
        lengthAdjust="spacingAndGlyphs"
        id="text98">ResFinder</text>
     <text
-       transform="rotate(-90,182.38,-59.09)"
+       transform="rotate(-90,177.13,-53.84)"
        text-anchor="end"
        style="font-size:6px;font-family:Arial;fill:#4d4d4d"
        textLength="27.02"
        lengthAdjust="spacingAndGlyphs"
        id="text99">ABRicate-</text>
     <text
-       transform="rotate(-90,185.62,-62.33)"
+       transform="rotate(-90,180.37,-57.08)"
        text-anchor="end"
        style="font-size:6px;font-family:Arial;fill:#4d4d4d"
        textLength="27.700001"
@@ -952,7 +952,7 @@
        textLength="18.389999"
        lengthAdjust="spacingAndGlyphs"
        id="text101"
-       transform="translate(-12)">25,000</text>
+       transform="translate(-22.5)">25,000</text>
     <text
        x="91.239998"
        y="78.449997"
@@ -961,7 +961,7 @@
        textLength="18.389999"
        lengthAdjust="spacingAndGlyphs"
        id="text102"
-       transform="translate(-12)">50,000</text>
+       transform="translate(-22.5)">50,000</text>
     <text
        x="91.239998"
        y="57.830002"
@@ -970,7 +970,7 @@
        textLength="18.389999"
        lengthAdjust="spacingAndGlyphs"
        id="text103"
-       transform="translate(-12)">75,000</text>
+       transform="translate(-22.5)">75,000</text>
     <text
        x="91.239998"
        y="37.209999"
@@ -979,9 +979,9 @@
        textLength="21.73"
        lengthAdjust="spacingAndGlyphs"
        id="text104"
-       transform="translate(-12)">100,000</text>
+       transform="translate(-22.5)">100,000</text>
     <text
-       transform="rotate(-90,58.505,17.765)"
+       transform="rotate(-90,55.505,20.765)"
        text-anchor="middle"
        style="font-weight:bold;font-size:6px;font-family:Arial"
        textLength="48.139999"
@@ -994,7 +994,7 @@
        textLength="5.3299999"
        lengthAdjust="spacingAndGlyphs"
        id="text106"
-       transform="translate(-79.5)">a</text>
+       transform="translate(-22.5)">a</text>
     <defs
        id="defs106">
       <clipPath
@@ -1010,7 +1010,7 @@
     <g
        clip-path="url(#cpOTYuMTd8MjYzLjM2fDE3OS45NnwyNjQuMTQ=)"
        id="g182"
-       transform="translate(-12)">
+       transform="translate(-22.5)">
       <rect
          x="97.989998"
          y="245.42999"
@@ -1583,258 +1583,244 @@
          lengthAdjust="spacingAndGlyphs"
          id="text182">47%</text>
     </g>
-    <text
-       x="91.239998"
-       y="261.60999"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="10.67"
-       lengthAdjust="spacingAndGlyphs"
-       id="text183"
-       transform="translate(-12)">RGI</text>
-    <text
-       x="91.239998"
-       y="252.25999"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="24.700001"
-       lengthAdjust="spacingAndGlyphs"
-       id="text184"
-       transform="translate(-12)">fARGene</text>
-    <text
-       x="91.239998"
-       y="242.89999"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="42.029999"
-       lengthAdjust="spacingAndGlyphs"
-       id="text185"
-       transform="translate(-12)">AMRFinderPlus</text>
-    <text
-       x="91.239998"
-       y="233.55"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="55.360001"
-       lengthAdjust="spacingAndGlyphs"
-       id="text186"
-       transform="translate(-12)">ABRicate-MEGARes</text>
-    <text
-       x="91.239998"
-       y="224.2"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="44"
-       lengthAdjust="spacingAndGlyphs"
-       id="text187"
-       transform="translate(-12)">ABRicate-CARD</text>
-    <text
-       x="91.239998"
-       y="214.84"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="27.700001"
-       lengthAdjust="spacingAndGlyphs"
-       id="text188"
-       transform="translate(-12)">ResFinder</text>
-    <text
-       x="91.239998"
-       y="205.49001"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="54.720001"
-       lengthAdjust="spacingAndGlyphs"
-       id="text189"
-       transform="translate(-12)">ABRicate-ResFinder</text>
-    <text
-       x="91.239998"
-       y="196.14"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="61.02"
-       lengthAdjust="spacingAndGlyphs"
-       id="text190"
-       transform="translate(-12)">ABRicate-ARGANNOT</text>
-    <text
-       x="91.239998"
-       y="186.78"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="41.34"
-       lengthAdjust="spacingAndGlyphs"
-       id="text191"
-       transform="translate(-12)">ABRicate-NCBI</text>
-    <text
-       transform="rotate(-90,183.15,85.92)"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="27.360001"
-       lengthAdjust="spacingAndGlyphs"
-       id="text192">DeepARG</text>
-    <text
-       transform="rotate(-90,192.235,76.835)"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="10.67"
-       lengthAdjust="spacingAndGlyphs"
-       id="text193">RGI</text>
-    <text
-       transform="rotate(-90,201.32,67.75)"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="24.700001"
-       lengthAdjust="spacingAndGlyphs"
-       id="text194">fARGene</text>
-    <text
-       transform="rotate(-90,208.785,60.285)"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="32.360001"
-       lengthAdjust="spacingAndGlyphs"
-       id="text195">AMRFinder-</text>
-    <text
-       transform="rotate(-90,212.025,57.045)"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="11.67"
-       lengthAdjust="spacingAndGlyphs"
-       id="text196">Plus</text>
-    <text
-       transform="rotate(-90,217.875,51.195)"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="27.02"
-       lengthAdjust="spacingAndGlyphs"
-       id="text197">ABRicate-</text>
-    <text
-       transform="rotate(-90,221.115,47.955)"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="28.34"
-       lengthAdjust="spacingAndGlyphs"
-       id="text198">MEGARes</text>
-    <text
-       transform="rotate(-90,226.96,42.11)"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="27.02"
-       lengthAdjust="spacingAndGlyphs"
-       id="text199">ABRicate-</text>
-    <text
-       transform="rotate(-90,230.2,38.87)"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="16.98"
-       lengthAdjust="spacingAndGlyphs"
-       id="text200">CARD</text>
-    <text
-       transform="rotate(-90,237.665,31.405)"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="27.700001"
-       lengthAdjust="spacingAndGlyphs"
-       id="text201">ResFinder</text>
-    <text
-       transform="rotate(-90,245.13,23.94)"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="27.02"
-       lengthAdjust="spacingAndGlyphs"
-       id="text202">ABRicate-</text>
-    <text
-       transform="rotate(-90,248.37,20.7)"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="27.700001"
-       lengthAdjust="spacingAndGlyphs"
-       id="text203">ResFinder</text>
-    <text
-       transform="rotate(-90,254.22,14.85)"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="27.02"
-       lengthAdjust="spacingAndGlyphs"
-       id="text204">ABRicate-</text>
-    <text
-       transform="rotate(-90,257.46,11.61)"
-       text-anchor="end"
-       style="font-size:6px;font-family:Arial;fill:#4d4d4d"
-       textLength="34"
-       lengthAdjust="spacingAndGlyphs"
-       id="text205">ARGANNOT</text>
-    <image
-       width="49.610001"
-       height="9.9200001"
-       x="145.7"
-       y="314.20999"
-       preserveAspectRatio="none"
-       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAABCAYAAABkOJMpAAAAoElEQVQ4jZ1TSQ7EIAwz/39nvxH3UMIYcOioB5TgDYhEIy8CBECAvYIAYtk7TaGzvvgjK7GYea2suC+e+f50uDtnrEfXsldu0koPox3n1Rg1x2nXFTvWDtzJlzg/6bFUh/UaP80z7qKW2eKPys9+xcSwYVQ9cm+4wnvONBxklJCRoo2+P6fsQ3MG3959LzzzN2oWjB8Lv+gUm/rM2PK89waokw+wDwSsOwAAAABJRU5ErkJggg=="
-       id="image205" />
-    <polyline
-       points="170.11,320.67 170.11,324.13 "
-       style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
-       id="polyline205"
-       transform="translate(-12)" />
-    <polyline
-       points="183.50,320.67 183.50,324.13 "
-       style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
-       id="polyline206"
-       transform="translate(-12)" />
-    <polyline
-       points="196.90,320.67 196.90,324.13 "
-       style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
-       id="polyline207"
-       transform="translate(-12)" />
-    <polyline
-       points="170.11,317.66 170.11,314.21 "
-       style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
-       id="polyline208"
-       transform="translate(-12)" />
-    <polyline
-       points="183.50,317.66 183.50,314.21 "
-       style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
-       id="polyline209"
-       transform="translate(-12)" />
-    <polyline
-       points="196.90,317.66 196.90,314.21 "
-       style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
-       id="polyline210"
-       transform="translate(-12)" />
-    <text
-       x="170.11"
-       y="333.91"
-       text-anchor="middle"
-       style="font-size:6px;font-family:Arial"
-       textLength="12.02"
-       lengthAdjust="spacingAndGlyphs"
-       id="text210"
-       transform="translate(-12)">20%</text>
-    <text
-       x="183.5"
-       y="333.91"
-       text-anchor="middle"
-       style="font-size:6px;font-family:Arial"
-       textLength="12.02"
-       lengthAdjust="spacingAndGlyphs"
-       id="text211"
-       transform="translate(-12)">40%</text>
-    <text
-       x="196.89999"
-       y="333.91"
-       text-anchor="middle"
-       style="font-size:6px;font-family:Arial"
-       textLength="12.02"
-       lengthAdjust="spacingAndGlyphs"
-       id="text212"
-       transform="translate(-12)">60%</text>
-    <text
-       x="96.169998"
-       y="172.46001"
-       style="font-weight:bold;font-size:9.6px;font-family:Arial"
-       textLength="5.3299999"
-       lengthAdjust="spacingAndGlyphs"
-       id="text213"
-       transform="translate(-79.5)">c</text>
+    <g
+       clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
+       id="g213"
+       transform="translate(-22.5)">
+      <text
+         x="91.239998"
+         y="261.60999"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="10.67"
+         lengthAdjust="spacingAndGlyphs"
+         id="text183">RGI</text>
+      <text
+         x="91.239998"
+         y="252.25999"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="24.700001"
+         lengthAdjust="spacingAndGlyphs"
+         id="text184">fARGene</text>
+      <text
+         x="91.239998"
+         y="242.89999"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="42.029999"
+         lengthAdjust="spacingAndGlyphs"
+         id="text185">AMRFinderPlus</text>
+      <text
+         x="91.239998"
+         y="233.55"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="55.360001"
+         lengthAdjust="spacingAndGlyphs"
+         id="text186">ABRicate-MEGARes</text>
+      <text
+         x="91.239998"
+         y="224.2"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="44"
+         lengthAdjust="spacingAndGlyphs"
+         id="text187">ABRicate-CARD</text>
+      <text
+         x="91.239998"
+         y="214.84"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="27.700001"
+         lengthAdjust="spacingAndGlyphs"
+         id="text188">ResFinder</text>
+      <text
+         x="91.239998"
+         y="205.49001"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="54.720001"
+         lengthAdjust="spacingAndGlyphs"
+         id="text189">ABRicate-ResFinder</text>
+      <text
+         x="91.239998"
+         y="196.14"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="61.02"
+         lengthAdjust="spacingAndGlyphs"
+         id="text190">ABRicate-ARGANNOT</text>
+      <text
+         x="91.239998"
+         y="186.78"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="41.34"
+         lengthAdjust="spacingAndGlyphs"
+         id="text191">ABRicate-NCBI</text>
+      <text
+         transform="rotate(-90,189.15,79.92)"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="27.360001"
+         lengthAdjust="spacingAndGlyphs"
+         id="text192">DeepARG</text>
+      <text
+         transform="rotate(-90,198.235,70.835)"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="10.67"
+         lengthAdjust="spacingAndGlyphs"
+         id="text193">RGI</text>
+      <text
+         transform="rotate(-90,207.32,61.75)"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="24.700001"
+         lengthAdjust="spacingAndGlyphs"
+         id="text194">fARGene</text>
+      <text
+         transform="rotate(-90,214.785,54.285)"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="32.360001"
+         lengthAdjust="spacingAndGlyphs"
+         id="text195">AMRFinder-</text>
+      <text
+         transform="rotate(-90,218.025,51.045)"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="11.67"
+         lengthAdjust="spacingAndGlyphs"
+         id="text196">Plus</text>
+      <text
+         transform="rotate(-90,223.875,45.195)"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="27.02"
+         lengthAdjust="spacingAndGlyphs"
+         id="text197">ABRicate-</text>
+      <text
+         transform="rotate(-90,227.115,41.955)"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="28.34"
+         lengthAdjust="spacingAndGlyphs"
+         id="text198">MEGARes</text>
+      <text
+         transform="rotate(-90,232.96,36.11)"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="27.02"
+         lengthAdjust="spacingAndGlyphs"
+         id="text199">ABRicate-</text>
+      <text
+         transform="rotate(-90,236.2,32.87)"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="16.98"
+         lengthAdjust="spacingAndGlyphs"
+         id="text200">CARD</text>
+      <text
+         transform="rotate(-90,243.665,25.405)"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="27.700001"
+         lengthAdjust="spacingAndGlyphs"
+         id="text201">ResFinder</text>
+      <text
+         transform="rotate(-90,251.13,17.94)"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="27.02"
+         lengthAdjust="spacingAndGlyphs"
+         id="text202">ABRicate-</text>
+      <text
+         transform="rotate(-90,254.37,14.7)"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="27.700001"
+         lengthAdjust="spacingAndGlyphs"
+         id="text203">ResFinder</text>
+      <text
+         transform="rotate(-90,260.22,8.85)"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="27.02"
+         lengthAdjust="spacingAndGlyphs"
+         id="text204">ABRicate-</text>
+      <text
+         transform="rotate(-90,263.46,5.61)"
+         text-anchor="end"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="34"
+         lengthAdjust="spacingAndGlyphs"
+         id="text205">ARGANNOT</text>
+      <image
+         width="49.610001"
+         height="9.9200001"
+         x="157.7"
+         y="314.20999"
+         preserveAspectRatio="none"
+         xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAABCAYAAABkOJMpAAAAoElEQVQ4jZ1TSQ7EIAwz/39nvxH3UMIYcOioB5TgDYhEIy8CBECAvYIAYtk7TaGzvvgjK7GYea2suC+e+f50uDtnrEfXsldu0koPox3n1Rg1x2nXFTvWDtzJlzg/6bFUh/UaP80z7qKW2eKPys9+xcSwYVQ9cm+4wnvONBxklJCRoo2+P6fsQ3MG3959LzzzN2oWjB8Lv+gUm/rM2PK89waokw+wDwSsOwAAAABJRU5ErkJggg=="
+         id="image205" />
+      <polyline
+         points="170.11,320.67 170.11,324.13 "
+         style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
+         id="polyline205" />
+      <polyline
+         points="183.50,320.67 183.50,324.13 "
+         style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
+         id="polyline206" />
+      <polyline
+         points="196.90,320.67 196.90,324.13 "
+         style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
+         id="polyline207" />
+      <polyline
+         points="170.11,317.66 170.11,314.21 "
+         style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
+         id="polyline208" />
+      <polyline
+         points="183.50,317.66 183.50,314.21 "
+         style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
+         id="polyline209" />
+      <polyline
+         points="196.90,317.66 196.90,314.21 "
+         style="stroke:#ffffff;stroke-width:0.38;stroke-linecap:butt"
+         id="polyline210" />
+      <text
+         x="170.11"
+         y="333.91"
+         text-anchor="middle"
+         style="font-size:6px;font-family:Arial"
+         textLength="12.02"
+         lengthAdjust="spacingAndGlyphs"
+         id="text210">20%</text>
+      <text
+         x="183.5"
+         y="333.91"
+         text-anchor="middle"
+         style="font-size:6px;font-family:Arial"
+         textLength="12.02"
+         lengthAdjust="spacingAndGlyphs"
+         id="text211">40%</text>
+      <text
+         x="196.89999"
+         y="333.91"
+         text-anchor="middle"
+         style="font-size:6px;font-family:Arial"
+         textLength="12.02"
+         lengthAdjust="spacingAndGlyphs"
+         id="text212">60%</text>
+      <text
+         x="96.169998"
+         y="172.46001"
+         style="font-weight:bold;font-size:9.6px;font-family:Arial"
+         textLength="5.3299999"
+         lengthAdjust="spacingAndGlyphs"
+         id="text213">c</text>
+    </g>
     <defs
        id="defs213">
       <clipPath
@@ -1850,7 +1836,7 @@
     <g
        clip-path="url(#cpOTYuMTd8MjYzLjM2fDM0OS41NHw0MzMuNzI=)"
        id="g230"
-       transform="translate(-12)">
+       transform="translate(-22.5)">
       <polyline
          points="117.69,433.72 117.69,349.54 "
          style="stroke:#ebebeb;stroke-width:0.53;stroke-linecap:butt"
@@ -1932,7 +1918,7 @@
        textLength="11.7"
        lengthAdjust="spacingAndGlyphs"
        id="text230"
-       transform="translate(-12)">0.00</text>
+       transform="translate(-22.5)">0.00</text>
     <text
        x="91.239998"
        y="414.01001"
@@ -1941,7 +1927,7 @@
        textLength="11.7"
        lengthAdjust="spacingAndGlyphs"
        id="text231"
-       transform="translate(-12)">0.25</text>
+       transform="translate(-22.5)">0.25</text>
     <text
        x="91.239998"
        y="393.78"
@@ -1950,7 +1936,7 @@
        textLength="11.7"
        lengthAdjust="spacingAndGlyphs"
        id="text232"
-       transform="translate(-12)">0.50</text>
+       transform="translate(-22.5)">0.50</text>
     <text
        x="91.239998"
        y="373.54001"
@@ -1959,7 +1945,7 @@
        textLength="11.7"
        lengthAdjust="spacingAndGlyphs"
        id="text233"
-       transform="translate(-12)">0.75</text>
+       transform="translate(-22.5)">0.75</text>
     <text
        x="91.239998"
        y="353.31"
@@ -1968,37 +1954,37 @@
        textLength="11.7"
        lengthAdjust="spacingAndGlyphs"
        id="text234"
-       transform="translate(-12)">1.00</text>
+       transform="translate(-22.5)">1.00</text>
     <text
-       transform="rotate(-90,262.9,175.75)"
+       transform="rotate(-90,257.65,181)"
        text-anchor="end"
        style="font-size:6px;font-family:Arial;fill:#4d4d4d"
        textLength="3.3399999"
        lengthAdjust="spacingAndGlyphs"
        id="text235">0</text>
     <text
-       transform="rotate(-90,283.59,155.06)"
+       transform="rotate(-90,278.34,160.31)"
        text-anchor="end"
        style="font-size:6px;font-family:Arial;fill:#4d4d4d"
        textLength="6.6900001"
        lengthAdjust="spacingAndGlyphs"
        id="text236">25</text>
     <text
-       transform="rotate(-90,304.285,134.365)"
+       transform="rotate(-90,299.035,139.615)"
        text-anchor="end"
        style="font-size:6px;font-family:Arial;fill:#4d4d4d"
        textLength="6.6900001"
        lengthAdjust="spacingAndGlyphs"
        id="text237">50</text>
     <text
-       transform="rotate(-90,324.975,113.675)"
+       transform="rotate(-90,319.725,118.925)"
        text-anchor="end"
        style="font-size:6px;font-family:Arial;fill:#4d4d4d"
        textLength="6.6900001"
        lengthAdjust="spacingAndGlyphs"
        id="text238">75</text>
     <text
-       transform="rotate(-90,345.665,92.985)"
+       transform="rotate(-90,340.415,98.235)"
        text-anchor="end"
        style="font-size:6px;font-family:Arial;fill:#4d4d4d"
        textLength="10.03"
@@ -2012,107 +1998,139 @@
        textLength="28.379999"
        lengthAdjust="spacingAndGlyphs"
        id="text240"
-       transform="translate(-12,-10.5)">% Identity</text>
+       transform="translate(-22.5)">% Identity</text>
     <text
-       transform="rotate(-90,216.185,175.445)"
+       transform="rotate(-90,213.185,178.445)"
        text-anchor="middle"
        style="font-weight:bold;font-size:6px;font-family:Arial"
        textLength="62.75"
        lengthAdjust="spacingAndGlyphs"
        id="text241">Empirical Cumulative </text>
     <text
-       transform="rotate(-90,219.425,172.205)"
+       transform="rotate(-90,216.425,175.205)"
        text-anchor="middle"
        style="font-weight:bold;font-size:6px;font-family:Arial"
        textLength="60.75"
        lengthAdjust="spacingAndGlyphs"
        id="text242">Distribution Function</text>
     <line
-       x1="83.43"
-       y1="483.76999"
-       x2="91.370003"
-       y2="483.76999"
+       x1="55.260002"
+       y1="494.26999"
+       x2="63.199997"
+       y2="494.26999"
        style="stroke:#1b9e77;stroke-width:2.13;stroke-linecap:butt"
        id="line242" />
     <line
-       x1="131.67"
-       y1="483.76999"
-       x2="139.61"
-       y2="483.76999"
+       x1="112.06"
+       y1="494.26999"
+       x2="120"
+       y2="494.26999"
        style="stroke:#e6ab02;stroke-width:2.13;stroke-linecap:butt"
        id="line243" />
     <line
-       x1="163.22"
-       y1="483.76999"
-       x2="171.16"
-       y2="483.76999"
+       x1="165.52"
+       y1="494.26999"
+       x2="173.46001"
+       y2="494.26999"
        style="stroke:#7570b3;stroke-width:2.13;stroke-linecap:butt"
        id="line244" />
     <line
-       x1="211.81"
-       y1="483.76999"
-       x2="219.74001"
-       y2="483.76999"
+       x1="218.98"
+       y1="494.26999"
+       x2="226.92"
+       y2="494.26999"
        style="stroke:#66a61e;stroke-width:2.13;stroke-linecap:butt"
        id="line245" />
     <text
-       x="109.84"
-       y="496.42001"
+       x="92.169998"
+       y="493.17999"
        style="font-size:6px;font-family:Arial"
        textLength="27.360001"
        lengthAdjust="spacingAndGlyphs"
        id="text245"
-       transform="translate(-12,-10.5)">DeepARG</text>
+       transform="translate(-22.5)">DeepARG</text>
     <text
-       x="158.08"
-       y="496.42001"
+       x="92.169998"
+       y="499.66"
+       style="font-size:6px;font-family:Arial"
+       textLength="35.919998"
+       lengthAdjust="spacingAndGlyphs"
+       id="text246"
+       transform="translate(-22.5)">(n = 100,075)</text>
+    <text
+       x="148.97"
+       y="493.17999"
        style="font-size:6px;font-family:Arial"
        textLength="10.67"
        lengthAdjust="spacingAndGlyphs"
-       id="text246"
-       transform="translate(-12,-10.5)">RGI</text>
+       id="text247"
+       transform="translate(-22.5)">RGI</text>
     <text
-       x="189.63"
-       y="493.17999"
+       x="148.97"
+       y="499.66"
+       style="font-size:6px;font-family:Arial"
+       textLength="32.580002"
+       lengthAdjust="spacingAndGlyphs"
+       id="text248"
+       transform="translate(-22.5)">(n = 65,937)</text>
+    <text
+       x="202.42999"
+       y="489.94"
        style="font-size:6px;font-family:Arial"
        textLength="26.690001"
        lengthAdjust="spacingAndGlyphs"
-       id="text247"
-       transform="translate(-12,-10.5)">ABRicate/</text>
+       id="text249"
+       transform="translate(-22.5)">ABRicate/</text>
     <text
-       x="189.63"
-       y="499.66"
+       x="202.42999"
+       y="496.42001"
        style="font-size:6px;font-family:Arial"
        textLength="27.700001"
        lengthAdjust="spacingAndGlyphs"
-       id="text248"
-       transform="translate(-12,-10.5)">ResFinder</text>
+       id="text250"
+       transform="translate(-22.5)">ResFinder</text>
     <text
-       x="238.22"
-       y="493.17999"
+       x="202.42999"
+       y="502.89999"
+       style="font-size:6px;font-family:Arial"
+       textLength="32.580002"
+       lengthAdjust="spacingAndGlyphs"
+       id="text251"
+       transform="translate(-22.5)">(n = 15,458)</text>
+    <text
+       x="255.89"
+       y="489.94"
        style="font-size:6px;font-family:Arial"
        textLength="32.360001"
        lengthAdjust="spacingAndGlyphs"
-       id="text249"
-       transform="translate(-12,-10.5)">AMRFinder-</text>
+       id="text252"
+       transform="translate(-22.5)">AMRFinder-</text>
     <text
-       x="238.22"
-       y="499.66"
+       x="255.89"
+       y="496.42001"
        style="font-size:6px;font-family:Arial"
        textLength="24.030001"
        lengthAdjust="spacingAndGlyphs"
-       id="text250"
-       transform="translate(-12,-10.5)">Plus (aa)</text>
+       id="text253"
+       transform="translate(-22.5)">Plus (aa)</text>
+    <text
+       x="255.89"
+       y="502.89999"
+       style="font-size:6px;font-family:Arial"
+       textLength="29.23"
+       lengthAdjust="spacingAndGlyphs"
+       id="text254"
+       transform="translate(-22.5)">(n = 3,141)</text>
     <text
        x="96.169998"
        y="342.04001"
        style="font-weight:bold;font-size:9.6px;font-family:Arial"
        textLength="5.8600001"
        lengthAdjust="spacingAndGlyphs"
-       id="text251"
-       transform="translate(-79.5)">d</text>
+       id="text255"
+       transform="translate(-22.5)">d</text>
     <defs
-       id="defs251">
+       id="defs255">
       <clipPath
          id="cpMzM3LjU3fDM1NS4xN3wzNC4xOHw0MzMuNzI=">
         <rect
@@ -2120,159 +2138,159 @@
            y="34.18"
            width="17.60"
            height="399.54"
-           id="rect251" />
+           id="rect255" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpMzM3LjU3fDM1NS4xN3wzNC4xOHw0MzMuNzI=)"
-       id="g276">
+       id="g280">
       <rect
          x="339.04"
          y="149.14"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEDE;"
-         id="rect252" />
+         id="rect256" />
       <rect
          x="339.04"
          y="412.99"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEDF;"
-         id="rect253" />
+         id="rect257" />
       <rect
          x="339.04"
          y="394.14"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEDE;"
-         id="rect254" />
+         id="rect258" />
       <rect
          x="339.04"
          y="375.30"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
-         id="rect255" />
+         id="rect259" />
       <rect
          x="339.04"
          y="356.45"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE2;"
-         id="rect256" />
+         id="rect260" />
       <rect
          x="339.04"
          y="337.60"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
-         id="rect257" />
+         id="rect261" />
       <rect
          x="339.04"
          y="318.76"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE2;"
-         id="rect258" />
+         id="rect262" />
       <rect
          x="339.04"
          y="299.91"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFEEA8;"
-         id="rect259" />
+         id="rect263" />
       <rect
          x="339.04"
          y="281.06"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE2;"
-         id="rect260" />
+         id="rect264" />
       <rect
          x="339.04"
          y="262.22"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
-         id="rect261" />
+         id="rect265" />
       <rect
          x="339.04"
          y="243.37"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
-         id="rect262" />
+         id="rect266" />
       <rect
          x="339.04"
          y="224.52"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
-         id="rect263" />
+         id="rect267" />
       <rect
          x="339.04"
          y="205.68"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #C24703;"
-         id="rect264" />
+         id="rect268" />
       <rect
          x="339.04"
          y="186.83"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
-         id="rect265" />
+         id="rect269" />
       <rect
          x="339.04"
          y="167.99"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE3;"
-         id="rect266" />
+         id="rect270" />
       <rect
          x="339.04"
          y="130.29"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFDDB;"
-         id="rect267" />
+         id="rect271" />
       <rect
          x="339.04"
          y="111.45"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF8C1;"
-         id="rect268" />
+         id="rect272" />
       <rect
          x="339.04"
          y="92.60"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE0;"
-         id="rect269" />
+         id="rect273" />
       <rect
          x="339.04"
          y="73.75"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFBD3;"
-         id="rect270" />
+         id="rect274" />
       <rect
          x="339.04"
          y="54.91"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE5;"
-         id="rect271" />
+         id="rect275" />
       <rect
          x="339.04"
          y="36.06"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFECA5;"
-         id="rect272" />
+         id="rect276" />
       <text
          x="346.37"
          y="311.48"
@@ -2280,7 +2298,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="11.58px"
          lengthAdjust="spacingAndGlyphs"
-         id="text272">11%</text>
+         id="text276">11%</text>
       <text
          x="346.37"
          y="217.25"
@@ -2288,7 +2306,7 @@
          style="font-size: 6.00px;fill: #FFFFFF; font-family: &quot;Arial&quot;;"
          textLength="12.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text273">49%</text>
+         id="text277">49%</text>
       <text
          x="346.37"
          y="123.02"
@@ -2296,7 +2314,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text274">7%</text>
+         id="text278">7%</text>
       <text
          x="346.37"
          y="85.33"
@@ -2304,7 +2322,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text275">3%</text>
+         id="text279">3%</text>
       <text
          x="346.37"
          y="47.63"
@@ -2312,13 +2330,13 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="12.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text276">12%</text>
+         id="text280">12%</text>
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
-       id="g277" />
+       id="g281" />
     <defs
-       id="defs277">
+       id="defs281">
       <clipPath
          id="cpMzU1LjE3fDM3Mi43N3wzNC4xOHw0MzMuNzI=">
         <rect
@@ -2326,75 +2344,75 @@
            y="34.18"
            width="17.60"
            height="399.54"
-           id="rect277" />
+           id="rect281" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpMzU1LjE3fDM3Mi43N3wzNC4xOHw0MzMuNzI=)"
-       id="g293">
+       id="g297">
       <rect
          x="356.64"
          y="412.99"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFD26E;"
-         id="rect278" />
+         id="rect282" />
       <rect
          x="356.64"
          y="356.45"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FEE494;"
-         id="rect279" />
+         id="rect283" />
       <rect
          x="356.64"
          y="281.06"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFCB60;"
-         id="rect280" />
+         id="rect284" />
       <rect
          x="356.64"
          y="262.22"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFCB5F;"
-         id="rect281" />
+         id="rect285" />
       <rect
          x="356.64"
          y="243.37"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFACD;"
-         id="rect282" />
+         id="rect286" />
       <rect
          x="356.64"
          y="224.52"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFACC;"
-         id="rect283" />
+         id="rect287" />
       <rect
          x="356.64"
          y="205.68"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEDE;"
-         id="rect284" />
+         id="rect288" />
       <rect
          x="356.64"
          y="186.83"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFBD0;"
-         id="rect285" />
+         id="rect289" />
       <rect
          x="356.64"
          y="54.91"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFBD0;"
-         id="rect286" />
+         id="rect290" />
       <text
          x="363.97"
          y="424.56"
@@ -2402,7 +2420,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="12.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text286">20%</text>
+         id="text290">20%</text>
       <text
          x="363.97"
          y="368.02"
@@ -2410,7 +2428,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="12.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text287">15%</text>
+         id="text291">15%</text>
       <text
          x="363.97"
          y="292.64"
@@ -2418,7 +2436,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="12.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text288">22%</text>
+         id="text292">22%</text>
       <text
          x="363.97"
          y="273.79"
@@ -2426,7 +2444,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="12.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text289">22%</text>
+         id="text293">22%</text>
       <text
          x="363.97"
          y="254.94"
@@ -2434,7 +2452,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text290">5%</text>
+         id="text294">5%</text>
       <text
          x="363.97"
          y="236.10"
@@ -2442,7 +2460,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text291">5%</text>
+         id="text295">5%</text>
       <text
          x="363.97"
          y="198.40"
@@ -2450,7 +2468,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text292">4%</text>
+         id="text296">4%</text>
       <text
          x="363.97"
          y="66.48"
@@ -2458,13 +2476,13 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text293">4%</text>
+         id="text297">4%</text>
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
-       id="g294" />
+       id="g298" />
     <defs
-       id="defs294">
+       id="defs298">
       <clipPath
          id="cpMzcyLjc3fDM5MC4zN3wzNC4xOHw0MzMuNzI=">
         <rect
@@ -2472,145 +2490,145 @@
            y="34.18"
            width="17.60"
            height="399.54"
-           id="rect294" />
+           id="rect298" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpMzcyLjc3fDM5MC4zN3wzNC4xOHw0MzMuNzI=)"
-       id="g324">
+       id="g328">
       <rect
          x="374.23"
          y="149.14"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF9C7;"
-         id="rect295" />
+         id="rect299" />
       <rect
          x="374.23"
          y="412.99"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFBD2;"
-         id="rect296" />
+         id="rect300" />
       <rect
          x="374.23"
          y="394.14"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFBD0;"
-         id="rect297" />
+         id="rect301" />
       <rect
          x="374.23"
          y="375.30"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFCD5;"
-         id="rect298" />
+         id="rect302" />
       <rect
          x="374.23"
          y="356.45"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFBD0;"
-         id="rect299" />
+         id="rect303" />
       <rect
          x="374.23"
          y="337.60"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE3;"
-         id="rect300" />
+         id="rect304" />
       <rect
          x="374.23"
          y="318.76"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFBCF;"
-         id="rect301" />
+         id="rect305" />
       <rect
          x="374.23"
          y="299.91"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE3;"
-         id="rect302" />
+         id="rect306" />
       <rect
          x="374.23"
          y="281.06"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF9C7;"
-         id="rect303" />
+         id="rect307" />
       <rect
          x="374.23"
          y="262.22"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF7BB;"
-         id="rect304" />
+         id="rect308" />
       <rect
          x="374.23"
          y="243.37"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF9C6;"
-         id="rect305" />
+         id="rect309" />
       <rect
          x="374.23"
          y="224.52"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFBD2;"
-         id="rect306" />
+         id="rect310" />
       <rect
          x="374.23"
          y="205.68"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFD778;"
-         id="rect307" />
+         id="rect311" />
       <rect
          x="374.23"
          y="186.83"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFCD4;"
-         id="rect308" />
+         id="rect312" />
       <rect
          x="374.23"
          y="167.99"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFDDA;"
-         id="rect309" />
+         id="rect313" />
       <rect
          x="374.23"
          y="130.29"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFCD8;"
-         id="rect310" />
+         id="rect314" />
       <rect
          x="374.23"
          y="73.75"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE2;"
-         id="rect311" />
+         id="rect315" />
       <rect
          x="374.23"
          y="54.91"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFDD9;"
-         id="rect312" />
+         id="rect316" />
       <rect
          x="374.23"
          y="36.06"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFECA5;"
-         id="rect313" />
+         id="rect317" />
       <text
          x="381.57"
          y="160.71"
@@ -2618,7 +2636,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text313">6%</text>
+         id="text317">6%</text>
       <text
          x="381.57"
          y="424.56"
@@ -2626,7 +2644,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text314">4%</text>
+         id="text318">4%</text>
       <text
          x="381.57"
          y="405.71"
@@ -2634,7 +2652,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text315">4%</text>
+         id="text319">4%</text>
       <text
          x="381.57"
          y="368.02"
@@ -2642,42 +2660,10 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text316">4%</text>
+         id="text320">4%</text>
       <text
          x="381.57"
          y="330.33"
-         text-anchor="middle"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="8.67px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text317">4%</text>
-      <text
-         x="381.57"
-         y="292.64"
-         text-anchor="middle"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="8.67px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text318">6%</text>
-      <text
-         x="381.57"
-         y="273.79"
-         text-anchor="middle"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="8.67px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text319">8%</text>
-      <text
-         x="381.57"
-         y="254.94"
-         text-anchor="middle"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="8.67px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text320">6%</text>
-      <text
-         x="381.57"
-         y="236.10"
          text-anchor="middle"
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
@@ -2685,12 +2671,44 @@
          id="text321">4%</text>
       <text
          x="381.57"
+         y="292.64"
+         text-anchor="middle"
+         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
+         textLength="8.67px"
+         lengthAdjust="spacingAndGlyphs"
+         id="text322">6%</text>
+      <text
+         x="381.57"
+         y="273.79"
+         text-anchor="middle"
+         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
+         textLength="8.67px"
+         lengthAdjust="spacingAndGlyphs"
+         id="text323">8%</text>
+      <text
+         x="381.57"
+         y="254.94"
+         text-anchor="middle"
+         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
+         textLength="8.67px"
+         lengthAdjust="spacingAndGlyphs"
+         id="text324">6%</text>
+      <text
+         x="381.57"
+         y="236.10"
+         text-anchor="middle"
+         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
+         textLength="8.67px"
+         lengthAdjust="spacingAndGlyphs"
+         id="text325">4%</text>
+      <text
+         x="381.57"
          y="217.25"
          text-anchor="middle"
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="12.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text322">19%</text>
+         id="text326">19%</text>
       <text
          x="381.57"
          y="198.40"
@@ -2698,7 +2716,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text323">3%</text>
+         id="text327">3%</text>
       <text
          x="381.57"
          y="47.63"
@@ -2706,13 +2724,13 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="12.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text324">12%</text>
+         id="text328">12%</text>
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
-       id="g325" />
+       id="g329" />
     <defs
-       id="defs325">
+       id="defs329">
       <clipPath
          id="cpMzkwLjM3fDQwNy45NnwzNC4xOHw0MzMuNzI=">
         <rect
@@ -2720,152 +2738,152 @@
            y="34.18"
            width="17.60"
            height="399.54"
-           id="rect325" />
+           id="rect329" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpMzkwLjM3fDQwNy45NnwzNC4xOHw0MzMuNzI=)"
-       id="g347">
+       id="g351">
       <rect
          x="391.83"
          y="149.14"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE0;"
-         id="rect326" />
+         id="rect330" />
       <rect
          x="391.83"
          y="412.99"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE0;"
-         id="rect327" />
+         id="rect331" />
       <rect
          x="391.83"
          y="394.14"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEDF;"
-         id="rect328" />
+         id="rect332" />
       <rect
          x="391.83"
          y="375.30"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE2;"
-         id="rect329" />
+         id="rect333" />
       <rect
          x="391.83"
          y="356.45"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE0;"
-         id="rect330" />
+         id="rect334" />
       <rect
          x="391.83"
          y="337.60"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
-         id="rect331" />
+         id="rect335" />
       <rect
          x="391.83"
          y="318.76"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE0;"
-         id="rect332" />
+         id="rect336" />
       <rect
          x="391.83"
          y="299.91"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE1;"
-         id="rect333" />
+         id="rect337" />
       <rect
          x="391.83"
          y="281.06"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFDD9;"
-         id="rect334" />
+         id="rect338" />
       <rect
          x="391.83"
          y="262.22"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFDDB;"
-         id="rect335" />
+         id="rect339" />
       <rect
          x="391.83"
          y="243.37"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFDDD;"
-         id="rect336" />
+         id="rect340" />
       <rect
          x="391.83"
          y="224.52"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE0;"
-         id="rect337" />
+         id="rect341" />
       <rect
          x="391.83"
          y="205.68"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #662506;"
-         id="rect338" />
+         id="rect342" />
       <rect
          x="391.83"
          y="186.83"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE1;"
-         id="rect339" />
+         id="rect343" />
       <rect
          x="391.83"
          y="167.99"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE2;"
-         id="rect340" />
+         id="rect344" />
       <rect
          x="391.83"
          y="130.29"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFDDD;"
-         id="rect341" />
+         id="rect345" />
       <rect
          x="391.83"
          y="92.60"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF9C7;"
-         id="rect342" />
+         id="rect346" />
       <rect
          x="391.83"
          y="73.75"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE1;"
-         id="rect343" />
+         id="rect347" />
       <rect
          x="391.83"
          y="54.91"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE1;"
-         id="rect344" />
+         id="rect348" />
       <rect
          x="391.83"
          y="36.06"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF8C1;"
-         id="rect345" />
+         id="rect349" />
       <text
          x="399.17"
          y="217.25"
@@ -2873,7 +2891,7 @@
          style="font-size: 6.00px;fill: #FFFFFF; font-family: &quot;Arial&quot;;"
          textLength="12.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text345">63%</text>
+         id="text349">63%</text>
       <text
          x="399.17"
          y="104.17"
@@ -2881,7 +2899,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text346">6%</text>
+         id="text350">6%</text>
       <text
          x="399.17"
          y="47.63"
@@ -2889,13 +2907,13 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text347">7%</text>
+         id="text351">7%</text>
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
-       id="g348" />
+       id="g352" />
     <defs
-       id="defs348">
+       id="defs352">
       <clipPath
          id="cpNDA3Ljk2fDQ0MC4yM3wzNC4xOHw0MzMuNzI=">
         <rect
@@ -2903,306 +2921,306 @@
            y="34.18"
            width="32.26"
            height="399.54"
-           id="rect348" />
+           id="rect352" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpNDA3Ljk2fDQ0MC4yM3wzNC4xOHw0MzMuNzI=)"
-       id="g394">
+       id="g398">
       <rect
          x="409.43"
          y="149.14"
-         width="14.67"
-         height="18.85"
-         style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE5;"
-         id="rect349" />
-      <rect
-         x="409.43"
-         y="412.99"
-         width="14.67"
-         height="18.85"
-         style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
-         id="rect350" />
-      <rect
-         x="409.43"
-         y="394.14"
-         width="14.67"
-         height="18.85"
-         style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE3;"
-         id="rect351" />
-      <rect
-         x="409.43"
-         y="375.30"
-         width="14.67"
-         height="18.85"
-         style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
-         id="rect352" />
-      <rect
-         x="409.43"
-         y="356.45"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE5;"
          id="rect353" />
       <rect
          x="409.43"
+         y="412.99"
+         width="14.67"
+         height="18.85"
+         style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
+         id="rect354" />
+      <rect
+         x="409.43"
+         y="394.14"
+         width="14.67"
+         height="18.85"
+         style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE3;"
+         id="rect355" />
+      <rect
+         x="409.43"
+         y="375.30"
+         width="14.67"
+         height="18.85"
+         style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
+         id="rect356" />
+      <rect
+         x="409.43"
+         y="356.45"
+         width="14.67"
+         height="18.85"
+         style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE5;"
+         id="rect357" />
+      <rect
+         x="409.43"
          y="337.60"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE5;"
-         id="rect354" />
+         id="rect358" />
       <rect
          x="409.43"
          y="318.76"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
-         id="rect355" />
+         id="rect359" />
       <rect
          x="409.43"
          y="299.91"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE1;"
-         id="rect356" />
+         id="rect360" />
       <rect
          x="409.43"
          y="281.06"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
-         id="rect357" />
-      <rect
-         x="409.43"
-         y="262.22"
-         width="14.67"
-         height="18.85"
-         style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
-         id="rect358" />
-      <rect
-         x="409.43"
-         y="243.37"
-         width="14.67"
-         height="18.85"
-         style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE3;"
-         id="rect359" />
-      <rect
-         x="409.43"
-         y="224.52"
-         width="14.67"
-         height="18.85"
-         style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
-         id="rect360" />
-      <rect
-         x="409.43"
-         y="205.68"
-         width="14.67"
-         height="18.85"
-         style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFAE3C;"
          id="rect361" />
       <rect
          x="409.43"
-         y="186.83"
+         y="262.22"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
          id="rect362" />
       <rect
          x="409.43"
+         y="243.37"
+         width="14.67"
+         height="18.85"
+         style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE3;"
+         id="rect363" />
+      <rect
+         x="409.43"
+         y="224.52"
+         width="14.67"
+         height="18.85"
+         style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
+         id="rect364" />
+      <rect
+         x="409.43"
+         y="205.68"
+         width="14.67"
+         height="18.85"
+         style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFAE3C;"
+         id="rect365" />
+      <rect
+         x="409.43"
+         y="186.83"
+         width="14.67"
+         height="18.85"
+         style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
+         id="rect366" />
+      <rect
+         x="409.43"
          y="167.99"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE0;"
-         id="rect363" />
+         id="rect367" />
       <rect
          x="409.43"
          y="130.29"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE0;"
-         id="rect364" />
+         id="rect368" />
       <rect
          x="409.43"
          y="111.45"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
-         id="rect365" />
+         id="rect369" />
       <rect
          x="409.43"
          y="92.60"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE5;"
-         id="rect366" />
+         id="rect370" />
       <rect
          x="409.43"
          y="73.75"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
-         id="rect367" />
+         id="rect371" />
       <rect
          x="409.43"
          y="54.91"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFDDA;"
-         id="rect368" />
+         id="rect372" />
       <rect
          x="409.43"
          y="36.06"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #682606;"
-         id="rect369" />
+         id="rect373" />
       <rect
          x="424.10"
          y="149.14"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE5;"
-         id="rect370" />
+         id="rect374" />
       <rect
          x="424.10"
          y="412.99"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEDF;"
-         id="rect371" />
+         id="rect375" />
       <rect
          x="424.10"
          y="394.14"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEDF;"
-         id="rect372" />
+         id="rect376" />
       <rect
          x="424.10"
          y="375.30"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE2;"
-         id="rect373" />
+         id="rect377" />
       <rect
          x="424.10"
          y="356.45"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE1;"
-         id="rect374" />
+         id="rect378" />
       <rect
          x="424.10"
          y="337.60"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE5;"
-         id="rect375" />
+         id="rect379" />
       <rect
          x="424.10"
          y="318.76"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEDF;"
-         id="rect376" />
+         id="rect380" />
       <rect
          x="424.10"
          y="299.91"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE0;"
-         id="rect377" />
+         id="rect381" />
       <rect
          x="424.10"
          y="281.06"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEDE;"
-         id="rect378" />
+         id="rect382" />
       <rect
          x="424.10"
          y="262.22"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFDDD;"
-         id="rect379" />
+         id="rect383" />
       <rect
          x="424.10"
          y="243.37"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEDF;"
-         id="rect380" />
+         id="rect384" />
       <rect
          x="424.10"
          y="224.52"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEDE;"
-         id="rect381" />
+         id="rect385" />
       <rect
          x="424.10"
          y="205.68"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #782A06;"
-         id="rect382" />
+         id="rect386" />
       <rect
          x="424.10"
          y="186.83"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE0;"
-         id="rect383" />
+         id="rect387" />
       <rect
          x="424.10"
          y="167.99"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE2;"
-         id="rect384" />
+         id="rect388" />
       <rect
          x="424.10"
          y="130.29"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEDF;"
-         id="rect385" />
+         id="rect389" />
       <rect
          x="424.10"
          y="111.45"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFCD8;"
-         id="rect386" />
+         id="rect390" />
       <rect
          x="424.10"
          y="92.60"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF8C2;"
-         id="rect387" />
+         id="rect391" />
       <rect
          x="424.10"
          y="73.75"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE3;"
-         id="rect388" />
+         id="rect392" />
       <rect
          x="424.10"
          y="54.91"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE2;"
-         id="rect389" />
+         id="rect393" />
       <rect
          x="424.10"
          y="36.06"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF7BE;"
-         id="rect390" />
+         id="rect394" />
       <text
          x="416.76"
          y="217.25"
@@ -3210,7 +3228,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="12.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text390">28%</text>
+         id="text394">28%</text>
       <text
          x="416.76"
          y="47.63"
@@ -3218,7 +3236,7 @@
          style="font-size: 6.00px;fill: #FFFFFF; font-family: &quot;Arial&quot;;"
          textLength="12.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text391">62%</text>
+         id="text395">62%</text>
       <text
          x="431.43"
          y="217.25"
@@ -3226,7 +3244,7 @@
          style="font-size: 6.00px;fill: #FFFFFF; font-family: &quot;Arial&quot;;"
          textLength="12.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text392">60%</text>
+         id="text396">60%</text>
       <text
          x="431.43"
          y="104.17"
@@ -3234,7 +3252,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text393">7%</text>
+         id="text397">7%</text>
       <text
          x="431.43"
          y="47.63"
@@ -3242,13 +3260,13 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text394">8%</text>
+         id="text398">8%</text>
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
-       id="g395" />
+       id="g399" />
     <defs
-       id="defs395">
+       id="defs399">
       <clipPath
          id="cpNDQwLjIzfDQ3Mi40OXwzNC4xOHw0MzMuNzI=">
         <rect
@@ -3256,278 +3274,278 @@
            y="34.18"
            width="32.26"
            height="399.54"
-           id="rect395" />
+           id="rect399" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpNDQwLjIzfDQ3Mi40OXwzNC4xOHw0MzMuNzI=)"
-       id="g454">
+       id="g458">
       <rect
          x="441.70"
          y="149.14"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE5;"
-         id="rect396" />
+         id="rect400" />
       <rect
          x="441.70"
          y="412.99"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF8C2;"
-         id="rect397" />
+         id="rect401" />
       <rect
          x="441.70"
          y="394.14"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFCD6;"
-         id="rect398" />
+         id="rect402" />
       <rect
          x="441.70"
          y="375.30"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEDE;"
-         id="rect399" />
+         id="rect403" />
       <rect
          x="441.70"
          y="356.45"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFCD4;"
-         id="rect400" />
+         id="rect404" />
       <rect
          x="441.70"
          y="337.60"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFCD4;"
-         id="rect401" />
+         id="rect405" />
       <rect
          x="441.70"
          y="318.76"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFCD3;"
-         id="rect402" />
+         id="rect406" />
       <rect
          x="441.70"
          y="299.91"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
-         id="rect403" />
+         id="rect407" />
       <rect
          x="441.70"
          y="281.06"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FEE595;"
-         id="rect404" />
+         id="rect408" />
       <rect
          x="441.70"
          y="262.22"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF6BA;"
-         id="rect405" />
+         id="rect409" />
       <rect
          x="441.70"
          y="243.37"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFACD;"
-         id="rect406" />
+         id="rect410" />
       <rect
          x="441.70"
          y="224.52"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFACE;"
-         id="rect407" />
+         id="rect411" />
       <rect
          x="441.70"
          y="205.68"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF9C7;"
-         id="rect408" />
+         id="rect412" />
       <rect
          x="441.70"
          y="186.83"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFDD9;"
-         id="rect409" />
+         id="rect413" />
       <rect
          x="441.70"
          y="167.99"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFCD7;"
-         id="rect410" />
+         id="rect414" />
       <rect
          x="441.70"
          y="130.29"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF2B2;"
-         id="rect411" />
+         id="rect415" />
       <rect
          x="441.70"
          y="73.75"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE3;"
-         id="rect412" />
+         id="rect416" />
       <rect
          x="441.70"
          y="54.91"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEDF;"
-         id="rect413" />
+         id="rect417" />
       <rect
          x="441.70"
          y="36.06"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFD97C;"
-         id="rect414" />
+         id="rect418" />
       <rect
          x="456.36"
          y="149.14"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE4;"
-         id="rect415" />
+         id="rect419" />
       <rect
          x="456.36"
          y="412.99"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFBD2;"
-         id="rect416" />
+         id="rect420" />
       <rect
          x="456.36"
          y="394.14"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFBD1;"
-         id="rect417" />
+         id="rect421" />
       <rect
          x="456.36"
          y="375.30"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFDD9;"
-         id="rect418" />
+         id="rect422" />
       <rect
          x="456.36"
          y="356.45"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFCD5;"
-         id="rect419" />
+         id="rect423" />
       <rect
          x="456.36"
          y="337.60"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE3;"
-         id="rect420" />
+         id="rect424" />
       <rect
          x="456.36"
          y="318.76"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFCD4;"
-         id="rect421" />
+         id="rect425" />
       <rect
          x="456.36"
          y="299.91"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE3;"
-         id="rect422" />
+         id="rect426" />
       <rect
          x="456.36"
          y="281.06"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF9C6;"
-         id="rect423" />
+         id="rect427" />
       <rect
          x="456.36"
          y="262.22"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFAC9;"
-         id="rect424" />
+         id="rect428" />
       <rect
          x="456.36"
          y="243.37"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFCD4;"
-         id="rect425" />
+         id="rect429" />
       <rect
          x="456.36"
          y="224.52"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFBD2;"
-         id="rect426" />
+         id="rect430" />
       <rect
          x="456.36"
          y="205.68"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFEAA0;"
-         id="rect427" />
+         id="rect431" />
       <rect
          x="456.36"
          y="186.83"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFCD6;"
-         id="rect428" />
+         id="rect432" />
       <rect
          x="456.36"
          y="167.99"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFCD8;"
-         id="rect429" />
+         id="rect433" />
       <rect
          x="456.36"
          y="130.29"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFAC9;"
-         id="rect430" />
+         id="rect434" />
       <rect
          x="456.36"
          y="73.75"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEDF;"
-         id="rect431" />
+         id="rect435" />
       <rect
          x="456.36"
          y="54.91"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFDD9;"
-         id="rect432" />
+         id="rect436" />
       <rect
          x="456.36"
          y="36.06"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFAC3A;"
-         id="rect433" />
+         id="rect437" />
       <text
          x="449.03"
          y="424.56"
@@ -3535,7 +3553,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text433">7%</text>
+         id="text437">7%</text>
       <text
          x="449.03"
          y="368.02"
@@ -3543,7 +3561,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text434">3%</text>
+         id="text438">3%</text>
       <text
          x="449.03"
          y="349.17"
@@ -3551,7 +3569,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text435">3%</text>
+         id="text439">3%</text>
       <text
          x="449.03"
          y="330.33"
@@ -3559,7 +3577,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text436">3%</text>
+         id="text440">3%</text>
       <text
          x="449.03"
          y="292.64"
@@ -3567,7 +3585,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="12.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text437">15%</text>
+         id="text441">15%</text>
       <text
          x="449.03"
          y="273.79"
@@ -3575,7 +3593,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text438">8%</text>
+         id="text442">8%</text>
       <text
          x="449.03"
          y="254.94"
@@ -3583,7 +3601,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text439">5%</text>
+         id="text443">5%</text>
       <text
          x="449.03"
          y="236.10"
@@ -3591,7 +3609,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text440">4%</text>
+         id="text444">4%</text>
       <text
          x="449.03"
          y="217.25"
@@ -3599,7 +3617,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text441">6%</text>
+         id="text445">6%</text>
       <text
          x="449.03"
          y="141.87"
@@ -3607,7 +3625,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="12.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text442">10%</text>
+         id="text446">10%</text>
       <text
          x="449.03"
          y="47.63"
@@ -3615,7 +3633,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="12.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text443">18%</text>
+         id="text447">18%</text>
       <text
          x="463.69"
          y="424.56"
@@ -3623,7 +3641,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text444">4%</text>
+         id="text448">4%</text>
       <text
          x="463.69"
          y="405.71"
@@ -3631,42 +3649,10 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text445">4%</text>
+         id="text449">4%</text>
       <text
          x="463.69"
          y="368.02"
-         text-anchor="middle"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="8.67px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text446">3%</text>
-      <text
-         x="463.69"
-         y="330.33"
-         text-anchor="middle"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="8.67px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text447">3%</text>
-      <text
-         x="463.69"
-         y="292.64"
-         text-anchor="middle"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="8.67px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text448">6%</text>
-      <text
-         x="463.69"
-         y="273.79"
-         text-anchor="middle"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="8.67px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text449">5%</text>
-      <text
-         x="463.69"
-         y="254.94"
          text-anchor="middle"
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
@@ -3674,23 +3660,23 @@
          id="text450">3%</text>
       <text
          x="463.69"
-         y="236.10"
+         y="330.33"
          text-anchor="middle"
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text451">4%</text>
+         id="text451">3%</text>
       <text
          x="463.69"
-         y="217.25"
+         y="292.64"
          text-anchor="middle"
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="12.02px"
+         textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text452">13%</text>
+         id="text452">6%</text>
       <text
          x="463.69"
-         y="141.87"
+         y="273.79"
          text-anchor="middle"
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
@@ -3698,18 +3684,50 @@
          id="text453">5%</text>
       <text
          x="463.69"
+         y="254.94"
+         text-anchor="middle"
+         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
+         textLength="8.67px"
+         lengthAdjust="spacingAndGlyphs"
+         id="text454">3%</text>
+      <text
+         x="463.69"
+         y="236.10"
+         text-anchor="middle"
+         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
+         textLength="8.67px"
+         lengthAdjust="spacingAndGlyphs"
+         id="text455">4%</text>
+      <text
+         x="463.69"
+         y="217.25"
+         text-anchor="middle"
+         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
+         textLength="12.02px"
+         lengthAdjust="spacingAndGlyphs"
+         id="text456">13%</text>
+      <text
+         x="463.69"
+         y="141.87"
+         text-anchor="middle"
+         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
+         textLength="8.67px"
+         lengthAdjust="spacingAndGlyphs"
+         id="text457">5%</text>
+      <text
+         x="463.69"
          y="47.63"
          text-anchor="middle"
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="12.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text454">28%</text>
+         id="text458">28%</text>
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
-       id="g455" />
+       id="g459" />
     <defs
-       id="defs455">
+       id="defs459">
       <clipPath
          id="cpNDcyLjQ5fDUwNC43NnwzNC4xOHw0MzMuNzI=">
         <rect
@@ -3717,257 +3735,257 @@
            y="34.18"
            width="32.26"
            height="399.54"
-           id="rect455" />
+           id="rect459" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpNDcyLjQ5fDUwNC43NnwzNC4xOHw0MzMuNzI=)"
-       id="g514">
+       id="g518">
       <rect
          x="473.96"
          y="149.14"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEDF;"
-         id="rect456" />
+         id="rect460" />
       <rect
          x="473.96"
          y="412.99"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFBD1;"
-         id="rect457" />
+         id="rect461" />
       <rect
          x="473.96"
          y="394.14"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF8C2;"
-         id="rect458" />
+         id="rect462" />
       <rect
          x="473.96"
          y="375.30"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFCD5;"
-         id="rect459" />
+         id="rect463" />
       <rect
          x="473.96"
          y="356.45"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFBCE;"
-         id="rect460" />
+         id="rect464" />
       <rect
          x="473.96"
          y="318.76"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF9C8;"
-         id="rect461" />
+         id="rect465" />
       <rect
          x="473.96"
          y="299.91"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE3;"
-         id="rect462" />
+         id="rect466" />
       <rect
          x="473.96"
          y="281.06"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF8C1;"
-         id="rect463" />
+         id="rect467" />
       <rect
          x="473.96"
          y="262.22"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFBD1;"
-         id="rect464" />
+         id="rect468" />
       <rect
          x="473.96"
          y="243.37"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFBD0;"
-         id="rect465" />
+         id="rect469" />
       <rect
          x="473.96"
          y="224.52"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFACB;"
-         id="rect466" />
+         id="rect470" />
       <rect
          x="473.96"
          y="205.68"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FE9C2B;"
-         id="rect467" />
+         id="rect471" />
       <rect
          x="473.96"
          y="186.83"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFACA;"
-         id="rect468" />
+         id="rect472" />
       <rect
          x="473.96"
          y="167.99"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFBD2;"
-         id="rect469" />
+         id="rect473" />
       <rect
          x="473.96"
          y="130.29"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE5;"
-         id="rect470" />
+         id="rect474" />
       <rect
          x="473.96"
          y="73.75"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEDF;"
-         id="rect471" />
+         id="rect475" />
       <rect
          x="473.96"
          y="54.91"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFACB;"
-         id="rect472" />
+         id="rect476" />
       <rect
          x="473.96"
          y="36.06"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE3;"
-         id="rect473" />
+         id="rect477" />
       <rect
          x="488.62"
          y="149.14"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEDF;"
-         id="rect474" />
+         id="rect478" />
       <rect
          x="488.62"
          y="412.99"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF9C7;"
-         id="rect475" />
+         id="rect479" />
       <rect
          x="488.62"
          y="394.14"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF8C3;"
-         id="rect476" />
+         id="rect480" />
       <rect
          x="488.62"
          y="375.30"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFCD6;"
-         id="rect477" />
+         id="rect481" />
       <rect
          x="488.62"
          y="356.45"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFBD0;"
-         id="rect478" />
+         id="rect482" />
       <rect
          x="488.62"
          y="318.76"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF9C6;"
-         id="rect479" />
+         id="rect483" />
       <rect
          x="488.62"
          y="299.91"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE2;"
-         id="rect480" />
+         id="rect484" />
       <rect
          x="488.62"
          y="281.06"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF8C2;"
-         id="rect481" />
+         id="rect485" />
       <rect
          x="488.62"
          y="262.22"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFBD0;"
-         id="rect482" />
+         id="rect486" />
       <rect
          x="488.62"
          y="243.37"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFBCE;"
-         id="rect483" />
+         id="rect487" />
       <rect
          x="488.62"
          y="224.52"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFF9C7;"
-         id="rect484" />
+         id="rect488" />
       <rect
          x="488.62"
          y="205.68"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFAB39;"
-         id="rect485" />
+         id="rect489" />
       <rect
          x="488.62"
          y="186.83"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFACC;"
-         id="rect486" />
+         id="rect490" />
       <rect
          x="488.62"
          y="167.99"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFBD1;"
-         id="rect487" />
+         id="rect491" />
       <rect
          x="488.62"
          y="130.29"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFE5;"
-         id="rect488" />
+         id="rect492" />
       <rect
          x="488.62"
          y="73.75"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFEE0;"
-         id="rect489" />
+         id="rect493" />
       <rect
          x="488.62"
          y="54.91"
          width="14.67"
          height="18.85"
          style="stroke-width: 0.43; stroke: #BEBEBE; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFBCF;"
-         id="rect490" />
+         id="rect494" />
       <text
          x="481.29"
          y="424.56"
@@ -3975,42 +3993,10 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text490">4%</text>
+         id="text494">4%</text>
       <text
          x="481.29"
          y="405.71"
-         text-anchor="middle"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="8.67px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text491">7%</text>
-      <text
-         x="481.29"
-         y="386.87"
-         text-anchor="middle"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="8.67px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text492">3%</text>
-      <text
-         x="481.29"
-         y="368.02"
-         text-anchor="middle"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="8.67px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text493">4%</text>
-      <text
-         x="481.29"
-         y="330.33"
-         text-anchor="middle"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="8.67px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text494">5%</text>
-      <text
-         x="481.29"
-         y="292.64"
          text-anchor="middle"
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
@@ -4018,15 +4004,15 @@
          id="text495">7%</text>
       <text
          x="481.29"
-         y="273.79"
+         y="386.87"
          text-anchor="middle"
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text496">4%</text>
+         id="text496">3%</text>
       <text
          x="481.29"
-         y="254.94"
+         y="368.02"
          text-anchor="middle"
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
@@ -4034,7 +4020,7 @@
          id="text497">4%</text>
       <text
          x="481.29"
-         y="236.10"
+         y="330.33"
          text-anchor="middle"
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
@@ -4042,23 +4028,23 @@
          id="text498">5%</text>
       <text
          x="481.29"
-         y="217.25"
-         text-anchor="middle"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="12.02px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text499">31%</text>
-      <text
-         x="481.29"
-         y="198.40"
+         y="292.64"
          text-anchor="middle"
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text500">5%</text>
+         id="text499">7%</text>
       <text
          x="481.29"
-         y="179.56"
+         y="273.79"
+         text-anchor="middle"
+         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
+         textLength="8.67px"
+         lengthAdjust="spacingAndGlyphs"
+         id="text500">4%</text>
+      <text
+         x="481.29"
+         y="254.94"
          text-anchor="middle"
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
@@ -4066,12 +4052,44 @@
          id="text501">4%</text>
       <text
          x="481.29"
-         y="66.48"
+         y="236.10"
          text-anchor="middle"
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
          id="text502">5%</text>
+      <text
+         x="481.29"
+         y="217.25"
+         text-anchor="middle"
+         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
+         textLength="12.02px"
+         lengthAdjust="spacingAndGlyphs"
+         id="text503">31%</text>
+      <text
+         x="481.29"
+         y="198.40"
+         text-anchor="middle"
+         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
+         textLength="8.67px"
+         lengthAdjust="spacingAndGlyphs"
+         id="text504">5%</text>
+      <text
+         x="481.29"
+         y="179.56"
+         text-anchor="middle"
+         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
+         textLength="8.67px"
+         lengthAdjust="spacingAndGlyphs"
+         id="text505">4%</text>
+      <text
+         x="481.29"
+         y="66.48"
+         text-anchor="middle"
+         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
+         textLength="8.67px"
+         lengthAdjust="spacingAndGlyphs"
+         id="text506">5%</text>
       <text
          x="495.96"
          y="424.56"
@@ -4079,7 +4097,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text503">6%</text>
+         id="text507">6%</text>
       <text
          x="495.96"
          y="405.71"
@@ -4087,7 +4105,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text504">7%</text>
+         id="text508">7%</text>
       <text
          x="495.96"
          y="368.02"
@@ -4095,7 +4113,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text505">4%</text>
+         id="text509">4%</text>
       <text
          x="495.96"
          y="330.33"
@@ -4103,7 +4121,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text506">6%</text>
+         id="text510">6%</text>
       <text
          x="495.96"
          y="292.64"
@@ -4111,7 +4129,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text507">7%</text>
+         id="text511">7%</text>
       <text
          x="495.96"
          y="273.79"
@@ -4119,7 +4137,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text508">4%</text>
+         id="text512">4%</text>
       <text
          x="495.96"
          y="254.94"
@@ -4127,7 +4145,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text509">4%</text>
+         id="text513">4%</text>
       <text
          x="495.96"
          y="236.10"
@@ -4135,7 +4153,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text510">6%</text>
+         id="text514">6%</text>
       <text
          x="495.96"
          y="217.25"
@@ -4143,7 +4161,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="12.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text511">28%</text>
+         id="text515">28%</text>
       <text
          x="495.96"
          y="198.40"
@@ -4151,7 +4169,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text512">5%</text>
+         id="text516">5%</text>
       <text
          x="495.96"
          y="179.56"
@@ -4159,7 +4177,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text513">4%</text>
+         id="text517">4%</text>
       <text
          x="495.96"
          y="66.48"
@@ -4167,61 +4185,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text514">4%</text>
-    </g>
-    <g
-       clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
-       id="g515" />
-    <defs
-       id="defs515">
-      <clipPath
-         id="cpMzM3LjU3fDM1NS4xN3wxOS44NHwzNC4xOA==">
-        <rect
-           x="337.57"
-           y="19.84"
-           width="17.60"
-           height="14.33"
-           id="rect515" />
-      </clipPath>
-    </defs>
-    <g
-       clip-path="url(#cpMzM3LjU3fDM1NS4xN3wxOS44NHwzNC4xOA==)"
-       id="g516">
-      <text
-         x="346.37"
-         y="29.79"
-         text-anchor="middle"
-         style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
-         textLength="1.67px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text515" />
-    </g>
-    <g
-       clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
-       id="g517" />
-    <defs
-       id="defs517">
-      <clipPath
-         id="cpMzU1LjE3fDM3Mi43N3wxOS44NHwzNC4xOA==">
-        <rect
-           x="355.17"
-           y="19.84"
-           width="17.60"
-           height="14.33"
-           id="rect517" />
-      </clipPath>
-    </defs>
-    <g
-       clip-path="url(#cpMzU1LjE3fDM3Mi43N3wxOS44NHwzNC4xOA==)"
-       id="g518">
-      <text
-         x="363.97"
-         y="29.79"
-         text-anchor="middle"
-         style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
-         textLength="3.34px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text517" />
+         id="text518">4%</text>
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
@@ -4229,9 +4193,9 @@
     <defs
        id="defs519">
       <clipPath
-         id="cpMzcyLjc3fDM5MC4zN3wxOS44NHwzNC4xOA==">
+         id="cpMzM3LjU3fDM1NS4xN3wxOS44NHwzNC4xOA==">
         <rect
-           x="372.77"
+           x="337.57"
            y="19.84"
            width="17.60"
            height="14.33"
@@ -4239,14 +4203,14 @@
       </clipPath>
     </defs>
     <g
-       clip-path="url(#cpMzcyLjc3fDM5MC4zN3wxOS44NHwzNC4xOA==)"
+       clip-path="url(#cpMzM3LjU3fDM1NS4xN3wxOS44NHwzNC4xOA==)"
        id="g520">
       <text
-         x="381.57"
+         x="346.37"
          y="29.79"
          text-anchor="middle"
          style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
-         textLength="5.02px"
+         textLength="1.67px"
          lengthAdjust="spacingAndGlyphs"
          id="text519" />
     </g>
@@ -4256,9 +4220,9 @@
     <defs
        id="defs521">
       <clipPath
-         id="cpMzkwLjM3fDQwNy45NnwxOS44NHwzNC4xOA==">
+         id="cpMzU1LjE3fDM3Mi43N3wxOS44NHwzNC4xOA==">
         <rect
-           x="390.37"
+           x="355.17"
            y="19.84"
            width="17.60"
            height="14.33"
@@ -4266,14 +4230,14 @@
       </clipPath>
     </defs>
     <g
-       clip-path="url(#cpMzkwLjM3fDQwNy45NnwxOS44NHwzNC4xOA==)"
+       clip-path="url(#cpMzU1LjE3fDM3Mi43N3wxOS44NHwzNC4xOA==)"
        id="g522">
       <text
-         x="399.17"
+         x="363.97"
          y="29.79"
          text-anchor="middle"
          style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
-         textLength="6.69px"
+         textLength="3.34px"
          lengthAdjust="spacingAndGlyphs"
          id="text521" />
     </g>
@@ -4283,26 +4247,26 @@
     <defs
        id="defs523">
       <clipPath
-         id="cpNDA3Ljk2fDQ0MC4yM3wxOS44NHwzNC4xOA==">
+         id="cpMzcyLjc3fDM5MC4zN3wxOS44NHwzNC4xOA==">
         <rect
-           x="407.96"
+           x="372.77"
            y="19.84"
-           width="32.26"
+           width="17.60"
            height="14.33"
            id="rect523" />
       </clipPath>
     </defs>
     <g
-       clip-path="url(#cpNDA3Ljk2fDQ0MC4yM3wxOS44NHwzNC4xOA==)"
+       clip-path="url(#cpMzcyLjc3fDM5MC4zN3wxOS44NHwzNC4xOA==)"
        id="g524">
       <text
-         x="424.10"
+         x="381.57"
          y="29.79"
          text-anchor="middle"
          style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
-         textLength="16.98px"
+         textLength="5.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text523">CARD</text>
+         id="text523" />
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
@@ -4310,26 +4274,26 @@
     <defs
        id="defs525">
       <clipPath
-         id="cpNDQwLjIzfDQ3Mi40OXwxOS44NHwzNC4xOA==">
+         id="cpMzkwLjM3fDQwNy45NnwxOS44NHwzNC4xOA==">
         <rect
-           x="440.23"
+           x="390.37"
            y="19.84"
-           width="32.26"
+           width="17.60"
            height="14.33"
            id="rect525" />
       </clipPath>
     </defs>
     <g
-       clip-path="url(#cpNDQwLjIzfDQ3Mi40OXwxOS44NHwzNC4xOA==)"
+       clip-path="url(#cpMzkwLjM3fDQwNy45NnwxOS44NHwzNC4xOA==)"
        id="g526">
       <text
-         x="456.36"
+         x="399.17"
          y="29.79"
          text-anchor="middle"
          style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
-         textLength="14.33px"
+         textLength="6.69px"
          lengthAdjust="spacingAndGlyphs"
-         id="text525">NCBI</text>
+         id="text525" />
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
@@ -4337,9 +4301,9 @@
     <defs
        id="defs527">
       <clipPath
-         id="cpNDcyLjQ5fDUwNC43NnwxOS44NHwzNC4xOA==">
+         id="cpNDA3Ljk2fDQ0MC4yM3wxOS44NHwzNC4xOA==">
         <rect
-           x="472.49"
+           x="407.96"
            y="19.84"
            width="32.26"
            height="14.33"
@@ -4347,8 +4311,62 @@
       </clipPath>
     </defs>
     <g
-       clip-path="url(#cpNDcyLjQ5fDUwNC43NnwxOS44NHwzNC4xOA==)"
+       clip-path="url(#cpNDA3Ljk2fDQ0MC4yM3wxOS44NHwzNC4xOA==)"
        id="g528">
+      <text
+         x="424.10"
+         y="29.79"
+         text-anchor="middle"
+         style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
+         textLength="16.98px"
+         lengthAdjust="spacingAndGlyphs"
+         id="text527">CARD</text>
+    </g>
+    <g
+       clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
+       id="g529" />
+    <defs
+       id="defs529">
+      <clipPath
+         id="cpNDQwLjIzfDQ3Mi40OXwxOS44NHwzNC4xOA==">
+        <rect
+           x="440.23"
+           y="19.84"
+           width="32.26"
+           height="14.33"
+           id="rect529" />
+      </clipPath>
+    </defs>
+    <g
+       clip-path="url(#cpNDQwLjIzfDQ3Mi40OXwxOS44NHwzNC4xOA==)"
+       id="g530">
+      <text
+         x="456.36"
+         y="29.79"
+         text-anchor="middle"
+         style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
+         textLength="14.33px"
+         lengthAdjust="spacingAndGlyphs"
+         id="text529">NCBI</text>
+    </g>
+    <g
+       clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
+       id="g531" />
+    <defs
+       id="defs531">
+      <clipPath
+         id="cpNDcyLjQ5fDUwNC43NnwxOS44NHwzNC4xOA==">
+        <rect
+           x="472.49"
+           y="19.84"
+           width="32.26"
+           height="14.33"
+           id="rect531" />
+      </clipPath>
+    </defs>
+    <g
+       clip-path="url(#cpNDcyLjQ5fDUwNC43NnwxOS44NHwzNC4xOA==)"
+       id="g532">
       <text
          x="488.62"
          y="29.79"
@@ -4356,319 +4374,319 @@
          style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
          textLength="27.70px"
          lengthAdjust="spacingAndGlyphs"
-         id="text527">ResFinder</text>
+         id="text531">ResFinder</text>
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
-       id="g582">
+       id="g586">
       <text
          transform="translate(348.52,438.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="27.36px"
          lengthAdjust="spacingAndGlyphs"
-         id="text528">DeepARG</text>
+         id="text532">DeepARG</text>
       <text
          transform="translate(366.12,438.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="24.70px"
          lengthAdjust="spacingAndGlyphs"
-         id="text529">fARGene</text>
+         id="text533">fARGene</text>
       <text
          transform="translate(380.48,438.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="27.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text530">ABRicate-</text>
+         id="text534">ABRicate-</text>
       <text
          transform="translate(386.96,438.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="34.00px"
          lengthAdjust="spacingAndGlyphs"
-         id="text531">ARGANNOT</text>
+         id="text535">ARGANNOT</text>
       <text
          transform="translate(398.07,438.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="27.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text532">ABRicate-</text>
+         id="text536">ABRicate-</text>
       <text
          transform="translate(404.55,438.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="28.34px"
          lengthAdjust="spacingAndGlyphs"
-         id="text533">MEGARes</text>
+         id="text537">MEGARes</text>
       <text
          transform="translate(418.91,438.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="10.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text534">RGI</text>
+         id="text538">RGI</text>
       <text
          transform="translate(430.34,438.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="27.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text535">ABRicate-</text>
+         id="text539">ABRicate-</text>
       <text
          transform="translate(436.82,438.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="16.98px"
          lengthAdjust="spacingAndGlyphs"
-         id="text536">CARD</text>
+         id="text540">CARD</text>
       <text
          transform="translate(447.94,438.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="32.36px"
          lengthAdjust="spacingAndGlyphs"
-         id="text537">AMRFinder-</text>
+         id="text541">AMRFinder-</text>
       <text
          transform="translate(454.42,438.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="11.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text538">Plus</text>
+         id="text542">Plus</text>
       <text
          transform="translate(462.60,438.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="27.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text539">ABRicate-</text>
+         id="text543">ABRicate-</text>
       <text
          transform="translate(469.08,438.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="14.33px"
          lengthAdjust="spacingAndGlyphs"
-         id="text540">NCBI</text>
+         id="text544">NCBI</text>
       <text
          transform="translate(483.44,438.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="27.70px"
          lengthAdjust="spacingAndGlyphs"
-         id="text541">ResFinder</text>
+         id="text545">ResFinder</text>
       <text
          transform="translate(494.87,438.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="27.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text542">ABRicate-</text>
+         id="text546">ABRicate-</text>
       <text
          transform="translate(501.35,438.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="27.70px"
          lengthAdjust="spacingAndGlyphs"
-         id="text543">ResFinder</text>
+         id="text547">ResFinder</text>
       <text
          x="322.95"
          y="423.97"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="9.69px"
          lengthAdjust="spacingAndGlyphs"
-         id="text544">aac</text>
+         id="text548">aac</text>
       <text
          x="311.12"
          y="405.71"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="4.00px"
          lengthAdjust="spacingAndGlyphs"
-         id="text545">A</text>
+         id="text549">A</text>
       <text
          x="315.13"
          y="405.71"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="4.00px"
          lengthAdjust="spacingAndGlyphs"
-         id="text546">B</text>
+         id="text550">B</text>
       <text
          x="319.13"
          y="405.71"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="4.33px"
          lengthAdjust="spacingAndGlyphs"
-         id="text547">C</text>
+         id="text551">C</text>
       <text
          x="324.57"
          y="405.71"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Symbol&quot;;"
          textLength="3.30px"
          lengthAdjust="spacingAndGlyphs"
-         id="text548">−</text>
+         id="text552">−</text>
       <text
          x="328.97"
          y="405.71"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="3.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text549">F</text>
+         id="text553">F</text>
       <text
          x="324.28"
          y="386.80"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="8.36px"
          lengthAdjust="spacingAndGlyphs"
-         id="text550">ant</text>
+         id="text554">ant</text>
       <text
          x="322.61"
          y="367.42"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="10.03px"
          lengthAdjust="spacingAndGlyphs"
-         id="text551">aph</text>
+         id="text555">aph</text>
       <text
          x="301.25"
          y="342.66"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="31.39px"
          lengthAdjust="spacingAndGlyphs"
-         id="text552">beta-lactam</text>
+         id="text556">beta-lactam</text>
       <text
          x="301.25"
          y="349.14"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="13.36px"
          lengthAdjust="spacingAndGlyphs"
-         id="text553">mod.</text>
+         id="text557">mod.</text>
       <text
          x="324.62"
          y="330.26"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="8.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text554">cat</text>
+         id="text558">cat</text>
       <text
          x="291.59"
          y="310.85"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="41.05px"
          lengthAdjust="spacingAndGlyphs"
-         id="text555">cell wall charge</text>
+         id="text559">cell wall charge</text>
       <text
          x="313.62"
          y="292.60"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="19.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text556">class A</text>
+         id="text560">class A</text>
       <text
          x="313.29"
          y="273.75"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="19.34px"
          lengthAdjust="spacingAndGlyphs"
-         id="text557">class B</text>
+         id="text561">class B</text>
       <text
          x="312.97"
          y="254.94"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="19.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text558">class C</text>
+         id="text562">class C</text>
       <text
          x="312.97"
          y="236.06"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="19.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text559">class D</text>
+         id="text563">class D</text>
       <text
          x="318.39"
          y="217.25"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="14.25px"
          lengthAdjust="spacingAndGlyphs"
-         id="text560">efflux</text>
+         id="text564">efflux</text>
       <text
          x="322.29"
          y="197.81"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="10.34px"
          lengthAdjust="spacingAndGlyphs"
-         id="text561">erm</text>
+         id="text565">erm</text>
       <text
          x="324.62"
          y="179.56"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="8.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text562">fos</text>
+         id="text566">fos</text>
       <text
          x="320.64"
          y="160.71"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="12.00px"
          lengthAdjust="spacingAndGlyphs"
-         id="text563">PBP</text>
+         id="text567">PBP</text>
       <text
          x="293.58"
          y="141.83"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="39.06px"
          lengthAdjust="spacingAndGlyphs"
-         id="text564">RIF-inact. enz.</text>
+         id="text568">RIF-inact. enz.</text>
       <text
          x="319.95"
          y="122.42"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="12.69px"
          lengthAdjust="spacingAndGlyphs"
-         id="text565">rpoB</text>
+         id="text569">rpoB</text>
       <text
          x="293.92"
          y="104.17"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="38.72px"
          lengthAdjust="spacingAndGlyphs"
-         id="text566">self-resistance</text>
+         id="text570">self-resistance</text>
       <text
          x="298.90"
          y="78.25"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="33.73px"
          lengthAdjust="spacingAndGlyphs"
-         id="text567">target-modif.</text>
+         id="text571">target-modif.</text>
       <text
          x="298.90"
          y="84.73"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="21.03px"
          lengthAdjust="spacingAndGlyphs"
-         id="text568">enzyme</text>
+         id="text572">enzyme</text>
       <text
          x="311.28"
          y="66.48"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="21.36px"
          lengthAdjust="spacingAndGlyphs"
-         id="text569">tet RPG</text>
+         id="text573">tet RPG</text>
       <text
          x="322.95"
          y="47.04"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="9.69px"
          lengthAdjust="spacingAndGlyphs"
-         id="text570">van</text>
+         id="text574">van</text>
       <text
          transform="translate(287.58,233.95) rotate(-90)"
          text-anchor="middle"
          style="font-size: 6.00px; font-weight: bold; font-family: &quot;Arial&quot;;"
          textLength="69.53px"
          lengthAdjust="spacingAndGlyphs"
-         id="text571">Proportion of ARG class</text>
+         id="text575">Proportion of ARG class</text>
       <image
          width="49.61"
          height="9.92"
@@ -4676,39 +4694,39 @@
          y="483.79"
          preserveAspectRatio="none"
          xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAABCAYAAABkOJMpAAAAoElEQVQ4jZ1TSQ7EIAwz/39nvxH3UMIYcOioB5TgDYhEIy8CBECAvYIAYtk7TaGzvvgjK7GYea2suC+e+f50uDtnrEfXsldu0koPox3n1Rg1x2nXFTvWDtzJlzg/6bFUh/UaP80z7qKW2eKPys9+xcSwYVQ9cm+4wnvONBxklJCRoo2+P6fsQ3MG3959LzzzN2oWjB8Lv+gUm/rM2PK89waokw+wDwSsOwAAAABJRU5ErkJggg=="
-         id="image571" />
+         id="image575" />
       <polyline
          points="399.19,490.26 399.19,493.71 "
          style="stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;"
-         id="polyline571" />
+         id="polyline575" />
       <polyline
          points="414.93,490.26 414.93,493.71 "
          style="stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;"
-         id="polyline572" />
+         id="polyline576" />
       <polyline
          points="430.68,490.26 430.68,493.71 "
          style="stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;"
-         id="polyline573" />
+         id="polyline577" />
       <polyline
          points="446.43,490.26 446.43,493.71 "
          style="stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;"
-         id="polyline574" />
+         id="polyline578" />
       <polyline
          points="399.19,487.25 399.19,483.79 "
          style="stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;"
-         id="polyline575" />
+         id="polyline579" />
       <polyline
          points="414.93,487.25 414.93,483.79 "
          style="stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;"
-         id="polyline576" />
+         id="polyline580" />
       <polyline
          points="430.68,487.25 430.68,483.79 "
          style="stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;"
-         id="polyline577" />
+         id="polyline581" />
       <polyline
          points="446.43,487.25 446.43,483.79 "
          style="stroke-width: 0.38; stroke: #FFFFFF; stroke-linecap: butt;"
-         id="polyline578" />
+         id="polyline582" />
       <text
          x="399.19"
          y="503.49"
@@ -4716,7 +4734,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="8.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text578">0%</text>
+         id="text582">0%</text>
       <text
          x="414.93"
          y="503.49"
@@ -4724,7 +4742,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="12.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text579">20%</text>
+         id="text583">20%</text>
       <text
          x="430.68"
          y="503.49"
@@ -4732,7 +4750,7 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="12.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text580">40%</text>
+         id="text584">40%</text>
       <text
          x="446.43"
          y="503.49"
@@ -4740,14 +4758,14 @@
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="12.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text581">60%</text>
+         id="text585">60%</text>
       <text
          x="337.57"
          y="12.35"
          style="font-size: 9.60px; font-weight: bold; font-family: &quot;Arial&quot;;"
          textLength="5.86px"
          lengthAdjust="spacingAndGlyphs"
-         id="text582">b</text>
+         id="text586">b</text>
     </g>
   </g>
 </svg>

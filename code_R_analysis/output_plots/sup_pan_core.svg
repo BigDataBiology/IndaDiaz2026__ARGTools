@@ -23,14 +23,14 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="pt"
-     inkscape:zoom="0.73809563"
-     inkscape:cx="272.99985"
-     inkscape:cy="382.74173"
-     inkscape:window-width="1488"
-     inkscape:window-height="662"
-     inkscape:window-x="2407"
-     inkscape:window-y="368"
-     inkscape:window-maximized="0"
+     inkscape:zoom="0.85195199"
+     inkscape:cx="233.58124"
+     inkscape:cy="454.83784"
+     inkscape:window-width="1472"
+     inkscape:window-height="890"
+     inkscape:window-x="0"
+     inkscape:window-y="38"
+     inkscape:window-maximized="1"
      inkscape:current-layer="g426" />
   <g
      class="svglite"
@@ -175,15 +175,15 @@
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline16" />
       <polyline
-         points="90.77,95.38 90.77,39.16 "
+         points="90.76,95.38 90.76,39.16 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline17" />
       <polyline
-         points="57.27,95.38 57.27,39.16 "
+         points="57.24,95.38 57.24,39.16 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline18" />
       <polyline
-         points="23.77,95.38 23.77,39.16 "
+         points="23.73,95.38 23.73,39.16 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline19" />
       <polyline
@@ -191,19 +191,19 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline20" />
       <polyline
-         points="107.52,95.38 107.52,39.16 "
+         points="107.51,95.38 107.51,39.16 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline21" />
       <polyline
-         points="74.02,95.38 74.02,39.16 "
+         points="74.00,95.38 74.00,39.16 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline22" />
       <polyline
-         points="40.52,95.38 40.52,39.16 "
+         points="40.49,95.38 40.49,39.16 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline23" />
       <circle
-         cx="106.19"
+         cx="106.17"
          cy="42.34"
          r="2.03"
          style="stroke-width: 0.43; fill: #1B9E77;"
@@ -233,7 +233,7 @@
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="circle27" />
       <polygon
-         points="134.68,65.71 137.41,70.44 131.96,70.44 "
+         points="134.68,65.71 137.41,70.44 131.95,70.44 "
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="polygon27" />
       <circle
@@ -243,7 +243,7 @@
          style="stroke-width: 0.43; fill: #66A61E;"
          id="circle28" />
       <polygon
-         points="138.59,76.32 141.32,81.04 135.86,81.04 "
+         points="138.59,76.32 141.31,81.04 135.86,81.04 "
          style="stroke-width: 0.43; fill: #66A61E;"
          id="polygon28" />
       <circle
@@ -266,7 +266,7 @@
       <line
          x1="141.02"
          y1="42.34"
-         x2="106.19"
+         x2="106.17"
          y2="42.34"
          style="stroke-width: 0.43; stroke: #1B9E77; stroke-linecap: butt;"
          id="line30" />
@@ -357,15 +357,15 @@
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline40" />
       <polyline
-         points="90.77,151.60 90.77,95.38 "
+         points="90.76,151.60 90.76,95.38 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline41" />
       <polyline
-         points="57.27,151.60 57.27,95.38 "
+         points="57.24,151.60 57.24,95.38 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline42" />
       <polyline
-         points="23.77,151.60 23.77,95.38 "
+         points="23.73,151.60 23.73,95.38 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline43" />
       <polyline
@@ -373,15 +373,15 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline44" />
       <polyline
-         points="107.52,151.60 107.52,95.38 "
+         points="107.51,151.60 107.51,95.38 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline45" />
       <polyline
-         points="74.02,151.60 74.02,95.38 "
+         points="74.00,151.60 74.00,95.38 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline46" />
       <polyline
-         points="40.52,151.60 40.52,95.38 "
+         points="40.49,151.60 40.49,95.38 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline47" />
       <circle
@@ -539,15 +539,15 @@
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline64" />
       <polyline
-         points="90.77,207.83 90.77,151.60 "
+         points="90.76,207.83 90.76,151.60 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline65" />
       <polyline
-         points="57.27,207.83 57.27,151.60 "
+         points="57.24,207.83 57.24,151.60 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline66" />
       <polyline
-         points="23.77,207.83 23.77,151.60 "
+         points="23.73,207.83 23.73,151.60 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline67" />
       <polyline
@@ -555,25 +555,25 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline68" />
       <polyline
-         points="107.52,207.83 107.52,151.60 "
+         points="107.51,207.83 107.51,151.60 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline69" />
       <polyline
-         points="74.02,207.83 74.02,151.60 "
+         points="74.00,207.83 74.00,151.60 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline70" />
       <polyline
-         points="40.52,207.83 40.52,151.60 "
+         points="40.49,207.83 40.49,151.60 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline71" />
       <circle
-         cx="109.19"
+         cx="109.27"
          cy="154.79"
          r="2.03"
          style="stroke-width: 0.43; fill: #1B9E77;"
          id="circle71" />
       <circle
-         cx="136.81"
+         cx="136.82"
          cy="160.09"
          r="2.03"
          style="stroke-width: 0.43; fill: #D95F02;"
@@ -591,27 +591,27 @@
          style="stroke-width: 0.43; fill: #E7298A;"
          id="circle74" />
       <circle
-         cx="116.74"
+         cx="116.82"
          cy="176.00"
          r="2.03"
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="circle75" />
       <polygon
-         points="134.87,178.15 137.60,182.88 132.14,182.88 "
+         points="134.88,178.15 137.61,182.88 132.15,182.88 "
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="polygon75" />
       <circle
-         cx="135.13"
+         cx="135.14"
          cy="186.61"
          r="2.03"
          style="stroke-width: 0.43; fill: #66A61E;"
          id="circle76" />
       <polygon
-         points="138.48,188.76 141.21,193.49 135.75,193.49 "
+         points="138.49,188.76 141.22,193.49 135.76,193.49 "
          style="stroke-width: 0.43; fill: #66A61E;"
          id="polygon76" />
       <circle
-         cx="138.20"
+         cx="138.21"
          cy="197.22"
          r="2.03"
          style="stroke-width: 0.43; fill: #666666;"
@@ -630,14 +630,14 @@
       <line
          x1="141.02"
          y1="154.79"
-         x2="109.19"
+         x2="109.27"
          y2="154.79"
          style="stroke-width: 0.43; stroke: #1B9E77; stroke-linecap: butt;"
          id="line78" />
       <line
          x1="141.02"
          y1="160.09"
-         x2="136.81"
+         x2="136.82"
          y2="160.09"
          style="stroke-width: 0.43; stroke: #D95F02; stroke-linecap: butt;"
          id="line79" />
@@ -658,35 +658,35 @@
       <line
          x1="141.02"
          y1="176.00"
-         x2="116.74"
+         x2="116.82"
          y2="176.00"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line82" />
       <line
          x1="141.02"
          y1="181.31"
-         x2="134.87"
+         x2="134.88"
          y2="181.31"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line83" />
       <line
          x1="141.02"
          y1="186.61"
-         x2="135.13"
+         x2="135.14"
          y2="186.61"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line84" />
       <line
          x1="141.02"
          y1="191.91"
-         x2="138.48"
+         x2="138.49"
          y2="191.91"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line85" />
       <line
          x1="141.02"
          y1="197.22"
-         x2="138.20"
+         x2="138.21"
          y2="197.22"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line86" />
@@ -721,15 +721,15 @@
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline88" />
       <polyline
-         points="90.77,264.05 90.77,207.83 "
+         points="90.76,264.05 90.76,207.83 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline89" />
       <polyline
-         points="57.27,264.05 57.27,207.83 "
+         points="57.24,264.05 57.24,207.83 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline90" />
       <polyline
-         points="23.77,264.05 23.77,207.83 "
+         points="23.73,264.05 23.73,207.83 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline91" />
       <polyline
@@ -737,19 +737,19 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline92" />
       <polyline
-         points="107.52,264.05 107.52,207.83 "
+         points="107.51,264.05 107.51,207.83 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline93" />
       <polyline
-         points="74.02,264.05 74.02,207.83 "
+         points="74.00,264.05 74.00,207.83 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline94" />
       <polyline
-         points="40.52,264.05 40.52,207.83 "
+         points="40.49,264.05 40.49,207.83 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline95" />
       <circle
-         cx="119.28"
+         cx="119.26"
          cy="211.01"
          r="2.03"
          style="stroke-width: 0.43; fill: #1B9E77;"
@@ -761,19 +761,19 @@
          style="stroke-width: 0.43; fill: #D95F02;"
          id="circle96" />
       <circle
-         cx="138.97"
+         cx="138.96"
          cy="221.62"
          r="2.03"
          style="stroke-width: 0.43; fill: #7570B3;"
          id="circle97" />
       <circle
-         cx="136.61"
+         cx="136.60"
          cy="226.92"
          r="2.03"
          style="stroke-width: 0.43; fill: #E7298A;"
          id="circle98" />
       <circle
-         cx="123.49"
+         cx="123.47"
          cy="232.22"
          r="2.03"
          style="stroke-width: 0.43; fill: #E6AB02;"
@@ -783,7 +783,7 @@
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="polygon99" />
       <circle
-         cx="136.57"
+         cx="136.56"
          cy="242.83"
          r="2.03"
          style="stroke-width: 0.43; fill: #66A61E;"
@@ -812,7 +812,7 @@
       <line
          x1="141.02"
          y1="211.01"
-         x2="119.28"
+         x2="119.26"
          y2="211.01"
          style="stroke-width: 0.43; stroke: #1B9E77; stroke-linecap: butt;"
          id="line102" />
@@ -826,21 +826,21 @@
       <line
          x1="141.02"
          y1="221.62"
-         x2="138.97"
+         x2="138.96"
          y2="221.62"
          style="stroke-width: 0.43; stroke: #7570B3; stroke-linecap: butt;"
          id="line104" />
       <line
          x1="141.02"
          y1="226.92"
-         x2="136.61"
+         x2="136.60"
          y2="226.92"
          style="stroke-width: 0.43; stroke: #E7298A; stroke-linecap: butt;"
          id="line105" />
       <line
          x1="141.02"
          y1="232.22"
-         x2="123.49"
+         x2="123.47"
          y2="232.22"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line106" />
@@ -854,7 +854,7 @@
       <line
          x1="141.02"
          y1="242.83"
-         x2="136.57"
+         x2="136.56"
          y2="242.83"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line108" />
@@ -903,15 +903,15 @@
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline112" />
       <polyline
-         points="90.77,320.27 90.77,264.05 "
+         points="90.76,320.27 90.76,264.05 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline113" />
       <polyline
-         points="57.27,320.27 57.27,264.05 "
+         points="57.24,320.27 57.24,264.05 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline114" />
       <polyline
-         points="23.77,320.27 23.77,264.05 "
+         points="23.73,320.27 23.73,264.05 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline115" />
       <polyline
@@ -919,15 +919,15 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline116" />
       <polyline
-         points="107.52,320.27 107.52,264.05 "
+         points="107.51,320.27 107.51,264.05 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline117" />
       <polyline
-         points="74.02,320.27 74.02,264.05 "
+         points="74.00,320.27 74.00,264.05 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline118" />
       <polyline
-         points="40.52,320.27 40.52,264.05 "
+         points="40.49,320.27 40.49,264.05 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline119" />
       <circle
@@ -949,13 +949,13 @@
          style="stroke-width: 0.43; fill: #7570B3;"
          id="circle121" />
       <circle
-         cx="136.98"
+         cx="136.97"
          cy="283.14"
          r="2.03"
          style="stroke-width: 0.43; fill: #E7298A;"
          id="circle122" />
       <circle
-         cx="116.82"
+         cx="116.81"
          cy="288.45"
          r="2.03"
          style="stroke-width: 0.43; fill: #E6AB02;"
@@ -1015,14 +1015,14 @@
       <line
          x1="141.02"
          y1="283.14"
-         x2="136.98"
+         x2="136.97"
          y2="283.14"
          style="stroke-width: 0.43; stroke: #E7298A; stroke-linecap: butt;"
          id="line129" />
       <line
          x1="141.02"
          y1="288.45"
-         x2="116.82"
+         x2="116.81"
          y2="288.45"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line130" />
@@ -1085,15 +1085,15 @@
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline136" />
       <polyline
-         points="90.77,376.49 90.77,320.27 "
+         points="90.76,376.49 90.76,320.27 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline137" />
       <polyline
-         points="57.27,376.49 57.27,320.27 "
+         points="57.24,376.49 57.24,320.27 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline138" />
       <polyline
-         points="23.77,376.49 23.77,320.27 "
+         points="23.73,376.49 23.73,320.27 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline139" />
       <polyline
@@ -1101,19 +1101,19 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline140" />
       <polyline
-         points="107.52,376.49 107.52,320.27 "
+         points="107.51,376.49 107.51,320.27 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline141" />
       <polyline
-         points="74.02,376.49 74.02,320.27 "
+         points="74.00,376.49 74.00,320.27 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline142" />
       <polyline
-         points="40.52,376.49 40.52,320.27 "
+         points="40.49,376.49 40.49,320.27 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline143" />
       <circle
-         cx="94.89"
+         cx="94.88"
          cy="323.45"
          r="2.03"
          style="stroke-width: 0.43; fill: #1B9E77;"
@@ -1137,7 +1137,7 @@
          style="stroke-width: 0.43; fill: #E7298A;"
          id="circle146" />
       <circle
-         cx="103.36"
+         cx="103.35"
          cy="344.67"
          r="2.03"
          style="stroke-width: 0.43; fill: #E6AB02;"
@@ -1153,7 +1153,7 @@
          style="stroke-width: 0.43; fill: #66A61E;"
          id="circle148" />
       <polygon
-         points="139.34,357.43 142.07,362.16 136.62,362.16 "
+         points="139.34,357.43 142.07,362.16 136.61,362.16 "
          style="stroke-width: 0.43; fill: #66A61E;"
          id="polygon148" />
       <circle
@@ -1176,7 +1176,7 @@
       <line
          x1="141.02"
          y1="323.45"
-         x2="94.89"
+         x2="94.88"
          y2="323.45"
          style="stroke-width: 0.43; stroke: #1B9E77; stroke-linecap: butt;"
          id="line150" />
@@ -1204,7 +1204,7 @@
       <line
          x1="141.02"
          y1="344.67"
-         x2="103.36"
+         x2="103.35"
          y2="344.67"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line154" />
@@ -1267,15 +1267,15 @@
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline160" />
       <polyline
-         points="90.77,432.72 90.77,376.49 "
+         points="90.76,432.72 90.76,376.49 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline161" />
       <polyline
-         points="57.27,432.72 57.27,376.49 "
+         points="57.24,432.72 57.24,376.49 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline162" />
       <polyline
-         points="23.77,432.72 23.77,376.49 "
+         points="23.73,432.72 23.73,376.49 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline163" />
       <polyline
@@ -1283,63 +1283,63 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline164" />
       <polyline
-         points="107.52,432.72 107.52,376.49 "
+         points="107.51,432.72 107.51,376.49 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline165" />
       <polyline
-         points="74.02,432.72 74.02,376.49 "
+         points="74.00,432.72 74.00,376.49 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline166" />
       <polyline
-         points="40.52,432.72 40.52,376.49 "
+         points="40.49,432.72 40.49,376.49 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline167" />
       <circle
-         cx="93.54"
+         cx="93.67"
          cy="379.68"
          r="2.03"
          style="stroke-width: 0.43; fill: #1B9E77;"
          id="circle167" />
       <circle
-         cx="134.10"
+         cx="134.11"
          cy="384.98"
          r="2.03"
          style="stroke-width: 0.43; fill: #D95F02;"
          id="circle168" />
       <circle
-         cx="138.43"
+         cx="138.44"
          cy="390.29"
          r="2.03"
          style="stroke-width: 0.43; fill: #7570B3;"
          id="circle169" />
       <circle
-         cx="134.44"
+         cx="134.46"
          cy="395.59"
          r="2.03"
          style="stroke-width: 0.43; fill: #E7298A;"
          id="circle170" />
       <circle
-         cx="98.94"
+         cx="98.98"
          cy="400.89"
          r="2.03"
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="circle171" />
       <polygon
-         points="135.69,403.05 138.42,407.77 132.96,407.77 "
+         points="135.71,403.05 138.43,407.77 132.98,407.77 "
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="polygon171" />
       <circle
-         cx="127.27"
+         cx="127.28"
          cy="411.50"
          r="2.03"
          style="stroke-width: 0.43; fill: #66A61E;"
          id="circle172" />
       <polygon
-         points="138.78,413.65 141.51,418.38 136.05,418.38 "
+         points="138.78,413.65 141.51,418.38 136.06,418.38 "
          style="stroke-width: 0.43; fill: #66A61E;"
          id="polygon172" />
       <circle
-         cx="139.12"
+         cx="139.13"
          cy="422.11"
          r="2.03"
          style="stroke-width: 0.43; fill: #666666;"
@@ -1358,49 +1358,49 @@
       <line
          x1="141.02"
          y1="379.68"
-         x2="93.54"
+         x2="93.67"
          y2="379.68"
          style="stroke-width: 0.43; stroke: #1B9E77; stroke-linecap: butt;"
          id="line174" />
       <line
          x1="141.02"
          y1="384.98"
-         x2="134.10"
+         x2="134.11"
          y2="384.98"
          style="stroke-width: 0.43; stroke: #D95F02; stroke-linecap: butt;"
          id="line175" />
       <line
          x1="141.02"
          y1="390.29"
-         x2="138.43"
+         x2="138.44"
          y2="390.29"
          style="stroke-width: 0.43; stroke: #7570B3; stroke-linecap: butt;"
          id="line176" />
       <line
          x1="141.02"
          y1="395.59"
-         x2="134.44"
+         x2="134.46"
          y2="395.59"
          style="stroke-width: 0.43; stroke: #E7298A; stroke-linecap: butt;"
          id="line177" />
       <line
          x1="141.02"
          y1="400.89"
-         x2="98.94"
+         x2="98.98"
          y2="400.89"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line178" />
       <line
          x1="141.02"
          y1="406.20"
-         x2="135.69"
+         x2="135.71"
          y2="406.20"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line179" />
       <line
          x1="141.02"
          y1="411.50"
-         x2="127.27"
+         x2="127.28"
          y2="411.50"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line180" />
@@ -1414,7 +1414,7 @@
       <line
          x1="141.02"
          y1="422.11"
-         x2="139.12"
+         x2="139.13"
          y2="422.11"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line182" />
@@ -1653,21 +1653,21 @@
          lengthAdjust="spacingAndGlyphs"
          id="text199">0</text>
       <text
-         transform="translate(109.67,437.65) rotate(-90)"
+         transform="translate(109.66,437.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="15.05px"
          lengthAdjust="spacingAndGlyphs"
          id="text200">2,500</text>
       <text
-         transform="translate(76.17,437.65) rotate(-90)"
+         transform="translate(76.15,437.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="15.05px"
          lengthAdjust="spacingAndGlyphs"
          id="text201">5,000</text>
       <text
-         transform="translate(42.67,437.65) rotate(-90)"
+         transform="translate(42.64,437.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="15.05px"
@@ -1705,15 +1705,15 @@
        clip-path="url(#cpMjAxLjY0fDMyOS4yMHwzOS4xNnw5NS4zOA==)"
        id="g226">
       <polyline
-         points="225.56,95.38 225.56,39.16 "
+         points="225.62,95.38 225.62,39.16 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline204" />
       <polyline
-         points="261.80,95.38 261.80,39.16 "
+         points="261.97,95.38 261.97,39.16 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline205" />
       <polyline
-         points="298.03,95.38 298.03,39.16 "
+         points="298.32,95.38 298.32,39.16 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline206" />
       <polyline
@@ -1721,138 +1721,138 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline207" />
       <polyline
-         points="243.68,95.38 243.68,39.16 "
+         points="243.79,95.38 243.79,39.16 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline208" />
       <polyline
-         points="279.92,95.38 279.92,39.16 "
+         points="280.14,95.38 280.14,39.16 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline209" />
       <polyline
-         points="316.15,95.38 316.15,39.16 "
+         points="316.49,95.38 316.49,39.16 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline210" />
       <circle
-         cx="278.83"
+         cx="278.33"
          cy="42.34"
          r="2.03"
          style="stroke-width: 0.43; fill: #1B9E77;"
          id="circle210" />
       <circle
-         cx="217.22"
+         cx="217.26"
          cy="47.64"
          r="2.03"
          style="stroke-width: 0.43; fill: #D95F02;"
          id="circle211" />
       <circle
-         cx="218.67"
+         cx="218.71"
          cy="52.95"
          r="2.03"
          style="stroke-width: 0.43; fill: #7570B3;"
          id="circle212" />
       <circle
-         cx="228.82"
+         cx="228.52"
          cy="58.25"
          r="2.03"
          style="stroke-width: 0.43; fill: #E7298A;"
          id="circle213" />
       <circle
-         cx="244.77"
+         cx="244.52"
          cy="63.56"
          r="2.03"
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="circle214" />
       <polygon
-         points="227.01,65.71 229.74,70.44 224.28,70.44 "
+         points="226.71,65.71 229.44,70.44 223.98,70.44 "
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="polygon214" />
       <circle
-         cx="221.21"
+         cx="221.25"
          cy="74.16"
          r="2.03"
          style="stroke-width: 0.43; fill: #66A61E;"
          id="circle215" />
       <polygon
-         points="219.04,76.32 221.77,81.04 216.31,81.04 "
+         points="219.07,76.32 221.80,81.04 216.34,81.04 "
          style="stroke-width: 0.43; fill: #66A61E;"
          id="polygon215" />
       <circle
-         cx="220.85"
+         cx="220.89"
          cy="84.77"
          r="2.03"
          style="stroke-width: 0.43; fill: #666666;"
          id="circle216" />
       <polygon
-         points="219.40,86.93 222.13,91.65 216.67,91.65 "
+         points="219.44,86.93 222.17,91.65 216.71,91.65 "
          style="stroke-width: 0.43; fill: #666666;"
          id="polygon216" />
       <line
          x1="207.44"
          y1="42.34"
-         x2="278.83"
+         x2="278.33"
          y2="42.34"
          style="stroke-width: 0.43; stroke: #1B9E77; stroke-linecap: butt;"
          id="line216" />
       <line
          x1="207.44"
          y1="47.64"
-         x2="217.22"
+         x2="217.26"
          y2="47.64"
          style="stroke-width: 0.43; stroke: #D95F02; stroke-linecap: butt;"
          id="line217" />
       <line
          x1="207.44"
          y1="52.95"
-         x2="218.67"
+         x2="218.71"
          y2="52.95"
          style="stroke-width: 0.43; stroke: #7570B3; stroke-linecap: butt;"
          id="line218" />
       <line
          x1="207.44"
          y1="58.25"
-         x2="228.82"
+         x2="228.52"
          y2="58.25"
          style="stroke-width: 0.43; stroke: #E7298A; stroke-linecap: butt;"
          id="line219" />
       <line
          x1="207.44"
          y1="63.56"
-         x2="244.77"
+         x2="244.52"
          y2="63.56"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line220" />
       <line
          x1="207.44"
          y1="68.86"
-         x2="227.01"
+         x2="226.71"
          y2="68.86"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line221" />
       <line
          x1="207.44"
          y1="74.16"
-         x2="221.21"
+         x2="221.25"
          y2="74.16"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line222" />
       <line
          x1="207.44"
          y1="79.47"
-         x2="219.04"
+         x2="219.07"
          y2="79.47"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line223" />
       <line
          x1="207.44"
          y1="84.77"
-         x2="220.85"
+         x2="220.89"
          y2="84.77"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line224" />
       <line
          x1="207.44"
          y1="90.08"
-         x2="219.40"
+         x2="219.44"
          y2="90.08"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line225" />
@@ -1883,15 +1883,15 @@
        clip-path="url(#cpMjAxLjY0fDMyOS4yMHw5NS4zOHwxNTEuNjA=)"
        id="g249">
       <polyline
-         points="225.56,151.60 225.56,95.38 "
+         points="225.62,151.60 225.62,95.38 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline227" />
       <polyline
-         points="261.80,151.60 261.80,95.38 "
+         points="261.97,151.60 261.97,95.38 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline228" />
       <polyline
-         points="298.03,151.60 298.03,95.38 "
+         points="298.32,151.60 298.32,95.38 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline229" />
       <polyline
@@ -1899,138 +1899,138 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline230" />
       <polyline
-         points="243.68,151.60 243.68,95.38 "
+         points="243.79,151.60 243.79,95.38 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline231" />
       <polyline
-         points="279.92,151.60 279.92,95.38 "
+         points="280.14,151.60 280.14,95.38 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline232" />
       <polyline
-         points="316.15,151.60 316.15,95.38 "
+         points="316.49,151.60 316.49,95.38 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline233" />
       <circle
-         cx="213.60"
+         cx="213.62"
          cy="98.56"
          r="2.03"
          style="stroke-width: 0.43; fill: #1B9E77;"
          id="circle233" />
       <circle
-         cx="209.25"
+         cx="209.26"
          cy="103.87"
          r="2.03"
          style="stroke-width: 0.43; fill: #D95F02;"
          id="circle234" />
       <circle
-         cx="208.89"
+         cx="208.53"
          cy="109.17"
          r="2.03"
          style="stroke-width: 0.43; fill: #7570B3;"
          id="circle235" />
       <circle
-         cx="210.34"
+         cx="209.99"
          cy="114.48"
          r="2.03"
          style="stroke-width: 0.43; fill: #E7298A;"
          id="circle236" />
       <circle
-         cx="212.15"
+         cx="212.17"
          cy="119.78"
          r="2.03"
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="circle237" />
       <polygon
-         points="209.61,121.93 212.34,126.66 206.89,126.66 "
+         points="209.26,121.93 211.99,126.66 206.53,126.66 "
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="polygon237" />
       <circle
-         cx="209.98"
+         cx="210.35"
          cy="130.39"
          r="2.03"
          style="stroke-width: 0.43; fill: #66A61E;"
          id="circle238" />
       <polygon
-         points="208.89,132.54 211.62,137.27 206.16,137.27 "
+         points="208.53,132.54 211.26,137.27 205.80,137.27 "
          style="stroke-width: 0.43; fill: #66A61E;"
          id="polygon238" />
       <circle
-         cx="208.89"
+         cx="209.26"
          cy="141.00"
          r="2.03"
          style="stroke-width: 0.43; fill: #666666;"
          id="circle239" />
       <polygon
-         points="208.53,143.15 211.26,147.88 205.80,147.88 "
+         points="208.17,143.15 210.90,147.88 205.44,147.88 "
          style="stroke-width: 0.43; fill: #666666;"
          id="polygon239" />
       <line
          x1="207.44"
          y1="98.56"
-         x2="213.60"
+         x2="213.62"
          y2="98.56"
          style="stroke-width: 0.43; stroke: #1B9E77; stroke-linecap: butt;"
          id="line239" />
       <line
          x1="207.44"
          y1="103.87"
-         x2="209.25"
+         x2="209.26"
          y2="103.87"
          style="stroke-width: 0.43; stroke: #D95F02; stroke-linecap: butt;"
          id="line240" />
       <line
          x1="207.44"
          y1="109.17"
-         x2="208.89"
+         x2="208.53"
          y2="109.17"
          style="stroke-width: 0.43; stroke: #7570B3; stroke-linecap: butt;"
          id="line241" />
       <line
          x1="207.44"
          y1="114.48"
-         x2="210.34"
+         x2="209.99"
          y2="114.48"
          style="stroke-width: 0.43; stroke: #E7298A; stroke-linecap: butt;"
          id="line242" />
       <line
          x1="207.44"
          y1="119.78"
-         x2="212.15"
+         x2="212.17"
          y2="119.78"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line243" />
       <line
          x1="207.44"
          y1="125.08"
-         x2="209.61"
+         x2="209.26"
          y2="125.08"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line244" />
       <line
          x1="207.44"
          y1="130.39"
-         x2="209.98"
+         x2="210.35"
          y2="130.39"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line245" />
       <line
          x1="207.44"
          y1="135.69"
-         x2="208.89"
+         x2="208.53"
          y2="135.69"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line246" />
       <line
          x1="207.44"
          y1="141.00"
-         x2="208.89"
+         x2="209.26"
          y2="141.00"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line247" />
       <line
          x1="207.44"
          y1="146.30"
-         x2="208.53"
+         x2="208.17"
          y2="146.30"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line248" />
@@ -2061,15 +2061,15 @@
        clip-path="url(#cpMjAxLjY0fDMyOS4yMHwxNTEuNjB8MjA3Ljgz)"
        id="g272">
       <polyline
-         points="225.56,207.83 225.56,151.60 "
+         points="225.62,207.83 225.62,151.60 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline250" />
       <polyline
-         points="261.80,207.83 261.80,151.60 "
+         points="261.97,207.83 261.97,151.60 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline251" />
       <polyline
-         points="298.03,207.83 298.03,151.60 "
+         points="298.32,207.83 298.32,151.60 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline252" />
       <polyline
@@ -2077,25 +2077,25 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline253" />
       <polyline
-         points="243.68,207.83 243.68,151.60 "
+         points="243.79,207.83 243.79,151.60 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline254" />
       <polyline
-         points="279.92,207.83 279.92,151.60 "
+         points="280.14,207.83 280.14,151.60 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline255" />
       <polyline
-         points="316.15,207.83 316.15,151.60 "
+         points="316.49,207.83 316.49,151.60 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline256" />
       <circle
-         cx="210.70"
+         cx="211.08"
          cy="154.79"
          r="2.03"
          style="stroke-width: 0.43; fill: #1B9E77;"
          id="circle256" />
       <circle
-         cx="208.17"
+         cx="207.80"
          cy="160.09"
          r="2.03"
          style="stroke-width: 0.43; fill: #D95F02;"
@@ -2129,7 +2129,7 @@
          style="stroke-width: 0.43; fill: #66A61E;"
          id="circle261" />
       <polygon
-         points="208.17,188.76 210.89,193.49 205.44,193.49 "
+         points="208.17,188.76 210.90,193.49 205.44,193.49 "
          style="stroke-width: 0.43; fill: #66A61E;"
          id="polygon261" />
       <circle
@@ -2145,14 +2145,14 @@
       <line
          x1="207.44"
          y1="154.79"
-         x2="210.70"
+         x2="211.08"
          y2="154.79"
          style="stroke-width: 0.43; stroke: #1B9E77; stroke-linecap: butt;"
          id="line262" />
       <line
          x1="207.44"
          y1="160.09"
-         x2="208.17"
+         x2="207.80"
          y2="160.09"
          style="stroke-width: 0.43; stroke: #D95F02; stroke-linecap: butt;"
          id="line263" />
@@ -2239,15 +2239,15 @@
        clip-path="url(#cpMjAxLjY0fDMyOS4yMHwyMDcuODN8MjY0LjA1)"
        id="g295">
       <polyline
-         points="225.56,264.05 225.56,207.83 "
+         points="225.62,264.05 225.62,207.83 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline273" />
       <polyline
-         points="261.80,264.05 261.80,207.83 "
+         points="261.97,264.05 261.97,207.83 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline274" />
       <polyline
-         points="298.03,264.05 298.03,207.83 "
+         points="298.32,264.05 298.32,207.83 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline275" />
       <polyline
@@ -2255,19 +2255,19 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline276" />
       <polyline
-         points="243.68,264.05 243.68,207.83 "
+         points="243.79,264.05 243.79,207.83 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline277" />
       <polyline
-         points="279.92,264.05 279.92,207.83 "
+         points="280.14,264.05 280.14,207.83 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline278" />
       <polyline
-         points="316.15,264.05 316.15,207.83 "
+         points="316.49,264.05 316.49,207.83 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline279" />
       <circle
-         cx="209.25"
+         cx="209.26"
          cy="211.01"
          r="2.03"
          style="stroke-width: 0.43; fill: #1B9E77;"
@@ -2279,35 +2279,35 @@
          style="stroke-width: 0.43; fill: #D95F02;"
          id="circle280" />
       <circle
-         cx="208.17"
+         cx="207.80"
          cy="221.62"
          r="2.03"
          style="stroke-width: 0.43; fill: #7570B3;"
          id="circle281" />
       <circle
-         cx="208.17"
+         cx="207.80"
          cy="226.92"
          r="2.03"
          style="stroke-width: 0.43; fill: #E7298A;"
          id="circle282" />
       <circle
-         cx="208.17"
+         cx="207.80"
          cy="232.22"
          r="2.03"
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="circle283" />
       <polygon
-         points="208.17,234.38 210.89,239.10 205.44,239.10 "
+         points="207.80,234.38 210.53,239.10 205.07,239.10 "
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="polygon283" />
       <circle
-         cx="208.17"
+         cx="207.80"
          cy="242.83"
          r="2.03"
          style="stroke-width: 0.43; fill: #66A61E;"
          id="circle284" />
       <polygon
-         points="208.17,244.99 210.89,249.71 205.44,249.71 "
+         points="207.80,244.99 210.53,249.71 205.07,249.71 "
          style="stroke-width: 0.43; fill: #66A61E;"
          id="polygon284" />
       <circle
@@ -2317,13 +2317,13 @@
          style="stroke-width: 0.43; fill: #666666;"
          id="circle285" />
       <polygon
-         points="208.17,255.59 210.89,260.32 205.44,260.32 "
+         points="207.80,255.59 210.53,260.32 205.07,260.32 "
          style="stroke-width: 0.43; fill: #666666;"
          id="polygon285" />
       <line
          x1="207.44"
          y1="211.01"
-         x2="209.25"
+         x2="209.26"
          y2="211.01"
          style="stroke-width: 0.43; stroke: #1B9E77; stroke-linecap: butt;"
          id="line285" />
@@ -2337,42 +2337,42 @@
       <line
          x1="207.44"
          y1="221.62"
-         x2="208.17"
+         x2="207.80"
          y2="221.62"
          style="stroke-width: 0.43; stroke: #7570B3; stroke-linecap: butt;"
          id="line287" />
       <line
          x1="207.44"
          y1="226.92"
-         x2="208.17"
+         x2="207.80"
          y2="226.92"
          style="stroke-width: 0.43; stroke: #E7298A; stroke-linecap: butt;"
          id="line288" />
       <line
          x1="207.44"
          y1="232.22"
-         x2="208.17"
+         x2="207.80"
          y2="232.22"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line289" />
       <line
          x1="207.44"
          y1="237.53"
-         x2="208.17"
+         x2="207.80"
          y2="237.53"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line290" />
       <line
          x1="207.44"
          y1="242.83"
-         x2="208.17"
+         x2="207.80"
          y2="242.83"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line291" />
       <line
          x1="207.44"
          y1="248.14"
-         x2="208.17"
+         x2="207.80"
          y2="248.14"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line292" />
@@ -2386,7 +2386,7 @@
       <line
          x1="207.44"
          y1="258.75"
-         x2="208.17"
+         x2="207.80"
          y2="258.75"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line294" />
@@ -2417,15 +2417,15 @@
        clip-path="url(#cpMjAxLjY0fDMyOS4yMHwyNjQuMDV8MzIwLjI3)"
        id="g318">
       <polyline
-         points="225.56,320.27 225.56,264.05 "
+         points="225.62,320.27 225.62,264.05 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline296" />
       <polyline
-         points="261.80,320.27 261.80,264.05 "
+         points="261.97,320.27 261.97,264.05 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline297" />
       <polyline
-         points="298.03,320.27 298.03,264.05 "
+         points="298.32,320.27 298.32,264.05 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline298" />
       <polyline
@@ -2433,138 +2433,138 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline299" />
       <polyline
-         points="243.68,320.27 243.68,264.05 "
+         points="243.79,320.27 243.79,264.05 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline300" />
       <polyline
-         points="279.92,320.27 279.92,264.05 "
+         points="280.14,320.27 280.14,264.05 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline301" />
       <polyline
-         points="316.15,320.27 316.15,264.05 "
+         points="316.49,320.27 316.49,264.05 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline302" />
       <circle
-         cx="293.69"
+         cx="293.59"
          cy="267.23"
          r="2.03"
          style="stroke-width: 0.43; fill: #1B9E77;"
          id="circle302" />
       <circle
-         cx="222.30"
+         cx="222.34"
          cy="272.54"
          r="2.03"
          style="stroke-width: 0.43; fill: #D95F02;"
          id="circle303" />
       <circle
-         cx="218.31"
+         cx="217.98"
          cy="277.84"
          r="2.03"
          style="stroke-width: 0.43; fill: #7570B3;"
          id="circle304" />
       <circle
-         cx="219.76"
+         cx="219.44"
          cy="283.14"
          r="2.03"
          style="stroke-width: 0.43; fill: #E7298A;"
          id="circle305" />
       <circle
-         cx="287.89"
+         cx="287.78"
          cy="288.45"
          r="2.03"
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="circle306" />
       <polygon
-         points="218.31,290.60 221.04,295.33 215.58,295.33 "
+         points="217.98,290.60 220.71,295.33 215.25,295.33 "
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="polygon306" />
       <circle
-         cx="237.16"
+         cx="237.25"
          cy="299.06"
          r="2.03"
          style="stroke-width: 0.43; fill: #66A61E;"
          id="circle307" />
       <polygon
-         points="219.76,301.21 222.49,305.94 217.03,305.94 "
+         points="219.44,301.21 222.17,305.94 216.71,305.94 "
          style="stroke-width: 0.43; fill: #66A61E;"
          id="polygon307" />
       <circle
-         cx="221.94"
+         cx="221.62"
          cy="309.66"
          r="2.03"
          style="stroke-width: 0.43; fill: #666666;"
          id="circle308" />
       <polygon
-         points="218.67,311.82 221.40,316.54 215.95,316.54 "
+         points="218.35,311.82 221.08,316.54 215.62,316.54 "
          style="stroke-width: 0.43; fill: #666666;"
          id="polygon308" />
       <line
          x1="207.44"
          y1="267.23"
-         x2="293.69"
+         x2="293.59"
          y2="267.23"
          style="stroke-width: 0.43; stroke: #1B9E77; stroke-linecap: butt;"
          id="line308" />
       <line
          x1="207.44"
          y1="272.54"
-         x2="222.30"
+         x2="222.34"
          y2="272.54"
          style="stroke-width: 0.43; stroke: #D95F02; stroke-linecap: butt;"
          id="line309" />
       <line
          x1="207.44"
          y1="277.84"
-         x2="218.31"
+         x2="217.98"
          y2="277.84"
          style="stroke-width: 0.43; stroke: #7570B3; stroke-linecap: butt;"
          id="line310" />
       <line
          x1="207.44"
          y1="283.14"
-         x2="219.76"
+         x2="219.44"
          y2="283.14"
          style="stroke-width: 0.43; stroke: #E7298A; stroke-linecap: butt;"
          id="line311" />
       <line
          x1="207.44"
          y1="288.45"
-         x2="287.89"
+         x2="287.78"
          y2="288.45"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line312" />
       <line
          x1="207.44"
          y1="293.75"
-         x2="218.31"
+         x2="217.98"
          y2="293.75"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line313" />
       <line
          x1="207.44"
          y1="299.06"
-         x2="237.16"
+         x2="237.25"
          y2="299.06"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line314" />
       <line
          x1="207.44"
          y1="304.36"
-         x2="219.76"
+         x2="219.44"
          y2="304.36"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line315" />
       <line
          x1="207.44"
          y1="309.66"
-         x2="221.94"
+         x2="221.62"
          y2="309.66"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line316" />
       <line
          x1="207.44"
          y1="314.97"
-         x2="218.67"
+         x2="218.35"
          y2="314.97"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line317" />
@@ -2595,15 +2595,15 @@
        clip-path="url(#cpMjAxLjY0fDMyOS4yMHwzMjAuMjd8Mzc2LjQ5)"
        id="g341">
       <polyline
-         points="225.56,376.49 225.56,320.27 "
+         points="225.62,376.49 225.62,320.27 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline319" />
       <polyline
-         points="261.80,376.49 261.80,320.27 "
+         points="261.97,376.49 261.97,320.27 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline320" />
       <polyline
-         points="298.03,376.49 298.03,320.27 "
+         points="298.32,376.49 298.32,320.27 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline321" />
       <polyline
@@ -2611,37 +2611,37 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline322" />
       <polyline
-         points="243.68,376.49 243.68,320.27 "
+         points="243.79,376.49 243.79,320.27 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline323" />
       <polyline
-         points="279.92,376.49 279.92,320.27 "
+         points="280.14,376.49 280.14,320.27 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline324" />
       <polyline
-         points="316.15,376.49 316.15,320.27 "
+         points="316.49,376.49 316.49,320.27 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline325" />
       <circle
-         cx="323.04"
+         cx="323.40"
          cy="323.45"
          r="2.03"
          style="stroke-width: 0.43; fill: #1B9E77;"
          id="circle325" />
       <circle
-         cx="222.30"
+         cx="222.34"
          cy="328.76"
          r="2.03"
          style="stroke-width: 0.43; fill: #D95F02;"
          id="circle326" />
       <circle
-         cx="216.50"
+         cx="216.53"
          cy="334.06"
          r="2.03"
          style="stroke-width: 0.43; fill: #7570B3;"
          id="circle327" />
       <circle
-         cx="219.40"
+         cx="219.44"
          cy="339.37"
          r="2.03"
          style="stroke-width: 0.43; fill: #E7298A;"
@@ -2653,54 +2653,54 @@
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="circle329" />
       <polygon
-         points="219.76,346.82 222.49,351.55 217.03,351.55 "
+         points="219.80,346.82 222.53,351.55 217.07,351.55 "
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="polygon329" />
       <circle
-         cx="244.77"
+         cx="244.52"
          cy="355.28"
          r="2.03"
          style="stroke-width: 0.43; fill: #66A61E;"
          id="circle330" />
       <polygon
-         points="216.86,357.43 219.59,362.16 214.13,362.16 "
+         points="216.89,357.43 219.62,362.16 214.16,362.16 "
          style="stroke-width: 0.43; fill: #66A61E;"
          id="polygon330" />
       <circle
-         cx="219.76"
+         cx="219.80"
          cy="365.89"
          r="2.03"
          style="stroke-width: 0.43; fill: #666666;"
          id="circle331" />
       <polygon
-         points="216.14,368.04 218.87,372.77 213.41,372.77 "
+         points="216.16,368.04 218.89,372.77 213.44,372.77 "
          style="stroke-width: 0.43; fill: #666666;"
          id="polygon331" />
       <line
          x1="207.44"
          y1="323.45"
-         x2="323.04"
+         x2="323.40"
          y2="323.45"
          style="stroke-width: 0.43; stroke: #1B9E77; stroke-linecap: butt;"
          id="line331" />
       <line
          x1="207.44"
          y1="328.76"
-         x2="222.30"
+         x2="222.34"
          y2="328.76"
          style="stroke-width: 0.43; stroke: #D95F02; stroke-linecap: butt;"
          id="line332" />
       <line
          x1="207.44"
          y1="334.06"
-         x2="216.50"
+         x2="216.53"
          y2="334.06"
          style="stroke-width: 0.43; stroke: #7570B3; stroke-linecap: butt;"
          id="line333" />
       <line
          x1="207.44"
          y1="339.37"
-         x2="219.40"
+         x2="219.44"
          y2="339.37"
          style="stroke-width: 0.43; stroke: #E7298A; stroke-linecap: butt;"
          id="line334" />
@@ -2714,35 +2714,35 @@
       <line
          x1="207.44"
          y1="349.97"
-         x2="219.76"
+         x2="219.80"
          y2="349.97"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line336" />
       <line
          x1="207.44"
          y1="355.28"
-         x2="244.77"
+         x2="244.52"
          y2="355.28"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line337" />
       <line
          x1="207.44"
          y1="360.58"
-         x2="216.86"
+         x2="216.89"
          y2="360.58"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line338" />
       <line
          x1="207.44"
          y1="365.89"
-         x2="219.76"
+         x2="219.80"
          y2="365.89"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line339" />
       <line
          x1="207.44"
          y1="371.19"
-         x2="216.14"
+         x2="216.16"
          y2="371.19"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line340" />
@@ -2773,15 +2773,15 @@
        clip-path="url(#cpMjAxLjY0fDMyOS4yMHwzNzYuNDl8NDMyLjcy)"
        id="g364">
       <polyline
-         points="225.56,432.72 225.56,376.49 "
+         points="225.62,432.72 225.62,376.49 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline342" />
       <polyline
-         points="261.80,432.72 261.80,376.49 "
+         points="261.97,432.72 261.97,376.49 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline343" />
       <polyline
-         points="298.03,432.72 298.03,376.49 "
+         points="298.32,432.72 298.32,376.49 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline344" />
       <polyline
@@ -2789,138 +2789,138 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline345" />
       <polyline
-         points="243.68,432.72 243.68,376.49 "
+         points="243.79,432.72 243.79,376.49 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline346" />
       <polyline
-         points="279.92,432.72 279.92,376.49 "
+         points="280.14,432.72 280.14,376.49 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline347" />
       <polyline
-         points="316.15,432.72 316.15,376.49 "
+         points="316.49,432.72 316.49,376.49 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline348" />
       <circle
-         cx="235.34"
+         cx="232.16"
          cy="379.68"
          r="2.03"
          style="stroke-width: 0.43; fill: #1B9E77;"
          id="circle348" />
       <circle
-         cx="215.41"
+         cx="213.26"
          cy="384.98"
          r="2.03"
          style="stroke-width: 0.43; fill: #D95F02;"
          id="circle349" />
       <circle
-         cx="213.60"
+         cx="213.26"
          cy="390.29"
          r="2.03"
          style="stroke-width: 0.43; fill: #7570B3;"
          id="circle350" />
       <circle
-         cx="211.79"
+         cx="211.80"
          cy="395.59"
          r="2.03"
          style="stroke-width: 0.43; fill: #E7298A;"
          id="circle351" />
       <circle
-         cx="223.02"
+         cx="223.07"
          cy="400.89"
          r="2.03"
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="circle352" />
       <polygon
-         points="211.43,403.05 214.16,407.77 208.70,407.77 "
+         points="211.44,403.05 214.17,407.77 208.71,407.77 "
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="polygon352" />
       <circle
-         cx="223.02"
+         cx="219.80"
          cy="411.50"
          r="2.03"
          style="stroke-width: 0.43; fill: #66A61E;"
          id="circle353" />
       <polygon
-         points="212.15,413.65 214.88,418.38 209.42,418.38 "
+         points="211.80,413.65 214.53,418.38 209.07,418.38 "
          style="stroke-width: 0.43; fill: #66A61E;"
          id="polygon353" />
       <circle
-         cx="213.24"
+         cx="212.53"
          cy="422.11"
          r="2.03"
          style="stroke-width: 0.43; fill: #666666;"
          id="circle354" />
       <polygon
-         points="212.15,424.26 214.88,428.99 209.42,428.99 "
+         points="211.80,424.26 214.53,428.99 209.07,428.99 "
          style="stroke-width: 0.43; fill: #666666;"
          id="polygon354" />
       <line
          x1="207.44"
          y1="379.68"
-         x2="235.34"
+         x2="232.16"
          y2="379.68"
          style="stroke-width: 0.43; stroke: #1B9E77; stroke-linecap: butt;"
          id="line354" />
       <line
          x1="207.44"
          y1="384.98"
-         x2="215.41"
+         x2="213.26"
          y2="384.98"
          style="stroke-width: 0.43; stroke: #D95F02; stroke-linecap: butt;"
          id="line355" />
       <line
          x1="207.44"
          y1="390.29"
-         x2="213.60"
+         x2="213.26"
          y2="390.29"
          style="stroke-width: 0.43; stroke: #7570B3; stroke-linecap: butt;"
          id="line356" />
       <line
          x1="207.44"
          y1="395.59"
-         x2="211.79"
+         x2="211.80"
          y2="395.59"
          style="stroke-width: 0.43; stroke: #E7298A; stroke-linecap: butt;"
          id="line357" />
       <line
          x1="207.44"
          y1="400.89"
-         x2="223.02"
+         x2="223.07"
          y2="400.89"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line358" />
       <line
          x1="207.44"
          y1="406.20"
-         x2="211.43"
+         x2="211.44"
          y2="406.20"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line359" />
       <line
          x1="207.44"
          y1="411.50"
-         x2="223.02"
+         x2="219.80"
          y2="411.50"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line360" />
       <line
          x1="207.44"
          y1="416.81"
-         x2="212.15"
+         x2="211.80"
          y2="416.81"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line361" />
       <line
          x1="207.44"
          y1="422.11"
-         x2="213.24"
+         x2="212.53"
          y2="422.11"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line362" />
       <line
          x1="207.44"
          y1="427.41"
-         x2="212.15"
+         x2="211.80"
          y2="427.41"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line363" />
@@ -2970,21 +2970,21 @@
          lengthAdjust="spacingAndGlyphs"
          id="text366">0</text>
       <text
-         transform="translate(245.83,437.65) rotate(-90)"
+         transform="translate(245.94,437.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="10.03px"
          lengthAdjust="spacingAndGlyphs"
          id="text367">100</text>
       <text
-         transform="translate(282.06,437.65) rotate(-90)"
+         transform="translate(282.29,437.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="10.03px"
          lengthAdjust="spacingAndGlyphs"
          id="text368">200</text>
       <text
-         transform="translate(318.30,437.65) rotate(-90)"
+         transform="translate(318.64,437.65) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="10.03px"

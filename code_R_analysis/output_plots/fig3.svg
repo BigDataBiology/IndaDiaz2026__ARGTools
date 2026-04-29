@@ -4,7 +4,7 @@
    height="396.85pt"
    viewBox="0 0 340.16 396.85"
    version="1.1"
-   id="svg347"
+   id="svg343"
    sodipodi:docname="fig3.svg"
    inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -12,9 +12,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs347" />
+     id="defs343" />
   <sodipodi:namedview
-     id="namedview347"
+     id="namedview343"
      pagecolor="#ffffff"
      bordercolor="#000000"
      borderopacity="0.25"
@@ -23,18 +23,18 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="pt"
-     inkscape:zoom="0.80409964"
-     inkscape:cx="240.02"
-     inkscape:cy="236.91094"
-     inkscape:window-width="1808"
-     inkscape:window-height="834"
-     inkscape:window-x="1636"
-     inkscape:window-y="299"
-     inkscape:window-maximized="0"
-     inkscape:current-layer="g347" />
+     inkscape:zoom="1.464587"
+     inkscape:cx="227.70925"
+     inkscape:cy="299.40181"
+     inkscape:window-width="1472"
+     inkscape:window-height="890"
+     inkscape:window-x="0"
+     inkscape:window-y="38"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g343" />
   <g
      class="svglite"
-     id="g347">
+     id="g343">
     <defs
        id="defs1">
       <style
@@ -171,19 +171,19 @@
        clip-path="url(#cpMTkuMjZ8MTUwLjUxfDM5LjE2fDg2Ljc5)"
        id="g40">
       <polyline
-         points="129.63,86.79 129.63,39.16 "
+         points="129.28,86.79 129.28,39.16 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline16" />
       <polyline
-         points="99.82,86.79 99.82,39.16 "
+         points="98.77,86.79 98.77,39.16 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline17" />
       <polyline
-         points="70.01,86.79 70.01,39.16 "
+         points="68.25,86.79 68.25,39.16 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline18" />
       <polyline
-         points="40.19,86.79 40.19,39.16 "
+         points="37.74,86.79 37.74,39.16 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline19" />
       <polyline
@@ -191,73 +191,73 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline20" />
       <polyline
-         points="114.73,86.79 114.73,39.16 "
+         points="114.03,86.79 114.03,39.16 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline21" />
       <polyline
-         points="84.91,86.79 84.91,39.16 "
+         points="83.51,86.79 83.51,39.16 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline22" />
       <polyline
-         points="55.10,86.79 55.10,39.16 "
+         points="52.99,86.79 52.99,39.16 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline23" />
       <polyline
-         points="25.29,86.79 25.29,39.16 "
+         points="22.48,86.79 22.48,39.16 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline24" />
       <circle
-         cx="37.39"
+         cx="35.10"
          cy="41.85"
          r="2.03"
          style="stroke-width: 0.43; fill: #1B9E77;"
          id="circle24" />
       <circle
-         cx="133.68"
+         cx="133.41"
          cy="46.35"
          r="2.03"
          style="stroke-width: 0.43; fill: #D95F02;"
          id="circle25" />
       <circle
-         cx="139.32"
+         cx="139.21"
          cy="50.84"
          r="2.03"
          style="stroke-width: 0.43; fill: #7570B3;"
          id="circle26" />
       <circle
-         cx="131.73"
+         cx="131.47"
          cy="55.34"
          r="2.03"
          style="stroke-width: 0.43; fill: #E7298A;"
          id="circle27" />
       <circle
-         cx="49.05"
+         cx="46.82"
          cy="59.83"
          r="2.03"
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="circle28" />
       <polygon
-         points="134.26,61.17 136.99,65.90 131.53,65.90 "
+         points="134.06,61.17 136.79,65.90 131.33,65.90 "
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="polygon28" />
       <circle
-         cx="125.96"
+         cx="125.53"
          cy="68.82"
          r="2.03"
          style="stroke-width: 0.43; fill: #66A61E;"
          id="circle29" />
       <polygon
-         points="139.68,70.16 142.41,74.89 136.95,74.89 "
+         points="139.58,70.16 142.31,74.89 136.85,74.89 "
          style="stroke-width: 0.43; fill: #66A61E;"
          id="polygon29" />
       <circle
-         cx="139.88"
+         cx="139.79"
          cy="77.80"
          r="2.03"
          style="stroke-width: 0.43; fill: #666666;"
          id="circle30" />
       <polygon
-         points="140.90,79.15 143.63,83.87 138.17,83.87 "
+         points="140.83,79.15 143.56,83.87 138.10,83.87 "
          style="stroke-width: 0.43; fill: #666666;"
          id="polygon30" />
       <line
@@ -270,70 +270,70 @@
       <line
          x1="144.54"
          y1="41.85"
-         x2="37.39"
+         x2="35.10"
          y2="41.85"
          style="stroke-width: 0.43; stroke: #1B9E77; stroke-linecap: butt;"
          id="line31" />
       <line
          x1="144.54"
          y1="46.35"
-         x2="133.68"
+         x2="133.41"
          y2="46.35"
          style="stroke-width: 0.43; stroke: #D95F02; stroke-linecap: butt;"
          id="line32" />
       <line
          x1="144.54"
          y1="50.84"
-         x2="139.32"
+         x2="139.21"
          y2="50.84"
          style="stroke-width: 0.43; stroke: #7570B3; stroke-linecap: butt;"
          id="line33" />
       <line
          x1="144.54"
          y1="55.34"
-         x2="131.73"
+         x2="131.47"
          y2="55.34"
          style="stroke-width: 0.43; stroke: #E7298A; stroke-linecap: butt;"
          id="line34" />
       <line
          x1="144.54"
          y1="59.83"
-         x2="49.05"
+         x2="46.82"
          y2="59.83"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line35" />
       <line
          x1="144.54"
          y1="64.32"
-         x2="134.26"
+         x2="134.06"
          y2="64.32"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line36" />
       <line
          x1="144.54"
          y1="68.82"
-         x2="125.96"
+         x2="125.53"
          y2="68.82"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line37" />
       <line
          x1="144.54"
          y1="73.31"
-         x2="139.68"
+         x2="139.58"
          y2="73.31"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line38" />
       <line
          x1="144.54"
          y1="77.80"
-         x2="139.88"
+         x2="139.79"
          y2="77.80"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line39" />
       <line
          x1="144.54"
          y1="82.30"
-         x2="140.90"
+         x2="140.83"
          y2="82.30"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line40" />
@@ -357,19 +357,19 @@
        clip-path="url(#cpMTkuMjZ8MTUwLjUxfDg2Ljc5fDEzNC40Mw==)"
        id="g65">
       <polyline
-         points="129.63,134.43 129.63,86.79 "
+         points="129.28,134.43 129.28,86.79 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline41" />
       <polyline
-         points="99.82,134.43 99.82,86.79 "
+         points="98.77,134.43 98.77,86.79 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline42" />
       <polyline
-         points="70.01,134.43 70.01,86.79 "
+         points="68.25,134.43 68.25,86.79 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline43" />
       <polyline
-         points="40.19,134.43 40.19,86.79 "
+         points="37.74,134.43 37.74,86.79 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline44" />
       <polyline
@@ -377,73 +377,73 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline45" />
       <polyline
-         points="114.73,134.43 114.73,86.79 "
+         points="114.03,134.43 114.03,86.79 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline46" />
       <polyline
-         points="84.91,134.43 84.91,86.79 "
+         points="83.51,134.43 83.51,86.79 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline47" />
       <polyline
-         points="55.10,134.43 55.10,86.79 "
+         points="52.99,134.43 52.99,86.79 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline48" />
       <polyline
-         points="25.29,134.43 25.29,86.79 "
+         points="22.48,134.43 22.48,86.79 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline49" />
       <circle
-         cx="45.36"
+         cx="43.03"
          cy="89.49"
          r="2.03"
          style="stroke-width: 0.43; fill: #1B9E77;"
          id="circle49" />
       <circle
-         cx="134.37"
+         cx="134.13"
          cy="93.98"
          r="2.03"
          style="stroke-width: 0.43; fill: #D95F02;"
          id="circle50" />
       <circle
-         cx="140.81"
+         cx="140.73"
          cy="98.48"
          r="2.03"
          style="stroke-width: 0.43; fill: #7570B3;"
          id="circle51" />
       <circle
-         cx="138.50"
+         cx="138.37"
          cy="102.97"
          r="2.03"
          style="stroke-width: 0.43; fill: #E7298A;"
          id="circle52" />
       <circle
-         cx="51.50"
+         cx="49.32"
          cy="107.46"
          r="2.03"
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="circle53" />
       <polygon
-         points="139.16,108.81 141.88,113.53 136.43,113.53 "
+         points="139.03,108.81 141.76,113.53 136.30,113.53 "
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="polygon53" />
       <circle
-         cx="131.41"
+         cx="131.11"
          cy="116.45"
          r="2.03"
          style="stroke-width: 0.43; fill: #66A61E;"
          id="circle54" />
       <polygon
-         points="140.65,117.79 143.38,122.52 137.92,122.52 "
+         points="140.56,117.79 143.29,122.52 137.84,122.52 "
          style="stroke-width: 0.43; fill: #66A61E;"
          id="polygon54" />
       <circle
-         cx="140.46"
+         cx="140.37"
          cy="125.44"
          r="2.03"
          style="stroke-width: 0.43; fill: #666666;"
          id="circle55" />
       <polygon
-         points="141.40,126.78 144.13,131.51 138.67,131.51 "
+         points="141.33,126.78 144.06,131.51 138.60,131.51 "
          style="stroke-width: 0.43; fill: #666666;"
          id="polygon55" />
       <line
@@ -456,70 +456,70 @@
       <line
          x1="144.54"
          y1="89.49"
-         x2="45.36"
+         x2="43.03"
          y2="89.49"
          style="stroke-width: 0.43; stroke: #1B9E77; stroke-linecap: butt;"
          id="line56" />
       <line
          x1="144.54"
          y1="93.98"
-         x2="134.37"
+         x2="134.13"
          y2="93.98"
          style="stroke-width: 0.43; stroke: #D95F02; stroke-linecap: butt;"
          id="line57" />
       <line
          x1="144.54"
          y1="98.48"
-         x2="140.81"
+         x2="140.73"
          y2="98.48"
          style="stroke-width: 0.43; stroke: #7570B3; stroke-linecap: butt;"
          id="line58" />
       <line
          x1="144.54"
          y1="102.97"
-         x2="138.50"
+         x2="138.37"
          y2="102.97"
          style="stroke-width: 0.43; stroke: #E7298A; stroke-linecap: butt;"
          id="line59" />
       <line
          x1="144.54"
          y1="107.46"
-         x2="51.50"
+         x2="49.32"
          y2="107.46"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line60" />
       <line
          x1="144.54"
          y1="111.96"
-         x2="139.16"
+         x2="139.03"
          y2="111.96"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line61" />
       <line
          x1="144.54"
          y1="116.45"
-         x2="131.41"
+         x2="131.11"
          y2="116.45"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line62" />
       <line
          x1="144.54"
          y1="120.95"
-         x2="140.65"
+         x2="140.56"
          y2="120.95"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line63" />
       <line
          x1="144.54"
          y1="125.44"
-         x2="140.46"
+         x2="140.37"
          y2="125.44"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line64" />
       <line
          x1="144.54"
          y1="129.93"
-         x2="141.40"
+         x2="141.33"
          y2="129.93"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line65" />
@@ -543,19 +543,19 @@
        clip-path="url(#cpMTkuMjZ8MTUwLjUxfDEzNC40M3wxODIuMDY=)"
        id="g90">
       <polyline
-         points="129.63,182.06 129.63,134.43 "
+         points="129.28,182.06 129.28,134.43 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline66" />
       <polyline
-         points="99.82,182.06 99.82,134.43 "
+         points="98.77,182.06 98.77,134.43 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline67" />
       <polyline
-         points="70.01,182.06 70.01,134.43 "
+         points="68.25,182.06 68.25,134.43 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline68" />
       <polyline
-         points="40.19,182.06 40.19,134.43 "
+         points="37.74,182.06 37.74,134.43 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline69" />
       <polyline
@@ -563,73 +563,73 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline70" />
       <polyline
-         points="114.73,182.06 114.73,134.43 "
+         points="114.03,182.06 114.03,134.43 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline71" />
       <polyline
-         points="84.91,182.06 84.91,134.43 "
+         points="83.51,182.06 83.51,134.43 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline72" />
       <polyline
-         points="55.10,182.06 55.10,134.43 "
+         points="52.99,182.06 52.99,134.43 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline73" />
       <polyline
-         points="25.29,182.06 25.29,134.43 "
+         points="22.48,182.06 22.48,134.43 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline74" />
       <circle
-         cx="79.62"
+         cx="78.09"
          cy="137.12"
          r="2.03"
          style="stroke-width: 0.43; fill: #1B9E77;"
          id="circle74" />
       <circle
-         cx="137.04"
+         cx="136.86"
          cy="141.62"
          r="2.03"
          style="stroke-width: 0.43; fill: #D95F02;"
          id="circle75" />
       <circle
-         cx="140.40"
+         cx="140.31"
          cy="146.11"
          r="2.03"
          style="stroke-width: 0.43; fill: #7570B3;"
          id="circle76" />
       <circle
-         cx="135.30"
+         cx="135.08"
          cy="150.61"
          r="2.03"
          style="stroke-width: 0.43; fill: #E7298A;"
          id="circle77" />
       <circle
-         cx="97.69"
+         cx="96.58"
          cy="155.10"
          r="2.03"
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="circle78" />
       <polygon
-         points="136.30,156.44 139.03,161.17 133.57,161.17 "
+         points="136.11,156.44 138.84,161.17 133.38,161.17 "
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="polygon78" />
       <circle
-         cx="134.06"
+         cx="133.81"
          cy="164.09"
          r="2.03"
          style="stroke-width: 0.43; fill: #66A61E;"
          id="circle79" />
       <polygon
-         points="140.38,165.43 143.11,170.16 137.65,170.16 "
+         points="140.28,165.43 143.01,170.16 137.55,170.16 "
          style="stroke-width: 0.43; fill: #66A61E;"
          id="polygon79" />
       <circle
-         cx="140.18"
+         cx="140.07"
          cy="173.07"
          r="2.03"
          style="stroke-width: 0.43; fill: #666666;"
          id="circle80" />
       <polygon
-         points="141.11,174.42 143.84,179.14 138.38,179.14 "
+         points="141.03,174.42 143.76,179.14 138.30,179.14 "
          style="stroke-width: 0.43; fill: #666666;"
          id="polygon80" />
       <line
@@ -642,70 +642,70 @@
       <line
          x1="144.54"
          y1="137.12"
-         x2="79.62"
+         x2="78.09"
          y2="137.12"
          style="stroke-width: 0.43; stroke: #1B9E77; stroke-linecap: butt;"
          id="line81" />
       <line
          x1="144.54"
          y1="141.62"
-         x2="137.04"
+         x2="136.86"
          y2="141.62"
          style="stroke-width: 0.43; stroke: #D95F02; stroke-linecap: butt;"
          id="line82" />
       <line
          x1="144.54"
          y1="146.11"
-         x2="140.40"
+         x2="140.31"
          y2="146.11"
          style="stroke-width: 0.43; stroke: #7570B3; stroke-linecap: butt;"
          id="line83" />
       <line
          x1="144.54"
          y1="150.61"
-         x2="135.30"
+         x2="135.08"
          y2="150.61"
          style="stroke-width: 0.43; stroke: #E7298A; stroke-linecap: butt;"
          id="line84" />
       <line
          x1="144.54"
          y1="155.10"
-         x2="97.69"
+         x2="96.58"
          y2="155.10"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line85" />
       <line
          x1="144.54"
          y1="159.59"
-         x2="136.30"
+         x2="136.11"
          y2="159.59"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line86" />
       <line
          x1="144.54"
          y1="164.09"
-         x2="134.06"
+         x2="133.81"
          y2="164.09"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line87" />
       <line
          x1="144.54"
          y1="168.58"
-         x2="140.38"
+         x2="140.28"
          y2="168.58"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line88" />
       <line
          x1="144.54"
          y1="173.07"
-         x2="140.18"
+         x2="140.07"
          y2="173.07"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line89" />
       <line
          x1="144.54"
          y1="177.57"
-         x2="141.11"
+         x2="141.03"
          y2="177.57"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line90" />
@@ -729,19 +729,19 @@
        clip-path="url(#cpMTkuMjZ8MTUwLjUxfDE4Mi4wNnwyMjkuNzA=)"
        id="g115">
       <polyline
-         points="129.63,229.70 129.63,182.06 "
+         points="129.28,229.70 129.28,182.06 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline91" />
       <polyline
-         points="99.82,229.70 99.82,182.06 "
+         points="98.77,229.70 98.77,182.06 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline92" />
       <polyline
-         points="70.01,229.70 70.01,182.06 "
+         points="68.25,229.70 68.25,182.06 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline93" />
       <polyline
-         points="40.19,229.70 40.19,182.06 "
+         points="37.74,229.70 37.74,182.06 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline94" />
       <polyline
@@ -749,29 +749,29 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline95" />
       <polyline
-         points="114.73,229.70 114.73,182.06 "
+         points="114.03,229.70 114.03,182.06 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline96" />
       <polyline
-         points="84.91,229.70 84.91,182.06 "
+         points="83.51,229.70 83.51,182.06 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline97" />
       <polyline
-         points="55.10,229.70 55.10,182.06 "
+         points="52.99,229.70 52.99,182.06 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline98" />
       <polyline
-         points="25.29,229.70 25.29,182.06 "
+         points="22.48,229.70 22.48,182.06 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline99" />
       <circle
-         cx="111.12"
+         cx="110.32"
          cy="184.76"
          r="2.03"
          style="stroke-width: 0.43; fill: #1B9E77;"
          id="circle99" />
       <circle
-         cx="136.66"
+         cx="136.47"
          cy="189.25"
          r="2.03"
          style="stroke-width: 0.43; fill: #D95F02;"
@@ -783,39 +783,39 @@
          style="stroke-width: 0.43; fill: #7570B3;"
          id="circle101" />
       <circle
-         cx="143.28"
+         cx="143.25"
          cy="198.24"
          r="2.03"
          style="stroke-width: 0.43; fill: #E7298A;"
          id="circle102" />
       <circle
-         cx="98.29"
+         cx="97.18"
          cy="202.73"
          r="2.03"
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="circle103" />
       <polygon
-         points="143.16,204.08 145.89,208.80 140.43,208.80 "
+         points="143.13,204.08 145.86,208.80 140.40,208.80 "
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="polygon103" />
       <circle
-         cx="140.14"
+         cx="140.04"
          cy="211.72"
          r="2.03"
          style="stroke-width: 0.43; fill: #66A61E;"
          id="circle104" />
       <polygon
-         points="144.16,213.06 146.89,217.79 141.44,217.79 "
+         points="144.16,213.06 146.88,217.79 141.43,217.79 "
          style="stroke-width: 0.43; fill: #66A61E;"
          id="polygon104" />
       <circle
-         cx="144.16"
+         cx="144.15"
          cy="220.71"
          r="2.03"
          style="stroke-width: 0.43; fill: #666666;"
          id="circle105" />
       <polygon
-         points="144.23,222.05 146.96,226.78 141.50,226.78 "
+         points="144.22,222.05 146.95,226.78 141.49,226.78 "
          style="stroke-width: 0.43; fill: #666666;"
          id="polygon105" />
       <line
@@ -828,14 +828,14 @@
       <line
          x1="144.54"
          y1="184.76"
-         x2="111.12"
+         x2="110.32"
          y2="184.76"
          style="stroke-width: 0.43; stroke: #1B9E77; stroke-linecap: butt;"
          id="line106" />
       <line
          x1="144.54"
          y1="189.25"
-         x2="136.66"
+         x2="136.47"
          y2="189.25"
          style="stroke-width: 0.43; stroke: #D95F02; stroke-linecap: butt;"
          id="line107" />
@@ -849,28 +849,28 @@
       <line
          x1="144.54"
          y1="198.24"
-         x2="143.28"
+         x2="143.25"
          y2="198.24"
          style="stroke-width: 0.43; stroke: #E7298A; stroke-linecap: butt;"
          id="line109" />
       <line
          x1="144.54"
          y1="202.73"
-         x2="98.29"
+         x2="97.18"
          y2="202.73"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line110" />
       <line
          x1="144.54"
          y1="207.23"
-         x2="143.16"
+         x2="143.13"
          y2="207.23"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line111" />
       <line
          x1="144.54"
          y1="211.72"
-         x2="140.14"
+         x2="140.04"
          y2="211.72"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line112" />
@@ -884,14 +884,14 @@
       <line
          x1="144.54"
          y1="220.71"
-         x2="144.16"
+         x2="144.15"
          y2="220.71"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line114" />
       <line
          x1="144.54"
          y1="225.20"
-         x2="144.23"
+         x2="144.22"
          y2="225.20"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line115" />
@@ -915,19 +915,19 @@
        clip-path="url(#cpMTkuMjZ8MTUwLjUxfDIyOS43MHwyNzcuMzM=)"
        id="g140">
       <polyline
-         points="129.63,277.33 129.63,229.70 "
+         points="129.28,277.33 129.28,229.70 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline116" />
       <polyline
-         points="99.82,277.33 99.82,229.70 "
+         points="98.77,277.33 98.77,229.70 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline117" />
       <polyline
-         points="70.01,277.33 70.01,229.70 "
+         points="68.25,277.33 68.25,229.70 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline118" />
       <polyline
-         points="40.19,277.33 40.19,229.70 "
+         points="37.74,277.33 37.74,229.70 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline119" />
       <polyline
@@ -935,73 +935,73 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline120" />
       <polyline
-         points="114.73,277.33 114.73,229.70 "
+         points="114.03,277.33 114.03,229.70 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline121" />
       <polyline
-         points="84.91,277.33 84.91,229.70 "
+         points="83.51,277.33 83.51,229.70 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline122" />
       <polyline
-         points="55.10,277.33 55.10,229.70 "
+         points="52.99,277.33 52.99,229.70 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline123" />
       <polyline
-         points="25.29,277.33 25.29,229.70 "
+         points="22.48,277.33 22.48,229.70 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline124" />
       <circle
-         cx="111.52"
+         cx="110.74"
          cy="232.39"
          r="2.03"
          style="stroke-width: 0.43; fill: #1B9E77;"
          id="circle124" />
       <circle
-         cx="140.73"
+         cx="140.64"
          cy="236.89"
          r="2.03"
          style="stroke-width: 0.43; fill: #D95F02;"
          id="circle125" />
       <circle
-         cx="143.30"
+         cx="143.27"
          cy="241.38"
          r="2.03"
          style="stroke-width: 0.43; fill: #7570B3;"
          id="circle126" />
       <circle
-         cx="139.89"
+         cx="139.78"
          cy="245.88"
          r="2.03"
          style="stroke-width: 0.43; fill: #E7298A;"
          id="circle127" />
       <circle
-         cx="129.87"
+         cx="129.53"
          cy="250.37"
          r="2.03"
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="circle128" />
       <polygon
-         points="140.43,251.71 143.16,256.44 137.70,256.44 "
+         points="140.34,251.71 143.06,256.44 137.61,256.44 "
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="polygon128" />
       <circle
-         cx="140.89"
+         cx="140.80"
          cy="259.36"
          r="2.03"
          style="stroke-width: 0.43; fill: #66A61E;"
          id="circle129" />
       <polygon
-         points="143.19,260.70 145.92,265.43 140.46,265.43 "
+         points="143.16,260.70 145.89,265.43 140.43,265.43 "
          style="stroke-width: 0.43; fill: #66A61E;"
          id="polygon129" />
       <circle
-         cx="143.25"
+         cx="143.22"
          cy="268.34"
          r="2.03"
          style="stroke-width: 0.43; fill: #666666;"
          id="circle130" />
       <polygon
-         points="143.52,269.69 146.25,274.41 140.79,274.41 "
+         points="143.49,269.69 146.22,274.41 140.76,274.41 "
          style="stroke-width: 0.43; fill: #666666;"
          id="polygon130" />
       <line
@@ -1014,70 +1014,70 @@
       <line
          x1="144.54"
          y1="232.39"
-         x2="111.52"
+         x2="110.74"
          y2="232.39"
          style="stroke-width: 0.43; stroke: #1B9E77; stroke-linecap: butt;"
          id="line131" />
       <line
          x1="144.54"
          y1="236.89"
-         x2="140.73"
+         x2="140.64"
          y2="236.89"
          style="stroke-width: 0.43; stroke: #D95F02; stroke-linecap: butt;"
          id="line132" />
       <line
          x1="144.54"
          y1="241.38"
-         x2="143.30"
+         x2="143.27"
          y2="241.38"
          style="stroke-width: 0.43; stroke: #7570B3; stroke-linecap: butt;"
          id="line133" />
       <line
          x1="144.54"
          y1="245.88"
-         x2="139.89"
+         x2="139.78"
          y2="245.88"
          style="stroke-width: 0.43; stroke: #E7298A; stroke-linecap: butt;"
          id="line134" />
       <line
          x1="144.54"
          y1="250.37"
-         x2="129.87"
+         x2="129.53"
          y2="250.37"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line135" />
       <line
          x1="144.54"
          y1="254.86"
-         x2="140.43"
+         x2="140.34"
          y2="254.86"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line136" />
       <line
          x1="144.54"
          y1="259.36"
-         x2="140.89"
+         x2="140.80"
          y2="259.36"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line137" />
       <line
          x1="144.54"
          y1="263.85"
-         x2="143.19"
+         x2="143.16"
          y2="263.85"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line138" />
       <line
          x1="144.54"
          y1="268.34"
-         x2="143.25"
+         x2="143.22"
          y2="268.34"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line139" />
       <line
          x1="144.54"
          y1="272.84"
-         x2="143.52"
+         x2="143.49"
          y2="272.84"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line140" />
@@ -1101,19 +1101,19 @@
        clip-path="url(#cpMTkuMjZ8MTUwLjUxfDI3Ny4zM3wzMjQuOTc=)"
        id="g165">
       <polyline
-         points="129.63,324.97 129.63,277.33 "
+         points="129.28,324.97 129.28,277.33 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline141" />
       <polyline
-         points="99.82,324.97 99.82,277.33 "
+         points="98.77,324.97 98.77,277.33 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline142" />
       <polyline
-         points="70.01,324.97 70.01,277.33 "
+         points="68.25,324.97 68.25,277.33 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline143" />
       <polyline
-         points="40.19,324.97 40.19,277.33 "
+         points="37.74,324.97 37.74,277.33 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline144" />
       <polyline
@@ -1121,19 +1121,19 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline145" />
       <polyline
-         points="114.73,324.97 114.73,277.33 "
+         points="114.03,324.97 114.03,277.33 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline146" />
       <polyline
-         points="84.91,324.97 84.91,277.33 "
+         points="83.51,324.97 83.51,277.33 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline147" />
       <polyline
-         points="55.10,324.97 55.10,277.33 "
+         points="52.99,324.97 52.99,277.33 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline148" />
       <polyline
-         points="25.29,324.97 25.29,277.33 "
+         points="22.48,324.97 22.48,277.33 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline149" />
       <circle
@@ -1143,41 +1143,41 @@
          style="stroke-width: 0.43; fill: #1B9E77;"
          id="circle149" />
       <circle
-         cx="111.34"
+         cx="111.33"
          cy="284.52"
          r="2.03"
          style="stroke-width: 0.43; fill: #D95F02;"
          id="circle150" />
       <circle
-         cx="141.95"
+         cx="141.96"
          cy="289.02"
          r="2.03"
          style="stroke-width: 0.43; fill: #7570B3;"
          id="circle151" />
       <circle
-         cx="130.63"
+         cx="130.62"
          cy="293.51"
          r="2.03"
          style="stroke-width: 0.43; fill: #E7298A;"
          id="circle152" />
       <circle
-         cx="82.91"
+         cx="83.02"
          cy="298.00"
          r="2.03"
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="circle153" />
       <polygon
-         points="131.44,299.35 134.17,304.07 128.71,304.07 "
+         points="131.43,299.35 134.16,304.07 128.70,304.07 "
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="polygon153" />
       <circle
-         cx="126.42"
+         cx="126.41"
          cy="306.99"
          r="2.03"
          style="stroke-width: 0.43; fill: #66A61E;"
          id="circle154" />
       <polygon
-         points="139.65,308.33 142.38,313.06 136.93,313.06 "
+         points="139.65,308.33 142.38,313.06 136.92,313.06 "
          style="stroke-width: 0.43; fill: #66A61E;"
          id="polygon154" />
       <circle
@@ -1207,42 +1207,42 @@
       <line
          x1="144.54"
          y1="284.52"
-         x2="111.34"
+         x2="111.33"
          y2="284.52"
          style="stroke-width: 0.43; stroke: #D95F02; stroke-linecap: butt;"
          id="line157" />
       <line
          x1="144.54"
          y1="289.02"
-         x2="141.95"
+         x2="141.96"
          y2="289.02"
          style="stroke-width: 0.43; stroke: #7570B3; stroke-linecap: butt;"
          id="line158" />
       <line
          x1="144.54"
          y1="293.51"
-         x2="130.63"
+         x2="130.62"
          y2="293.51"
          style="stroke-width: 0.43; stroke: #E7298A; stroke-linecap: butt;"
          id="line159" />
       <line
          x1="144.54"
          y1="298.00"
-         x2="82.91"
+         x2="83.02"
          y2="298.00"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line160" />
       <line
          x1="144.54"
          y1="302.50"
-         x2="131.44"
+         x2="131.43"
          y2="302.50"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line161" />
       <line
          x1="144.54"
          y1="306.99"
-         x2="126.42"
+         x2="126.41"
          y2="306.99"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line162" />
@@ -1312,13 +1312,14 @@
     </defs>
     <g
        clip-path="url(#cpMTUwLjUxfDE4OS42NXwzOS4xNnw4Ni43OQ==)"
-       id="g169">
+       id="g169"
+       transform="translate(3.9738729)">
       <text
          x="170.08"
-         y="65.12"
+         y="65.120003"
          text-anchor="middle"
-         style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
-         textLength="28.41px"
+         style="font-size:6px;font-family:Arial;fill:#1a1a1a"
+         textLength="28.41"
          lengthAdjust="spacingAndGlyphs"
          id="text168">human gut</text>
     </g>
@@ -1339,13 +1340,14 @@
     </defs>
     <g
        clip-path="url(#cpMTUwLjUxfDE4OS42NXw4Ni43OXwxMzQuNDM=)"
-       id="g171">
+       id="g171"
+       transform="translate(3.9738782)">
       <text
          x="170.08"
          y="112.76"
          text-anchor="middle"
-         style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
-         textLength="18.05px"
+         style="font-size:6px;font-family:Arial;fill:#1a1a1a"
+         textLength="18.049999"
          lengthAdjust="spacingAndGlyphs"
          id="text170">pig gut</text>
     </g>
@@ -1366,13 +1368,14 @@
     </defs>
     <g
        clip-path="url(#cpMTUwLjUxfDE4OS42NXwxMzQuNDN8MTgyLjA2)"
-       id="g173">
+       id="g173"
+       transform="translate(4.1001435)">
       <text
          x="170.08"
          y="160.39"
          text-anchor="middle"
-         style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
-         textLength="30.38px"
+         style="font-size:6px;font-family:Arial;fill:#1a1a1a"
+         textLength="30.379999"
          lengthAdjust="spacingAndGlyphs"
          id="text172">wastewater</text>
     </g>
@@ -1393,13 +1396,14 @@
     </defs>
     <g
        clip-path="url(#cpMTUwLjUxfDE4OS42NXwxODIuMDZ8MjI5Ljcw)"
-       id="g175">
+       id="g175"
+       transform="translate(4.0766818)">
       <text
          x="170.08"
          y="208.03"
          text-anchor="middle"
-         style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
-         textLength="18.36px"
+         style="font-size:6px;font-family:Arial;fill:#1a1a1a"
+         textLength="18.360001"
          lengthAdjust="spacingAndGlyphs"
          id="text174">marine</text>
     </g>
@@ -1420,13 +1424,14 @@
     </defs>
     <g
        clip-path="url(#cpMTUwLjUxfDE4OS42NXwyMjkuNzB8Mjc3LjMz)"
-       id="g177">
+       id="g177"
+       transform="translate(4.0810601)">
       <text
          x="170.08"
          y="255.66"
          text-anchor="middle"
-         style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
-         textLength="28.05px"
+         style="font-size:6px;font-family:Arial;fill:#1a1a1a"
+         textLength="28.049999"
          lengthAdjust="spacingAndGlyphs"
          id="text176">freshwater</text>
     </g>
@@ -1447,13 +1452,14 @@
     </defs>
     <g
        clip-path="url(#cpMTUwLjUxfDE4OS42NXwyNzcuMzN8MzI0Ljk3)"
-       id="g179">
+       id="g179"
+       transform="translate(4.2686183)">
       <text
          x="170.08"
-         y="303.30"
+         y="303.29999"
          text-anchor="middle"
-         style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
-         textLength="9.00px"
+         style="font-size:6px;font-family:Arial;fill:#1a1a1a"
+         textLength="9"
          lengthAdjust="spacingAndGlyphs"
          id="text178">soil</text>
     </g>
@@ -1468,28 +1474,28 @@
          lengthAdjust="spacingAndGlyphs"
          id="text179">0</text>
       <text
-         transform="translate(116.88,329.90) rotate(-90)"
+         transform="translate(116.18,329.90) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="15.05px"
          lengthAdjust="spacingAndGlyphs"
          id="text180">2,500</text>
       <text
-         transform="translate(87.06,329.90) rotate(-90)"
+         transform="translate(85.66,329.90) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="15.05px"
          lengthAdjust="spacingAndGlyphs"
          id="text181">5,000</text>
       <text
-         transform="translate(57.25,329.90) rotate(-90)"
+         transform="translate(55.14,329.90) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="15.05px"
          lengthAdjust="spacingAndGlyphs"
          id="text182">7,500</text>
       <text
-         transform="translate(27.43,329.90) rotate(-90)"
+         transform="translate(24.63,329.90) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="18.39px"
@@ -1527,15 +1533,15 @@
        clip-path="url(#cpMTk3Ljk2fDMyOS4yMHwzOS4xNnw4Ni43OQ==)"
        id="g207">
       <polyline
-         points="222.92,86.79 222.92,39.16 "
+         points="222.98,86.79 222.98,39.16 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline185" />
       <polyline
-         points="260.92,86.79 260.92,39.16 "
+         points="261.10,86.79 261.10,39.16 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline186" />
       <polyline
-         points="298.91,86.79 298.91,39.16 "
+         points="299.22,86.79 299.22,39.16 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline187" />
       <polyline
@@ -1543,138 +1549,138 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline188" />
       <polyline
-         points="241.92,86.79 241.92,39.16 "
+         points="242.04,86.79 242.04,39.16 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline189" />
       <polyline
-         points="279.92,86.79 279.92,39.16 "
+         points="280.16,86.79 280.16,39.16 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline190" />
       <polyline
-         points="317.91,86.79 317.91,39.16 "
+         points="318.28,86.79 318.28,39.16 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline191" />
       <circle
-         cx="228.62"
+         cx="228.70"
          cy="41.85"
          r="2.03"
          style="stroke-width: 0.43; fill: #1B9E77;"
          id="circle191" />
       <circle
-         cx="213.80"
+         cx="213.83"
          cy="46.35"
          r="2.03"
          style="stroke-width: 0.43; fill: #D95F02;"
          id="circle192" />
       <circle
-         cx="213.80"
+         cx="213.83"
          cy="50.84"
          r="2.03"
          style="stroke-width: 0.43; fill: #7570B3;"
          id="circle193" />
       <circle
-         cx="214.18"
+         cx="214.21"
          cy="55.34"
          r="2.03"
          style="stroke-width: 0.43; fill: #E7298A;"
          id="circle194" />
       <circle
-         cx="227.86"
+         cx="227.55"
          cy="59.83"
          r="2.03"
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="circle195" />
       <polygon
-         points="213.80,61.17 216.53,65.90 211.07,65.90 "
+         points="213.83,61.17 216.56,65.90 211.10,65.90 "
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="polygon195" />
       <circle
-         cx="220.64"
+         cx="220.31"
          cy="68.82"
          r="2.03"
          style="stroke-width: 0.43; fill: #66A61E;"
          id="circle196" />
       <polygon
-         points="213.42,70.16 216.15,74.89 210.69,74.89 "
+         points="213.45,70.16 216.18,74.89 210.72,74.89 "
          style="stroke-width: 0.43; fill: #66A61E;"
          id="polygon196" />
       <circle
-         cx="212.28"
+         cx="212.31"
          cy="77.80"
          r="2.03"
          style="stroke-width: 0.43; fill: #666666;"
          id="circle197" />
       <polygon
-         points="211.90,79.15 214.63,83.87 209.17,83.87 "
+         points="211.93,79.15 214.65,83.87 209.20,83.87 "
          style="stroke-width: 0.43; fill: #666666;"
          id="polygon197" />
       <line
          x1="203.92"
          y1="41.85"
-         x2="228.62"
+         x2="228.70"
          y2="41.85"
          style="stroke-width: 0.43; stroke: #1B9E77; stroke-linecap: butt;"
          id="line197" />
       <line
          x1="203.92"
          y1="46.35"
-         x2="213.80"
+         x2="213.83"
          y2="46.35"
          style="stroke-width: 0.43; stroke: #D95F02; stroke-linecap: butt;"
          id="line198" />
       <line
          x1="203.92"
          y1="50.84"
-         x2="213.80"
+         x2="213.83"
          y2="50.84"
          style="stroke-width: 0.43; stroke: #7570B3; stroke-linecap: butt;"
          id="line199" />
       <line
          x1="203.92"
          y1="55.34"
-         x2="214.18"
+         x2="214.21"
          y2="55.34"
          style="stroke-width: 0.43; stroke: #E7298A; stroke-linecap: butt;"
          id="line200" />
       <line
          x1="203.92"
          y1="59.83"
-         x2="227.86"
+         x2="227.55"
          y2="59.83"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line201" />
       <line
          x1="203.92"
          y1="64.32"
-         x2="213.80"
+         x2="213.83"
          y2="64.32"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line202" />
       <line
          x1="203.92"
          y1="68.82"
-         x2="220.64"
+         x2="220.31"
          y2="68.82"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line203" />
       <line
          x1="203.92"
          y1="73.31"
-         x2="213.42"
+         x2="213.45"
          y2="73.31"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line204" />
       <line
          x1="203.92"
          y1="77.80"
-         x2="212.28"
+         x2="212.31"
          y2="77.80"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line205" />
       <line
          x1="203.92"
          y1="82.30"
-         x2="211.90"
+         x2="211.93"
          y2="82.30"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line206" />
@@ -1705,15 +1711,15 @@
        clip-path="url(#cpMTk3Ljk2fDMyOS4yMHw4Ni43OXwxMzQuNDM=)"
        id="g230">
       <polyline
-         points="222.92,134.43 222.92,86.79 "
+         points="222.98,134.43 222.98,86.79 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline208" />
       <polyline
-         points="260.92,134.43 260.92,86.79 "
+         points="261.10,134.43 261.10,86.79 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline209" />
       <polyline
-         points="298.91,134.43 298.91,86.79 "
+         points="299.22,134.43 299.22,86.79 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline210" />
       <polyline
@@ -1721,15 +1727,15 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline211" />
       <polyline
-         points="241.92,134.43 241.92,86.79 "
+         points="242.04,134.43 242.04,86.79 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline212" />
       <polyline
-         points="279.92,134.43 279.92,86.79 "
+         points="280.16,134.43 280.16,86.79 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline213" />
       <polyline
-         points="317.91,134.43 317.91,86.79 "
+         points="318.28,134.43 318.28,86.79 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline214" />
       <circle
@@ -1739,51 +1745,51 @@
          style="stroke-width: 0.43; fill: #1B9E77;"
          id="circle214" />
       <circle
-         cx="240.02"
+         cx="240.13"
          cy="93.98"
          r="2.03"
          style="stroke-width: 0.43; fill: #D95F02;"
          id="circle215" />
       <circle
-         cx="229.00"
+         cx="229.08"
          cy="98.48"
          r="2.03"
          style="stroke-width: 0.43; fill: #7570B3;"
          id="circle216" />
       <circle
-         cx="230.14"
+         cx="230.22"
          cy="102.97"
          r="2.03"
          style="stroke-width: 0.43; fill: #E7298A;"
          id="circle217" />
       <circle
-         cx="317.15"
+         cx="315.99"
          cy="107.46"
          r="2.03"
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="circle218" />
       <polygon
-         points="226.72,108.81 229.45,113.53 223.99,113.53 "
+         points="226.79,108.81 229.52,113.53 224.06,113.53 "
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="polygon218" />
       <circle
-         cx="258.64"
+         cx="258.43"
          cy="116.45"
          r="2.03"
          style="stroke-width: 0.43; fill: #66A61E;"
          id="circle219" />
       <polygon
-         points="230.52,117.79 233.25,122.52 227.79,122.52 "
+         points="230.60,117.79 233.33,122.52 227.87,122.52 "
          style="stroke-width: 0.43; fill: #66A61E;"
          id="polygon219" />
       <circle
-         cx="236.22"
+         cx="235.94"
          cy="125.44"
          r="2.03"
          style="stroke-width: 0.43; fill: #666666;"
          id="circle220" />
       <polygon
-         points="227.86,126.78 230.59,131.51 225.13,131.51 "
+         points="227.94,126.78 230.66,131.51 225.21,131.51 "
          style="stroke-width: 0.43; fill: #666666;"
          id="polygon220" />
       <line
@@ -1796,63 +1802,63 @@
       <line
          x1="203.92"
          y1="93.98"
-         x2="240.02"
+         x2="240.13"
          y2="93.98"
          style="stroke-width: 0.43; stroke: #D95F02; stroke-linecap: butt;"
          id="line221" />
       <line
          x1="203.92"
          y1="98.48"
-         x2="229.00"
+         x2="229.08"
          y2="98.48"
          style="stroke-width: 0.43; stroke: #7570B3; stroke-linecap: butt;"
          id="line222" />
       <line
          x1="203.92"
          y1="102.97"
-         x2="230.14"
+         x2="230.22"
          y2="102.97"
          style="stroke-width: 0.43; stroke: #E7298A; stroke-linecap: butt;"
          id="line223" />
       <line
          x1="203.92"
          y1="107.46"
-         x2="317.15"
+         x2="315.99"
          y2="107.46"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line224" />
       <line
          x1="203.92"
          y1="111.96"
-         x2="226.72"
+         x2="226.79"
          y2="111.96"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line225" />
       <line
          x1="203.92"
          y1="116.45"
-         x2="258.64"
+         x2="258.43"
          y2="116.45"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line226" />
       <line
          x1="203.92"
          y1="120.95"
-         x2="230.52"
+         x2="230.60"
          y2="120.95"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line227" />
       <line
          x1="203.92"
          y1="125.44"
-         x2="236.22"
+         x2="235.94"
          y2="125.44"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line228" />
       <line
          x1="203.92"
          y1="129.93"
-         x2="227.86"
+         x2="227.94"
          y2="129.93"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line229" />
@@ -1883,15 +1889,15 @@
        clip-path="url(#cpMTk3Ljk2fDMyOS4yMHwxMzQuNDN8MTgyLjA2)"
        id="g253">
       <polyline
-         points="222.92,182.06 222.92,134.43 "
+         points="222.98,182.06 222.98,134.43 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline231" />
       <polyline
-         points="260.92,182.06 260.92,134.43 "
+         points="261.10,182.06 261.10,134.43 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline232" />
       <polyline
-         points="298.91,182.06 298.91,134.43 "
+         points="299.22,182.06 299.22,134.43 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline233" />
       <polyline
@@ -1899,138 +1905,138 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline234" />
       <polyline
-         points="241.92,182.06 241.92,134.43 "
+         points="242.04,182.06 242.04,134.43 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline235" />
       <polyline
-         points="279.92,182.06 279.92,134.43 "
+         points="280.16,182.06 280.16,134.43 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline236" />
       <polyline
-         points="317.91,182.06 317.91,134.43 "
+         points="318.28,182.06 318.28,134.43 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline237" />
       <circle
-         cx="221.40"
+         cx="221.46"
          cy="137.12"
          r="2.03"
          style="stroke-width: 0.43; fill: #1B9E77;"
          id="circle237" />
       <circle
-         cx="210.76"
+         cx="210.78"
          cy="141.62"
          r="2.03"
          style="stroke-width: 0.43; fill: #D95F02;"
          id="circle238" />
       <circle
-         cx="213.42"
+         cx="213.45"
          cy="146.11"
          r="2.03"
          style="stroke-width: 0.43; fill: #7570B3;"
          id="circle239" />
       <circle
-         cx="217.22"
+         cx="217.26"
          cy="150.61"
          r="2.03"
          style="stroke-width: 0.43; fill: #E7298A;"
          id="circle240" />
       <circle
-         cx="217.22"
+         cx="217.26"
          cy="155.10"
          r="2.03"
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="circle241" />
       <polygon
-         points="216.08,156.44 218.81,161.17 213.35,161.17 "
+         points="216.12,156.44 218.85,161.17 213.39,161.17 "
          style="stroke-width: 0.43; fill: #E6AB02;"
          id="polygon241" />
       <circle
-         cx="217.22"
+         cx="217.26"
          cy="164.09"
          r="2.03"
          style="stroke-width: 0.43; fill: #66A61E;"
          id="circle242" />
       <polygon
-         points="212.66,165.43 215.39,170.16 209.93,170.16 "
+         points="212.69,165.43 215.42,170.16 209.96,170.16 "
          style="stroke-width: 0.43; fill: #66A61E;"
          id="polygon242" />
       <circle
-         cx="216.08"
+         cx="216.12"
          cy="173.07"
          r="2.03"
          style="stroke-width: 0.43; fill: #666666;"
          id="circle243" />
       <polygon
-         points="212.28,174.42 215.01,179.14 209.55,179.14 "
+         points="212.31,174.42 215.04,179.14 209.58,179.14 "
          style="stroke-width: 0.43; fill: #666666;"
          id="polygon243" />
       <line
          x1="203.92"
          y1="137.12"
-         x2="221.40"
+         x2="221.46"
          y2="137.12"
          style="stroke-width: 0.43; stroke: #1B9E77; stroke-linecap: butt;"
          id="line243" />
       <line
          x1="203.92"
          y1="141.62"
-         x2="210.76"
+         x2="210.78"
          y2="141.62"
          style="stroke-width: 0.43; stroke: #D95F02; stroke-linecap: butt;"
          id="line244" />
       <line
          x1="203.92"
          y1="146.11"
-         x2="213.42"
+         x2="213.45"
          y2="146.11"
          style="stroke-width: 0.43; stroke: #7570B3; stroke-linecap: butt;"
          id="line245" />
       <line
          x1="203.92"
          y1="150.61"
-         x2="217.22"
+         x2="217.26"
          y2="150.61"
          style="stroke-width: 0.43; stroke: #E7298A; stroke-linecap: butt;"
          id="line246" />
       <line
          x1="203.92"
          y1="155.10"
-         x2="217.22"
+         x2="217.26"
          y2="155.10"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line247" />
       <line
          x1="203.92"
          y1="159.59"
-         x2="216.08"
+         x2="216.12"
          y2="159.59"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line248" />
       <line
          x1="203.92"
          y1="164.09"
-         x2="217.22"
+         x2="217.26"
          y2="164.09"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line249" />
       <line
          x1="203.92"
          y1="168.58"
-         x2="212.66"
+         x2="212.69"
          y2="168.58"
          style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line250" />
       <line
          x1="203.92"
          y1="173.07"
-         x2="216.08"
+         x2="216.12"
          y2="173.07"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line251" />
       <line
          x1="203.92"
          y1="177.57"
-         x2="212.28"
+         x2="212.31"
          y2="177.57"
          style="stroke-width: 0.43; stroke: #666666; stroke-linecap: butt;"
          id="line252" />
@@ -2061,15 +2067,15 @@
        clip-path="url(#cpMTk3Ljk2fDMyOS4yMHwxODIuMDZ8MjI5Ljcw)"
        id="g263">
       <polyline
-         points="222.92,229.70 222.92,182.06 "
+         points="222.98,229.70 222.98,182.06 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline254" />
       <polyline
-         points="260.92,229.70 260.92,182.06 "
+         points="261.10,229.70 261.10,182.06 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline255" />
       <polyline
-         points="298.91,229.70 298.91,182.06 "
+         points="299.22,229.70 299.22,182.06 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline256" />
       <polyline
@@ -2077,25 +2083,25 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline257" />
       <polyline
-         points="241.92,229.70 241.92,182.06 "
+         points="242.04,229.70 242.04,182.06 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline258" />
       <polyline
-         points="279.92,229.70 279.92,182.06 "
+         points="280.16,229.70 280.16,182.06 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline259" />
       <polyline
-         points="317.91,229.70 317.91,182.06 "
+         points="318.28,229.70 318.28,182.06 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline260" />
       <circle
-         cx="205.82"
+         cx="206.21"
          cy="193.06"
          r="2.03"
          style="stroke-width: 0.43; fill: #1B9E77;"
          id="circle260" />
       <circle
-         cx="206.20"
+         cx="206.21"
          cy="211.38"
          r="2.03"
          style="stroke-width: 0.43; fill: #E6AB02;"
@@ -2103,14 +2109,14 @@
       <line
          x1="203.92"
          y1="193.06"
-         x2="205.82"
+         x2="206.21"
          y2="193.06"
          style="stroke-width: 0.43; stroke: #1B9E77; stroke-linecap: butt;"
          id="line261" />
       <line
          x1="203.92"
          y1="211.38"
-         x2="206.20"
+         x2="206.21"
          y2="211.38"
          style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
          id="line262" />
@@ -2141,15 +2147,15 @@
        clip-path="url(#cpMTk3Ljk2fDMyOS4yMHwyMjkuNzB8Mjc3LjMz)"
        id="g271">
       <polyline
-         points="222.92,277.33 222.92,229.70 "
+         points="222.98,277.33 222.98,229.70 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline264" />
       <polyline
-         points="260.92,277.33 260.92,229.70 "
+         points="261.10,277.33 261.10,229.70 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline265" />
       <polyline
-         points="298.91,277.33 298.91,229.70 "
+         points="299.22,277.33 299.22,229.70 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline266" />
       <polyline
@@ -2157,15 +2163,15 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline267" />
       <polyline
-         points="241.92,277.33 241.92,229.70 "
+         points="242.04,277.33 242.04,229.70 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline268" />
       <polyline
-         points="279.92,277.33 279.92,229.70 "
+         points="280.16,277.33 280.16,229.70 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline269" />
       <polyline
-         points="317.91,277.33 317.91,229.70 "
+         points="318.28,277.33 318.28,229.70 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline270" />
       <circle
@@ -2206,17 +2212,17 @@
     </defs>
     <g
        clip-path="url(#cpMTk3Ljk2fDMyOS4yMHwyNzcuMzN8MzI0Ljk3)"
-       id="g285">
+       id="g281">
       <polyline
-         points="222.92,324.97 222.92,277.33 "
+         points="222.98,324.97 222.98,277.33 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline272" />
       <polyline
-         points="260.92,324.97 260.92,277.33 "
+         points="261.10,324.97 261.10,277.33 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline273" />
       <polyline
-         points="298.91,324.97 298.91,277.33 "
+         points="299.22,324.97 299.22,277.33 "
          style="stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline274" />
       <polyline
@@ -2224,91 +2230,56 @@
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline275" />
       <polyline
-         points="241.92,324.97 241.92,277.33 "
+         points="242.04,324.97 242.04,277.33 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline276" />
       <polyline
-         points="279.92,324.97 279.92,277.33 "
+         points="280.16,324.97 280.16,277.33 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline277" />
       <polyline
-         points="317.91,324.97 317.91,277.33 "
+         points="318.28,324.97 318.28,277.33 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline278" />
       <circle
-         cx="205.44"
-         cy="282.44"
+         cx="204.30"
+         cy="288.32"
          r="2.03"
          style="stroke-width: 0.43; fill: #1B9E77;"
          id="circle278" />
       <circle
          cx="204.30"
-         cy="290.94"
+         cy="306.65"
          r="2.03"
-         style="stroke-width: 0.43; fill: #E7298A;"
+         style="stroke-width: 0.43; fill: #66A61E;"
          id="circle279" />
-      <polygon
-         points="205.06,296.30 207.79,301.02 202.33,301.02 "
-         style="stroke-width: 0.43; fill: #E6AB02;"
-         id="polygon279" />
-      <circle
-         cx="204.30"
-         cy="307.95"
-         r="2.03"
-         style="stroke-width: 0.43; fill: #66A61E;"
-         id="circle280" />
-      <polygon
-         points="204.30,313.31 207.03,318.04 201.57,318.04 "
-         style="stroke-width: 0.43; fill: #66A61E;"
-         id="polygon280" />
       <line
          x1="203.92"
-         y1="282.44"
-         x2="205.44"
-         y2="282.44"
+         y1="288.32"
+         x2="204.30"
+         y2="288.32"
          style="stroke-width: 0.43; stroke: #1B9E77; stroke-linecap: butt;"
+         id="line279" />
+      <line
+         x1="203.92"
+         y1="306.65"
+         x2="204.30"
+         y2="306.65"
+         style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
          id="line280" />
-      <line
-         x1="203.92"
-         y1="290.94"
-         x2="204.30"
-         y2="290.94"
-         style="stroke-width: 0.43; stroke: #E7298A; stroke-linecap: butt;"
-         id="line281" />
-      <line
-         x1="203.92"
-         y1="299.45"
-         x2="205.06"
-         y2="299.45"
-         style="stroke-width: 0.43; stroke: #E6AB02; stroke-linecap: butt;"
-         id="line282" />
-      <line
-         x1="203.92"
-         y1="307.95"
-         x2="204.30"
-         y2="307.95"
-         style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
-         id="line283" />
-      <line
-         x1="203.92"
-         y1="316.46"
-         x2="204.30"
-         y2="316.46"
-         style="stroke-width: 0.43; stroke: #66A61E; stroke-linecap: butt;"
-         id="line284" />
       <line
          x1="197.96"
          y1="324.97"
          x2="329.20"
          y2="324.97"
          style="stroke-width: 1.07; stroke-linecap: butt;"
-         id="line285" />
+         id="line281" />
     </g>
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g286" />
+       id="g282" />
     <defs
-       id="defs286">
+       id="defs282">
       <clipPath
          id="cpMTk3Ljk2fDMyOS4yMHwyNC44M3wzOS4xNg==">
         <rect
@@ -2316,12 +2287,12 @@
            y="24.83"
            width="131.24"
            height="14.33"
-           id="rect286" />
+           id="rect282" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpMTk3Ljk2fDMyOS4yMHwyNC44M3wzOS4xNg==)"
-       id="g287">
+       id="g283">
       <text
          x="263.58"
          y="34.14"
@@ -2329,39 +2300,39 @@
          style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
          textLength="41.05px"
          lengthAdjust="spacingAndGlyphs"
-         id="text286">Core-resistome</text>
+         id="text282">Core-resistome</text>
     </g>
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g292">
+       id="g288">
       <text
          transform="translate(206.07,329.90) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="3.34px"
          lengthAdjust="spacingAndGlyphs"
-         id="text287">0</text>
+         id="text283">0</text>
       <text
-         transform="translate(244.07,329.90) rotate(-90)"
+         transform="translate(244.19,329.90) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="10.03px"
          lengthAdjust="spacingAndGlyphs"
-         id="text288">100</text>
+         id="text284">100</text>
       <text
-         transform="translate(282.06,329.90) rotate(-90)"
+         transform="translate(282.31,329.90) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="10.03px"
          lengthAdjust="spacingAndGlyphs"
-         id="text289">200</text>
+         id="text285">200</text>
       <text
-         transform="translate(320.06,329.90) rotate(-90)"
+         transform="translate(320.43,329.90) rotate(-90)"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="10.03px"
          lengthAdjust="spacingAndGlyphs"
-         id="text290">300</text>
+         id="text286">300</text>
       <text
          x="263.58"
          y="355.33"
@@ -2369,17 +2340,17 @@
          style="font-size: 6.00px; font-weight: bold; font-family: &quot;Arial&quot;;"
          textLength="48.14px"
          lengthAdjust="spacingAndGlyphs"
-         id="text291">Number of ARGs</text>
+         id="text287">Number of ARGs</text>
       <text
          x="197.96"
          y="17.33"
          style="font-size: 9.60px; font-weight: bold; font-family: &quot;Arial&quot;;"
          textLength="5.86px"
          lengthAdjust="spacingAndGlyphs"
-         id="text292">b</text>
+         id="text288">b</text>
     </g>
     <defs
-       id="defs292">
+       id="defs288">
       <clipPath
          id="cpMTkuMjZ8MzI5LjIwfDM2Mi4wN3wzODUuODk=">
         <rect
@@ -2387,11 +2358,23 @@
            y="362.07"
            width="309.93"
            height="23.82"
-           id="rect292" />
+           id="rect288" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpMTkuMjZ8MzI5LjIwfDM2Mi4wN3wzODUuODk=)"
+       id="g289" />
+    <g
+       clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
+       id="g290" />
+    <g
+       clip-path="url(#cpNS40OHwzMzQuNjh8MzU2LjU5fDM5MS4zNw==)"
+       id="g291" />
+    <g
+       clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
+       id="g292" />
+    <g
+       clip-path="url(#cpNS40OHwzMzQuNjh8MzU2LjU5fDM5MS4zNw==)"
        id="g293" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
@@ -2401,24 +2384,41 @@
        id="g295" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g296" />
+       id="g296"
+       transform="translate(0,3)">
+      <circle
+         cx="54.130001"
+         cy="365.22"
+         r="2.03"
+         style="fill:#1b9e77;stroke:#1b9e77;stroke-width:0.43"
+         id="circle295" />
+    </g>
     <g
        clip-path="url(#cpNS40OHwzMzQuNjh8MzU2LjU5fDM5MS4zNw==)"
        id="g297" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g298" />
+       id="g298"
+       transform="translate(0,3)">
+      <circle
+         cx="54.130001"
+         cy="382.73999"
+         r="2.03"
+         style="fill:#d95f02;stroke:#d95f02;stroke-width:0.43"
+         id="circle297" />
+    </g>
     <g
        clip-path="url(#cpNS40OHwzMzQuNjh8MzU2LjU5fDM5MS4zNw==)"
        id="g299" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g300">
+       id="g300"
+       transform="translate(0,3)">
       <circle
-         cx="54.13"
+         cx="102.36"
          cy="365.22"
          r="2.03"
-         style="stroke-width: 0.43; stroke: #1B9E77; fill: #1B9E77;"
+         style="fill:#7570b3;stroke:#7570b3;stroke-width:0.43"
          id="circle299" />
     </g>
     <g
@@ -2426,12 +2426,13 @@
        id="g301" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g302">
+       id="g302"
+       transform="translate(0,3)">
       <circle
-         cx="54.13"
-         cy="382.74"
+         cx="102.36"
+         cy="382.73999"
          r="2.03"
-         style="stroke-width: 0.43; stroke: #D95F02; fill: #D95F02;"
+         style="fill:#e7298a;stroke:#e7298a;stroke-width:0.43"
          id="circle301" />
     </g>
     <g
@@ -2439,12 +2440,13 @@
        id="g303" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g304">
+       id="g304"
+       transform="translate(0,3)">
       <circle
-         cx="102.36"
+         cx="157.24001"
          cy="365.22"
          r="2.03"
-         style="stroke-width: 0.43; stroke: #7570B3; fill: #7570B3;"
+         style="fill:#e6ab02;stroke:#e6ab02;stroke-width:0.43"
          id="circle303" />
     </g>
     <g
@@ -2452,25 +2454,25 @@
        id="g305" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g306">
-      <circle
-         cx="102.36"
-         cy="382.74"
-         r="2.03"
-         style="stroke-width: 0.43; stroke: #E7298A; fill: #E7298A;"
-         id="circle305" />
+       id="g306"
+       transform="translate(0,3)">
+      <polygon
+         points="154.51,384.32 157.24,379.59 159.97,384.32 "
+         style="fill:#e6ab02;stroke:#e6ab02;stroke-width:0.43"
+         id="polygon305" />
     </g>
     <g
        clip-path="url(#cpNS40OHwzMzQuNjh8MzU2LjU5fDM5MS4zNw==)"
        id="g307" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g308">
+       id="g308"
+       transform="translate(0,3)">
       <circle
-         cx="157.24"
+         cx="205.13"
          cy="365.22"
          r="2.03"
-         style="stroke-width: 0.43; stroke: #E6AB02; fill: #E6AB02;"
+         style="fill:#66a61e;stroke:#66a61e;stroke-width:0.43"
          id="circle307" />
     </g>
     <g
@@ -2478,10 +2480,11 @@
        id="g309" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g310">
+       id="g310"
+       transform="translate(0,3)">
       <polygon
-         points="157.24,379.59 159.97,384.32 154.51,384.32 "
-         style="stroke-width: 0.43; stroke: #E6AB02; fill: #E6AB02;"
+         points="202.4,384.32 205.13,379.59 207.86,384.32 "
+         style="fill:#66a61e;stroke:#66a61e;stroke-width:0.43"
          id="polygon309" />
     </g>
     <g
@@ -2489,12 +2492,13 @@
        id="g311" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g312">
+       id="g312"
+       transform="translate(0,3)">
       <circle
-         cx="205.13"
+         cx="258.35001"
          cy="365.22"
          r="2.03"
-         style="stroke-width: 0.43; stroke: #66A61E; fill: #66A61E;"
+         style="fill:#666666;stroke:#666666;stroke-width:0.43"
          id="circle311" />
     </g>
     <g
@@ -2502,10 +2506,11 @@
        id="g313" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g314">
+       id="g314"
+       transform="translate(0,3)">
       <polygon
-         points="205.13,379.59 207.86,384.32 202.40,384.32 "
-         style="stroke-width: 0.43; stroke: #66A61E; fill: #66A61E;"
+         points="255.62,384.32 258.35,379.59 261.08,384.32 "
+         style="fill:#666666;stroke:#666666;stroke-width:0.43"
          id="polygon313" />
     </g>
     <g
@@ -2513,215 +2518,201 @@
        id="g315" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g316">
-      <circle
-         cx="258.35"
-         cy="365.22"
-         r="2.03"
-         style="stroke-width: 0.43; stroke: #666666; fill: #666666;"
-         id="circle315" />
+       id="g316"
+       transform="translate(0,3)">
+      <text
+         x="64.57"
+         y="367.37"
+         style="font-size:6px;font-family:Arial"
+         textLength="27.360001"
+         lengthAdjust="spacingAndGlyphs"
+         id="text315">DeepARG</text>
     </g>
     <g
        clip-path="url(#cpNS40OHwzMzQuNjh8MzU2LjU5fDM5MS4zNw==)"
        id="g317" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g318">
-      <polygon
-         points="258.35,379.59 261.08,384.32 255.62,384.32 "
-         style="stroke-width: 0.43; stroke: #666666; fill: #666666;"
-         id="polygon317" />
+       id="g318"
+       transform="translate(0,3)">
+      <text
+         x="64.57"
+         y="384.89001"
+         style="font-size:6px;font-family:Arial"
+         textLength="24.700001"
+         lengthAdjust="spacingAndGlyphs"
+         id="text317">fARGene</text>
     </g>
     <g
        clip-path="url(#cpNS40OHwzMzQuNjh8MzU2LjU5fDM5MS4zNw==)"
        id="g319" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g320">
+       id="g320"
+       transform="translate(0,3)">
       <text
-         x="64.57"
-         y="367.37"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="27.36px"
+         x="112.8"
+         y="364.13"
+         style="font-size:6px;font-family:Arial"
+         textLength="27.02"
          lengthAdjust="spacingAndGlyphs"
-         id="text319">DeepARG</text>
+         id="text319">ABRicate-</text>
+      <text
+         x="112.8"
+         y="370.60999"
+         style="font-size:6px;font-family:Arial"
+         textLength="34"
+         lengthAdjust="spacingAndGlyphs"
+         id="text320">ARGANNOT</text>
     </g>
     <g
        clip-path="url(#cpNS40OHwzMzQuNjh8MzU2LjU5fDM5MS4zNw==)"
        id="g321" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g322">
+       id="g322"
+       transform="translate(0,3)">
       <text
-         x="64.57"
-         y="384.89"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="24.70px"
+         x="112.8"
+         y="381.64999"
+         style="font-size:6px;font-family:Arial"
+         textLength="27.02"
          lengthAdjust="spacingAndGlyphs"
-         id="text321">fARGene</text>
+         id="text321">ABRicate-</text>
+      <text
+         x="112.8"
+         y="388.13"
+         style="font-size:6px;font-family:Arial"
+         textLength="28.34"
+         lengthAdjust="spacingAndGlyphs"
+         id="text322">MEGARes</text>
     </g>
     <g
        clip-path="url(#cpNS40OHwzMzQuNjh8MzU2LjU5fDM5MS4zNw==)"
        id="g323" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g324">
+       id="g324"
+       transform="translate(0,3)">
       <text
-         x="112.80"
-         y="364.13"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="27.02px"
+         x="167.67999"
+         y="367.37"
+         style="font-size:6px;font-family:Arial"
+         textLength="10.67"
          lengthAdjust="spacingAndGlyphs"
-         id="text323">ABRicate-</text>
-      <text
-         x="112.80"
-         y="370.61"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="34.00px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text324">ARGANNOT</text>
+         id="text323">RGI</text>
     </g>
     <g
        clip-path="url(#cpNS40OHwzMzQuNjh8MzU2LjU5fDM5MS4zNw==)"
        id="g325" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g326">
+       id="g326"
+       transform="translate(0,3)">
       <text
-         x="112.80"
-         y="381.65"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="27.02px"
+         x="167.67999"
+         y="381.64999"
+         style="font-size:6px;font-family:Arial"
+         textLength="27.02"
          lengthAdjust="spacingAndGlyphs"
          id="text325">ABRicate-</text>
       <text
-         x="112.80"
+         x="167.67999"
          y="388.13"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="28.34px"
+         style="font-size:6px;font-family:Arial"
+         textLength="16.98"
          lengthAdjust="spacingAndGlyphs"
-         id="text326">MEGARes</text>
+         id="text326">CARD</text>
     </g>
     <g
        clip-path="url(#cpNS40OHwzMzQuNjh8MzU2LjU5fDM5MS4zNw==)"
        id="g327" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g328">
+       id="g328"
+       transform="translate(0,3)">
       <text
-         x="167.68"
-         y="367.37"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="10.67px"
+         x="215.57001"
+         y="364.13"
+         style="font-size:6px;font-family:Arial"
+         textLength="32.360001"
          lengthAdjust="spacingAndGlyphs"
-         id="text327">RGI</text>
+         id="text327">AMRFinder-</text>
+      <text
+         x="215.57001"
+         y="370.60999"
+         style="font-size:6px;font-family:Arial"
+         textLength="11.67"
+         lengthAdjust="spacingAndGlyphs"
+         id="text328">Plus</text>
     </g>
     <g
        clip-path="url(#cpNS40OHwzMzQuNjh8MzU2LjU5fDM5MS4zNw==)"
        id="g329" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g330">
+       id="g330"
+       transform="translate(0,3)">
       <text
-         x="167.68"
-         y="381.65"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="27.02px"
+         x="215.57001"
+         y="381.64999"
+         style="font-size:6px;font-family:Arial"
+         textLength="27.02"
          lengthAdjust="spacingAndGlyphs"
          id="text329">ABRicate-</text>
       <text
-         x="167.68"
+         x="215.57001"
          y="388.13"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="16.98px"
+         style="font-size:6px;font-family:Arial"
+         textLength="14.33"
          lengthAdjust="spacingAndGlyphs"
-         id="text330">CARD</text>
+         id="text330">NCBI</text>
     </g>
     <g
        clip-path="url(#cpNS40OHwzMzQuNjh8MzU2LjU5fDM5MS4zNw==)"
        id="g331" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g332">
+       id="g332"
+       transform="translate(0,3)">
       <text
-         x="215.57"
-         y="364.13"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="32.36px"
+         x="268.79001"
+         y="367.37"
+         style="font-size:6px;font-family:Arial"
+         textLength="27.700001"
          lengthAdjust="spacingAndGlyphs"
-         id="text331">AMRFinder-</text>
-      <text
-         x="215.57"
-         y="370.61"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="11.67px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text332">Plus</text>
+         id="text331">ResFinder</text>
     </g>
     <g
        clip-path="url(#cpNS40OHwzMzQuNjh8MzU2LjU5fDM5MS4zNw==)"
        id="g333" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g334">
+       id="g334"
+       transform="translate(0,3)">
       <text
-         x="215.57"
-         y="381.65"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="27.02px"
+         x="268.79001"
+         y="381.64999"
+         style="font-size:6px;font-family:Arial"
+         textLength="27.02"
          lengthAdjust="spacingAndGlyphs"
          id="text333">ABRicate-</text>
       <text
-         x="215.57"
+         x="268.79001"
          y="388.13"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="14.33px"
+         style="font-size:6px;font-family:Arial"
+         textLength="27.700001"
          lengthAdjust="spacingAndGlyphs"
-         id="text334">NCBI</text>
+         id="text334">ResFinder</text>
     </g>
     <g
        clip-path="url(#cpNS40OHwzMzQuNjh8MzU2LjU5fDM5MS4zNw==)"
        id="g335" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g336">
-      <text
-         x="268.79"
-         y="367.37"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="27.70px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text335">ResFinder</text>
-    </g>
-    <g
-       clip-path="url(#cpNS40OHwzMzQuNjh8MzU2LjU5fDM5MS4zNw==)"
-       id="g337" />
-    <g
-       clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g338">
-      <text
-         x="268.79"
-         y="381.65"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="27.02px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text337">ABRicate-</text>
-      <text
-         x="268.79"
-         y="388.13"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="27.70px"
-         lengthAdjust="spacingAndGlyphs"
-         id="text338">ResFinder</text>
-    </g>
-    <g
-       clip-path="url(#cpNS40OHwzMzQuNjh8MzU2LjU5fDM5MS4zNw==)"
-       id="g339" />
-    <g
-       clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g340" />
+       id="g336" />
     <defs
-       id="defs340">
+       id="defs336">
       <clipPath
          id="cpMTkuMjZ8MzI5LjIwfDM2Mi4wN3wzNjIuMDc=">
         <rect
@@ -2729,23 +2720,23 @@
            y="362.07"
            width="309.93"
            height="0.00"
-           id="rect340" />
+           id="rect336" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpMTkuMjZ8MzI5LjIwfDM2Mi4wN3wzNjIuMDc=)"
-       id="g341" />
+       id="g337" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g342" />
+       id="g338" />
     <g
        clip-path="url(#cpMTkuMjZ8MzI5LjIwfDM2Mi4wN3wzNjIuMDc=)"
-       id="g343" />
+       id="g339" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g344" />
+       id="g340" />
     <defs
-       id="defs344">
+       id="defs340">
       <clipPath
          id="cpMTkuMjZ8MzI5LjIwfDM4NS44OXwzODUuODk=">
         <rect
@@ -2753,14 +2744,14 @@
            y="385.89"
            width="309.93"
            height="0.00"
-           id="rect344" />
+           id="rect340" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpMTkuMjZ8MzI5LjIwfDM4NS44OXwzODUuODk=)"
-       id="g345" />
+       id="g341" />
     <g
        clip-path="url(#cpMC4wMHwzNDAuMTZ8MC4wMHwzOTYuODU=)"
-       id="g346" />
+       id="g342" />
   </g>
 </svg>

@@ -4,7 +4,7 @@
    height="510.24pt"
    viewBox="0 0 510.24 510.24"
    version="1.1"
-   id="svg285"
+   id="svg284"
    sodipodi:docname="fig_human_core.svg"
    inkscape:version="1.4.2 (ebf0e940, 2025-05-08)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -12,9 +12,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs285" />
+     id="defs284" />
   <sodipodi:namedview
-     id="namedview285"
+     id="namedview284"
      pagecolor="#ffffff"
      bordercolor="#000000"
      borderopacity="0.25"
@@ -23,18 +23,18 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="pt"
-     inkscape:zoom="0.74506888"
-     inkscape:cx="634.84064"
-     inkscape:cy="262.39185"
+     inkscape:zoom="2.2959856"
+     inkscape:cx="579.27193"
+     inkscape:cy="600.8313"
      inkscape:window-width="1472"
      inkscape:window-height="890"
      inkscape:window-x="0"
      inkscape:window-y="38"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g285" />
+     inkscape:current-layer="g283" />
   <g
      class="svglite"
-     id="g285">
+     id="g284">
     <defs
        id="defs1">
       <style
@@ -883,7 +883,7 @@
     </defs>
     <g
        clip-path="url(#cpMzAuODh8MTQ3Ljk4fDE4Ni4yMHwyNzQuMjY=)"
-       id="g123">
+       id="g122">
       <polyline
          points="30.88,270.26 147.98,270.26 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
@@ -920,102 +920,95 @@
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #1B9E77;"
          id="rect110" />
       <rect
-         x="43.43"
-         y="250.24"
-         width="8.36"
-         height="6.67"
-         style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #1B9E77;"
-         id="rect111" />
-      <rect
          x="53.88"
          y="210.22"
          width="8.36"
          height="60.04"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #1B9E77;"
-         id="rect112" />
+         id="rect111" />
       <rect
          x="74.80"
          y="256.91"
          width="8.36"
          height="6.67"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #1B9E77;"
-         id="rect113" />
+         id="rect112" />
       <rect
          x="116.62"
          y="263.58"
          width="8.36"
          height="6.67"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #1B9E77;"
-         id="rect114" />
+         id="rect113" />
       <rect
          x="43.43"
          y="256.91"
          width="8.36"
          height="13.34"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect115" />
+         id="rect114" />
       <rect
          x="64.34"
          y="230.23"
          width="8.36"
          height="40.03"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect116" />
+         id="rect115" />
       <rect
          x="74.80"
          y="263.58"
          width="8.36"
          height="6.67"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect117" />
+         id="rect116" />
       <rect
          x="85.25"
          y="256.91"
          width="8.36"
          height="13.34"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect118" />
+         id="rect117" />
       <rect
          x="95.71"
          y="236.90"
          width="8.36"
          height="33.36"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect119" />
+         id="rect118" />
       <rect
          x="106.16"
          y="256.91"
          width="8.36"
          height="13.34"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect120" />
+         id="rect119" />
       <rect
          x="127.07"
          y="190.20"
          width="8.36"
          height="80.05"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect121" />
+         id="rect120" />
       <rect
          x="137.53"
          y="263.58"
          width="8.36"
          height="6.67"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect122" />
+         id="rect121" />
       <rect
          x="30.88"
          y="186.20"
          width="117.10"
          height="88.06"
          style="stroke-width: 1.07;"
-         id="rect123" />
+         id="rect122" />
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
-       id="g124" />
+       id="g123" />
     <defs
-       id="defs124">
+       id="defs123">
       <clipPath
          id="cpMTQ3Ljk4fDI2NS4wOHwxODYuMjB8Mjc0LjI2">
         <rect
@@ -1023,102 +1016,102 @@
            y="186.20"
            width="117.10"
            height="88.06"
-           id="rect124" />
+           id="rect123" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpMTQ3Ljk4fDI2NS4wOHwxODYuMjB8Mjc0LjI2)"
-       id="g137">
+       id="g136">
       <polyline
          points="147.98,270.26 265.08,270.26 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline124" />
+         id="polyline123" />
       <polyline
          points="147.98,256.91 265.08,256.91 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline125" />
+         id="polyline124" />
       <polyline
          points="147.98,243.57 265.08,243.57 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline126" />
+         id="polyline125" />
       <polyline
          points="147.98,230.23 265.08,230.23 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline127" />
+         id="polyline126" />
       <polyline
          points="147.98,216.89 265.08,216.89 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline128" />
+         id="polyline127" />
       <polyline
          points="147.98,203.54 265.08,203.54 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline129" />
+         id="polyline128" />
       <polyline
          points="147.98,190.20 265.08,190.20 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline130" />
+         id="polyline129" />
       <rect
          x="151.23"
          y="263.58"
          width="13.01"
          height="6.67"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect130" />
+         id="rect129" />
       <rect
          x="167.50"
          y="243.57"
          width="13.01"
          height="26.68"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect131" />
+         id="rect130" />
       <rect
          x="183.76"
          y="263.58"
          width="13.01"
          height="6.67"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect132" />
+         id="rect131" />
       <rect
          x="200.03"
          y="256.91"
          width="13.01"
          height="13.34"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect133" />
+         id="rect132" />
       <rect
          x="216.29"
          y="236.90"
          width="13.01"
          height="33.36"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect134" />
+         id="rect133" />
       <rect
          x="232.55"
          y="256.91"
          width="13.01"
          height="13.34"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect135" />
+         id="rect134" />
       <rect
          x="248.82"
          y="203.54"
          width="13.01"
          height="66.71"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect136" />
+         id="rect135" />
       <rect
          x="147.98"
          y="186.20"
          width="117.10"
          height="88.06"
          style="stroke-width: 1.07;"
-         id="rect137" />
+         id="rect136" />
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
-       id="g138" />
+       id="g137" />
     <defs
-       id="defs138">
+       id="defs137">
       <clipPath
          id="cpMjY1LjA4fDM4Mi4xOHwxODYuMjB8Mjc0LjI2">
         <rect
@@ -1126,95 +1119,95 @@
            y="186.20"
            width="117.10"
            height="88.06"
-           id="rect138" />
+           id="rect137" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpMjY1LjA4fDM4Mi4xOHwxODYuMjB8Mjc0LjI2)"
-       id="g150">
+       id="g149">
       <polyline
          points="265.08,270.26 382.18,270.26 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline138" />
+         id="polyline137" />
       <polyline
          points="265.08,256.91 382.18,256.91 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline139" />
+         id="polyline138" />
       <polyline
          points="265.08,243.57 382.18,243.57 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline140" />
+         id="polyline139" />
       <polyline
          points="265.08,230.23 382.18,230.23 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline141" />
+         id="polyline140" />
       <polyline
          points="265.08,216.89 382.18,216.89 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline142" />
+         id="polyline141" />
       <polyline
          points="265.08,203.54 382.18,203.54 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline143" />
+         id="polyline142" />
       <polyline
          points="265.08,190.20 382.18,190.20 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline144" />
+         id="polyline143" />
       <rect
          x="268.86"
          y="256.91"
          width="15.11"
          height="13.34"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect144" />
+         id="rect143" />
       <rect
          x="287.74"
          y="250.24"
          width="15.11"
          height="20.01"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect145" />
+         id="rect144" />
       <rect
          x="306.63"
          y="263.58"
          width="15.11"
          height="6.67"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect146" />
+         id="rect145" />
       <rect
          x="325.52"
          y="236.90"
          width="15.11"
          height="33.36"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect147" />
+         id="rect146" />
       <rect
          x="344.41"
          y="263.58"
          width="15.11"
          height="6.67"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect148" />
+         id="rect147" />
       <rect
          x="363.29"
          y="203.54"
          width="15.11"
          height="66.71"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect149" />
+         id="rect148" />
       <rect
          x="265.08"
          y="186.20"
          width="117.10"
          height="88.06"
          style="stroke-width: 1.07;"
-         id="rect150" />
+         id="rect149" />
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
-       id="g151" />
+       id="g150" />
     <defs
-       id="defs151">
+       id="defs150">
       <clipPath
          id="cpMzgyLjE4fDQ5OS4yOHwxODYuMjB8Mjc0LjI2">
         <rect
@@ -1222,95 +1215,95 @@
            y="186.20"
            width="117.10"
            height="88.06"
-           id="rect151" />
+           id="rect150" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpMzgyLjE4fDQ5OS4yOHwxODYuMjB8Mjc0LjI2)"
-       id="g163">
+       id="g162">
       <polyline
          points="382.18,270.26 499.28,270.26 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline151" />
+         id="polyline150" />
       <polyline
          points="382.18,256.91 499.28,256.91 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline152" />
+         id="polyline151" />
       <polyline
          points="382.18,243.57 499.28,243.57 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline153" />
+         id="polyline152" />
       <polyline
          points="382.18,230.23 499.28,230.23 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline154" />
+         id="polyline153" />
       <polyline
          points="382.18,216.89 499.28,216.89 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline155" />
+         id="polyline154" />
       <polyline
          points="382.18,203.54 499.28,203.54 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline156" />
+         id="polyline155" />
       <polyline
          points="382.18,190.20 499.28,190.20 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline157" />
+         id="polyline156" />
       <rect
          x="385.96"
          y="263.58"
          width="15.11"
          height="6.67"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect157" />
+         id="rect156" />
       <rect
          x="404.84"
          y="250.24"
          width="15.11"
          height="20.01"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect158" />
+         id="rect157" />
       <rect
          x="423.73"
          y="263.58"
          width="15.11"
          height="6.67"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect159" />
+         id="rect158" />
       <rect
          x="442.62"
          y="236.90"
          width="15.11"
          height="33.36"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect160" />
+         id="rect159" />
       <rect
          x="461.50"
          y="263.58"
          width="15.11"
          height="6.67"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect161" />
+         id="rect160" />
       <rect
          x="480.39"
          y="203.54"
          width="15.11"
          height="66.71"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect162" />
+         id="rect161" />
       <rect
          x="382.18"
          y="186.20"
          width="117.10"
          height="88.06"
          style="stroke-width: 1.07;"
-         id="rect163" />
+         id="rect162" />
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
-       id="g164" />
+       id="g163" />
     <defs
-       id="defs164">
+       id="defs163">
       <clipPath
          id="cpMzAuODh8MTQ3Ljk4fDE2NS4zOXwxODYuMjA=">
         <rect
@@ -1318,12 +1311,12 @@
            y="165.39"
            width="117.10"
            height="20.81"
-           id="rect164" />
+           id="rect163" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpMzAuODh8MTQ3Ljk4fDE2NS4zOXwxODYuMjA=)"
-       id="g165">
+       id="g164">
       <text
          x="89.43"
          y="175.34"
@@ -1331,7 +1324,7 @@
          style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
          textLength="32.36px"
          lengthAdjust="spacingAndGlyphs"
-         id="text164">AMRFinder-</text>
+         id="text163">AMRFinder-</text>
       <text
          x="89.43"
          y="181.82"
@@ -1339,13 +1332,13 @@
          style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
          textLength="11.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text165">Plus</text>
+         id="text164">Plus</text>
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
-       id="g166" />
+       id="g165" />
     <defs
-       id="defs166">
+       id="defs165">
       <clipPath
          id="cpMTQ3Ljk4fDI2NS4wOHwxNjUuMzl8MTg2LjIw">
         <rect
@@ -1353,12 +1346,12 @@
            y="165.39"
            width="117.10"
            height="20.81"
-           id="rect166" />
+           id="rect165" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpMTQ3Ljk4fDI2NS4wOHwxNjUuMzl8MTg2LjIw)"
-       id="g167">
+       id="g166">
       <text
          x="206.53"
          y="175.34"
@@ -1366,7 +1359,7 @@
          style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
          textLength="27.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text166">ABRicate-</text>
+         id="text165">ABRicate-</text>
       <text
          x="206.53"
          y="181.82"
@@ -1374,13 +1367,13 @@
          style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
          textLength="14.33px"
          lengthAdjust="spacingAndGlyphs"
-         id="text167">NCBI</text>
+         id="text166">NCBI</text>
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
-       id="g168" />
+       id="g167" />
     <defs
-       id="defs168">
+       id="defs167">
       <clipPath
          id="cpMjY1LjA4fDM4Mi4xOHwxNjUuMzl8MTg2LjIw">
         <rect
@@ -1388,12 +1381,12 @@
            y="165.39"
            width="117.10"
            height="20.81"
-           id="rect168" />
+           id="rect167" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpMjY1LjA4fDM4Mi4xOHwxNjUuMzl8MTg2LjIw)"
-       id="g169">
+       id="g168">
       <text
          x="323.63"
          y="181.82"
@@ -1401,13 +1394,13 @@
          style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
          textLength="27.70px"
          lengthAdjust="spacingAndGlyphs"
-         id="text168">ResFinder</text>
+         id="text167">ResFinder</text>
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
-       id="g170" />
+       id="g169" />
     <defs
-       id="defs170">
+       id="defs169">
       <clipPath
          id="cpMzgyLjE4fDQ5OS4yOHwxNjUuMzl8MTg2LjIw">
         <rect
@@ -1415,12 +1408,12 @@
            y="165.39"
            width="117.10"
            height="20.81"
-           id="rect170" />
+           id="rect169" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpMzgyLjE4fDQ5OS4yOHwxNjUuMzl8MTg2LjIw)"
-       id="g171">
+       id="g170">
       <text
          x="440.73"
          y="175.34"
@@ -1428,7 +1421,7 @@
          style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
          textLength="27.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text170">ABRicate-</text>
+         id="text169">ABRicate-</text>
       <text
          x="440.73"
          y="181.82"
@@ -1436,221 +1429,221 @@
          style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
          textLength="27.70px"
          lengthAdjust="spacingAndGlyphs"
-         id="text171">ResFinder</text>
+         id="text170">ResFinder</text>
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
-       id="g214">
+       id="g213">
       <text
          transform="translate(39.31,300.71) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="4.00px"
          lengthAdjust="spacingAndGlyphs"
-         id="text172">A</text>
+         id="text171">A</text>
       <text
          transform="translate(39.31,296.70) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="4.00px"
          lengthAdjust="spacingAndGlyphs"
-         id="text173">B</text>
+         id="text172">B</text>
       <text
          transform="translate(39.31,292.70) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="4.33px"
          lengthAdjust="spacingAndGlyphs"
-         id="text174">C</text>
+         id="text173">C</text>
       <text
          transform="translate(39.31,287.26) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Symbol&quot;;"
          textLength="3.30px"
          lengthAdjust="spacingAndGlyphs"
-         id="text175">−</text>
+         id="text174">−</text>
       <text
          transform="translate(39.31,282.86) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="3.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text176">F</text>
+         id="text175">F</text>
       <text
          transform="translate(49.70,287.55) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="8.36px"
          lengthAdjust="spacingAndGlyphs"
-         id="text177">ant</text>
+         id="text176">ant</text>
       <text
-         transform="translate(53.70,310.58) rotate(-90)"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="31.39px"
+         transform="rotate(-90,183.64,126.94)"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="31.389999"
          lengthAdjust="spacingAndGlyphs"
-         id="text178">beta-lactam</text>
+         id="text177">beta-lactam</text>
       <text
-         transform="translate(60.18,310.58) rotate(-90)"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="13.36px"
+         transform="rotate(-90,186.13,124.45)"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="13.36"
          lengthAdjust="spacingAndGlyphs"
-         id="text179">mod.</text>
+         id="text178">mod.</text>
       <text
          transform="translate(70.64,298.21) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="19.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text180">class A</text>
+         id="text179">class A</text>
       <text
          transform="translate(81.13,286.21) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="7.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text181">dfr</text>
+         id="text180">dfr</text>
       <text
          transform="translate(91.58,293.44) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="14.25px"
          lengthAdjust="spacingAndGlyphs"
-         id="text182">efflux</text>
+         id="text181">efflux</text>
       <text
          transform="translate(101.45,289.53) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="10.34px"
          lengthAdjust="spacingAndGlyphs"
-         id="text183">erm</text>
+         id="text182">erm</text>
       <text
          transform="translate(112.46,287.21) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="8.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text184">lnu</text>
+         id="text183">lnu</text>
       <text
          transform="translate(122.27,308.58) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="29.39px"
          lengthAdjust="spacingAndGlyphs"
-         id="text185">tet enzyme</text>
+         id="text184">tet enzyme</text>
       <text
          transform="translate(133.40,300.55) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="21.36px"
          lengthAdjust="spacingAndGlyphs"
-         id="text186">tet RPG</text>
+         id="text185">tet RPG</text>
       <text
          transform="translate(143.27,288.88) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="9.69px"
          lengthAdjust="spacingAndGlyphs"
-         id="text187">van</text>
+         id="text186">van</text>
       <text
          transform="translate(159.82,287.55) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="8.36px"
          lengthAdjust="spacingAndGlyphs"
-         id="text188">ant</text>
+         id="text187">ant</text>
       <text
          transform="translate(176.12,298.21) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="19.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text189">class A</text>
+         id="text188">class A</text>
       <text
          transform="translate(192.42,286.21) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="7.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text190">dfr</text>
+         id="text189">dfr</text>
       <text
          transform="translate(208.68,293.44) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="14.25px"
          lengthAdjust="spacingAndGlyphs"
-         id="text191">efflux</text>
+         id="text190">efflux</text>
       <text
          transform="translate(224.35,289.53) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="10.34px"
          lengthAdjust="spacingAndGlyphs"
-         id="text192">erm</text>
+         id="text191">erm</text>
       <text
          transform="translate(241.17,287.21) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="8.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text193">lnu</text>
+         id="text192">lnu</text>
       <text
          transform="translate(257.47,300.55) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="21.36px"
          lengthAdjust="spacingAndGlyphs"
-         id="text194">tet RPG</text>
+         id="text193">tet RPG</text>
       <text
          transform="translate(278.50,287.55) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="8.36px"
          lengthAdjust="spacingAndGlyphs"
-         id="text195">ant</text>
+         id="text194">ant</text>
       <text
          transform="translate(297.41,298.21) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="19.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text196">class A</text>
+         id="text195">class A</text>
       <text
          transform="translate(316.34,293.44) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="14.25px"
          lengthAdjust="spacingAndGlyphs"
-         id="text197">efflux</text>
+         id="text196">efflux</text>
       <text
          transform="translate(334.63,289.53) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="10.34px"
          lengthAdjust="spacingAndGlyphs"
-         id="text198">erm</text>
+         id="text197">erm</text>
       <text
          transform="translate(354.07,287.21) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="8.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text199">lnu</text>
+         id="text198">lnu</text>
       <text
          transform="translate(373.00,300.55) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="21.36px"
          lengthAdjust="spacingAndGlyphs"
-         id="text200">tet RPG</text>
+         id="text199">tet RPG</text>
       <text
          transform="translate(395.60,287.55) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="8.36px"
          lengthAdjust="spacingAndGlyphs"
-         id="text201">ant</text>
+         id="text200">ant</text>
       <text
          transform="translate(414.51,298.21) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="19.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text202">class A</text>
+         id="text201">class A</text>
       <text
          transform="translate(433.43,293.44) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="14.25px"
          lengthAdjust="spacingAndGlyphs"
-         id="text203">efflux</text>
+         id="text202">efflux</text>
       <text
          transform="translate(451.73,289.53) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="10.34px"
          lengthAdjust="spacingAndGlyphs"
-         id="text204">erm</text>
+         id="text203">erm</text>
       <text
          transform="translate(471.17,287.21) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="8.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text205">lnu</text>
+         id="text204">lnu</text>
       <text
          transform="translate(490.09,300.55) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="21.36px"
          lengthAdjust="spacingAndGlyphs"
-         id="text206">tet RPG</text>
+         id="text205">tet RPG</text>
       <text
          x="25.95"
          y="272.41"
@@ -1658,7 +1651,7 @@
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="3.34px"
          lengthAdjust="spacingAndGlyphs"
-         id="text207">0</text>
+         id="text206">0</text>
       <text
          x="25.95"
          y="259.06"
@@ -1666,7 +1659,7 @@
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="3.34px"
          lengthAdjust="spacingAndGlyphs"
-         id="text208">2</text>
+         id="text207">2</text>
       <text
          x="25.95"
          y="245.72"
@@ -1674,7 +1667,7 @@
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="3.34px"
          lengthAdjust="spacingAndGlyphs"
-         id="text209">4</text>
+         id="text208">4</text>
       <text
          x="25.95"
          y="232.38"
@@ -1682,7 +1675,7 @@
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="3.34px"
          lengthAdjust="spacingAndGlyphs"
-         id="text210">6</text>
+         id="text209">6</text>
       <text
          x="25.95"
          y="219.04"
@@ -1690,7 +1683,7 @@
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="3.34px"
          lengthAdjust="spacingAndGlyphs"
-         id="text211">8</text>
+         id="text210">8</text>
       <text
          x="25.95"
          y="205.69"
@@ -1698,7 +1691,7 @@
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="6.69px"
          lengthAdjust="spacingAndGlyphs"
-         id="text212">10</text>
+         id="text211">10</text>
       <text
          x="25.95"
          y="192.35"
@@ -1706,17 +1699,17 @@
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="6.69px"
          lengthAdjust="spacingAndGlyphs"
-         id="text213">12</text>
+         id="text212">12</text>
       <text
          transform="translate(15.26,230.23) rotate(-90)"
          text-anchor="middle"
          style="font-size: 6.00px; font-weight: bold; font-family: &quot;Arial&quot;;"
          textLength="48.14px"
          lengthAdjust="spacingAndGlyphs"
-         id="text214">Number of ARGs</text>
+         id="text213">Number of ARGs</text>
     </g>
     <defs
-       id="defs214">
+       id="defs213">
       <clipPath
          id="cpMzAuODh8MjY1LjA4fDM0NC4xOHw0MzIuMjQ=">
         <rect
@@ -1724,161 +1717,161 @@
            y="344.18"
            width="234.20"
            height="88.06"
-           id="rect214" />
+           id="rect213" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpMzAuODh8MjY1LjA4fDM0NC4xOHw0MzIuMjQ=)"
-       id="g235">
+       id="g234">
       <polyline
          points="30.88,428.23 265.08,428.23 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
+         id="polyline213" />
+      <polyline
+         points="30.88,412.84 265.08,412.84 "
+         style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline214" />
       <polyline
-         points="30.88,412.22 265.08,412.22 "
+         points="30.88,397.44 265.08,397.44 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline215" />
       <polyline
-         points="30.88,396.21 265.08,396.21 "
+         points="30.88,382.05 265.08,382.05 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline216" />
       <polyline
-         points="30.88,380.20 265.08,380.20 "
+         points="30.88,366.65 265.08,366.65 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline217" />
       <polyline
-         points="30.88,364.19 265.08,364.19 "
+         points="30.88,351.26 265.08,351.26 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline218" />
-      <polyline
-         points="30.88,348.18 265.08,348.18 "
-         style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline219" />
       <rect
          x="169.10"
-         y="425.03"
+         y="425.16"
          width="15.36"
-         height="3.20"
+         height="3.08"
+         style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #1B9E77;"
+         id="rect218" />
+      <rect
+         x="34.72"
+         y="425.16"
+         width="15.36"
+         height="3.08"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #1B9E77;"
          id="rect219" />
       <rect
-         x="34.72"
-         y="425.03"
+         x="73.12"
+         y="425.16"
          width="15.36"
-         height="3.20"
+         height="3.08"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #1B9E77;"
          id="rect220" />
       <rect
-         x="73.12"
-         y="425.03"
+         x="111.51"
+         y="385.13"
          width="15.36"
-         height="3.20"
+         height="33.87"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #1B9E77;"
          id="rect221" />
       <rect
-         x="111.51"
-         y="383.40"
+         x="149.90"
+         y="419.00"
          width="15.36"
-         height="35.22"
+         height="3.08"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #1B9E77;"
          id="rect222" />
       <rect
-         x="149.90"
-         y="418.63"
+         x="188.29"
+         y="375.89"
          width="15.36"
-         height="3.20"
+         height="49.26"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #1B9E77;"
          id="rect223" />
       <rect
-         x="188.29"
-         y="373.80"
+         x="207.49"
+         y="415.92"
          width="15.36"
-         height="51.23"
+         height="12.32"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #1B9E77;"
          id="rect224" />
       <rect
-         x="207.49"
-         y="415.43"
+         x="245.88"
+         y="409.76"
          width="15.36"
-         height="12.81"
+         height="15.40"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #1B9E77;"
          id="rect225" />
       <rect
-         x="245.88"
-         y="409.02"
+         x="53.92"
+         y="425.16"
          width="15.36"
-         height="16.01"
-         style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #1B9E77;"
+         height="3.08"
+         style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
          id="rect226" />
       <rect
-         x="53.92"
-         y="425.03"
+         x="92.31"
+         y="415.92"
          width="15.36"
-         height="3.20"
+         height="12.32"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
          id="rect227" />
       <rect
-         x="92.31"
-         y="415.43"
+         x="111.51"
+         y="419.00"
          width="15.36"
-         height="12.81"
+         height="9.24"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
          id="rect228" />
       <rect
-         x="111.51"
-         y="418.63"
+         x="130.70"
+         y="412.84"
          width="15.36"
-         height="9.61"
+         height="15.40"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
          id="rect229" />
       <rect
-         x="130.70"
-         y="412.22"
+         x="149.90"
+         y="422.08"
          width="15.36"
-         height="16.01"
+         height="6.16"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
          id="rect230" />
       <rect
-         x="149.90"
-         y="421.83"
+         x="188.29"
+         y="425.16"
          width="15.36"
-         height="6.40"
+         height="3.08"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
          id="rect231" />
       <rect
-         x="188.29"
-         y="425.03"
+         x="226.69"
+         y="403.60"
          width="15.36"
-         height="3.20"
+         height="24.63"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
          id="rect232" />
       <rect
-         x="226.69"
-         y="402.62"
+         x="245.88"
+         y="425.16"
          width="15.36"
-         height="25.62"
+         height="3.08"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
          id="rect233" />
-      <rect
-         x="245.88"
-         y="425.03"
-         width="15.36"
-         height="3.20"
-         style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect234" />
       <rect
          x="30.88"
          y="344.18"
          width="234.20"
          height="88.06"
          style="stroke-width: 1.07;"
-         id="rect235" />
+         id="rect234" />
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
-       id="g236" />
+       id="g235" />
     <defs
-       id="defs236">
+       id="defs235">
       <clipPath
          id="cpMjY1LjA4fDQ5OS4yOHwzNDQuMTh8NDMyLjI0">
         <rect
@@ -1886,105 +1879,105 @@
            y="344.18"
            width="234.20"
            height="88.06"
-           id="rect236" />
+           id="rect235" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpMjY1LjA4fDQ5OS4yOHwzNDQuMTh8NDMyLjI0)"
-       id="g249">
+       id="g248">
       <polyline
          points="265.08,428.23 499.28,428.23 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
+         id="polyline235" />
+      <polyline
+         points="265.08,412.84 499.28,412.84 "
+         style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline236" />
       <polyline
-         points="265.08,412.22 499.28,412.22 "
+         points="265.08,397.44 499.28,397.44 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline237" />
       <polyline
-         points="265.08,396.21 499.28,396.21 "
+         points="265.08,382.05 499.28,382.05 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline238" />
       <polyline
-         points="265.08,380.20 499.28,380.20 "
+         points="265.08,366.65 499.28,366.65 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline239" />
       <polyline
-         points="265.08,364.19 499.28,364.19 "
+         points="265.08,351.26 499.28,351.26 "
          style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
          id="polyline240" />
-      <polyline
-         points="265.08,348.18 499.28,348.18 "
-         style="stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;"
-         id="polyline241" />
       <rect
          x="310.41"
-         y="399.42"
+         y="400.52"
          width="30.22"
-         height="16.01"
+         height="15.40"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #1B9E77;"
-         id="rect241" />
+         id="rect240" />
       <rect
          x="423.73"
          y="348.18"
          width="30.22"
-         height="41.63"
+         height="43.11"
+         style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #1B9E77;"
+         id="rect241" />
+      <rect
+         x="461.50"
+         y="369.73"
+         width="30.22"
+         height="58.50"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #1B9E77;"
          id="rect242" />
       <rect
-         x="461.50"
-         y="360.99"
+         x="272.64"
+         y="422.08"
          width="30.22"
-         height="67.25"
-         style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #1B9E77;"
+         height="6.16"
+         style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
          id="rect243" />
       <rect
-         x="272.64"
-         y="421.83"
+         x="310.41"
+         y="415.92"
          width="30.22"
-         height="6.40"
+         height="12.32"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
          id="rect244" />
       <rect
-         x="310.41"
-         y="415.43"
+         x="348.18"
+         y="412.84"
          width="30.22"
-         height="12.81"
+         height="15.40"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
          id="rect245" />
       <rect
-         x="348.18"
-         y="412.22"
+         x="385.96"
+         y="425.16"
          width="30.22"
-         height="16.01"
+         height="3.08"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
          id="rect246" />
       <rect
-         x="385.96"
-         y="425.03"
+         x="423.73"
+         y="391.29"
          width="30.22"
-         height="3.20"
+         height="36.95"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
          id="rect247" />
-      <rect
-         x="423.73"
-         y="389.81"
-         width="30.22"
-         height="38.43"
-         style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect248" />
       <rect
          x="265.08"
          y="344.18"
          width="234.20"
          height="88.06"
          style="stroke-width: 1.07;"
-         id="rect249" />
+         id="rect248" />
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
-       id="g250" />
+       id="g249" />
     <defs
-       id="defs250">
+       id="defs249">
       <clipPath
          id="cpMzAuODh8MjY1LjA4fDMyOS44NXwzNDQuMTg=">
         <rect
@@ -1992,12 +1985,12 @@
            y="329.85"
            width="234.20"
            height="14.33"
-           id="rect250" />
+           id="rect249" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpMzAuODh8MjY1LjA4fDMyOS44NXwzNDQuMTg=)"
-       id="g251">
+       id="g250">
       <text
          x="147.98"
          y="339.79"
@@ -2005,13 +1998,13 @@
          style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
          textLength="27.36px"
          lengthAdjust="spacingAndGlyphs"
-         id="text250">DeepARG</text>
+         id="text249">DeepARG</text>
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
-       id="g252" />
+       id="g251" />
     <defs
-       id="defs252">
+       id="defs251">
       <clipPath
          id="cpMjY1LjA4fDQ5OS4yOHwzMjkuODV8MzQ0LjE4">
         <rect
@@ -2019,12 +2012,12 @@
            y="329.85"
            width="234.20"
            height="14.33"
-           id="rect252" />
+           id="rect251" />
       </clipPath>
     </defs>
     <g
        clip-path="url(#cpMjY1LjA4fDQ5OS4yOHwzMjkuODV8MzQ0LjE4)"
-       id="g253">
+       id="g252">
       <text
          x="382.18"
          y="339.79"
@@ -2032,149 +2025,149 @@
          style="font-size: 6.00px;fill: #1A1A1A; font-family: &quot;Arial&quot;;"
          textLength="10.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text252">RGI</text>
+         id="text251">RGI</text>
     </g>
     <g
        clip-path="url(#cpMC4wMHw1MTAuMjR8MC4wMHw1MTAuMjQ=)"
-       id="g284">
+       id="g283">
       <text
          transform="translate(44.55,458.69) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="4.00px"
          lengthAdjust="spacingAndGlyphs"
-         id="text253">A</text>
+         id="text252">A</text>
       <text
          transform="translate(44.55,454.68) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="4.00px"
          lengthAdjust="spacingAndGlyphs"
-         id="text254">B</text>
+         id="text253">B</text>
       <text
          transform="translate(44.55,450.68) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="4.33px"
          lengthAdjust="spacingAndGlyphs"
-         id="text255">C</text>
+         id="text254">C</text>
       <text
          transform="translate(44.55,445.23) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Symbol&quot;;"
          textLength="3.30px"
          lengthAdjust="spacingAndGlyphs"
-         id="text256">−</text>
+         id="text255">−</text>
       <text
          transform="translate(44.55,440.83) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="3.67px"
          lengthAdjust="spacingAndGlyphs"
-         id="text257">F</text>
+         id="text256">F</text>
       <text
          transform="translate(63.68,445.53) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="8.36px"
          lengthAdjust="spacingAndGlyphs"
-         id="text258">ant</text>
+         id="text257">ant</text>
       <text
          transform="translate(82.31,478.22) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="41.05px"
          lengthAdjust="spacingAndGlyphs"
-         id="text259">cell wall charge</text>
+         id="text258">cell wall charge</text>
       <text
          transform="translate(102.10,456.18) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="19.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text260">class A</text>
+         id="text259">class A</text>
       <text
          transform="translate(121.34,451.42) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="14.25px"
          lengthAdjust="spacingAndGlyphs"
-         id="text261">efflux</text>
+         id="text260">efflux</text>
       <text
          transform="translate(139.94,447.51) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="10.34px"
          lengthAdjust="spacingAndGlyphs"
-         id="text262">erm</text>
+         id="text261">erm</text>
       <text
          transform="translate(159.69,445.18) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="8.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text263">lnu</text>
+         id="text262">lnu</text>
       <text
          transform="translate(178.93,449.17) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="12.00px"
          lengthAdjust="spacingAndGlyphs"
-         id="text264">PBP</text>
+         id="text263">PBP</text>
       <text
          transform="translate(197.52,449.86) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="12.69px"
          lengthAdjust="spacingAndGlyphs"
-         id="text265">rpoB</text>
+         id="text264">rpoB</text>
       <text
-         transform="translate(210.24,470.90) rotate(-90)"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="33.73px"
+         transform="rotate(-90,342.07,128.83)"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="33.73"
          lengthAdjust="spacingAndGlyphs"
-         id="text266">target-modif.</text>
+         id="text265">target-modif.</text>
       <text
-         transform="translate(216.72,470.90) rotate(-90)"
-         style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
-         textLength="21.03px"
+         transform="rotate(-90,344.56,126.34)"
+         style="font-size:6px;font-family:Arial;fill:#4d4d4d"
+         textLength="21.030001"
          lengthAdjust="spacingAndGlyphs"
-         id="text267">enzyme</text>
+         id="text266">enzyme</text>
       <text
          transform="translate(236.52,458.53) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="21.36px"
          lengthAdjust="spacingAndGlyphs"
-         id="text268">tet RPG</text>
+         id="text267">tet RPG</text>
       <text
          transform="translate(255.12,446.86) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="9.69px"
          lengthAdjust="spacingAndGlyphs"
-         id="text269">van</text>
+         id="text268">van</text>
       <text
          transform="translate(289.86,456.18) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="19.02px"
          lengthAdjust="spacingAndGlyphs"
-         id="text270">class A</text>
+         id="text269">class A</text>
       <text
          transform="translate(327.67,451.42) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="14.25px"
          lengthAdjust="spacingAndGlyphs"
-         id="text271">efflux</text>
+         id="text270">efflux</text>
       <text
          transform="translate(364.85,447.51) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="10.34px"
          lengthAdjust="spacingAndGlyphs"
-         id="text272">erm</text>
+         id="text271">erm</text>
       <text
          transform="translate(402.61,449.86) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="12.69px"
          lengthAdjust="spacingAndGlyphs"
-         id="text273">rpoB</text>
+         id="text272">rpoB</text>
       <text
          transform="translate(440.99,458.53) rotate(-90)"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="21.36px"
          lengthAdjust="spacingAndGlyphs"
-         id="text274">tet RPG</text>
+         id="text273">tet RPG</text>
       <text
          transform="translate(478.17,446.86) rotate(-90)"
          style="font-size: 6.00px; font-style: italic;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="9.69px"
          lengthAdjust="spacingAndGlyphs"
-         id="text275">van</text>
+         id="text274">van</text>
       <text
          x="25.95"
          y="430.38"
@@ -2182,82 +2175,82 @@
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="3.34px"
          lengthAdjust="spacingAndGlyphs"
-         id="text276">0</text>
+         id="text275">0</text>
       <text
          x="25.95"
-         y="414.37"
+         y="414.99"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="3.34px"
          lengthAdjust="spacingAndGlyphs"
-         id="text277">5</text>
+         id="text276">5</text>
       <text
          x="25.95"
-         y="398.36"
+         y="399.59"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="6.69px"
          lengthAdjust="spacingAndGlyphs"
-         id="text278">10</text>
+         id="text277">10</text>
       <text
          x="25.95"
-         y="382.35"
+         y="384.20"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="6.69px"
          lengthAdjust="spacingAndGlyphs"
-         id="text279">15</text>
+         id="text278">15</text>
       <text
          x="25.95"
-         y="366.34"
+         y="368.80"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="6.69px"
          lengthAdjust="spacingAndGlyphs"
-         id="text280">20</text>
+         id="text279">20</text>
       <text
          x="25.95"
-         y="350.33"
+         y="353.41"
          text-anchor="end"
          style="font-size: 6.00px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
          textLength="6.69px"
          lengthAdjust="spacingAndGlyphs"
-         id="text281">25</text>
+         id="text280">25</text>
       <text
          transform="translate(15.26,388.21) rotate(-90)"
          text-anchor="middle"
          style="font-size: 6.00px; font-weight: bold; font-family: &quot;Arial&quot;;"
          textLength="48.14px"
          lengthAdjust="spacingAndGlyphs"
-         id="text282">Number of ARGs</text>
+         id="text281">Number of ARGs</text>
       <rect
          x="179.76"
          y="490.06"
          width="8.50"
          height="8.50"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #1B9E77;"
-         id="rect282" />
+         id="rect281" />
       <rect
          x="265.07"
          y="490.06"
          width="8.50"
          height="8.50"
          style="stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #D95F02;"
-         id="rect283" />
+         id="rect282" />
       <text
          x="194.45"
          y="496.47"
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="64.44px"
          lengthAdjust="spacingAndGlyphs"
-         id="text283">Exclusive to the pipeline</text>
+         id="text282">Exclusive to the pipeline</text>
       <text
          x="279.77"
          y="496.47"
          style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
          textLength="76.83px"
          lengthAdjust="spacingAndGlyphs"
-         id="text284">Found also in other pipelines</text>
+         id="text283">Found also in other pipelines</text>
     </g>
   </g>
 </svg>
