@@ -315,7 +315,7 @@ ps_abundance <- page_sidebar(
               \n
               This displays the total relative abundance of ARGs detected by each pipeline per sample across various habitats. For interpreting the boxplot, 
               it would be helpful to note that the center line denotes the median while each box limits is the interquartile range (IQR) and the
-              whiskers extent to 1.5× IQR beyond the first and third quartiles."),
+              whiskers extend to 1.5× IQR beyond the first and third quartiles."),
             
             withSpinner(plotOutput("plot_abundance", height = "550px"), type = 8, color = "#1b9e77"),
             downloadButton("download_abundance", "Download Table")
@@ -400,7 +400,8 @@ ps_pan_core <- page_sidebar(
         * **Core-resistome (Right, Panel b):** This represents the ARGs that are persistently found across almost *all* samples within a habitat. Pipeline-specific detection influences which genes are considered ubiquitous."
       ),
       withSpinner(plotOutput("pan_core", height = "750px"), type = 8, color = "#1b9e77"),
-      downloadButton("download_pan_core", "Download Table")
+      downloadButton("download_pan_resistome", "Download Pan-resistome"),
+      downloadButton("download_core_resistome", "Download Core-resistome")
       )
     )
   )

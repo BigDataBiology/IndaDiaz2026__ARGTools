@@ -406,17 +406,35 @@ server <- function(input, output, session) {
     
   }) 
   
-  output$download_pan_core <- downloadHandler(
-    filename = function() paste0("pan_core_", Sys.Date(), ".csv"),
+  output$download_pan_resistome <- downloadHandler(
+    filename = function() paste0("pan_resistome_", Sys.Date(), ".csv"),
     content = function(file) {
       pan_core_reactive() %>%
+        filter(metric == "Pan-resistome") %>%
         select(tool, habitat, prop, metric, value) %>%
-        rename (
-          "Tool" = tool,
+        rename(
+          "Tool"        = tool,
           "Environment" = habitat,
-          "Proportion" = prop,
-          "Metric" = metric,
-          "Value" = value
+          "Proportion"  = prop,
+          "Metric"      = metric,
+          "Mean richness across the subsamples"  = value
+        ) %>%
+        write.csv(file, row.names = FALSE)
+    }
+  )
+  
+  output$download_core_resistome <- downloadHandler(
+    filename = function() paste0("core_resistome_", Sys.Date(), ".csv"),
+    content = function(file) {
+      pan_core_reactive() %>%
+        filter(metric == "Core-resistome") %>%
+        select(tool, habitat, prop, metric, value) %>%
+        rename(
+          "Tool"        = tool,
+          "Environment" = habitat,
+          "Proportion"  = prop,
+          "Metric"      = metric,
+          "Number of ARGs in the subsample" = value
         ) %>%
         write.csv(file, row.names = FALSE)
     }
