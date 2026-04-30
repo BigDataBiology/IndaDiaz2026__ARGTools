@@ -233,7 +233,8 @@ ps_args <- page_sidebar(
           A total of 178,107 unigenes from GMGCv1 were reported as antibiotic resistance genes (ARG) by at least one pipeline. 
           The total ARG count varies across pipelines; for example, in the case of ABRicate-ResFinder and DeepARG, there is about a 45-fold difference in the count."
           ),
-          withSpinner(plotOutput("plot_count_genes_tool", height = "550px"), type = 8, color = "#1b9e77")
+          withSpinner(plotOutput("plot_count_genes_tool", height = "550px"), type = 8, color = "#1b9e77"),
+          downloadButton("download_count_genes", "Download Table")
         ),
         card(
           card_header("ARG Class Proportion"),
@@ -244,7 +245,8 @@ ps_args <- page_sidebar(
              \n
              Note: we merged MFS efflux pumps with other efflux pumps."
           ),
-          withSpinner(plotOutput("plot_gene_class_proportion", height = "850px", fill = TRUE), type = 8, color = "#1b9e77")
+          withSpinner(plotOutput("plot_gene_class_proportion", height = "850px", fill = TRUE), type = 8, color = "#1b9e77"),
+          downloadButton("download_gene_class_proportion", "Download Table")
         )
       )
     )
@@ -315,7 +317,8 @@ ps_abundance <- page_sidebar(
               it would be helpful to note that the center line denotes the median while each box limits is the interquartile range (IQR) and the
               whiskers extent to 1.5× IQR beyond the first and third quartiles."),
             
-            withSpinner(plotOutput("plot_abundance", height = "550px"), type = 8, color = "#1b9e77")
+            withSpinner(plotOutput("plot_abundance", height = "550px"), type = 8, color = "#1b9e77"),
+            downloadButton("download_abundance", "Download Table")
           ),
         
         card(
@@ -326,7 +329,8 @@ ps_abundance <- page_sidebar(
             \n
             *From the source file, we merged MFS efflux pumps with all other efflux pumps.*"
           ),
-          withSpinner(plotOutput("plot_abundance_gene_class", height = "550px"), type = 8, color = "#1b9e77")
+          withSpinner(plotOutput("plot_abundance_gene_class", height = "550px"), type = 8, color = "#1b9e77"),
+          downloadButton("download_class_abundance", "Download Table")
         )
       )
     )
@@ -395,7 +399,8 @@ ps_pan_core <- page_sidebar(
         \n
         * **Core-resistome (Right, Panel b):** This represents the ARGs that are persistently found across almost *all* samples within a habitat. Pipeline-specific detection influences which genes are considered ubiquitous."
       ),
-      withSpinner(plotOutput("pan_core", height = "750px"), type = 8, color = "#1b9e77")
+      withSpinner(plotOutput("pan_core", height = "750px"), type = 8, color = "#1b9e77"),
+      downloadButton("download_pan_core", "Download Table")
       )
     )
   )
@@ -450,7 +455,8 @@ ps_overlap <- page_sidebar(
               \n
               This is the overall percentage of ARGs detected by a reference pipeline that were also successfully identified by the compared pipeline. A higher percentage indicates strong agreement between the pipelines."
           ),
-          withSpinner(plotOutput("overlap", height = "550px"), type = 8, color = "#1b9e77")
+          withSpinner(plotOutput("overlap", height = "550px"), type = 8, color = "#1b9e77"),
+          downloadButton("download_overlap", "Download Table")
         ),
         
         card(
@@ -458,7 +464,8 @@ ps_overlap <- page_sidebar(
           markdown(
             "This plot breaks down this overlap by gene classes based on specific resistance mechanisms. This reveals whether two pipelines might agree perfectly on certain gene classes (like tetracycline resistance) but completely miss each other on others."
           ),
-          withSpinner(plotOutput("overlap_gene_class", height = "550px"), type = 8, color = "#1b9e77")
+          withSpinner(plotOutput("overlap_gene_class", height = "550px"), type = 8, color = "#1b9e77"),
+          downloadButton("download_overlap_gene_class", "Download Table")
         )
       )
     )

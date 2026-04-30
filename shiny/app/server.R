@@ -4,12 +4,17 @@ server <- function(input, output, session) {
   
   
   #ARGs TAB
-  output$plot_count_genes_tool <- renderPlot({
+  count_genes_reactive <- reactive({
+    req(input$tools_unigenes)
     unigenes %>%
-      filter(tool %in% input$tools_unigenes) %>% 
-      ungroup() %>% 
-      group_by(tools_labels, texture, tools_db, tool2) %>% 
-      summarise(n = n_distinct(query)) %>%
+      filter(tool %in% input$tools_unigenes) %>%
+      ungroup() %>%
+      group_by(tools_labels, texture, tools_db, tool2) %>%
+      summarise(n = n_distinct(query), .groups = "drop")
+  })
+  
+  output$plot_count_genes_tool <- renderPlot({
+    count_genes_reactive() %>%
       ggplot(aes(x = tools_labels, y = n, fill = tools_db, pattern = texture)) +
       geom_col_pattern(position = position_dodge2(preserve = "single", width = 0.8), 
                        width = 0.8, pattern_color = "black", pattern_fill = pattern_fill, 
@@ -32,6 +37,19 @@ server <- function(input, output, session) {
             strip.text.x = element_text(size = general_size, angle = 0, vjust = 0, hjust = 0.5))
   }) %>% bindCache(input$tools_unigenes)
   
+  output$download_count_genes <- downloadHandler(
+    filename = function() paste0("ARG_counts_", Sys.Date(), ".csv"),
+    content = function(file) {
+      count_genes_reactive() %>%
+        select(tools_labels, tools_db, n) %>%
+        rename(
+          "Tool"    = tools_labels,
+          "Tools DB" = tools_db,
+          "Number of ARGs"   = n
+        ) %>%
+        write.csv(file, row.names = FALSE)
+    }
+  )
   
   output$plot_gene_class_proportion <- renderPlot({
     
@@ -93,6 +111,23 @@ server <- function(input, output, session) {
     
   }, height = 1000, res = 96) %>% bindCache(input$tools_unigenes, input$gene_classes_filter)
   
+  output$download_gene_class_proportion <- downloadHandler(
+    filename = function() paste0("gene_class_proportion_", Sys.Date(), ".csv"),
+    content = function(file) {
+      unigenes_proportion %>%
+        filter(tool %in% input$tools_unigenes) %>%
+        filter(new_level %in% input$gene_classes_filter) %>%
+        ungroup() %>%
+        select(tool, new_level, n, p) %>%
+        rename(
+          "Tool"                = tool,
+          "ARG Class"            = new_level,
+          "Number of ARGs"       = n,
+          "ARG Class Proportion" = p
+        ) %>%
+        write.csv(file, row.names = FALSE)
+    }
+  )
   
   
   #ABUNDANCE TAB
@@ -158,6 +193,22 @@ server <- function(input, output, session) {
     
   }, height = 600, res = 96) %>% bindCache(input$tool_abundance, input$environment_abundance)
   
+  output$download_abundance <- downloadHandler(
+    filename = function() paste0("abundance_", Sys.Date(), ".csv"),
+    content = function(file) {
+      filtered_abundance_data() %>%
+        select (sample, tool, abundance, richness, habitat) %>%
+        rename(
+          "Sample ID"    = sample,
+          "Tool" = tool,
+          "Abundance (aligned reads per million)" = abundance,
+          "Richness" = richness,
+          "Environment" = habitat
+        ) %>%
+        write.csv(file, row.names = FALSE)
+    }
+  )
+  
   
   output$plot_abundance_gene_class <- renderPlot({
     
@@ -217,9 +268,30 @@ server <- function(input, output, session) {
     
   }, height = 600, res = 96) %>% bindCache(input$tool_abundance, input$environment_abundance, input$abundance_genes)
   
+  output$download_class_abundance <- downloadHandler(
+    filename = function() paste0("gene_class_abundance_", Sys.Date(), ".csv"),
+    content = function(file) {
+      filtered_class_abundance_data() %>%
+        ungroup() %>%
+        select(tool, habitat, gene, q50, q25, q75, w1, w2) %>%
+        rename(
+          "Tool"            = tool,
+          "Environment"      = habitat,
+          "ARG"              = gene,
+          "Median (q50)"     = q50,
+          "Q25"              = q25,
+          "Q75"              = q75,
+          "Whisker Low (w1)" = w1,
+          "Whisker High (w2)"= w2
+        ) %>%
+        write.csv(file, row.names = FALSE)
+    }
+  )
+  
   
   #PAN- & CORE- RESISTOME TAB
-  output$pan_core <- renderPlot({
+  pan_core_reactive <- reactive({
+    req(input$tool_pan_core, input$environment_pan_core, input$threshold_samples)
     
     pan_core <- sumpan2 %>% 
       filter(tool %in% input$tool_pan_core,
@@ -234,7 +306,7 @@ server <- function(input, output, session) {
              prop = core / md) %>%
       ungroup() 
     
-    pan_core_df_plot <- pan_core %>% 
+    pan_core %>% 
       select(!c(md, sd)) %>% 
       pivot_longer(cols = c(mn, core), names_to = "metric", values_to = "value") %>% 
       mutate(metric = case_when(
@@ -243,7 +315,14 @@ server <- function(input, output, session) {
       )) %>%
       mutate(metric = factor(metric, levels = c("Pan-resistome", "Core-resistome"))) %>%
       filter(value > 0)
+  })
+  
+  
+  output$pan_core <- renderPlot({
+  
     
+    pan_core_df_plot <- pan_core_reactive()
+      
     req(nrow(pan_core_df_plot) > 0)
     
     present_tools <- tools_levels[tools_levels %in% unique(pan_core_df_plot$tool)]
@@ -298,7 +377,7 @@ server <- function(input, output, session) {
       theme(strip.text.y = element_blank())
     
     legend_df <- data.frame(
-      tool2   = factor(legend_labels, levels = legend_labels),
+      tool2 = factor(legend_labels, levels = legend_labels),
       x = 1, y = 1,
       texture = ifelse(legend_shapes == 21, "no",
                        ifelse(legend_shapes == 24, "yes",
@@ -326,6 +405,22 @@ server <- function(input, output, session) {
     (panel1 / g_legend(legend_dummy)) + patchwork::plot_layout(heights = c(15, 1))
     
   }) 
+  
+  output$download_pan_core <- downloadHandler(
+    filename = function() paste0("pan_core_", Sys.Date(), ".csv"),
+    content = function(file) {
+      pan_core_reactive() %>%
+        select(tool, habitat, prop, metric, value) %>%
+        rename (
+          "Tool" = tool,
+          "Environment" = habitat,
+          "Proportion" = prop,
+          "Metric" = metric,
+          "Value" = value
+        ) %>%
+        write.csv(file, row.names = FALSE)
+    }
+  )
   
   
   #OVERLAP TAB
@@ -366,6 +461,25 @@ server <- function(input, output, session) {
     
   }, height = 600, res = 96) %>% bindCache(input$tool_overlap, input$overlap_genes)
   
+  output$download_overlap <- downloadHandler(
+    filename = function() paste0("overlap_csc_", Sys.Date(), ".csv"),
+    content = function(file) {
+      filtered_overlap_data() %>%
+        select (new_level, tool_ref, tool_comp, csc, ref_n_class, comp_n_class, ref_n_all, comp_n_all) %>%
+        rename (
+          "ARG Class" = new_level,
+          "Reference Tool" = tool_ref,
+          "Compared Tool" = tool_comp,
+          "Class-Specific Coverage" = csc,
+          "Reference N (Class)" = ref_n_class,
+          "Compared N (Class)" = comp_n_class,
+          "Reference N (All)" = ref_n_all,
+          "Compared N (All)" = comp_n_all
+        ) %>%
+        write.csv(file, row.names = FALSE)
+    }
+  )
+
   
   output$overlap_gene_class <- renderPlot({
     
@@ -411,6 +525,21 @@ server <- function(input, output, session) {
              axis.text.y = element_blank())
       
   }, height = 600, res = 96) %>% bindCache(input$tool_overlap, input$overlap_genes)
+  
+  output$download_overlap_gene_class <- downloadHandler(
+    filename = function() paste0("overlap_gene_class_", Sys.Date(), ".csv"),
+    content = function(file) {
+      filtered_overlap_data() %>%
+        select(new_level, tool_ref, csc) %>%
+        rename (
+          "ARG Class" = new_level,
+          "Reference Tool" = tool_ref,
+          "Class-Specific Coverage" = csc
+        ) %>%
+        write.csv(file, row.names = FALSE)
+    }
+  )
+  
   
 }
 
