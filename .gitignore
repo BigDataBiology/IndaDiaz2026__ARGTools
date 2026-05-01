@@ -62,3 +62,5 @@ code_R_analysis/data_to_Zenodo/args_abundances.tsv
 code_R_analysis/data_to_Zenodo/args_abundances.tsv.gz
 #code_R_analysis/data_for_shinny.R
 #code_R_analysis/generate_data_to_zenodo.R
+GMGC10.data
+Statement__unigenes-considered.txt.gz

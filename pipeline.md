@@ -393,3 +393,15 @@ export CGE_DISINFINDER_DB="/work/microbiome/users/juan/resfinder_databases/disin
 ```
 
 
+## Counting total number of unigenes in habitats of interest
+
+Ensure that [GMGC10.data](https://git.embl.org/coelho/GMGC10.data) is available
+in the current directory (in particular the two files
+`metadata/metadata/GMGC10.sample.meta.tsv.gz` and
+`GMGC10.sample-abundance.tsv.xz` are needed; you may need to run `git-annex
+get` first).
+
+
+```bash
+pixi exec -s python -s pandas python count-unigenes_in_interesting_habitats.py
+```
