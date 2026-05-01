@@ -443,10 +443,10 @@ server <- function(input, output, session) {
   
   #OVERLAP TAB
   filtered_overlap_data <- reactive({
-    req(input$tool_overlap, input$overlap_genes) 
+    req(input$tool_overlap, input$overlap_genes, input$tool_overlap_comp) 
     
     csc_fnr %>% 
-      filter(tool_ref %in% input$tool_overlap, tool_comp %in% basic_tools) %>%
+      filter(tool_ref %in% input$tool_overlap, tool_comp %in% input$tool_overlap_comp) %>%
       filter(new_level %in% input$overlap_genes)
   })
   
@@ -487,7 +487,7 @@ server <- function(input, output, session) {
             strip.text.x = element_text(size = general_size, vjust = 0, hjust = 0.5),
             strip.text.y = element_text(size = general_size, angle=90, vjust = 0.5, hjust = 0.5))
     
-  }, height = 600, res = 96) %>% bindCache(input$tool_overlap, input$overlap_genes)
+  }, height = 600, res = 96) %>% bindCache(input$tool_overlap, input$overlap_genes, input$tool_overlap_comp)
   
   output$download_overlap <- downloadHandler(
     filename = function() paste0("overlap_csc_", Sys.Date(), ".csv"),
@@ -512,8 +512,8 @@ server <- function(input, output, session) {
   output$overlap_gene_class <- renderPlot({
     
     overlap_gene <- filtered_overlap_data() %>%
-      group_by(tool_ref, tools_labels_ref, new_level) %>%
-      mutate(n_obs = n()) %>%
+      group_by(tool_ref, new_level) %>%
+      mutate(n_obs = n_distinct(tool_comp)) %>%
       mutate(n_obs = paste0('n = ', n_obs)) %>%
       ungroup()
     
@@ -521,7 +521,8 @@ server <- function(input, output, session) {
       group_by(tool_ref, tools_labels_ref, new_level) %>%
       summarise(
         n_obs  = paste0("n = ", n()),
-        x_pos  = max(csc * 100, na.rm = TRUE) + 3,
+        x_pos  = quantile(csc * 100, 0.75, na.rm = TRUE) + 3,
+        #x_pos = 50,
         .groups = "drop"
       )
     
@@ -535,7 +536,7 @@ server <- function(input, output, session) {
 
       scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe',
                                       'y70' = 'crosshatch', 'y80' = 'crosshatch',  'y90' = 'crosshatch')) +
-      geom_text(data = label_data, aes(x = x_pos, y = new_level, label = n_obs), hjust = 0,
+      geom_text(data = label_data, aes(x = x_pos, y = 1, label = n_obs), hjust = 0,
                 size = 3.5, inherit.aes = FALSE) +
       scale_x_continuous(limits = c(0, 115), breaks = c(0, 25, 50, 75, 100)) +
       facet_grid(new_level ~ tools_labels_ref, scales = "free_y", space = "free",

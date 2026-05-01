@@ -427,6 +427,19 @@ ps_overlap <- page_sidebar(
     ),
     
     pickerInput(
+      inputId = "tool_overlap_comp",
+      label = "Pipelines to compare against:",
+      choices = tool_choices,
+      selected = basic_tools,
+      multiple = TRUE,
+      options = list(
+        `actions-box` = TRUE,           
+        `selected-text-format` = "count > 2",
+        `count-selected-text` = "{0} pipelines selected"
+      )
+    ),
+    
+    pickerInput(
       inputId = "overlap_genes",
       label = "Gene classes to show:",
       choices = as.list(as.character(gene_classes)),
