@@ -457,6 +457,14 @@ server <- function(input, output, session) {
       mutate(n_obs = paste0('n = ', n_obs)) %>%
       ungroup()
     
+    label_data <- overlap_data %>%
+      group_by(tool_ref, tools_labels_ref, tools_db_comp, tools_labels_comp) %>%
+      summarise(
+        n_obs = paste0("n = ", n()),
+        x_pos = max(csc * 100, na.rm = TRUE) + 3,  # just right of the whisker
+        .groups = "drop"
+      )
+    
     ggplot(overlap_data,  
            aes(x = csc*100, y = fct_rev(tools_labels_comp))) +
       geom_boxplot(aes(fill = tool_ref, pattern = texture),
@@ -464,9 +472,11 @@ server <- function(input, output, session) {
                    width = 0.7, color = "black", outliers = FALSE) +
       scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe',
                                       'y70' = 'crosshatch', 'y80' = 'crosshatch',  'y90' = 'crosshatch')) +
-      geom_text(aes(x = 50, y = 1, label = n_obs), size = 4) +
+      geom_text(data = label_data, aes(x = x_pos, y = tools_labels_comp, label = n_obs), hjust = 0,
+                size = 3.5, inherit.aes = FALSE) +
       facet_grid(tools_db_comp ~ tools_labels_ref, scales = "free_y", space = "free") +
       scale_fill_manual(values = pal_10_q) +
+      scale_x_continuous(limits = c(0, 115), breaks = c(0, 25, 50, 75, 100)) +
       scale_y_discrete(drop = T) +
       xlab("Percentage (%)") +
       ylab("Pipeline covered") +
@@ -507,6 +517,13 @@ server <- function(input, output, session) {
       mutate(n_obs = paste0('n = ', n_obs)) %>%
       ungroup()
     
+    label_data <- overlap_gene %>%
+      group_by(tool_ref, tools_labels_ref, new_level) %>%
+      summarise(
+        n_obs  = paste0("n = ", n()),
+        x_pos  = max(csc * 100, na.rm = TRUE) + 3,
+        .groups = "drop"
+      )
     
     ggplot(overlap_gene, aes(x = csc*100, y = new_level)) + 
 
@@ -518,7 +535,9 @@ server <- function(input, output, session) {
 
       scale_pattern_manual(values = c('no' = 'none', 'yes' = 'stripe',
                                       'y70' = 'crosshatch', 'y80' = 'crosshatch',  'y90' = 'crosshatch')) +
-      geom_text(aes(x = 50, y = 1, label = n_obs), size = general_size / .pt) + 
+      geom_text(data = label_data, aes(x = x_pos, y = new_level, label = n_obs), hjust = 0,
+                size = 3.5, inherit.aes = FALSE) +
+      scale_x_continuous(limits = c(0, 115), breaks = c(0, 25, 50, 75, 100)) +
       facet_grid(new_level ~ tools_labels_ref, scales = "free_y", space = "free",
                  labeller = labeller(
                    new_level = as_labeller(function(x) {
