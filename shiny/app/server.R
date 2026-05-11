@@ -1,6 +1,5 @@
 server <- function(input, output, session) {
   
-  
   #ARGs TAB
   count_genes_reactive <- reactive({
     req(input$tools_unigenes)
@@ -123,7 +122,7 @@ server <- function(input, output, session) {
   )
   
   output$jaccard_plot <- renderPlot({
-    
+
     JI_all_plot %>%
       filter(as.numeric(tool_lab_ref) < as.numeric(tool_lab_comp)) %>%
       ggplot(aes(x = tool_lab_ref, y = tool_lab_comp, fill = jaccard)) +
@@ -589,7 +588,8 @@ server <- function(input, output, session) {
       mutate(new_level = gsub("beta-lactam modulation resistance","beta-lactam\nmod.", new_level)) %>%
       mutate(new_level = gsub("target-modifying enzyme","target-modif.\nenzyme", new_level)) %>%
       mutate(new_level = gsub("self-resistance","self-resistance", new_level))
-  })
+    
+  }) %>% bindCache(input$tool_overlap, input$overlap_genes, input$tool_overlap_comp)
   
   
   output$overlap_gene_class <- renderPlot({
@@ -700,6 +700,37 @@ server <- function(input, output, session) {
   output$download_table_s2 <- downloadHandler(
     filename = function() paste0("TableS2_ARG_classes_", Sys.Date(), ".csv"),
     content  = function(file) write.csv(table_s2, file, row.names = FALSE)
+  )
+  
+  output$table_s3 <- renderReactable({
+    
+    table_s3_base %>%
+      rename(
+        "ARG (Unigenes)" = query,
+        "Gene Class"    = new_level,
+        "Pipeline"      = tool
+      ) %>%
+      
+      reactable(
+        searchable      = TRUE,
+        filterable      = TRUE,
+        striped         = TRUE,
+        highlight       = TRUE,
+        defaultPageSize = 20
+      )
+  })
+  
+  output$download_table_s3 <- downloadHandler(
+    filename = function() paste0("ARGs_per_pipeline_", Sys.Date(), ".csv"),
+    content  = function(file) {
+      table_s3_base %>%
+        rename(
+          "ARG (Unigene)" = query,
+          "Gene Class"    = new_level,
+          "Pipeline"      = tool
+        ) %>%
+        write.csv(file, row.names = FALSE)
+    }
   )
 
 }

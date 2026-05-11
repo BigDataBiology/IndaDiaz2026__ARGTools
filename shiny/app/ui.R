@@ -312,11 +312,14 @@ ps_args <- page_sidebar(
     
     pickerInput(
       inputId = "gene_classes_filter",
-      label = "Filter gene classes:",
+      label = "Filter gene classes (max 20):",
       choices = gene_classes,
       selected = gene_classes_default,
       multiple = TRUE,
-      options = list(`actions-box` = TRUE)
+      options = list(
+        `actions-box` = TRUE,
+        `max-options` = 20,
+        `max-options-text` = "Limit reached (max 20 gene classes")
     ),
     
     markdown( "*Use the sidebar to filter specific pipelines or focus on particular gene classes to see how the resistome profile shifts.*")
@@ -362,7 +365,7 @@ ps_args <- page_sidebar(
              \n
              This plot reveals how the proportional makeup of gene classes shifts depending on the chosen pipeline."
           ),
-          withSpinner(plotOutput("plot_gene_class_proportion", height = "900px", fill = TRUE), type = 8, color = "#1b9e77"),
+          withSpinner(plotOutput("plot_gene_class_proportion", height = "700px", fill = TRUE), type = 8, color = "#1b9e77"),
           downloadButton("download_gene_class_proportion", "Download Table")
         )
       )
@@ -405,7 +408,7 @@ ps_abundance <- page_sidebar(
     
     pickerInput(
       inputId = "abundance_genes",
-      label = "Gene classes to show:",
+      label = "Gene classes to show (max 10):",
       choices = as.list(as.character(gene_classes)),
       selected = top_abundance,
       multiple = TRUE,
@@ -413,7 +416,9 @@ ps_abundance <- page_sidebar(
         `actions-box` = TRUE,
         `live-search` = TRUE,             
         `selected-text-format` = "count > 3",
-        `count-selected-text` = "{0} gene classes selected"
+        `count-selected-text` = "{0} gene classes selected",
+        `max-options` = 10,
+        `max-options-text` = "Limit reached (max 10 gene classes)"
       )
     ),
     
@@ -582,7 +587,7 @@ ps_overlap <- page_sidebar(
     
     pickerInput(
       inputId = "overlap_genes",
-      label = "Gene classes to show:",
+      label = "Gene classes to show (max 15):",
       choices = as.list(as.character(gene_classes)),
       selected = top_cso,
       multiple = TRUE,
@@ -590,7 +595,9 @@ ps_overlap <- page_sidebar(
         `actions-box` = TRUE,
         `live-search` = TRUE,
         `selected-text-format` = "count > 3",
-        `count-selected-text` = "{0} gene classes selected"
+        `count-selected-text` = "{0} gene classes selected",
+        `max-options` = 15,
+        `max-options-text` = "Limit reached (max 15 gene classes)"
       )
     ),
     markdown("*Use the sidebar to select the pipelines you want to compare or filter specific gene classes to see exactly where the pipelines agree or diverge.*")
@@ -639,6 +646,16 @@ ps_tables <- page_fillable(
         markdown("ARO term IDs, gene class names, and abbreviations used throughout the app."),
         reactableOutput("table_s2"),
         downloadButton("download_table_s2", "Download Table")
+      )
+    ),
+    
+    nav_panel(
+      "ARGs per Pipeline",
+      card(
+        card_header("ARGs Identified per Pipeline"),
+        markdown("Full list of ARGs (unigenes) identified by each pipeline, with their associated gene class."),
+        withSpinner(reactableOutput("table_s3"), type = 8, color = "#1b9e77"),
+        downloadButton("download_table_s3", "Download Table")
       )
     )
   )

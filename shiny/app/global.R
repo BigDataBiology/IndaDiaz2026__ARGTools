@@ -16,6 +16,7 @@ library(scales)
 library(ragg)
 library(patchwork)
 
+
 APP_DIR  <- normalizePath(getwd(), mustWork = TRUE)                
 ROOT_DIR <- normalizePath(file.path(APP_DIR, "..", ".."), mustWork = TRUE)
 
@@ -166,7 +167,7 @@ tool_choices <- as.list(setNames(tool_choices, tool_choices_label))
 
 tool_choices_single <- setNames(
   as.list(unlist(tool_choices)),
-  gsub("\n", " ", names(tool_choices))  # replace \n with space
+  gsub("\n", " ", names(tool_choices))
 )
 
 gene_levels <- c(top_abundance, "other")
@@ -252,6 +253,46 @@ sumpan2 <- add_texture(sumpan2) %>%
     as.vector(tools_labels_lookup)[match(as.character(tool), names(tools_labels_lookup))],
     levels = tools_labels_factor))
 
+pal_10_q_2 <- pal_10_q
+names(pal_10_q_2) <- as.vector(tools_labels[names(pal_10_q)])
+
+
+shape_tools_2 <- shape_tools
+names(shape_tools_2) <- as.vector(tools_labels[names(shape_tools_2)])
+
+unigenes <- unigenes %>% 
+  mutate(tool2 = factor(tools_labels[tool], levels = tools_labels_factor))
+
+abundance_tool_sample <- abundance_tool_sample %>% 
+  mutate(tool2 = factor(tools_labels[tool], levels = tools_labels_factor))
+
+habitat_n_samples <- abundance_tool_sample %>%
+  group_by(habitat) %>%
+  summarise(N_samples = n_distinct(sample))
+
+lims_richness <- abundance_tool_sample %>%
+  group_by(tool, habitat, tools_db, tools_labels, texture) %>%
+  summarise(
+    median = ifelse(quantile(richness, 0.5)  < 0, 0, quantile(richness, 0.5)),
+    q25    = ifelse(quantile(richness, 0.25) < 0, 0, quantile(richness, 0.25)),
+    q75    = ifelse(quantile(richness, 0.75) < 0, 0, quantile(richness, 0.75)),
+    w1     = ifelse(quantile(richness, 0.25) - 1.5*IQR(richness) < 0, 0,
+                    quantile(richness, 0.25) - 1.5*IQR(richness)),
+    w2     = ifelse(quantile(richness, 0.75) + 1.5*IQR(richness) < 0, 0,
+                    quantile(richness, 0.75) + 1.5*IQR(richness))
+  ) %>%
+  ungroup()
+
+abundance_class_summary <- abundance_class_summary %>% 
+  mutate(tool2 = factor(tools_labels[tool], levels = tools_labels_factor))
+
+unigenes_proportion <- unigenes_proportion %>% 
+  mutate(tool2 = factor(tools_labels[tool], levels = tools_labels_factor))
+
+table_s3_base <- unigenes %>%
+  filter(tool %in% basic_tools) %>%
+  ungroup() %>%
+  select(query, new_level, tool)
 
 g_legend <- function(a.gplot){
   tmp <- ggplotGrob(a.gplot)
@@ -322,40 +363,3 @@ theme_pan_core <- theme_minimal() +
     legend.box.margin = margin(0, 0, 0, 0, unit = "pt"),
     legend.margin    = margin(0, 0, 0, 0, unit = "pt")
   )
-
-pal_10_q_2 <- pal_10_q
-names(pal_10_q_2) <- as.vector(tools_labels[names(pal_10_q)])
-
-
-shape_tools_2 <- shape_tools
-names(shape_tools_2) <- as.vector(tools_labels[names(shape_tools_2)])
-
-unigenes <- unigenes %>% 
-  mutate(tool2 = factor(tools_labels[tool], levels = tools_labels_factor))
-
-abundance_tool_sample <- abundance_tool_sample %>% 
-  mutate(tool2 = factor(tools_labels[tool], levels = tools_labels_factor))
-
-habitat_n_samples <- abundance_tool_sample %>%
-  group_by(habitat) %>%
-  summarise(N_samples = n_distinct(sample))
-
-lims_richness <- abundance_tool_sample %>%
-  group_by(tool, habitat, tools_db, tools_labels, texture) %>%
-  summarise(
-    median = ifelse(quantile(richness, 0.5)  < 0, 0, quantile(richness, 0.5)),
-    q25    = ifelse(quantile(richness, 0.25) < 0, 0, quantile(richness, 0.25)),
-    q75    = ifelse(quantile(richness, 0.75) < 0, 0, quantile(richness, 0.75)),
-    w1     = ifelse(quantile(richness, 0.25) - 1.5*IQR(richness) < 0, 0,
-                    quantile(richness, 0.25) - 1.5*IQR(richness)),
-    w2     = ifelse(quantile(richness, 0.75) + 1.5*IQR(richness) < 0, 0,
-                    quantile(richness, 0.75) + 1.5*IQR(richness))
-  ) %>%
-  ungroup()
-
-abundance_class_summary <- abundance_class_summary %>% 
-  mutate(tool2 = factor(tools_labels[tool], levels = tools_labels_factor))
-
-unigenes_proportion <- unigenes_proportion %>% 
-  mutate(tool2 = factor(tools_labels[tool], levels = tools_labels_factor))
-
