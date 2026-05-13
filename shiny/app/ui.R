@@ -176,13 +176,21 @@ ps_intro <- fluidPage(
           tags$b(em("The elusive resistome: a global comparison reveals large discrepancies among detection pipelines.")),
           tags$br(),
           tags$br(),
-          "A full description of the datasets and access to them are available in",
-          tags$a(
-            "Zenodo",
-            href = "https://zenodo.org/records/19702877",
-            target = "_blank"
-          ),
-          "."
+          tags$p(
+            "The preprint is available on",
+            tags$a(
+              "BioRxiv",
+              href = "https://www.biorxiv.org/content/10.64898/2026.05.11.724158v1",
+              target = "_blank"
+            ),
+            ". In addition to this, a full description of the datasets and access to them are available in ",
+            tags$a(
+              "Zenodo",
+              href = "https://zenodo.org/records/19702877",
+              target = "_blank"
+            ),
+            "."
+          )
         ),
         
         tags$hr(),
