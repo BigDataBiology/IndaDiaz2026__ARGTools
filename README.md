@@ -35,6 +35,10 @@ The tools used to detect ARGs are listed below.
 
 The outputs of DeepARG, AMRFinderPlus, ABRicate, and ResFinder were processed with [argNorm v1.0.0](https://github.com/BigDataBiology/argNorm).
 
+### Workflow
+
+[Snakemake v8.27.1](https://snakemake.github.io/)
+
 ### Gene clustering
 
 [VSEARCH v2.30.0](https://github.com/torognes/vsearch)
@@ -42,3 +46,27 @@ The outputs of DeepARG, AMRFinderPlus, ABRicate, and ResFinder were processed wi
 ### Preprocessed data
 
 ARG pipeline and normalization outputs as well as the estimated abundance, and richness have been deposited at Zenodo (link) and are available in this repository under `code_R_analysis/data_to_Zenodo`.
+
+### Compilation and analysis of results 
+
+Analyses were performed using R version 4.5.2 (2025-10-31).
+
+| Package        | Version   |
+|----------------|----------|
+| ggbreak        | v0.1.7   |
+| scales         | v1.4.0   |
+| cowplot        | v1.2.0   |
+| Cairo          | v1.7-0   |
+| ggpattern      | v1.3.1   |
+| RColorBrewer    | v1.1-3   |
+| lubridate      | v1.9.5   |
+| forcats        | v1.0.1   |
+| stringr        | v1.6.0   |
+| purrr          | v1.2.2   |
+| readr          | v2.1.6   |
+| tidyr          | v1.3.2   |
+| tibble         | v3.3.1   |
+| tidyverse      | v2.0.0   |
+| gridExtra      | v2.3     |
+| ggplot2        | v4.0.2   |
+| dplyr          | v1.2.1   |
