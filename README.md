@@ -72,3 +72,11 @@ Analyses were performed using R version 4.5.2 (2025-10-31).
 | gridExtra      | v2.3     |
 | ggplot2        | v4.0.2   |
 | dplyr          | v1.2.1   |
+
+
+### Installation time
+Typical installation time of the ARG detection tools on a standard desktop computer is approximately 1–3 hours, depending on internet bandwidth and system configuration. This includes installation of all software dependencies and setup of required databases. No compilation of core software is required for most tools, as precompiled binaries or conda packages are used.
+
+No special hardware needed — standard compute is sufficient.
+
+Full-scale analyses on the GMGC dataset were performed on HPC infrastructure and are not intended for execution on standard desktop machines.
