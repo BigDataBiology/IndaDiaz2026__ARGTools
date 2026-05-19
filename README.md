@@ -8,9 +8,13 @@ See also the **interactive** app at the [ARG pipelines](https://arg-pipelines.bi
 
 ## Structure
 
-The folders `dna`,`protein`,`resfinder_dna` contain Snakemake scripts used to run the detection pipelines on the GMGC data. The file `The pipeline.md` goes through each step of the detection.
+The folders `dna`, `protein`, and `resfinder_dna` contain Snakemake workflows used to run the ARG detection pipelines on the GMGC data. The Snakemake workflows and `The pipeline.md` document describe how each tool was executed within this study, including command structure, input/output organization, and downstream integration into the analysis workflow.
 
-The folder `code_R_analysis` contains the script `retrieve_aros_abundances_diversity.R` that compiles the results from the detection pipelines, and `plots_2.R` that plots the results pre-computed files and scripts to run the analysis and generate figures included in the manuscript. We direct the users to the [Global Microbial Gene Catalog v1.0](https://gmgc.embl.de/) for access to the source unigene sequences and abundances. 
+The folder `code_R_analysis` contains the script `retrieve_aros_abundances_diversity.R`, which compiles and harmonizes the results from the detection pipelines, and `plots_2.R`, which generates the figures and analyses presented in the manuscript from precomputed files.
+
+We direct users to the [Global Microbial Gene Catalog v1.0](https://gmgc.embl.de/) for access to the source unigene sequences, metagenomic sample metadata, and abundance estimates.
+
+Installation instructions, software dependencies, databases, and usage information for each ARG detection tool are maintained by the respective software developers. Therefore, we refer users to the official repositories and documentation pages of each tool listed below for installation and configuration instructions. 
 
 ## ARG detection
 
