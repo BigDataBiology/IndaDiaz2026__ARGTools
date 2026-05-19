@@ -16,6 +16,8 @@ We direct users to the [Global Microbial Gene Catalog v1.0](https://gmgc.embl.de
 
 Installation instructions, software dependencies, databases, and usage information for each ARG detection tool are maintained by the respective software developers. Therefore, we refer users to the official repositories and documentation pages of each tool listed below for installation and configuration instructions. 
 
+The detection tools were ran on Linux (RHEL 9-compatible distribution; kernel 5.14.x; x86_64 architecture). 
+
 ## ARG detection
 
 ### Tools
