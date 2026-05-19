@@ -325,7 +325,6 @@ ps_args <- page_sidebar(
       selected = gene_classes_default,
       multiple = TRUE,
       options = list(
-        `actions-box` = TRUE,
         `max-options` = 20,
         `max-options-text` = "Limit reached (max 20 gene classes")
     ),
@@ -421,7 +420,6 @@ ps_abundance <- page_sidebar(
       selected = top_abundance,
       multiple = TRUE,
       options = list(
-        `actions-box` = TRUE,
         `live-search` = TRUE,             
         `selected-text-format` = "count > 3",
         `count-selected-text` = "{0} gene classes selected",
@@ -600,7 +598,6 @@ ps_overlap <- page_sidebar(
       selected = top_cso,
       multiple = TRUE,
       options = list(
-        `actions-box` = TRUE,
         `live-search` = TRUE,
         `selected-text-format` = "count > 3",
         `count-selected-text` = "{0} gene classes selected",
