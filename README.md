@@ -79,4 +79,25 @@ Typical installation time of the ARG detection tools on a standard desktop compu
 
 No special hardware needed — standard compute is sufficient.
 
+### Expected runtime for ARG detection tools
+
+Approximate runtimes for the demo dataset (~1000 gene sequences in FASTA format) on a standard desktop computer (8–16 CPU cores, 16–32 GB RAM) are shown below.
+
+| Tool | Version | Expected runtime |
+|---|---|---|
+| RGI (DIAMOND mode) | ~1–10 minutes |
+| DeepARG  | ~1–10 minutes |
+| ResFinder  | ~1–10 minutes |
+| fARGene (all models) | ~5–20 minutes |
+| ABRicate | ~1-10 minutes per database |
+| AMRFinderPlus | ~1–10 minutes |
+| argNorm | ~1–10 minutes |
+| VSEARCH | ~1–10 minutes |
+`
 Full-scale analyses on the GMGC dataset were performed on HPC infrastructure and are not intended for execution on standard desktop machines.
+
+### Outputs
+
+The ouputs of each tool are different. Examples of input fasta files and ouputs can be found in `test/`.
+
+
