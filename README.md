@@ -31,6 +31,9 @@ The tools used to detect ARGs are listed below.
 
 The outputs of DeepARG, AMRFinderPlus, ABRicate, and ResFinder were processed with [argNorm v1.0.0](https://github.com/BigDataBiology/argNorm).
 
+### Gene clustering
+
+[VSEARCH v2.30.0](https://github.com/torognes/vsearch)
 
 ### Preprocessed data
 
