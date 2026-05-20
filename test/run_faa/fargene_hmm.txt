@@ -1,0 +1,16 @@
+GMGC10.017_617_900.TETP    -            639 rpg_reference_sequences-aligned -            646         0 1091.5   0.0   1   1         0         0 1091.4   0.0     1   643     1   638     1   639 1.00 -
+GMGC10.010_848_602.TETP    -            639 rpg_reference_sequences-aligned -            646         0 1079.8   0.0   1   1         0         0 1079.6   0.0     1   644     1   639     1   639 1.00 -
+GMGC10.035_563_666.TETP    -            639 rpg_reference_sequences-aligned -            646         0 1063.2   0.0   1   1         0         0 1063.0   0.0     1   643     1   638     1   639 1.00 -
+GMGC10.145_598_553.ERMA       -            295 methyltransferase_grp1-aligned -            285   4.2e-32  116.9   0.0   1   1   1.3e-34   5.5e-32  116.5   0.0    20   218    51   248    35   288 0.85 -
+GMGC10.145_598_553.ERMA       -            295 methyltransferase_grp2-aligned -            261   2.6e-92  314.7  11.6   1   1   6.6e-95   3.1e-92  314.4  11.6     2   259    51   295    50   295 0.99 -
+GMGC10.048_830_583.UNKNOWN    -            363 classA_70_centroids-aligned -            295     7e-77  264.0   0.4   1   1   6.2e-80   8.3e-77  263.8   0.4     3   294    45   357    43   358 0.94 -
+GMGC10.145_712_738.ERMX       -            376 methyltransferase_grp1-aligned -            285   2.9e-35  127.3   0.0   1   1   2.6e-38   3.7e-35  127.0   0.0    15   268   110   365   101   374 0.94 -
+GMGC10.145_712_738.ERMX       -            376 methyltransferase_grp2-aligned -            261   2.3e-89  305.0   1.3   1   1   2.1e-92   3.1e-89  304.6   1.3     6   260   119   373   111   374 0.98 -
+GMGC10.055_638_978.ERMX       -            383 methyltransferase_grp1-aligned -            285   3.1e-35  127.2   0.0   1   1   3.1e-38   4.1e-35  126.8   0.0    16   268   118   372   104   381 0.94 -
+GMGC10.055_638_978.ERMX       -            383 methyltransferase_grp2-aligned -            261   6.9e-90  306.7   0.9   1   1   8.5e-93   9.3e-90  306.3   0.7     6   260   126   380   118   381 0.98 -
+GMGC10.047_543_335.TETP       -            639 rpg_reference_sequences-aligned -            646         0 1049.9   0.0   1   1         0         0 1049.7   0.0     1   644     1   639     1   639 1.00 -
+GMGC10.185_145_879.TETP       -            657 rpg_reference_sequences-aligned -            646         0 1085.7   0.1   1   1         0         0 1085.5   0.1     2   643    20   656    19   657 1.00 -
+GMGC10.177_106_585.TETP       -            668 rpg_reference_sequences-aligned -            646         0 1038.8   0.0   1   1         0         0 1038.6   0.0     1   643    30   667    30   668 1.00 -
+GMGC10.056_708_425.TETP       -            747 rpg_reference_sequences-aligned -            646         0 1054.6   0.0   1   1         0         0 1054.2   0.0     1   626     1   623     1   630 0.99 -
+GMGC10.183_678_635.UNKNOWN   -            895 methyltransferase_grp1-aligned -            285   2.1e-34  124.5   0.0   1   1   1.3e-37     3e-34  124.0   0.0    15   268   629   884   618   893 0.94 -
+GMGC10.183_678_635.UNKNOWN    -            895 methyltransferase_grp2-aligned -            261   7.1e-89  303.4   1.2   1   1   1.8e-92     1e-88  302.9   1.2     6   260   638   892   630   893 0.98 -
