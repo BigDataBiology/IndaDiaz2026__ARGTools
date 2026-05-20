@@ -96,8 +96,10 @@ Approximate runtimes for the demo dataset (~1000 gene sequences in FASTA format)
 `
 Full-scale analyses on the GMGC dataset were performed on HPC infrastructure and are not intended for execution on standard desktop machines.
 
-### Outputs
+### Example of input and output files
 
-The ouputs of each tool are different. Examples of input fasta files and ouputs can be found in `test/`.
+Amino acid and nucleotide sequences to test the pipelines can be found in can be found in `test/data`.
+
+Example of output of the tools after ontology normalization can be found in `test/run_faa` and `test/run_fna`. 
 
 
