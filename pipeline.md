@@ -284,27 +284,28 @@ This is a very slow process
 - Add the header and produce `args_abundances.tsv`
 
 ```bash
-cd /work/microbiome/users/juan/arg_compare/data/abundances
+python3 filter_abundance.py genes_prot_dna.txt /work/microbiome/global_data_spire/GMGC10.data/GMGC10.sample-abundance.tsv.xz data/abundances/args_abundances.tsv
+#cd /work/microbiome/users/juan/arg_compare/data/abundances
 # open a screen
-xzcat /work/microbiome/global_data_spire/GMGC10.data/GMGC10.sample-abundance.tsv.xz | awk -F'\t' '
-{
-    print > "partition.tsv"
-}
-NR % 100000000 == 0 {
-    close("partition.tsv");
-    system("awk -F\"\t\" \047NR==FNR {lookup[$1]; next} $1 in lookup\047 /work/microbiome/users/juan/arg_compare/genes_prot_dna.txt partition.tsv >> args_abundances_tmp.tsv");
-    system("rm partition.tsv")
-}
-END {
-    if (NR % 100000000 != 0) {
-        close("partition.tsv");
-        system("awk -F\"\t\" \047NR==FNR {lookup[$1]; next} $1 in lookup\047 /work/microbiome/users/juan/arg_compare/genes_prot_dna.txt partition.tsv >> args_abundances_tmp.tsv");
-        system("rm partition.tsv")
-    }
-}' 
-
-xzcat /work/microbiome/global_data_spire/GMGC10.data/GMGC10.sample-abundance.tsv.xz | head -n1 > args_abundances.tsv
-cat args_abundances_tmp.tsv >> args_abundances.tsv
+#xzcat /work/microbiome/global_data_spire/GMGC10.data/GMGC10.sample-abundance.tsv.xz | awk -F'\t' '
+#{
+#    print > "partition.tsv"
+#}
+#NR % 100000000 == 0 {
+#    close("partition.tsv");
+#    system("awk -F\"\t\" \047NR==FNR {lookup[$1]; next} $1 in lookup\047 /work/microbiome/users/juan/arg_compare/genes_prot_dna.txt partition.tsv >> #args_abundances_tmp.tsv");
+#    system("rm partition.tsv")
+#}
+#END {
+#    if (NR % 100000000 != 0) {
+#        close("partition.tsv");
+#        system("awk -F\"\t\" \047NR==FNR {lookup[$1]; next} $1 in lookup\047 /work/microbiome/users/juan/arg_compare/genes_prot_dna.txt partition.tsv #>> args_abundances_tmp.tsv");
+#        system("rm partition.tsv")
+#    }
+#}' 
+#
+#xzcat /work/microbiome/global_data_spire/GMGC10.data/GMGC10.sample-abundance.tsv.xz | head -n1 > args_abundances.tsv
+#cat args_abundances_tmp.tsv >> args_abundances.tsv
 ```
 
 Retrieve all the unigene names that have abundance and see how many detected ARGs are missing abundance 
