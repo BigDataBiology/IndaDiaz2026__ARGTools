@@ -1,0 +1,65 @@
+[workspace]
+authors = ["indajuan <indajuan@users.noreply.github.com>"]
+channels = ["bioconda", "conda-forge"]
+name = "arg-compare-short-reads"
+description = "fargene / rgi / deeparg environments for the short-reads ARG comparison pipeline"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[feature.fargene.dependencies]
+python = ">=3.7"
+numpy = "*"
+matplotlib = "*"
+hmmer = "3.4.*"
+emboss = "6.6.*"
+seqtk = "*"
+spades = "*"
+trim-galore = "*"
+prodigal = "*"
+
+[feature.fargene.pypi-dependencies]
+fargene = { git = "https://github.com/indajuan/fargene.git", rev = "3be196d91d622c3a16f47d0c6a70011cc78901c6" }
+
+[feature.fargene.tasks]
+fargene = "fargene"
+
+[feature.rgi]
+channels = ["conda-forge", "bioconda"]
+
+[feature.rgi.dependencies]
+rgi = "6.0.3.*"
+
+[feature.rgi.tasks]
+rgi = "rgi"
+
+[feature.deeparg.dependencies]
+python = ">=3.9,<3.12"
+diamond = "2.1.24.*"
+trimmomatic = "*"
+vsearch = "*"
+pip = "*"
+
+[feature.deeparg.pypi-dependencies]
+deeparg-modern = { git = "https://github.com/gaarangoa/deeparg.git", tag = "v2.0.0" }
+
+[feature.deeparg.tasks]
+deeparg = "deeparg"
+
+[environments]
+fargene = { features = ["fargene"], no-default-feature = true }
+rgi = { features = ["rgi"], no-default-feature = true }
+deeparg = { features = ["deeparg"], no-default-feature = true }
+
+# Usage:
+#   pixi install
+#   pixi run prepare-rgi-db <work_dir>
+#   pixi run download-deeparg-db <dir>
+#   pixi run all <r1.fastq.gz> <r2.fastq.gz> <outdir> [threads]
+# Single-tool reruns: all-fargene / all-rgi / all-deeparg
+[tasks]
+prepare-rgi-db = "bash prepare_rgi_db.sh"
+download-deeparg-db = "bash download_deeparg_db.sh"
+all = "bash run_all_tools.sh"
+all-fargene = "ONLY_TOOL=fargene bash run_all_tools.sh"
+all-rgi = "ONLY_TOOL=rgi bash run_all_tools.sh"
+all-deeparg = "ONLY_TOOL=deeparg bash run_all_tools.sh"
