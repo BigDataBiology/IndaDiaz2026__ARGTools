@@ -15,23 +15,23 @@ df['aro'] = df['aro'].fillna(df['mapped_aro'])
 df = df.merge(df_conv[['Term_ID', 'new_level']], left_on='aro', right_on='Term_ID', how='left')
 df['arg_class'] = df['new_level'].fillna('Unmapped')
 
-thresholds = [(70, 60), (80, 70), (90, 70)]
+thresholds = [(70, 80), (80, 80), (90, 80)]
 
 fig1, axes1 = plt.subplots(1, 3, figsize=(18, 5))  # rank distribution
 fig2, axes2 = plt.subplots(1, 3, figsize=(22, 8))  # ARG classes rank
 
 for i, (p, c) in enumerate(thresholds):
     filtered = df[(df.pident >= p) & (df.qcovhsp >= c)]
-    top = filtered.sort_values('bitscore', ascending=False).drop_duplicates('qseqid')
+    #top = filtered.sort_values('bitscore', ascending=False).drop_duplicates('qseqid')
     
-    sns.countplot(data=top, x='rank', hue='rank', 
+    sns.countplot(data=filtered, x='rank', hue='rank', 
                   order=['I', 'II', 'III', 'IV', 'notassessed'], 
                   ax=axes1[i], palette='viridis', legend=False)
-    axes1[i].set_title(f'Id >= {p}%, Cov >= {c}%\nTotal Unigenes: {len(top)}')
+    axes1[i].set_title(f'Id >= {p}%, Cov >= {c}%\nTotal Unigenes: {len(filtered)}')
     axes1[i].set_xlabel('Rank')
     axes1[i].set_ylabel('Count')
 
-    mapped_top = top[top['arg_class'] != 'Unmapped']
+    mapped_top = filtered[filtered['arg_class'] != 'Unmapped']
     top_15_classes = mapped_top['arg_class'].value_counts().head(15).index
     plot_data = mapped_top[mapped_top['arg_class'].isin(top_15_classes)]
     counts = plot_data.groupby(['rank', 'arg_class']).size().unstack(fill_value=0)
