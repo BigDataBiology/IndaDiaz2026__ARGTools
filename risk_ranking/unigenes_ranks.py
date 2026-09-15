@@ -54,3 +54,26 @@ fig1.savefig('rank_dist_new_level.png')
 
 fig2.tight_layout()
 fig2.savefig('stacked_rank_class_dist_top15.png')
+
+#ranking overlap heatmap
+fig3, axes3 = plt.subplots(1, 3, figsize=(18, 5))
+rank_order = ['I', 'II', 'III', 'IV', 'notassessed']
+
+for i, (p, c) in enumerate(thresholds):
+    filtered = df[(df.pident >= p) & (df.qcovhsp >= c)]
+    
+    if not filtered.empty:
+        rank_dummies = pd.get_dummies(filtered['rank'])
+        unigene_ranks = rank_dummies.groupby(filtered['qseqid']).max().astype(int)
+        
+        overlap_matrix = unigene_ranks.T.dot(unigene_ranks)
+        
+        overlap_matrix = overlap_matrix.reindex(index=rank_order, columns=rank_order, fill_value=0)
+        
+        sns.heatmap(overlap_matrix, annot=True, fmt='d', cmap='Purples', ax=axes3[i], cbar=(i==2))
+        axes3[i].set_title(f'All-Hits Rank Overlap\nId >= {p}%, Cov >= {c}%')
+        axes3[i].set_ylabel('Rank A')
+        axes3[i].set_xlabel('Rank B')
+
+fig3.tight_layout()
+fig3.savefig('rank_overlap_matrix.png')
