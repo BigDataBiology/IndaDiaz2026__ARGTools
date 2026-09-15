@@ -64,3 +64,8 @@ code_R_analysis/data_to_Zenodo/args_abundances.tsv.gz
 #code_R_analysis/generate_data_to_zenodo.R
 GMGC10.data
 Statement__unigenes-considered.txt.gz
+update_abricate/abricate-argannot.norm.tsv
+update_abricate/abricate-card.tsv
+update_abricate/abricate-megares.norm.tsv
+update_abricate/abricate-ncbi.norm.tsv
+update_abricate/abricate-resfinder.norm.tsv
