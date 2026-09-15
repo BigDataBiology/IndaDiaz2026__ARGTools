@@ -406,3 +406,11 @@ get` first).
 ```bash
 pixi exec -s python -s pandas python count-unigenes_in_interesting_habitats.py
 ```
+
+## DIAMOND-BLASTp unigenes deemed ARGs vs SARG to use the ranking from arg_ranker
+```bash
+conda run -n seqkit seqkit grep -f genes_prot_dna.txt data/faa/*.faa.gz -o faa_args.fa
+conda run -n diamond_env diamond makedb --in SARG.db.fasta --db SARG.db
+conda run -n diamond_env diamond blastp --query ../faa_args.fa  --db SARG.db.dmnd  --out faa_args_vs_SARG.tsv  --outfmt 6 qseqid sseqid pident length mismatch gapopen qstart qend sstart send evalue bitscore qcovhsp slen --max-target-seqs 25 --evalue 1e-5
+```
+
