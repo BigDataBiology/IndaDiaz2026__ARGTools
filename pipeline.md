@@ -397,14 +397,23 @@ export CGE_DISINFINDER_DB="/work/microbiome/users/juan/resfinder_databases/disin
 ## Counting total number of unigenes in habitats of interest
 
 Ensure that [GMGC10.data](https://git.embl.org/coelho/GMGC10.data) is available
-in the current directory (in particular the two files
-`metadata/metadata/GMGC10.sample.meta.tsv.gz` and
-`GMGC10.sample-abundance.tsv.xz` are needed; you may need to run `git-annex
-get` first).
-
+in the current directory, `metadata_GMGC10.sample.meta.tsv` and
+`GMGC10.sample-abundance.tsv.xz` are needed. You may need to run `git-annex
+get` first). Needs `pandas`.
 
 ```bash
-pixi exec -s python -s pandas python count-unigenes_in_interesting_habitats.py
+python3 count-unigenes_in_interesting_habitats.py metadata_GMGC10.sample.meta.tsv GMGC10.sample-abundance.tsv.xz  unigenes_13_habitats.txt.gz unigenes_13_habitats_and_built_env.txt.gz
+#pixi exec -s python -s pandas python count-unigenes_in_interesting_habitats.py
+```
+
+## Retrieving the unigenes reported as ARG by habitat
+
+Ensure that [GMGC10.data](https://git.embl.org/coelho/GMGC10.data) is available. The file needed are the metadata from GMGC
+`GMGC10.sample.meta.tsv.gz`, the abundance file `GMGC10.sample-abundance.tsv.xz` (you may need to run `git-annex
+get` first), and a list of unigenes to fetch per habitat `genes_prot_dna.txt`
+
+```bash
+python3 genes_by_habitat.py genes_prot_dna.txt /work/microbiome/global_data_spire/GMGC10.data/GMGC10.sample-abundance.tsv.xz data/metadata_GMGC10.sample.meta.tsv data/abundances/args_by_habitat.tsv
 ```
 
 ## DIAMOND-BLASTp unigenes deemed ARGs vs SARG to use the ranking from arg_ranker
