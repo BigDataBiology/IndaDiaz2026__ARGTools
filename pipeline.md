@@ -360,7 +360,7 @@ mamba run -n rgi rgi main -a DIAMOND -i ../dna/fargene_predicted.fasta -o fargen
 mamba run -n rgi rgi main -a DIAMOND -i ../protein/fargene_predicted.fasta -o fargene_prot_predicted_faa --local --clean -t protein --include_loose
 ```
 
-# Clustering ARGs with CD-HIT
+## Clustering ARGs with CD-HIT
 
 ```bash
 conda activate cdhit_env
@@ -393,7 +393,13 @@ NR==FNR {
 # conda activate which vsearch 
 ```
 
+## Clustering reference ARG db
 
+```bash
+cd db_cluster/
+python3 merge_and_tag.py -o merged_reference_proteins.faa
+python3 nested_clustering.py merged_reference_proteins.faa nested_out
+```
 ## Creating the table of abundance of ARGs
 
 Run the file `retrieve_aros_and_abundances.R`
