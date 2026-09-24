@@ -88,7 +88,7 @@ ontologies <- c(lowest_ontology, higher_ontology)
 #   # sulfonamide resistant sul                                        ARO:3004238
 # beta-lactam resistant penicillin-binding proteins                ARO:3003040
 # efflux pump complex or subunit conferring antibiotic resistance ARO:3000159 NOT IN
-    # TET EFFLUX PUMP GOES HERE! major facilitator superfamily (MFS) antibiotic efflux pump ARO:0010002
+# TET EFFLUX PUMP GOES HERE! major facilitator superfamily (MFS) antibiotic efflux pump ARO:0010002
 # gene altering cell wall charge                                   ARO:3003580
 # gene conferring resistance via absence                           ARO:3003768
 # gene involved in antibiotic sequestration                        ARO:3001207
@@ -99,7 +99,7 @@ ontologies <- c(lowest_ontology, higher_ontology)
 # protein modulating permeability to antibiotic                    ARO:3000270
 # protein(s) and two-component regulatory system modulating antibiotic efflux ARO:3000451
 # protein(s) conferring antibiotic resistance via molecular bypass ARO:3000012 NOT IN 
-    # gene(s) or protein(s) associated with a glycopeptide resistance cluster ARO:3002976
+# gene(s) or protein(s) associated with a glycopeptide resistance cluster ARO:3002976
 # protein(s) conferring resistance via host-dependent nutrient acquisition ARO:3007425
 # subunits of secretion system conferring antibiotic resistance  ARO:3004916
 
@@ -107,26 +107,26 @@ ontologies <- c(lowest_ontology, higher_ontology)
 ## FARGENE CONVERSIONS
 ## simplified names for fargene models 
 fg_class <- c("aac2p","aac6p","aac6p","aac3", "aph3p","aph6p","class_a","aac3", "mph",
-             "class_b1_b2", "class_b3","class_d","aac6p","erm","class_d","class_c",
-             "aph2b","erm","tet_enzyme", "tet_rpg", "tet_efflux", "qnr")
+              "class_b1_b2", "class_b3","class_d","aac6p","erm","class_d","class_c",
+              "aph2b","erm","tet_enzyme", "tet_rpg", "tet_efflux", "qnr")
 
 # Output names of the models, since there are different HMM's per class, we reduce them to just the class 
 
 names(fg_class) <- c("aac2p","aac6p_1","aac6p_2","aac3_2", "aph3p","aph6p","class_a","aac3_1", "mph",
-                    "class_b1_b2", "class_b3","class_d1","aac6p_3","erm_2","class_d2","class_c",
-                    "aph2b","erm_1","tet_enzyme", "tet_rpg", "tet_efflux", "qnr")
+                     "class_b1_b2", "class_b3","class_d1","aac6p_3","erm_2","class_d2","class_c",
+                     "aph2b","erm_1","tet_enzyme", "tet_rpg", "tet_efflux", "qnr")
 
 # This applies for both fargene_results and fargene_hmm files. To fetch the hmm score we also need the model name from the hmm file below
 
 hmm_models <- c("aac2p", "aac3_1", "aac3_2", "aac6p_1", "aac6p_2", "aac6p_3", "aph2b", "aph3p", "aph6p", "class_b1_b2", "class_b3",
-               "class_c", "class_a", "tet_efflux", "tet_enzyme", 
-               "mph", "erm_1", "erm_2", "class_d1","class_d2", "tet_rpg", "qnr")
+                "class_c", "class_a", "tet_efflux", "tet_enzyme", 
+                "mph", "erm_1", "erm_2", "class_d1","class_d2", "tet_rpg", "qnr")
 
 names(hmm_models) <- c("aac2p-aligned", "aac3_class1-aligned", "aac3_class2-aligned", "aac6p_class1-aligned", "aac6p_class2-aligned",
-"aac6p_class3-aligned", "aph2b-aligned", "aph3p-aligned", "aph6-aligned", "b1_b2_70_centroids-aligned", "b3_70_centroids-aligned", 
-"class_C_70_centroids-aligned", "classA_70_centroids-aligned", "efflux_model_group_1-aligned", "enzyme_reduced_tetX1_X3-aligned",
-"macrolide_phosphotransferases-aligned", "methyltransferase_grp1-aligned", "methyltransferase_grp2-aligned", 
-"oxa_g1_70_centroids-aligned", "oxa_g2_70_centroids-aligned", "rpg_reference_sequences-aligned", "pmqnr_20120719.pfa")
+                       "aac6p_class3-aligned", "aph2b-aligned", "aph3p-aligned", "aph6-aligned", "b1_b2_70_centroids-aligned", "b3_70_centroids-aligned", 
+                       "class_C_70_centroids-aligned", "classA_70_centroids-aligned", "efflux_model_group_1-aligned", "enzyme_reduced_tetX1_X3-aligned",
+                       "macrolide_phosphotransferases-aligned", "methyltransferase_grp1-aligned", "methyltransferase_grp2-aligned", 
+                       "oxa_g1_70_centroids-aligned", "oxa_g2_70_centroids-aligned", "rpg_reference_sequences-aligned", "pmqnr_20120719.pfa")
 
 # Manually assigned aros to fargene classes
 fargene2ARO <- c("ARO:3000341", "ARO:3000322", "ARO:3000345", "ARO:3000128", "ARO:3000126", "ARO:3000151", "ARO:3000151",
@@ -304,6 +304,7 @@ fargene <- read.delim("dna/fargene_results.tsv", header = F) %>%
 
 ## remove duplicated queries with different classes 
 # load the hmm scores
+
 hmm <- read.table("dna/fargene_hmm.txt", quote="\"", comment.char="") %>%
   mutate(query = gsub('.{2}$', '', V1),
          q1 = sapply(strsplit(V1, split = "GMGC10"), function(x) paste0("GMGC10",x[length(x)])),
@@ -340,7 +341,8 @@ fargene <- fargene %>%
          aro.rgi = fargene_with_rgi$ARO[match(query, fargene_with_rgi$query)],
          coverage.rgi = fargene_with_rgi$Percentage.Length.of.Reference.Sequence[match(query, fargene_with_rgi$query)],)
 
-rm(fargene_with_rgi)
+fargene_with_rgi_dna <- fargene_with_rgi
+#rm(fargene_with_rgi)
 
 
 fargene <- fargene %>% mutate(manual.ARO = as.vector(fargene2ARO[new_class]),
@@ -365,6 +367,7 @@ fargene.prot <- read.delim("protein/fargene_results.tsv", header = F) %>%
 # 41 unigenes with repeated class, 41 observations deleted, 1 left per unigene 
 
 # load the HMM scgroup_by()# load the HMM scores 
+
 hmm.prot <- read.table("protein/fargene_hmm.txt", quote="\"", comment.char="") %>%
   mutate(new_class = hmm_models[V4], q1 = V1) %>% 
   arrange(q1, desc(V14))
@@ -402,7 +405,7 @@ fargene.prot <- fargene.prot %>%
          aro.rgi = fargene_with_rgi$ARO[match(query, fargene_with_rgi$query)],
          coverage.rgi = fargene_with_rgi$Percentage.Length.of.Reference.Sequence[match(query, fargene_with_rgi$query)],)
 
-rm(fargene_with_rgi)
+#rm(fargene_with_rgi)
 
 
 fargene.prot <- fargene.prot %>% mutate(manual.ARO = as.vector(fargene2ARO[new_class]),
@@ -422,16 +425,15 @@ fargene <- fargene %>%
 fargene.prot <- fargene.prot %>% 
   mutate(ARO = ifelse(query %in% c("GMGC10.029_357_382.STRB", "GMGC10.008_012_191.SPH", "GMGC10.170_456_610.STRB"), "ARO:3002658", ARO))
 
-
 # manual blast search in CARD website
 manual_blast_fg <- cbind(c("GMGC10.002_063_752.UNKNOWN", "GMGC10.014_038_935.UNKNOWN", "GMGC10.018_009_687.UNKNOWN", "GMGC10.039_734_695.UNKNOWN", "GMGC10.155_234_566.UNKNOWN",
-  "GMGC10.155_509_478.UNKNOWN","GMGC10.165_346_918.UNKNOWN", "GMGC10.172_669_160.UNKNOWN", "GMGC10.182_555_377.UNKNOWN", "GMGC10.207_886_721.UNKNOWN",
-  "GMGC10.210_614_745.UNKNOWN", "GMGC10.213_353_700.UNKNOWN", "GMGC10.218_878_822.UNKNOWN", "GMGC10.237_491_692.UNKNOWN", "GMGC10.279_981_496.UNKNOWN",
-  "GMGC10.282_839_022.UNKNOWN", "GMGC10.287_300_498.UNKNOWN"),
-  c("ARO:3002528", "ARO:3009063", "ARO:3003676", "ARO:3003199", "ARO:3002589",
-  "ARO:3002644","ARO:3002645","ARO:3002524", "ARO:3002999", "ARO:3002572",
-  "ARO:3004359", "ARO:3002571", "ARO:3003720", "ARO:3006942", "ARO:3004621",
-  "ARO:3002549", "ARO:3002644"))
+                           "GMGC10.155_509_478.UNKNOWN","GMGC10.165_346_918.UNKNOWN", "GMGC10.172_669_160.UNKNOWN", "GMGC10.182_555_377.UNKNOWN", "GMGC10.207_886_721.UNKNOWN",
+                           "GMGC10.210_614_745.UNKNOWN", "GMGC10.213_353_700.UNKNOWN", "GMGC10.218_878_822.UNKNOWN", "GMGC10.237_491_692.UNKNOWN", "GMGC10.279_981_496.UNKNOWN",
+                           "GMGC10.282_839_022.UNKNOWN", "GMGC10.287_300_498.UNKNOWN"),
+                         c("ARO:3002528", "ARO:3009063", "ARO:3003676", "ARO:3003199", "ARO:3002589",
+                           "ARO:3002644","ARO:3002645","ARO:3002524", "ARO:3002999", "ARO:3002572",
+                           "ARO:3004359", "ARO:3002571", "ARO:3003720", "ARO:3006942", "ARO:3004621",
+                           "ARO:3002549", "ARO:3002644"))
 
 fargene <- fargene %>% 
   mutate(ARO = ifelse(query %in% manual_blast_fg[,1], manual_blast_fg[match(query, manual_blast_fg[ , 1]), 2], ARO))
@@ -439,9 +441,25 @@ fargene <- fargene %>%
 fargene.prot <- fargene.prot %>% 
   mutate(ARO = ifelse(query %in% manual_blast_fg[,1], manual_blast_fg[match(query, manual_blast_fg[ , 1]), 2], ARO))
 
+manual_fargene_blast_card <- data.frame(unigene = c("GMGC10.029_357_382.STRB", "GMGC10.008_012_191.SPH", "GMGC10.170_456_610.STRB"), aro = "ARO:3002658") %>% 
+  bind_rows(data.frame(unigene = c("GMGC10.002_063_752.UNKNOWN", "GMGC10.014_038_935.UNKNOWN", "GMGC10.018_009_687.UNKNOWN", "GMGC10.039_734_695.UNKNOWN", "GMGC10.155_234_566.UNKNOWN",
+                                   "GMGC10.155_509_478.UNKNOWN","GMGC10.165_346_918.UNKNOWN", "GMGC10.172_669_160.UNKNOWN", "GMGC10.182_555_377.UNKNOWN", "GMGC10.207_886_721.UNKNOWN",
+                                   "GMGC10.210_614_745.UNKNOWN", "GMGC10.213_353_700.UNKNOWN", "GMGC10.218_878_822.UNKNOWN", "GMGC10.237_491_692.UNKNOWN", "GMGC10.279_981_496.UNKNOWN","GMGC10.282_839_022.UNKNOWN", "GMGC10.287_300_498.UNKNOWN"),
+                       aro = c("ARO:3002528", "ARO:3009063", "ARO:3003676", "ARO:3003199", "ARO:3002589",
+                               "ARO:3002644","ARO:3002645","ARO:3002524", "ARO:3002999", "ARO:3002572",
+                               "ARO:3004359", "ARO:3002571", "ARO:3003720", "ARO:3006942", "ARO:3004621",
+                               "ARO:3002549", "ARO:3002644")))
+
+write.csv(manual_fargene_blast_card, "arg_norm_correction/fargene_correction_blast_to_card.csv", row.names = F)
+#sum(!lst$fargene$aro.rgi == lst$fargene$ARO, na.rm = T)
+#table(fargene_with_rgi_dna$Cut_Off)
+#table(fargene_with_rgi$Cut_Off)
+
+
 ###
 # abricate
-abricate.argannot.norm <- read.delim("dna/abricate-argannot.norm.tsv", header=FALSE, comment.char="#") %>%
+
+abricate.argannot.norm <- read.delim("update_abricate/abricate-argannot.norm.tsv", header=FALSE, comment.char="#") %>%
   select(-V1) %>% 
   rename(query = V2, ARO = V16) %>% 
   mutate(ARG.class = str_match(V14, "\\(([^)]+)\\)")[,2],
@@ -457,14 +475,14 @@ abricate.argannot.norm <- read.delim("dna/abricate-argannot.norm.tsv", header=FA
 # abricate.argannot.norm %>% group_by(query) %>% mutate(n = n()) %>% filter(n>1) %>% select(query) %>% distinct()
 
 
-abricate.card.norm <- read.delim("dna/abricate-card.tsv", header=FALSE, comment.char="#") %>%
+abricate.card.norm <- read.delim("update_abricate/abricate-card.tsv", header=FALSE, comment.char="#") %>%
   select(-V1) %>% 
   rename(query = V2, ARG.class = V15) %>%
   mutate(tool = "ABRicate-CARD", id = V11) %>% 
   group_by(query) %>% 
   arrange(desc(id) + desc(V10)) %>% 
   slice_head(n = 1) %>% 
-  ungroup()
+  ungroup() 
 
 # 18 unigenes with repeated observations, 2 with same gene class, 6 observations removed , 1 left per unigene
 # abricate.card.norm  %>% group_by(query) %>% mutate(n = n()) %>% filter(n>1) %>% select(query) %>% distinct()
@@ -472,7 +490,7 @@ abricate.card.norm <- read.delim("dna/abricate-card.tsv", header=FALSE, comment.
 # ARO COMES LATER 
 
 
-abricate.megares.norm <- read.delim("dna/abricate-megares.norm.tsv", header=FALSE, comment.char="#") %>%
+abricate.megares.norm <- read.delim("update_abricate/abricate-megares.norm.tsv", header=FALSE, comment.char="#") %>%
   select(-V1) %>% 
   rename(query = V2, ARO = V16) %>%
   mutate(tool = "ABRicate-MEGARes", id = V11) %>% 
@@ -484,7 +502,7 @@ abricate.megares.norm <- read.delim("dna/abricate-megares.norm.tsv", header=FALS
 # 20 unigenes with repeated observations, 20 observations removed , 1 left per unigene
 # abricate.megares.norm  %>% group_by(query) %>% mutate(n = n()) %>% filter(n>1) %>% select(query) %>% distinct()
 
-abricate.ncbi.norm <- read.delim("dna/abricate-ncbi.norm.tsv", header=FALSE, comment.char="#") %>%
+abricate.ncbi.norm <- read.delim("update_abricate/abricate-ncbi.norm.tsv", header=FALSE, comment.char="#") %>%
   select(-V1) %>% 
   rename(query = V2) %>% rename(ARG.class = V15, gene = V14, ARO = V16) %>%
   mutate(tool = "ABRicate-NCBI", id = V11) %>% 
@@ -497,7 +515,7 @@ abricate.ncbi.norm <- read.delim("dna/abricate-ncbi.norm.tsv", header=FALSE, com
 # abricate.ncbi.norm  %>% group_by(query) %>% mutate(n = n()) %>% filter(n>1) 
 # abricate.ncbi.norm  %>% group_by(query) %>% mutate(n = n()) %>% filter(n>1) %>% select(query) %>% distinct()
 
-abricate.resfinder.norm <- read.delim("dna/abricate-resfinder.norm.tsv", header=FALSE, comment.char="#") %>%
+abricate.resfinder.norm <- read.delim("update_abricate/abricate-resfinder.norm.tsv", header=FALSE, comment.char="#") %>%
   select(-V1) %>% 
   rename(query = V2, drug = V15, gene = V14, ARO = V16) %>%
   mutate(tool = "ABRicate-ResFinder", id = V11) %>% 
@@ -577,7 +595,6 @@ rm(phenotypes_resfiner, v)
 
 card_data <- fromJSON("check_missing_annot/card.json")
 
-
 card_abricate_accession <- unique(sapply(strsplit(abricate.card.norm$V13, split = ":"), function(x) x[1]))
 card_abricate_gene <- unique(abricate.card.norm$V6)
 
@@ -585,103 +602,174 @@ card_abricate_gene <- unique(abricate.card.norm$V6)
 
 card_gene_aro <- data.frame(gene=NULL, aro=NULL)
 for(j in 1:(length(card_data)-3)){
-  if(card_data[[j]]$ARO_name %in%  card_abricate_gene){
-    card_gene_aro <- rbind(card_gene_aro, data.frame(gene=card_data[[j]]$ARO_name, aro=card_data[[j]]$ARO_accession))  
+  aro_name_fixed   <- gsub(" ", "_", card_data[[j]]$ARO_name)
+  card_short_fixed <- gsub(" ", "_", card_data[[j]]$CARD_short_name)
+  model_name_fixed <- gsub(" ", "_", card_data[[j]]$model_name)
+  
+  if(aro_name_fixed %in% card_abricate_gene){
+    card_gene_aro <- rbind(card_gene_aro, data.frame(gene=aro_name_fixed, aro=card_data[[j]]$ARO_accession))
   } else {
-    if(card_data[[j]]$CARD_short_name %in%  card_abricate_gene){
-      card_gene_aro <- rbind(card_gene_aro, data.frame(gene=card_data[[j]]$CARD_short_name, aro=card_data[[j]]$ARO_accession))  
+    if(card_short_fixed %in% card_abricate_gene){
+      card_gene_aro <- rbind(card_gene_aro, data.frame(gene=card_short_fixed, aro=card_data[[j]]$ARO_accession))
     } else {
-      if(card_data[[j]]$model_name %in%  card_abricate_gene){
-        card_gene_aro <- rbind(card_gene_aro, data.frame(gene=card_data[[j]]$model_name, aro=card_data[[j]]$ARO_accession))  
+      if(model_name_fixed %in% card_abricate_gene){
+        card_gene_aro <- rbind(card_gene_aro, data.frame(gene=model_name_fixed, aro=card_data[[j]]$ARO_accession))
       }
     }
   }
 }
 
+# card_gene_aro <- data.frame(gene=NULL, aro=NULL)
+# for(j in 1:(length(card_data)-3)){
+#   if(card_data[[j]]$ARO_name %in%  card_abricate_gene){
+#     card_gene_aro <- rbind(card_gene_aro, data.frame(gene=card_data[[j]]$ARO_name, aro=card_data[[j]]$ARO_accession))  
+#   } else {
+#     if(card_data[[j]]$CARD_short_name %in%  card_abricate_gene){
+#       card_gene_aro <- rbind(card_gene_aro, data.frame(gene=card_data[[j]]$CARD_short_name, aro=card_data[[j]]$ARO_accession))  
+#     } else {
+#       if(card_data[[j]]$model_name %in%  card_abricate_gene){
+#         card_gene_aro <- rbind(card_gene_aro, data.frame(gene=card_data[[j]]$model_name, aro=card_data[[j]]$ARO_accession))  
+#       }
+#     }
+#   }
+# }
+# 
 rm(card_data)
 
 card_gene_aro <- card_gene_aro %>% mutate(aro = paste0("ARO:",aro))
+write.csv(card_gene_aro, "arg_norm_correction/abricate_card_inheritance.csv", row.names = F)
 
 # load the manually curated AROS
-manually_curated <- read.table("check_missing_annot/abricate-card-manual-curation.txt", stringsAsFactors = F, text = T)
-manually_curated <- data.frame(gene = sapply(strsplit(manually_curated$V1, split = ","), function(x) x[1]), aro = sapply(strsplit(manually_curated$V1, split = ","), function(x) x[2]))
-manually_curated <- manually_curated %>% mutate(aro = paste0("ARO:",aro))
+#manually_curated <- read.table("check_missing_annot/abricate-card-manual-curation.txt", stringsAsFactors = F, text = T)
+#manually_curated <- data.frame(gene = sapply(strsplit(manually_curated$V1, split = ","), function(x) x[1]), aro = sapply(strsplit(manually_curated$V1, split = ","), function(x) x[2]))
+#manually_curated <- manually_curated %>% mutate(aro = paste0("ARO:",aro))
 
 # add them to the data retrieved from json file
 
-card_gene_aro <- card_gene_aro %>% bind_rows(manually_curated)
+#card_gene_aro <- card_gene_aro %>% bind_rows(manually_curated)
+#rm(manually_curated)
 
 # add the ARO to abricate.card.norm
+
 abricate.card.norm <- abricate.card.norm %>% mutate(ARO = card_gene_aro$aro[match(V6, card_gene_aro$gene)])
+sum(is.na(abricate.card.norm$ARO))
+sum(abricate.card.norm$ARO == "")
 
 ################################################################################################################################################
 
 # ARO for abricate.argannot.norm
 # manually assign the following 
 # abricate.argannot.norm[abricate.argannot.norm$ARO == "",]
+# abricate.argannot.norm[is.na(abricate.argannot.norm$ARO),]
+
+sum(is.na(abricate.argannot.norm$ARO))
+sum(abricate.argannot.norm$ARO == "")
 
 abricate.argannot.norm <- abricate.argannot.norm %>% 
   mutate(ARO = ifelse(V6 %in% "(Ntmdz)nimj_Nitroimidazole_Gene", "ARO:3007112", 
-                      ifelse(V6 %in% "(Bla)blaACT-16", "ARO:3001827", ARO)))
+                      ifelse(V6 %in% "(Bla)blaACT-16", "ARO:3001827", 
+                             ifelse(V6 %in% "(Fcyn)FosA", "ARO:3002804", ARO))))
 
-
-################################################################################################################################################
-# ARO for abricate.resfinder.norm
-resfinder_ARO_mapping <- read.delim("check_missing_annot/resfinder_ARO_mapping.tsv")
-#resfinder_ARO_mapping$Gene.Name.in.CARD[1000:1100]
-
-# correct the capital letters in these two entries
-
-abricate.resfinder.norm <- abricate.resfinder.norm %>% 
-  mutate(V6 = ifelse(V6 %in% "oqxA_1", "OqxA_1", 
-                     ifelse(V6 %in% "oqxB_1", "OqxB_1", V6))) 
-
-j <- which(abricate.resfinder.norm$ARO == "")
-
-resfinder_missing_aro <- tibble(gene=abricate.resfinder.norm$V6[j], accession=abricate.resfinder.norm$V13[j]) %>% distinct() %>%
-  filter(!is.na(match(paste(gene, accession, sep = "_"), resfinder_ARO_mapping$Original.ID)))
-
-k <- match(paste(abricate.resfinder.norm$V6[j], abricate.resfinder.norm$V13[j], sep = "_"), resfinder_ARO_mapping$Original.ID)
-
-abricate.resfinder.norm$ARO[j]  <- paste0("ARO:", resfinder_ARO_mapping$ARO[k])
-
-abricate.resfinder.norm <- abricate.resfinder.norm %>% 
-  mutate(ARO = ifelse(ARO == "ARO:NA", "", ARO))
-
-
-others <- cbind(c("mdf(A)_1", "mcr-9_1", "blaCTX-M-63_1", "blaCARB-4_1", "dfrA19_1"), 
-                  c("ARO:3001328", "ARO:3004684", "ARO:3001924", "ARO:3002243", "ARO:3003015"))
-
-abricate.resfinder.norm <- abricate.resfinder.norm %>% mutate(ARO = ifelse(V6 %in% others[,1], others[match(V6, others[,1]),2], ARO))
-# 30 unigenes left - 5 genes "mdf(A)"      "mcr-9"       "blaCTX-M-63" "blaCARB-4"   "dfrA19"
-
-
+write.csv(
+  rbind(c("(Ntmdz)nimj_Nitroimidazole_Gene", "ARO:3007112"),
+        c("(Bla)blaACT-16", "ARO:3001827"),
+        c("(Fcyn)FosA", "ARO:3002804")),
+  "arg_norm_correction/argannot_manual_aro_blast.csv", row.names = F)
 
 ################################################################################################################################################
 # ARO for resfinder.norm
+resfinder_ARO_mapping <- read.delim("check_missing_annot/resfinder_ARO_mapping.tsv")
 
 d <- unique(resfinder.norm$Accession.no.[resfinder.norm$ARO == ""])
-d2 <- cbind(d, NA)
+d2 <- cbind(d, NA, NA, NA)
+
 for(j in 1:length(d)){
-  d2[j,2] <- paste0("ARO:", resfinder_ARO_mapping$ARO[grep(d[j], resfinder_ARO_mapping$Original.ID)])
+  d2[j, 2] <- paste0("ARO:", resfinder_ARO_mapping$ARO[grep(d[j], resfinder_ARO_mapping$Original.ID)])
+  d2[j, 3] <- paste0("Gene: ", resfinder_ARO_mapping$Original.ID[grep(d[j], resfinder_ARO_mapping$Original.ID)])
+  d2[j, 4] <- paste0("Threshold: ", resfinder_ARO_mapping$Cut_Off[grep(d[j], resfinder_ARO_mapping$Original.ID)])
 }
+
+d2[d2[,2]=="ARO:",3] <- resfinder.norm$gene[match(d2[d2[,2]=="ARO:",1], resfinder.norm$Accession.no.)]
 d2 <- as.data.frame(d2)
 d2$V2[d2$V2=="ARO:"] <- ""
+
+resfinder_first_pass <- d2
+write.csv(resfinder_first_pass %>% filter(!V2==""),
+          "arg_norm_correction/resfinder_manual_rgi.csv", row.names = F)
+#"ENA_ACB88605" - Loose,
 
 j <- which(resfinder.norm$ARO == "")
 resfinder.norm$ARO[j] <- d2$V2[match(resfinder.norm$Accession.no.[j], d2$d)]
 
 # to debug arg_norm
-resfinder_missing_aro_resfinder <- d2[d2$V2 != "",]
-resfinder_missing_aro_resfinder$gene <- resfinder.norm$gene[match(resfinder_missing_aro_resfinder$d, resfinder.norm$Accession.no.)]
-resfinder_missing_aro_resfinder <- resfinder_missing_aro_resfinder[,c(3,1)]
-names(resfinder_missing_aro_resfinder) <- c("gene","accession")
-rm(resfinder_ARO_mapping, j, d, d2)
-
 colistin <- cbind(c("mcr-3.38", "mcr-3.36", "mcr-8.2", "mcr-3.33", "mcr-10.2"), 
-      c("ARO:3007251", "ARO:3007257", "ARO:3007229", "ARO:3007248", "ARO:3007277"))
+                  c("ARO:3007251", "ARO:3007257", "ARO:3007229", "ARO:3007248", "ARO:3007277"))
+
+write.csv(colistin,
+          "arg_norm_correction/resfinder_manual_blasp.csv", row.names = F)
 
 resfinder.norm <- resfinder.norm %>% mutate(ARO = ifelse(gene %in% colistin[,1], colistin[match(gene, colistin[,1]),2], ARO))
+
+sum(resfinder.norm$ARO=="")
+sum(is.na(resfinder.norm$ARO))
+
+
+################################################################################################################################################
+# ARO for abricate.resfinder.norm
+resfinder_ARO_mapping <- read.delim("check_missing_annot/resfinder_ARO_mapping.tsv")
+
+#abricate.resfinder.norm <- abricate.resfinder.norm %>% 
+#  mutate(V6 = ifelse(V6 %in% "oqxA_1", "OqxA_1", 
+#                     ifelse(V6 %in% "oqxB_1", "OqxB_1", V6))) 
+
+j <- which(abricate.resfinder.norm$ARO == "")
+
+
+k <- match(paste(abricate.resfinder.norm$V6[j], abricate.resfinder.norm$V13[j], sep = "_"), resfinder_ARO_mapping$Original.ID)
+
+abricate.resfinder.norm$ARO[j]  <- paste0("ARO:", resfinder_ARO_mapping$ARO[k])
+
+# manual rgi
+resfinder_missing_aro_fixed_by_rgi <- tibble(gene=abricate.resfinder.norm$V6[j], accession=abricate.resfinder.norm$V13[j], aro = abricate.resfinder.norm$ARO[j]) %>% distinct() %>%
+  filter(!is.na(match(paste(gene, accession, sep = "_"), resfinder_ARO_mapping$Original.ID)))
+
+write.csv(resfinder_missing_aro_fixed_by_rgi,
+          "arg_norm_correction/abricate_resfinder_in_argnorm_mapping_failed.csv", row.names = F)
+
+abricate.resfinder.norm <- abricate.resfinder.norm %>% 
+  mutate(ARO = ifelse(ARO == "ARO:NA", "", ARO))
+
+which(abricate.resfinder.norm$ARO == "")
+
+manual_blast_abricate_resfinder <- cbind(
+  c("tet(39)_2", "CmlA9_1", "mdf(A)_1", "blaCTX-M-63_1", "blaCARB-4_1", 
+    "dfrA19_1", "blaOXA-1186_1", "CmlA2_1", "FloR_3", "FloR_4", "FloR_8", "FloR_9"), 
+  c("ARO:3000566", "ARO:3005043","ARO:3001328",  "ARO:3001924", "ARO:3002243", 
+    "ARO:3003015", "ARO:3008602", "ARO:3002698", "ARO:3002705", "ARO:3002705", 
+    "ARO:3002705", "ARO:3002705"))
+
+abricate.resfinder.norm <- abricate.resfinder.norm %>% mutate(ARO = ifelse(V6 %in% manual_blast_abricate_resfinder[,1], manual_blast_abricate_resfinder[match(V6, manual_blast_abricate_resfinder[,1]),2], ARO))
+
+colistin_abricate <- cbind(c("mcr-3.38_1", "mcr-8.2_1", "mcr-3.33_1", "mcr-10.2", "mcr-3.27_1", "mcr-9.1_1", "mcr-9.3_1", "mcr-9_1"), 
+                           c("ARO:3007251", "ARO:3007229", "ARO:3007248", "ARO:3007277", "ARO:3007253", "ARO:3004684", "ARO:3004684", "ARO:3004684"))
+
+abricate.resfinder.norm <- abricate.resfinder.norm %>% mutate(ARO = ifelse(V6 %in% colistin_abricate[,1], colistin_abricate[match(V6, colistin_abricate[,1]),2], ARO))
+
+abricate.resfinder.norm <- abricate.resfinder.norm %>% 
+  mutate(ARO = ifelse(ARO == "", NA, ARO))
+sum(abricate.resfinder.norm$ARO=="")
+sum(is.na(abricate.resfinder.norm$ARO))
+
+
+#no match in card "NarB_1" I inherit it from resFinder argnorm
+abricate.resfinder.norm$ARO[abricate.resfinder.norm$V6 == "NarB_1"] <- unique(resfinder.norm$ARO[resfinder.norm$gene == "NarB"])
+sum(abricate.resfinder.norm$ARO=="")
+sum(is.na(abricate.resfinder.norm$ARO))
+
+write.csv(rbind(manual_blast_abricate_resfinder,
+                colistin_abricate,
+                c("NarB_1",unique(resfinder.norm$ARO[resfinder.norm$gene == "NarB"]))),
+          "arg_norm_correction/abricate_resfinder_manual_blast.csv", row.names = F)
 
 
 
@@ -694,7 +782,12 @@ megares_annotation <- megares_annotation %>% mutate(ref = sapply(strsplit(megare
 j <- which(abricate.megares.norm$ARO == "")
 d <- paste0("ARO:", megares_annotation$ARO[match(abricate.megares.norm$V13[j], megares_annotation$ref)])
 d[d=="ARO:NA"] <- ""
+# bad mapping argnorm
+not_mapped_argnorm <- as.data.frame(cbind(abricate.megares.norm$V6[j], d)) %>% distinct()
 abricate.megares.norm$ARO[j] <- d
+
+write.csv(not_mapped_argnorm %>% filter(d!=""),
+          "arg_norm_correction/abricate_megares_in_argnorm_not_mapped.csv", row.names = F)
 
 j <- which(abricate.megares.norm$ARO == "")
 
@@ -703,28 +796,44 @@ abricate_annotation <- abricate_annotation[,-c(19,20,21)]
 abricate_annotation$MEG <- sapply(strsplit(abricate_annotation$ORF, split = "~~~"), function(x) x[3])
 abricate_annotation$gene <- sapply(strsplit(abricate_annotation$ORF, split = "~~~"), function(x) x[2])
 j <- which(abricate.megares.norm$ARO == "")
+not_mapped_argnorm_2 <- unique(abricate.megares.norm$V6[j])
+
+# not in argnorm unmapped, some in rgi manual
+not_mapped_argnorm_2_manual_RGI_output <- data.frame(cbind(abricate_annotation$MEG[match(abricate.megares.norm$V13[j], abricate_annotation$MEG)], abricate_annotation$Cut_Off[match(abricate.megares.norm$V13[j], abricate_annotation$MEG)], paste0("ARO:", abricate_annotation$ARO[match(abricate.megares.norm$V13[j], abricate_annotation$MEG)]))) %>% filter(!is.na(X2)) %>% distinct()
+
+write.csv(not_mapped_argnorm_2_manual_RGI_output ,
+          "arg_norm_correction/abricate_megares_manual_rgi.csv", row.names = F)
+
 abricate.megares.norm$ARO[j] <- paste0("ARO:", abricate_annotation$ARO[match(abricate.megares.norm$V13[j], abricate_annotation$MEG)])
 abricate.megares.norm$ARO[abricate.megares.norm$ARO == "ARO:NA"] <- ""
 
 j <- which(abricate.megares.norm$ARO == "")
 
+# not in the rgi manual, not in argnorm unmapped
+not_mapped_argnorm_3 <- unique(abricate.megares.norm$V6[j])
 abricate.megares.norm <- abricate.megares.norm %>% mutate(code_gene = sapply(strsplit(V14, split = ":"), function(x) x[length(x)]))
-missing <- unique(abricate.megares.norm$V14[j])
-new_code <- rep(NA, length(missing))
+
+totally_manual_megares <- unique(abricate.megares.norm$V14[j])
+new_code <- rep(NA, length(totally_manual_megares))
 
 # RND EFFLUX PUMPS
-new_code[grepl("RND", missing)] <- "ARO:0010004"
+new_code[grepl("RND", totally_manual_megares)] <- "ARO:0010004"
 # MATE EFFLUX PUMPS
-new_code[grepl("MATE", missing)] <- "ARO:3000112"
+new_code[grepl("MATE", totally_manual_megares)] <- "ARO:3000112"
 # MFS EFFLUX PUMPS
-new_code[grepl("MFS", missing)] <- "ARO:0010002"
+new_code[grepl("MFS", totally_manual_megares)] <- "ARO:0010002"
 # SMR EFFLUX PUMPS
-new_code[grepl("SMR", missing)] <- "ARO:0010003"
+new_code[grepl("SMR", totally_manual_megares)] <- "ARO:0010003"
 
-abricate.megares.norm$ARO[j] <- new_code[match(abricate.megares.norm$V14[j], missing)]
+write.csv(cbind(new_code, totally_manual_megares),
+          "arg_norm_correction/abricate_megares_completely_manual.csv", row.names = F)
 
+abricate.megares.norm$ARO[j] <- new_code[match(abricate.megares.norm$V14[j], totally_manual_megares)]
 
-rm(j, abricate_annotation, megares_annotation, new_code, missing)
+sum(abricate.megares.norm$ARO=="")
+sum(is.na(abricate.megares.norm$ARO))
+
+#rm(j, abricate_annotation, megares_annotation, new_code, totally_manual_megares)
 
 ################################################################################################################################################
 # ARO for abricate NCBI
@@ -738,49 +847,41 @@ ncbi_annotation <- ncbi_annotation %>% mutate(genename2 = sapply(strsplit(ncbi_a
 
 # using gene name 
 j <- abricate.ncbi.norm$ARO ==""
+
+# bad mapping from argnorm
+ncbi_no_annotation <- data.frame(cbind(abricate.ncbi.norm$V6[j], abricate.ncbi.norm$V13[j]))
+
 d <- paste0("ARO:", ncbi_annotation$ARO[match(abricate.ncbi.norm$V6[j], ncbi_annotation$genename)])
+first_pass_NCBI <- cbind(ncbi_no_annotation, d)
+
 d[d=="ARO:NA"] <- ""
 abricate.ncbi.norm$ARO[j] <- d
+
+write.csv(first_pass_NCBI %>% filter(d!=""),
+          "arg_norm_correction/abricate_ncbi_in_argnorm_mapping_failed.csv", row.names = F)
 
 j <- abricate.ncbi.norm$ARO ==""
-d <- paste0("ARO:", ncbi_annotation$ARO[match(abricate.ncbi.norm$V6[j], ncbi_annotation$genename2)])
-d[d=="ARO:NA"] <- ""
-abricate.ncbi.norm$ARO[j] <- d
 
-# using reference number
-j <- abricate.ncbi.norm$ARO ==""
-d <- paste0("ARO:", ncbi_annotation$ARO[match(abricate.ncbi.norm$V13[j], ncbi_annotation$ref)])
-d[d=="ARO:NA"] <- ""
-abricate.ncbi.norm$ARO[j] <- d
+# not fixed argnorm
+ncbi_no_annotation_2 <- data.frame(cbind(abricate.ncbi.norm$V6[j], abricate.ncbi.norm$V13[j]))
 
+# argnorm curation None found
 ncbi_annotation <- read.delim("check_missing_annot/ncbi_curation.tsv")
 ncbi_annotation <- ncbi_annotation %>% mutate(ref = sapply(strsplit(ncbi_annotation$Original.ID, split = "\\|"), function(x) x[2]))
 ncbi_annotation <- ncbi_annotation %>% mutate(genename = sapply(strsplit(ncbi_annotation$Original.ID, split = "\\|"), function(x) x[5]))
 ncbi_annotation <- ncbi_annotation %>% mutate(genename2 = sapply(strsplit(ncbi_annotation$Original.ID, split = "\\|"), function(x) x[6]))
-
-j <- abricate.ncbi.norm$ARO ==""
-d <- paste0("ARO:", ncbi_annotation$ARO[match(abricate.ncbi.norm$V6[j], ncbi_annotation$genename)])
-d[d=="ARO:NA"] <- ""
-abricate.ncbi.norm$ARO[j] <- d
-
-j <- abricate.ncbi.norm$ARO ==""
-d <- paste0("ARO:", ncbi_annotation$ARO[match(abricate.ncbi.norm$V6[j], ncbi_annotation$genename2)])
-d[d=="ARO:NA"] <- ""
-abricate.ncbi.norm$ARO[j] <- d
-
-j <- abricate.ncbi.norm$ARO ==""
-d <- paste0("ARO:", ncbi_annotation$ARO[match(abricate.ncbi.norm$V13[j], ncbi_annotation$ref)])
-d[d=="ARO:NA"] <- ""
-abricate.ncbi.norm$ARO[j] <- d
+paste0("ARO:", ncbi_annotation$ARO[match(abricate.ncbi.norm$V6[j], ncbi_annotation$genename)])
 
 
-# MANUALLY ASSIGNED THESE ONTOLOGIES
-abricate_annotation <- read.delim("check_missing_annot/abricate_annotation.tsv")
+# MANUALLY ASSIGNED THESE ONTOLOGIES, rgi loose
+abricate_annotation <- read.delim("check_missing_annot/abricate_ncbi_update.txt")
 abricate_annotation <- abricate_annotation[,-c(19,20,21)]
 x2 <- sapply(strsplit(abricate_annotation$ORF, split = "~~~"), function(x) x[2])
 x3 <- sapply(strsplit(abricate_annotation$ORF, split = "~~~"), function(x) x[3])
 
-j <- abricate.ncbi.norm$ARO ==""
+
+manual_rgi_NCBI <- data.frame(cbind(sapply(strsplit(abricate_annotation$ORF_ID[match(abricate.ncbi.norm$V6[j], x2)], split = " "),function(x) x[1]), abricate_annotation$ARO[match(abricate.ncbi.norm$V6[j], x2)], abricate_annotation$Cut_Off[match(abricate.ncbi.norm$V6[j], x2)]))
+
 d <- paste0("ARO:", abricate_annotation$ARO[match(abricate.ncbi.norm$V6[j], x2)])
 d[d=="ARO:NA"] <- ""
 abricate.ncbi.norm$ARO[j] <- d
@@ -788,21 +889,26 @@ abricate.ncbi.norm$ARO[j] <- d
 j <- abricate.ncbi.norm$ARO ==""
 unique(abricate.ncbi.norm[j,]$V6)
 
-# MANUALLY ASSIGNED THESE ONTOLOGIES
-#"penI_Bp" from fargene 
-# ARO:3002956 from amrfinder 
-# the rest from card 
+write.csv(manual_rgi_NCBI %>% filter(!is.na(X3)),
+          "arg_norm_correction/abricate_ncbi_manual_rgi.csv", row.names = F)
 
-others.ncbi <- cbind(c("penI_Bp", "aadE-Cc", "vanY-32487235", "dfr7"), 
-                c("ARO:3009015", "ARO:3002626", "ARO:3002956", "ARO:3002862"))
+# MANUALLY ASSIGNED THESE ONTOLOGIES
+others.ncbi <- cbind(c("blaAHM-1"), 
+                     c("ARO:3003718"))
 
 abricate.ncbi.norm <- abricate.ncbi.norm %>% mutate(ARO = ifelse(V6 %in% others.ncbi[,1], others.ncbi[match(V6, others.ncbi[,1]),2], ARO))
+
 j <- abricate.ncbi.norm$ARO ==""
-unique(abricate.ncbi.norm[j,]$V6)
-rm(others.ncbi, others, abricate_annotation, x2, x3, j)
+
+write.csv(cbind(c("blaAHM-1"), 
+                c("ARO:3003718")),
+          "arg_norm_correction/abricate_ncbi_manual_blast.csv", row.names = F)
+
+#rm(others.ncbi, others, abricate_annotation, x2, x3, j)
 
 # to debug arg_norm
-rm(d, ncbi_annotation)
+#rm(d, ncbi_annotation)
+
 
 ### AMRFINDER
 
@@ -811,10 +917,19 @@ ncbi_annotation <- ncbi_annotation %>% mutate(ref = sapply(strsplit(ncbi_annotat
 
 j <- amrfinder.norm.prot$ARO ==""
 d <- paste0("ARO:", ncbi_annotation$ARO[match(amrfinder.norm.prot$Closest.reference.accession[j], ncbi_annotation$ref)])
+
+bad_mapping_argnorm <- data.frame(cbind(amrfinder.norm.prot[j,]$Element.symbol, amrfinder.norm.prot[j,]$Closest.reference.accession, d)) %>% distinct()
+
+write.csv(bad_mapping_argnorm,
+          "arg_norm_correction/amrfinderplus_in_argnorm_mapping_failed.csv", row.names = F)
+
 d[d=="ARO:NA"] <- ""
 amrfinder.norm.prot$ARO[j] <- d
 
-rm(j, d, ncbi_annotation)
+sum(amrfinder.norm.prot$ARO =="")
+
+
+#rm(j, d, ncbi_annotation)
 
 ################################################################################################################################################
 ### AROs
@@ -1003,12 +1118,12 @@ saveRDS(df2, file = "code_R_analysis/output_abundance_diversity_resistome/conver
 write.csv(df2, file = "code_R_analysis/output_abundance_diversity_resistome/conversion_ARO_parent_new_level.csv",  row.names = F)
 
 fargene <- fargene %>% mutate(manual.parent = df2$Parent_ID[match(manual.ARO, df2$Parent_ID)],
-                                      manual.parent_description = df2$Parent_Label[match(manual.ARO, df2$Parent_ID)],
-                                      manual.new_level = df2$new_level[match(manual.ARO, df2$Parent_ID)])
+                              manual.parent_description = df2$Parent_Label[match(manual.ARO, df2$Parent_ID)],
+                              manual.new_level = df2$new_level[match(manual.ARO, df2$Parent_ID)])
 
 fargene.prot <- fargene.prot %>% mutate(manual.parent = df2$Parent_ID[match(manual.ARO, df2$Parent_ID)],
-                                                manual.parent_description = df2$Parent_Label[match(manual.ARO, df2$Parent_ID)],
-                                                manual.new_level = df2$new_level[match(manual.ARO, df2$Parent_ID)])
+                                        manual.parent_description = df2$Parent_Label[match(manual.ARO, df2$Parent_ID)],
+                                        manual.new_level = df2$new_level[match(manual.ARO, df2$Parent_ID)])
 
 
 ################################################################################################################################################
@@ -1021,8 +1136,8 @@ lst <- list(deeparg.norm = deeparg.norm, deeparg.norm.prot = deeparg.norm.prot,
             abricate.ncbi.norm = abricate.ncbi.norm, abricate.resfinder.norm = abricate.resfinder.norm, resfinder.norm = resfinder.norm)
 
 lst <- lapply(lst, function(x) x %>% mutate(parent = df2$Parent_ID[match(ARO, df2$Term_ID)], 
-                                     parent_description = df2$Parent_Label[match(ARO, df2$Term_ID)],
-                                     new_level = df2$new_level[match(ARO, df2$Term_ID)]))
+                                            parent_description = df2$Parent_Label[match(ARO, df2$Term_ID)],
+                                            new_level = df2$new_level[match(ARO, df2$Term_ID)]))
 
 
 # assign new level from fargene when rgi did not report one 
@@ -1090,11 +1205,14 @@ lst$rgi.diamond.id90 <- NULL
 # ABUNDANCES 
 # The abundances for each unigene had already been filterd with the file genes_prot_dna.csv
 
-args_abundances <- read.delim("data/abundances/args_abundances.tsv")
+# args_abundances <- read.delim("data/abundances/args_abundances.tsv")
+args_abundances <- read.delim("data/abundances/filtered_abundance.tsv.gz")
+#unigenes_per_habitat <-  read.delim("data/abundances/args_by_habitat.tsv")
 metadata <- read.delim("data/metadata_GMGC10.sample.meta.tsv")
 metadata <- metadata %>% mutate(sample = sample_id)
 args_abundances <- args_abundances %>% left_join(metadata[,c("sample","insertsHQ", "insertsRaw")], by = "sample")
 metadata0 <- metadata
+args_abundances0 <- args_abundances
 
 # metadata <- metadata %>% filter(!habitat %in% c("amplicon", "isolate", "built-environment"))
 # metadata <- metadata %>% filter(sample %in% args_abundances$sample)
@@ -1119,10 +1237,13 @@ genes_right_habitat <- abund_habitat %>%
 genes_right_habitat <- unique(genes_right_habitat)
 
 detected_unigenes_per_habitat <- abund_habitat %>% filter(!is.na(habitat)) %>% group_by(X, habitat) %>% slice_head(n = 1) %>% select(-sample)
+
 write.csv(detected_unigenes_per_habitat, file = "code_R_analysis/output_abundance_diversity_resistome/reported_unigenes_as_ARG_per_habitat.csv", row.names = F)
 rm(detected_unigenes_per_habitat)
 
+
 lst0 <- lst
+
 lst <- lapply(lst, function(x) x %>% filter(query %in% genes_right_habitat))
 
 args_abundances <- args_abundances %>% 
@@ -1195,6 +1316,241 @@ rarefied_counts <- args_abundances %>%
 args_abundances <- args_abundances %>% left_join(rarefied_counts, by = c("sample", "X"))
 args_abundances <- args_abundances %>% mutate(rarified_count = ifelse(is.na(rarified_count), 0, rarified_count))
 
+#
+
+
+
+#### risk assessment SARG
+
+aros <- unique(as.vector(unlist(lapply(lst, function(x) x$ARO))))
+sarg <- read.delim("risk_ranking/ARG_rank.txt")
+sarg_blast <- read.delim("risk_ranking/faa_args_vs_SARG_filtered_id70_cov60.ranked.tsv")
+sarg_argnorm <- read.delim("risk_ranking/sarg_ARO_mapping.tsv")
+sarg_argnorm <- sarg_argnorm %>% mutate(ARO = paste("ARO:", ARO, sep = ""))
+sarg_argnorm_curation <- read.delim("risk_ranking/sarg_curation.tsv")
+sarg_argnorm_curation <- sarg_argnorm_curation %>% mutate(ARO = paste("ARO:", ARO, sep = ""))
+
+sarg_argnorm <- sarg_argnorm %>% filter(!Original.ID %in% sarg_argnorm_curation$Original.ID)
+sarg_argnorm <- sarg_argnorm %>% select(Original.ID, ARO) %>% bind_rows(sarg_argnorm_curation %>% select(Original.ID,ARO))
+
+rank_priority <- c("I", "II", "III", "IV", "notassessed")
+
+sarg_blast_70_80 <- sarg_blast %>% filter(pident >= 70, qcovhsp >= 80) %>% 
+  mutate(rank_order = match(rank, rank_priority)) %>%
+  group_by(qseqid) %>% 
+  slice_min(rank_order, n = 1, with_ties = FALSE) %>%
+  ungroup()
+
+sarg_blast_80_80 <- sarg_blast %>% filter(pident>=80, qcovhsp >= 80) %>% 
+  mutate(rank_order = match(rank, rank_priority)) %>%
+  group_by(qseqid) %>% 
+  slice_min(rank_order, n = 1, with_ties = FALSE) %>%
+  ungroup()
+
+sarg_blast_90_80 <- sarg_blast %>% filter(pident>=90, qcovhsp >= 80) %>% 
+  mutate(rank_order = match(rank, rank_priority)) %>%
+  group_by(qseqid) %>% 
+  slice_min(rank_order, n = 1, with_ties = FALSE) %>%
+  ungroup()
+
+sarg_blast_95_80 <- sarg_blast %>% filter(pident>=95, qcovhsp >= 80) %>% 
+  mutate(rank_order = match(rank, rank_priority)) %>%
+  group_by(qseqid) %>% 
+  slice_min(rank_order, n = 1, with_ties = FALSE) %>%
+  ungroup()
+
+sarg_blast_highest_bit_80 <- sarg_blast %>% filter(pident>=80, qcovhsp >= 80) %>% 
+  arrange(desc(bitscore)) %>%
+  group_by(qseqid) %>%
+  slice_head(n = 1) %>%
+  ungroup()
+
+lst <- lapply(lst, function(df) {
+  df %>%
+    mutate(
+      rank_70 = sarg_blast_70_80$rank[match(query, sarg_blast_70_80$qseqid)],
+      rank_80 = sarg_blast_80_80$rank[match(query, sarg_blast_80_80$qseqid)],
+      rank_90 = sarg_blast_90_80$rank[match(query, sarg_blast_90_80$qseqid)],
+      rank_95 = sarg_blast_95_80$rank[match(query, sarg_blast_95_80$qseqid)],
+      rank_aro = sarg_argnorm$Original.ID[match(ARO, sarg_argnorm$ARO)],
+      rank_highest_bit_80 = sarg_blast_highest_bit_80$rank[match(query, sarg_blast_highest_bit_80$qseqid)]
+    ) %>%
+    mutate(rank_aro = sarg$Rank[match(rank_aro, sarg$ARG)])
+})
+
+lst <- lapply(lst, function(df) {
+  df %>%
+    mutate(
+      rank_70 = ifelse(is.na(rank_70), "Not found", rank_70),
+      rank_80 = ifelse(is.na(rank_80), "Not found", rank_80),
+      rank_90 = ifelse(is.na(rank_90), "Not found", rank_90),
+      rank_95 = ifelse(is.na(rank_95), "Not found", rank_95),
+      rank_highest_bit_80 = ifelse(is.na(rank_highest_bit_80), "Not found", rank_highest_bit_80),
+      rank_aro = ifelse(is.na(rank_aro), "Not found", rank_aro)) 
+})
+
+
+
+# Unigenes detected as ARG by tool
+
+unigenes <- do.call(rbind, lapply(lst, function(x) x[,c("query", "tool", "ARO", "parent", "parent_description", "new_level", "id", 
+                                                        "rank_aro", "rank_70", "rank_80", "rank_90", "rank_95", "rank_highest_bit_80")])) 
+unigenes <- unigenes %>% filter(query %in% genes_right_habitat)
+rownames(unigenes) <- NULL
+
+##
+db_cluster <- read.delim("db_cluster/nested_out/nested_cluster_membership.tsv") 
+db_cluster <- db_cluster %>% mutate(tool = sapply(strsplit(protein_id, split = "@@@"), function(x) x[1]),
+                                    gene = sapply(strsplit(protein_id, split = "@@@"), function(x) x[2]))
+
+
+db_cluster <- db_cluster %>%
+  mutate(gene_revised = ifelse(tool %in% "rgi-card", 
+                               as.numeric(sub(".*\\|ID:([0-9]+)\\|.*", "\\1", gene)),
+                               NA))
+
+db_cluster <- db_cluster %>%
+  mutate(gene_revised = ifelse(tool %in% c("abricate-argannot", "abricate-card","abricate-ncbi", "abricate-megares","abricate-resfinder"), 
+                               sapply(strsplit(gene, split = "~~~", fixed = TRUE), `[`, 2),gene_revised)) %>%
+  mutate(gene_revised = case_when(
+    tool == "abricate-argannot"  ~ sub("\\([^)]*\\)", "", gene_revised),
+    tool == "abricate-resfinder" ~ sub("_[0-9]+$", "", gene_revised),
+    TRUE ~ gene_revised
+  ))
+
+extract_resfinder_accession <- function(x) {
+  refseq_style <- str_extract(x, "[A-Z]{1,4}_[0-9A-Za-z.]+$")
+  ifelse(!is.na(refseq_style), refseq_style, sub(".*_", "", x))
+}
+
+db_cluster <- db_cluster %>%
+  mutate(gene = trimws(gene)) %>%
+  mutate(gene_revised = ifelse(tool %in% c("resfinder"), extract_resfinder_accession(gene), gene_revised)) %>%
+  mutate(gene_revised = ifelse(tool == "resfinder" & grepl("^fosA", gene), sub("_.*", "", gene), gene_revised)) %>% 
+  mutate(gene_revised = ifelse(tool %in% c("resfinder") & gene_revised == "Y15705", "1_Y15705", gene_revised)) %>%
+  mutate(gene_revised = ifelse(tool %in% c("resfinder") & gene_revised == "Y15704", "1_Y15704", gene_revised))
+
+db_cluster <- db_cluster %>%
+  mutate(gene_revised = ifelse(tool %in% c("resfinder"), trimws(extract_resfinder_accession(gene)), gene_revised))
+
+db_cluster$gene_revised[db_cluster$tool == "resfinder" & db_cluster$gene_revised == "Y15704"] <- "1_Y15704"
+db_cluster$gene_revised[db_cluster$tool == "resfinder" & db_cluster$gene_revised == "Y15705"] <- "1_Y15705"
+
+db_cluster <- db_cluster %>%
+  mutate(gene_revised = ifelse(tool %in% "amrfinderplus", 
+                               sapply(strsplit(gene, split = "|", fixed = TRUE), function(x) x[2]),
+                               gene_revised))
+
+db_cluster <- db_cluster %>%
+  mutate(gene_revised = ifelse(tool %in% "deeparg", gene, gene_revised))
+
+
+cluster_lookup_specs <- list(
+  list(name = "abricate-argannot",
+       query = lst$abricate.argannot.norm$query,
+       hit = lst$abricate.argannot.norm$gene),
+  list(name = "abricate-megares",
+       query = lst$abricate.megares.norm$query,
+       hit = lst$abricate.megares.norm$V6),
+  list(name = "abricate-card",
+       query = lst$abricate.card.norm$query,
+       hit = lst$abricate.card.norm$V6),
+  list(name = "abricate-ncbi",
+       query = lst$abricate.ncbi.norm$query,
+       hit = lst$abricate.ncbi.norm$V6),
+  list(name = "abricate-resfinder",
+       query = lst$abricate.resfinder.norm$query,
+       hit = lst$abricate.resfinder.norm$gene),
+  list(name = "deeparg",
+       query = lst$deeparg.norm$query,
+       hit = lst$deeparg.norm$best.hit),
+  list(name = "rgi-card",
+       query = lst$rgi.diamond$query,
+       hit = lst$rgi.diamond$Model_ID),
+  list(name = "resfinder",
+       query = lst$resfinder.norm$query,
+       hit = lst$resfinder.norm$Accession.no.),
+  list(name = "amrfinderplus",
+       query = lst$amrfinder.norm.prot$query,
+       hit = lst$amrfinder.norm.prot$Closest.reference.accession)
+)
+
+tool_map <- c(
+  "ABRicate-ARGANNOT"  = "abricate-argannot",
+  "ABRicate-CARD"      = "abricate-card",
+  "ABRicate-MEGARes"   = "abricate-megares",
+  "ABRicate-NCBI"      = "abricate-ncbi",
+  "ABRicate-ResFinder" = "abricate-resfinder",
+  "AMRFinderPlus"      = "amrfinderplus",
+  "AMRFinderPlus-nt"   = "amrfinderplus",
+  "DeepARG"            = "deeparg",
+  "DeepARG-aa"         = "deeparg",
+  "DeepARG70"          = "deeparg",
+  "DeepARG80"          = "deeparg",
+  "DeepARG90"          = "deeparg",
+  "ResFinder"          = "resfinder",
+  "RGI-BLAST"          = "rgi-card",
+  "RGI-DIAMOND"        = "rgi-card",
+  "RGI-DIAMOND-aa"     = "rgi-card",
+  "RGI-DIAMOND70"      = "rgi-card",
+  "RGI-DIAMOND80"      = "rgi-card",
+  "RGI-DIAMOND90"      = "rgi-card"
+)
+
+query_clusters <- do.call(rbind, lapply(cluster_lookup_specs, function(s) {
+  db_cluster <- db_cluster %>% filter(tool == s$name)
+  idx <- match(s$hit, db_cluster$gene_revised)
+  data.frame(
+    query = s$query,
+    tool = s$name,
+    gene_reference = db_cluster$gene[idx],
+    gene_db = db_cluster$gene_revised[idx],
+    cluster_90 = db_cluster$cluster_90[idx],
+    cluster_95 = db_cluster$cluster_95[idx],
+    cluster_975 = db_cluster$cluster_975[idx],
+    cluster_98 = db_cluster$cluster_98[idx],
+    cluster_99 = db_cluster$cluster_99[idx]
+  )
+}))
+
+unigenes <- unigenes %>%
+  mutate(tool_key = tool_map[tool]) %>%
+  left_join(query_clusters, by = c("query" = "query", "tool_key" = "tool")) %>%
+  select(-tool_key)
+
+
+
+detection_specs <- list(
+  list(name = "abricate-argannot",  hit = lst$abricate.argannot.norm$gene),
+  list(name = "abricate-megares",   hit = lst$abricate.megares.norm$V6),
+  list(name = "abricate-card",      hit = lst$abricate.card.norm$V6),
+  list(name = "abricate-ncbi",      hit = lst$abricate.ncbi.norm$V6),
+  list(name = "abricate-resfinder", hit = lst$abricate.resfinder.norm$gene),
+  list(name = "deeparg",            hit = lst$deeparg.norm$best.hit),
+  list(name = "rgi-card",        hit = lst$rgi.diamond$Model_ID),
+  list(name = "resfinder",          hit = lst$resfinder.norm$Accession.no.),
+  list(name = "amrfinderplus",      hit = lst$amrfinder.norm.prot$Closest.reference.accession)
+)
+
+db_cluster$detected <- 0L
+for (s in detection_specs) {
+  idx <- db_cluster$tool == s$name
+  db_cluster$detected[idx] <- as.integer(db_cluster$gene_revised[idx] %in% s$hit)
+}
+
+
+###
+unigenes0 <- unigenes 
+unigenes <- unigenes0 %>% select(c("query", "tool","new_level", "id", 
+                                  "rank_aro", "rank_70", "rank_80", "rank_90", "rank_95",
+                                  "cluster_95","cluster_975","cluster_98","rank_highest_bit_80", 
+                                  "cluster_99","ARO"))
+
+
+lst <- lapply(lst, function(df) {
+  df %>%
+    left_join(unigenes %>% select(query, tool, cluster_99), by = c("query", "tool"))})
+
 lst$deeparg.norm.id70 <- lst$deeparg.norm[lst$deeparg.norm$id>=70,]
 lst$deeparg.norm.id70$tool <- "DeepARG70"
 lst$deeparg.norm.id80 <- lst$deeparg.norm[lst$deeparg.norm$id>=80,]
@@ -1209,64 +1565,187 @@ lst$rgi.diamond.id80$tool <- "RGI-DIAMOND80"
 lst$rgi.diamond.id90 <- lst$rgi.diamond[lst$rgi.diamond$id>=90,]
 lst$rgi.diamond.id90$tool <- "RGI-DIAMOND90"
 
-# function to aggregate teh abundance to the class level
 
-abundance_parent <- function(abund_df, d){
-  d <- d %>% filter(!is.na(parent)) 
-  Y <- abund_df %>% filter(X %in% d$query)
-  Y <- Y %>% mutate(aro = d$ARO[match(X, d$query)], 
-                                  parent_description = d$parent_description[match(X, d$query)],
-                                  new_level = d$new_level[match(X, d$query)])
 
-  Y_new_level <- Y %>% filter(!is.na(new_level)) %>% group_by(sample, new_level) %>% 
+# function to aggregate the abundance to the class level
+#
+
+
+abundance_parent <- function(abund_df, d) {
+  Y <- abund_df %>%
+    inner_join(
+      d %>% select(query,  new_level),
+      by = c("X" = "query")
+    )
+  
+  tool_name <- d$tool[1]
+  
+  Y_new_level <- Y %>%
+    group_by(sample, new_level) %>%
     summarise(
-              normed10m = sum(normed10m), 
-              distinct_unigenes_rarefied = n_distinct(X[rarified_count > 0]), 
-              distinct_unigenes_raw = n_distinct(X)) %>% 
-    mutate(tool = d$tool[1]) %>% ungroup() %>% 
-    select(sample, new_level, tool, normed10m, 
-           distinct_unigenes_rarefied, 
-           distinct_unigenes_raw) %>%
-    rename(gene = new_level) %>% mutate(aggregation = "new_level") %>% 
-    select(sample, gene, aggregation, tool, normed10m, 
-           distinct_unigenes_rarefied, 
-           distinct_unigenes_raw)
+      normed10m = sum(normed10m),
+      distinct_unigenes_rarefied = n_distinct(X[rarified_count > 0]),
+      distinct_unigenes_raw = n_distinct(X),
+      .groups = "drop"
+    ) %>%
+    mutate(tool = tool_name, gene = new_level, aggregation = "new_level") %>%
+    select(sample, gene, aggregation, tool, normed10m,
+           distinct_unigenes_rarefied, distinct_unigenes_raw, new_level)
   
   return(Y_new_level)
 }
 
 
 # calculate the abundance and diversity for all genes and habitats by tool.
-lst_abundance_diversity <- do.call(rbind, lapply(lst, function(d) {abundance_parent(args_abundances, d) }))
-lst_abundance_diversity0 <- lst_abundance_diversity
-lst_abundance_diversity <- lst_abundance_diversity %>% filter(aggregation %in% "new_level") %>% select(-c(aggregation))
+abundance_other_aggregation <- function(abund_df, d, level_of_aggregation) {
+  Y <- abund_df %>%
+    inner_join(
+      d %>% select(query, new_level, all_of(level_of_aggregation)),
+      by = c("X" = "query")
+    )
+  
+  tool_name <- d$tool[1]
+  
+  Y_agg <- Y %>%
+    select(sample, new_level, X, rarified_count, normed10m,
+           all_of(level_of_aggregation)) %>%
+    pivot_longer(cols = all_of(level_of_aggregation),
+                 names_to = "aggregation", values_to = "gene") %>%
+    group_by(sample, new_level, aggregation, gene) %>%
+    summarise(
+      normed10m = sum(normed10m),
+      distinct_unigenes_rarefied = n_distinct(X[rarified_count > 0]),
+      distinct_unigenes_raw = n_distinct(X),
+      .groups = "drop"
+    ) %>%
+    mutate(tool = tool_name) %>%
+    select(sample, new_level, gene, aggregation, tool, normed10m,
+           distinct_unigenes_rarefied, distinct_unigenes_raw)
+  
+  return(Y_agg)
+}
 
-# add habitat info
+# abundance per gene class
+lst_abundance_diversity <- bind_rows(lapply(lst, function(d) abundance_parent(args_abundances, d)))
+
 lst_abundance_diversity <- lst_abundance_diversity %>% 
-  mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)])
-
-# Unigenes detected as ARG by tool
-
-unigenes <- do.call(rbind, lapply(lst, function(x) x[,c("query", "tool", "ARO", "parent", "parent_description", "new_level", "id")])) 
-unigenes <- unigenes %>% filter(query %in% genes_right_habitat)
-rownames(unigenes) <- NULL
-unigenes <- unigenes %>% select(c("query", "tool","new_level", "id"))
-
-# save abundance and diversity
-lst_abundance_diversity <- lst_abundance_diversity %>% mutate(abundance = normed10m/10) %>% 
+  mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)]) %>% 
+  mutate(abundance = normed10m/10) %>% 
   rename(richness = distinct_unigenes_rarefied, richness_no_rarified = distinct_unigenes_raw) %>% 
-  select(c(sample, gene, tool, abundance, richness, richness_no_rarified))
+  select(c(sample, gene, aggregation, tool, abundance, richness, richness_no_rarified, new_level))
 
 saveRDS(lst_abundance_diversity, file = "code_R_analysis/output_abundance_diversity_resistome/abundance_diversity.rds", compress = T)
 write.csv(lst_abundance_diversity, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity.csv.gz"), row.names = F)
+
+c("rank_aro", "ARO", "rank_highest_bit_80", "rank_80", "cluster_99")
+
+# abundance per aro
+
+lst_abundance_diversity_aro <- bind_rows(
+  bind_rows(lapply(lst, function(d) abundance_other_aggregation(args_abundances, d, "ARO"))))
+
+lst_abundance_diversity_aro <- lst_abundance_diversity_aro %>% 
+  mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)]) %>% 
+  mutate(abundance = normed10m/10) %>% 
+  rename(richness = distinct_unigenes_rarefied, richness_no_rarified = distinct_unigenes_raw) %>% 
+  select(c(sample, gene, aggregation, tool, abundance, richness, richness_no_rarified, new_level))
+
+saveRDS(lst_abundance_diversity_aro, file = "code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_aro.rds", compress = T)
+write.csv(lst_abundance_diversity_aro, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_aro.csv.gz"), row.names = F)
+rm(lst_abundance_diversity_aro)
+
+# abundance per rank_aro
+
+lst_abundance_diversity_rank_aro <- bind_rows(
+  bind_rows(lapply(lst, function(d) abundance_other_aggregation(args_abundances, d, "rank_aro"))))
+
+lst_abundance_diversity_rank_aro <- lst_abundance_diversity_rank_aro %>% 
+  mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)]) %>% 
+  mutate(abundance = normed10m/10) %>% 
+  rename(richness = distinct_unigenes_rarefied, richness_no_rarified = distinct_unigenes_raw) %>% 
+  select(c(sample, gene, aggregation, tool, abundance, richness, richness_no_rarified, new_level))
+
+saveRDS(lst_abundance_diversity_rank_aro, file = "code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_rank_aro.rds", compress = T)
+write.csv(lst_abundance_diversity_rank_aro, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_rank_aro.csv.gz"), row.names = F)
+rm(lst_abundance_diversity_rank_aro)
+
+# abundance per rank_highest_bit_80
+
+lst_abundance_diversity_rank_highest_bit_80 <- bind_rows(
+  bind_rows(lapply(lst, function(d) abundance_other_aggregation(args_abundances, d, "rank_highest_bit_80"))))
+
+lst_abundance_diversity_rank_highest_bit_80 <- lst_abundance_diversity_rank_highest_bit_80 %>% 
+  mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)]) %>% 
+  mutate(abundance = normed10m/10) %>% 
+  rename(richness = distinct_unigenes_rarefied, richness_no_rarified = distinct_unigenes_raw) %>% 
+  select(c(sample, gene, aggregation, tool, abundance, richness, richness_no_rarified, new_level))
+
+saveRDS(lst_abundance_diversity_rank_highest_bit_80, file = "code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_rank_highest_bit_80.rds", compress = T)
+write.csv(lst_abundance_diversity_rank_highest_bit_80, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_rank_highest_bit_80.csv.gz"), row.names = F)
+rm(lst_abundance_diversity_rank_highest_bit_80)
+
+# abundance per rank_80
+lst_abundance_diversity_rank_80 <- bind_rows(
+  bind_rows(lapply(lst, function(d) abundance_other_aggregation(args_abundances, d, "rank_80"))))
+
+lst_abundance_diversity_rank_80 <- lst_abundance_diversity_rank_80 %>% 
+  mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)]) %>% 
+  mutate(abundance = normed10m/10) %>% 
+  rename(richness = distinct_unigenes_rarefied, richness_no_rarified = distinct_unigenes_raw) %>% 
+  select(c(sample, gene, aggregation, tool, abundance, richness, richness_no_rarified, new_level))
+
+saveRDS(lst_abundance_diversity_rank_80, file = "code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_rank_80.rds", compress = T)
+write.csv(lst_abundance_diversity_rank_80, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_rank_80.csv.gz"), row.names = F)
+rm(lst_abundance_diversity_rank_80)
+
+# abundance per cluster_99
+
+lst_abundance_diversity_cluster_99 <- bind_rows(
+  bind_rows(lapply(lst, function(d) abundance_other_aggregation(args_abundances, d, "cluster_99"))))
+
+lst_abundance_diversity_cluster_99 <- lst_abundance_diversity_cluster_99 %>% 
+  mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)]) %>% 
+  mutate(abundance = normed10m/10) %>% 
+  rename(richness = distinct_unigenes_rarefied, richness_no_rarified = distinct_unigenes_raw) %>% 
+  select(c(sample, gene, aggregation, tool, abundance, richness, richness_no_rarified, new_level))
+
+saveRDS(lst_abundance_diversity_cluster_99, file = "code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_cluster_99.rds", compress = T)
+write.csv(lst_abundance_diversity_cluster_99, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_cluster_99.csv.gz"), row.names = F)
+rm(lst_abundance_diversity_cluster_99)
+
+
+lst_abundance_diversity0 <- lst_abundance_diversity
+
+
+
+
+# lst_abundance_diversity <- lst_abundance_diversity %>% filter(aggregation %in% "new_level") %>% select(-c(aggregation))
+#sum(is.na(unigenes$new_level ))
+#ARO:3000345
+
 saveRDS(unigenes, file = "code_R_analysis/output_abundance_diversity_resistome/unigenes_per_tool.rds", compress = T)
 write.csv(unigenes, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/unigenes_per_tool.csv.gz"), row.names = F)
 
+
+
+
+
+rm(db_cluster, detection_specs, cluster_lookup_specs)
+rm(sarg_argnorm, sarg, sarg_argnorm_curation, sarg_blast, 
+   sarg_blast_70_80, sarg_blast_80_80, sarg_blast_90_80, 
+   sarg_blast_95_80, sarg_blast_highest_bit_80)
+
+
+
+
 #### CORE AND PAN 
 ## load the unigenes clusterd at 90% with vsearch
-clusters <- read.delim("cluster_vsearch/clusters.uc", header = F)
-clusters <- clusters %>% filter(V1 != "C")
-clusters <- clusters %>% mutate(centroid = ifelse(V10 == "*", V9, V10))
+
+# clusters <- read.delim("cluster_vsearch/clusters.uc", header = F)
+clusters <- read.delim("cluster_args/gene_to_cluster.tsv", header = T)
+
+#clusters <- clusters %>% filter(V1 != "C")
+#clusters <- clusters %>% mutate(centroid = ifelse(V10 == "*", V9, V10))
 
 
 # add habitat to abundances
@@ -1274,11 +1753,11 @@ args_abundances <- args_abundances %>%
   mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)])
 
 # add centroid to abundances
-args_abundances <- args_abundances %>% mutate(centroid = clusters$centroid[match(X, clusters$V9)])
+args_abundances <- args_abundances %>% mutate(centroid = clusters$centroid[match(X, clusters$gene)])
 args_abundances <- args_abundances %>% rename(query = X)
 
 # add centroid to the result of each tool
-lst <- lapply(lst, function(x) x %>% mutate(centroid = clusters$centroid[match(query, clusters$V9)]))
+lst <- lapply(lst, function(x) x %>% mutate(centroid = clusters$centroid[match(query, clusters$gene)]))
 
 # which centroids have more than 1 gene class in the cluster 
 
@@ -1298,6 +1777,9 @@ lst2 <- lapply(lst, function(x) x %>% ungroup() %>% select(-c(centroid, n, new_l
 
 # save the result of all tools
 saveRDS(lst2,  file = "code_R_analysis/output_abundance_diversity_resistome/results_tools.rds", compress = T)
+
+
+
 
 # functions for core resistome
 
