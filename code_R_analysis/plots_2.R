@@ -537,6 +537,80 @@ RIG_DeepARG_discrepancy <- plot_db_discrepancy(unigenes, db_cluster, theme1, JI_
                                                    pipeline_a_label = "RGI", pipeline_b_label = "DeepARG",
                                                    pattern_a = "none", pattern_b = "stripe")
 
+plot_db_discrepancy(unigenes, db_cluster, theme1, JI_db, JI_all_db, JI_all,
+                    tool_a = "ABRicate-MEGARes", tool_b = "ABRicate-ARGANNOT",
+                    pipeline_a_label = "ABRicate-MEGARes", pipeline_b_label = "ABRicate-ARGANNOT",
+                    pattern_a = "none", pattern_b = "stripe")
+
+
+all_pairs_summary <- purrr::map_dfr(
+  combn(as.character(basic_tools), 2, simplify = FALSE),
+  function(p) {
+    get_unigene_classification(unigenes, db_cluster,
+                               tool_a = p[1], tool_b = p[2],
+                               pipeline_a_label = p[1], pipeline_b_label = p[2]) %>%
+      ungroup() %>%
+      group_by(query) %>%
+      slice_head(n = 1) %>%
+      ungroup() %>%
+      group_by(tool_a, tool_b, detected_by_both) %>%
+      summarise(n = n(), .groups = "drop")
+  }
+)
+
+table(all_pairs_summary$detected_by_both)
+
+all_pairs_summary_2 <- all_pairs_summary %>%  
+  #filter(!tool_a %in% "fARGene", !tool_b %in% "fARGene") %>% 
+  mutate(g = ifelse(detected_by_both %in% c("Reported by both pipelines \ndifferent reference gene",
+                                            "Reported by both pipelines \nsame reference gene"), 
+                    "Overlap\n(Jaccard Index)",
+                    ifelse(detected_by_both == "Reported by a \nsingle pipeline", 
+                           "Database-driven\n difference", "Pipeline-driven\n difference"))) %>% 
+  mutate(g = ifelse((tool_a %in% "fARGene" | tool_b %in% "fARGene") & g != "Overlap\n(Jaccard Index)", "Pipeline-driven\n difference", g)) %>% 
+  mutate(g = ifelse((tool_a %in% "fARGene" | tool_b %in% "fARGene") & is.na(detected_by_both), "Pipeline-driven\n difference", g)) %>% 
+  #filter(g != "Reported by both" ) %>% 
+  group_by(tool_a, tool_b, g) %>% 
+  summarise(n = sum(n)) %>% 
+  mutate(N = sum(n)) %>% 
+  mutate(p = n / N)  %>% 
+  mutate(g = factor(g, levels = c("Overlap\n(Jaccard Index)", "Database-driven\n difference", "Pipeline-driven\n difference")))
+
+decompose_difference_plot <- all_pairs_summary_2 %>%
+  mutate(tool_a = factor(tools_labels[tool_a], levels = tools_labels_factor),
+         tool_b = factor(tools_labels[tool_b], levels = rev(tools_labels_factor))) %>%
+  ggplot(aes(x = 1, y = p, fill = g)) +
+  geom_col(width = 1, color = "black", linewidth = 0.2) +
+  coord_polar(theta = "y") +
+  facet_grid(tool_b ~ tool_a, switch = "both") +
+  labs(fill = "") + 
+  theme_void() +
+  scale_fill_manual(values = c("#e7298a","#e6ab02","#66a61e"), guide = guide_legend(nrow = 1)) +
+  theme(
+    strip.text = element_text(size = general_size),
+    strip.text.y.left = element_text(angle = 0),
+    strip.text.x.bottom = element_text(angle = 90),
+    legend.position = "bottom",
+    legend.text = element_text(size = general_size)
+  )
+
+# all_pairs_summary_2 <- all_pairs_summary %>%  
+#   filter(!tool_a %in% "fARGene", !tool_b %in% "fARGene") %>% 
+#   mutate(g = ifelse(detected_by_both %in% c("Reported by both pipelines \ndifferent reference gene",
+#                                             "Reported by both pipelines \nsame reference gene"), "Both",
+#                     detected_by_both)) %>% 
+#   group_by(tool_a, tool_b) %>% 
+#   mutate(N = sum(n)) %>% 
+#   mutate(p = n / N) %>% 
+#   group_by(detected_by_both) %>% 
+#   group_by(tool_a, tool_b) %>% 
+#   pivot_longer(cols = c(tool_a, tool_b), names_to = "role", values_to = "tool") %>%
+#   group_by(tool, detected_by_both) %>%
+#   summarise(mean_p = mean(p), .groups = "drop")
+  
+
+#
+
 
 #plot_rank_distribution(unigenes, db_cluster, theme1,
 #                       tool_a = "RGI-DIAMOND", tool_b = "ABRicate-CARD",

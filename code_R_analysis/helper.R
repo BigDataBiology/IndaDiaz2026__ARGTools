@@ -411,8 +411,6 @@ plot_db_discrepancy <- function(unigenes,
 
 
 
-
-
 plot_rank_distribution <- function(unigenes,
                                    db_cluster,
                                    theme1,
@@ -507,4 +505,68 @@ compute_expected_jaccard <- function(unigenes, db_cluster) {
     tibble(tool1 = a, tool2 = b, expected_jaccard = expected)
   })
 }
+
+
+
+get_unigene_classification <- function(unigenes,
+                                       db_cluster,
+                                       tool_a = "RGI-DIAMOND",
+                                       tool_b = "ABRicate-CARD",
+                                       pipeline_a_label = "RGI",
+                                       pipeline_b_label = "ABRicate-CARD",
+                                       both_label = "Both") {
+  
+  db_cluster_query <- db_cluster %>%
+    filter(tool %in% c(.env$tool_a, .env$tool_b)) %>%
+    group_by(cluster_99) %>%
+    mutate(n_tool = n_distinct(tool)) %>%
+    mutate(label_gene = factor(
+      ifelse(n_tool == 2, .env$both_label,
+             ifelse(.env$tool_a %in% tool, .env$pipeline_a_label, .env$pipeline_b_label)),
+      levels = c(.env$pipeline_a_label, .env$pipeline_b_label, .env$both_label)
+    )) %>%
+    slice_head(n = 1) %>%
+    ungroup()
+  
+  n_tools_by_cluster <- db_cluster %>%
+    filter(tool %in% c(.env$tool_a, .env$tool_b)) %>%
+    group_by(cluster_99) %>%
+    summarise(n = n_distinct(tool), .groups = "drop")
+  
+  unigenes_ref <- unigenes %>%
+    filter(tool %in% basic_tools, tool %in% c(.env$tool_a, .env$tool_b)) %>%
+    mutate(label_gene = db_cluster_query$label_gene[match(cluster_99, db_cluster_query$cluster_99)]) %>%
+    mutate(present_in_others_db = n_tools_by_cluster$n[match(cluster_99, n_tools_by_cluster$cluster_99)]) %>%
+    group_by(query, cluster_99) %>%
+    mutate(detected_by_both = n_distinct(tool) > 1) %>%
+    ungroup() %>%
+    group_by(query) %>%
+    mutate(detected_by_both_query = n_distinct(tool) > 1) %>%
+    ungroup() %>%
+    mutate(detected_by_both = ifelse(
+      detected_by_both, "Reported by both pipelines \nsame reference gene",
+      ifelse(detected_by_both_query, "Reported by both pipelines \ndifferent reference gene",
+             ifelse(present_in_others_db > 1, "Reported by a single pipeline \nbut ref gene exists in both",
+                    "Reported by a \nsingle pipeline")))) %>%
+    mutate(detected_by_both = factor(detected_by_both, levels = c(
+      "Reported by a \nsingle pipeline",
+      "Reported by a single pipeline \nbut ref gene exists in both",
+      "Reported by both pipelines \ndifferent reference gene",
+      "Reported by both pipelines \nsame reference gene"
+    )))
+  
+  query_classification <- unigenes_ref %>%
+    distinct(query, detected_by_both, label_gene) %>%
+    mutate(tool_a = .env$tool_a, tool_b = .env$tool_b)
+  
+  n_dup <- query_classification %>% count(query) %>% filter(n > 1) %>% nrow()
+  if (n_dup > 0) {
+    warning(sprintf("%d queries have more than one (x, color) classification — likely multiple cluster_99 assignments for the same query. Inspect with count(query) %%>%% filter(n > 1).", n_dup))
+  }
+  
+  query_classification
+}
+
+
+
 
