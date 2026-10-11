@@ -430,7 +430,7 @@ in the current directory, `metadata_GMGC10.sample.meta.tsv` and
 get` first). Needs `pandas`.
 
 ```bash
-python3 count-unigenes_in_interesting_habitats.py metadata_GMGC10.sample.meta.tsv GMGC10.sample-abundance.tsv.xz  unigenes_13_habitats.txt.gz unigenes_13_habitats_and_built_env.txt.gz
+python3 count-unigenes_in_interesting_habitats.py GMGC10.sample.meta.tsv.gz GMGC10.sample-abundance.tsv.xz counts.txt
 #pixi exec -s python -s pandas python count-unigenes_in_interesting_habitats.py
 ```
 
