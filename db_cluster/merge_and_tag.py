@@ -1,17 +1,35 @@
 #!/usr/bin/env python3
-"""Merges 9 ARG reference sources into one amino-acid FASTA.
+"""Merges 10 ARG reference sources into one amino-acid FASTA.
 
 Six sources are nucleotide and get translated by checking all 6 reading
 frames (3 forward, 3 reverse-complement) and keeping the single longest
-open reading frame found anywhere. Two sources are already protein and are
-copied through unchanged. The RGI/CARD source is pulled directly out of
-card.json's protein_sequence fields (protein homolog model + protein
-overexpression model entries - the two model types RGI-DIAMOND actually
-reports hits against) rather than from card_database_v4.0.0_all.fasta -
-that file turned out to be nucleotide, not protein, and RGI's own DIAMOND
-search is itself built from a protein FASTA derived from card.json this
-same way, so this is also the more authoritative source, not just a
-workaround.
+open reading frame found anywhere. Three sources (deeparg, fargene,
+amrfinderplus) are already protein and are copied through unchanged.
+The RGI/CARD source is pulled directly out of
+card.json's protein_sequence fields (protein homolog model, protein
+variant model, protein overexpression model, and rRNA gene variant model
+entries - the four model types RGI's main BLAST/DIAMOND workflow actually
+calls hits against, using CARD's curated SNP positions from snps.txt on
+top of the alignment for the two variant model types) rather than from
+card_database_v4.0.0_all.fasta - that file turned out to be nucleotide,
+not protein, and RGI's own DIAMOND search is itself built from a protein
+FASTA derived from card.json this same way, so this is also the more
+authoritative source, not just a workaround.
+
+Protein knockout model, efflux pump system meta-model, gene cluster
+meta-model, and protein domain meta-model entries are deliberately
+excluded - RGI's standard homology search doesn't call hits against
+these (knockout = gene absence, not a sequence to match; meta-models are
+composite multi-gene/multi-condition calls, not single-protein targets).
+
+Caveat for the two variant model types: cd-hit clusters by raw sequence
+identity, which can't distinguish a resistance-conferring mutant allele
+from its wild-type/susceptible counterpart (e.g. a single-residue swap
+like gyrA S83L won't separate from susceptible gyrA at any realistic
+identity threshold). Including these sequences correctly represents
+"RGI can call a hit here," but the specific resistance-conferring
+mutation itself isn't encoded by sequence clustering - that lives in
+CARD's snps.txt, not in the sequence.
 
 Every header becomes: >{tag}@@@{original header, unmodified}
 
@@ -32,6 +50,7 @@ SOURCES = [
     ("/work/microbiome/users/juan/e/abricate2026/db/card/sequences", "abricate-card", True),
     ("/work/microbiome/users/juan/e/abricate2026/db/ncbi/sequences", "abricate-ncbi", True),
     ("/work/microbiome/users/juan/deeparg_data/database/v2/features.fasta", "deeparg", False),
+    ("/work/microbiome/users/juan/fargene_reference.fasta", "fargene", False),
     ("/work/microbiome/users/juan/e/amrfinder/share/amrfinderplus/data/2024-12-18.1/AMRProt.fa", "amrfinderplus", False),
 ]
 
@@ -40,12 +59,18 @@ CARD_JSON_TAG = "rgi-card"
 
 
 def extract_card_json_proteins(card_json_path):
-    """Yields (header, protein_sequence) for every protein-homolog-model
-    entry in card.json, with the header built as ARO:X|ID:Y|Name:Z|NCBI:W -
+    """Yields (header, protein_sequence) for every entry in card.json
+    matching INCLUDED_MODEL_TYPES, with the header built as
+    ARO:X|ID:Y|Name:Z|NCBI:W -
     the same convention card_database_v4.0.0_all.fasta used, so every piece
     of downstream code that parses that header format (rgi_model_id
     extraction etc.) keeps working unchanged."""
-    INCLUDED_MODEL_TYPES = {"protein homolog model", "protein overexpression model"}
+    INCLUDED_MODEL_TYPES = {
+        "protein homolog model",
+        "protein variant model",
+        "protein overexpression model",
+        "rRNA gene variant model",
+    }
     card = json.load(open(card_json_path))
     for key, model in card.items():
         if not isinstance(model, dict):

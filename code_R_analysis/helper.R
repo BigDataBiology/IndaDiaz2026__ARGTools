@@ -554,29 +554,14 @@ get_unigene_classification <- function(unigenes,
     mutate(detected_by_both_query = n_distinct(tool) > 1) %>%
     ungroup() %>%
     mutate(detected_by_both = ifelse(
-      detected_by_both, "Reported by both pipelines \nsame reference gene",
-      ifelse(detected_by_both_query, "Reported by both pipelines \ndifferent reference gene",
-             ifelse(present_in_others_db > 1, "Reported by a single pipeline \nbut ref gene exists in both",
-                    "Reported by a \nsingle pipeline")))) %>%
-    mutate(detected_by_both = ifelse(
-      detected_by_both %in%  c("Reported by a single pipeline \nbut ref gene exists in both", "Reported by a \nsingle pipeline") & 
-        ((tool_a %in% "fARGene" & tool_b != "AMRFinderPlus") | (tool_b %in% "fARGene" & tool_a != "AMRFinderPlus")),
-                                    "HMM vs. Alignment difference", detected_by_both)) %>% 
-    mutate(detected_by_both = ifelse(
-      detected_by_both %in%  c("Reported by a single pipeline \nbut ref gene exists in both","Reported by a \nsingle pipeline") & 
-      ((tool_a %in% "AMRFinderPlus" & tool_b != "fARGene") | (tool_b %in% "AMRFinderPlus" & tool_a!="fARGene"))  & 
-        query %in% lst$amrfinder.norm.prot$query[lst$amrfinder.norm.prot$Method=="HMM"], "HMM vs. Alignment difference", 
-      ifelse(
-        detected_by_both %in%  c("Reported by a single pipeline \nbut ref gene exists in both","Reported by a \nsingle pipeline") & 
-          ((tool_a %in% "AMRFinderPlus" & tool_b == "fARGene") | (tool_b %in% "AMRFinderPlus" & tool_a=="fARGene"))  & 
-          query %in% lst$amrfinder.norm.prot$query[lst$amrfinder.norm.prot$Method!="HMM"], "HMM vs. Alignment difference", 
-        detected_by_both))) %>%
+      detected_by_both, "Overlap\n(Jaccard Index)",
+      ifelse(detected_by_both_query, "Overlap\n(Jaccard Index)",
+             ifelse(present_in_others_db > 1, "Pipeline-driven\n difference",
+                    "Database-driven\n difference")))) %>%
     mutate(detected_by_both = factor(detected_by_both, levels = c(
-      "Reported by a \nsingle pipeline",
-      "Reported by a single pipeline \nbut ref gene exists in both",
-      "Reported by both pipelines \ndifferent reference gene",
-      "Reported by both pipelines \nsame reference gene",
-      "HMM vs. Alignment difference"
+      "Overlap\n(Jaccard Index)",
+      "Pipeline-driven\n difference",
+      "Database-driven\n difference"
     )))
   
   print("query_classification")
@@ -586,7 +571,9 @@ get_unigene_classification <- function(unigenes,
   
   n_dup <- query_classification %>% count(query) %>% filter(n > 1) %>% nrow()
   if (n_dup > 0) {
-    warning(sprintf("%d queries have more than one (x, color) classification — likely multiple .env$cluster_level assignments for the same query. Inspect with count(query) %%>%% filter(n > 1).", n_dup))
+    warning(sprintf("%d queries have more than one (x, color) classification — 
+                    likely multiple .env$cluster_level assignments for the 
+                    same query. Inspect with count(query) %%>%% filter(n > 1).", n_dup))
   }
   
   query_classification

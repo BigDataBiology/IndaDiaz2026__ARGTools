@@ -23,7 +23,7 @@ lowest_ontology <- c(paste0("ARO:", c("3000341", "3000322", "3000345", "3004257"
                                       "3000320", "3000458", "3000333", "3007103", "3000576", "3000233", "3000869", "3000036", "3004261", "3000231", 
                                       "3000234", "3007428", "0000031", "3000560", "3004469", "3000419", "3000507", "3005086", "0000002", "3003425", 
                                       "3001208", "3000210", "3004238", "3003040", "0010002", "3003580", "3003768", "3001207", "3000492", "3007610", 
-                                      "3000100", "3007429", "3000270", "3000451", "3002976", "3007425", "3004916")))
+                                      "3000100", "3007429", "3000270", "3000451", "3002976", "3007425", "3004916", "3004268")))
 
 ontologies <- c(lowest_ontology, higher_ontology)
 # This are the original levels 
@@ -102,7 +102,7 @@ ontologies <- c(lowest_ontology, higher_ontology)
 # gene(s) or protein(s) associated with a glycopeptide resistance cluster ARO:3002976
 # protein(s) conferring resistance via host-dependent nutrient acquisition ARO:3007425
 # subunits of secretion system conferring antibiotic resistance  ARO:3004916
-
+# MCR phosphoethanolamine transferase ARO:3004268
 
 ## FARGENE CONVERSIONS
 ## simplified names for fargene models 
@@ -300,8 +300,22 @@ fargene <- read.delim("dna/fargene_results.tsv", header = F) %>%
   group_by(query, new_class) %>% 
   slice_head(n=1) %>% ungroup()
 
-# 48 queries with repeated class removed
+fargene_blast_matches_prot <- read.delim("fargene_hits_protein_vs_fargene_ref_best.tsv", header = F)
+fargene_blast_matches <- read.delim("fargene_hits_vs_fargene_ref_best.tsv", header = F) 
+fargene_blast_matche2 <- read.delim("GMGC10.277_942_632_blast.tsv", header = F) 
 
+fargene_blast_matches_both <- fargene_blast_matches %>% bind_rows(fargene_blast_matches_prot %>% filter(!V1 %in% fargene_blast_matches$V1))
+fargene_blast_matches_both <- fargene_blast_matches %>% bind_rows(fargene_blast_matche2 %>% filter(!V1 %in% fargene_blast_matches$V1))
+rm(fargene_blast_matches_prot, fargene_blast_matches)
+fargene_blast_matches_both$V2 <- gsub("###", "'", fargene_blast_matches_both$V2, fixed = TRUE)
+
+
+fargene <- fargene %>%  mutate(ref_gene = fargene_blast_matches_both$V2[match(query, fargene_blast_matches_both$V1)])
+fargene <- fargene %>%  mutate(id_ref = fargene_blast_matches_both$V3[match(query, fargene_blast_matches_both$V1)])
+fargene <- fargene %>%  mutate(bit_score_ref = fargene_blast_matches_both$V12[match(query, fargene_blast_matches_both$V1)])
+
+
+# 48 queries with repeated class removed
 ## remove duplicated queries with different classes 
 # load the hmm scores
 
@@ -363,6 +377,12 @@ fargene.prot <- read.delim("protein/fargene_results.tsv", header = F) %>%
          new_class = fg_class[V5]) %>%
   group_by(query, new_class) %>% 
   slice_head(n = 1) %>% ungroup()
+
+
+fargene.prot <- fargene.prot %>%  mutate(ref_gene = fargene_blast_matches_both$V2[match(query, fargene_blast_matches_both$V1)])
+fargene.prot <- fargene.prot %>%  mutate(id_ref = fargene_blast_matches_both$V3[match(query, fargene_blast_matches_both$V1)])
+fargene.prot <- fargene.prot %>%  mutate(bit_score_ref = fargene_blast_matches_both$V12[match(query, fargene_blast_matches_both$V1)])
+
 
 # 41 unigenes with repeated class, 41 observations deleted, 1 left per unigene 
 
@@ -450,7 +470,37 @@ manual_fargene_blast_card <- data.frame(unigene = c("GMGC10.029_357_382.STRB", "
                                "ARO:3004359", "ARO:3002571", "ARO:3003720", "ARO:3006942", "ARO:3004621",
                                "ARO:3002549", "ARO:3002644")))
 
+
+fargene_ref_with_rgi <- read.delim("fargene_reference_with_rgi_named.tsv") %>% 
+  select(-c(Predicted_DNA, Predicted_Protein, CARD_Protein_Sequence)) %>% 
+  mutate(query = ORF_ID) %>% 
+  rename(ARG.class = AMR.Gene.Family) %>% 
+  mutate(ARO = paste0("ARO:", ARO)) %>%
+  mutate( id = Best_Identities)
+
+norm_prime <- function(x) {
+  x <- gsub("###", "'", x, fixed = TRUE)
+  x <- gsub("\u2019", "'", x, fixed = TRUE)
+  x <- gsub("\u2032", "'", x, fixed = TRUE)
+  trimws(x)
+}
+
+
+fargene_ref_with_rgi$original_header <- norm_prime(fargene_ref_with_rgi$original_header)
+fargene$ref_gene      <- norm_prime(fargene$ref_gene)
+fargene.prot$ref_gene <- norm_prime(fargene.prot$ref_gene)
+
+fargene <- fargene %>% mutate(ARO_from_ref_gene_RGI = fargene_ref_with_rgi$ARO[match(ref_gene, fargene_ref_with_rgi$original_header)])
+fargene.prot <- fargene.prot %>% mutate(ARO_from_ref_gene_RGI = fargene_ref_with_rgi$ARO[match(ref_gene, fargene_ref_with_rgi$original_header)])
+
+# ARO <- read.csv("code_R_analysis/output_abundance_diversity_resistome/conversion_ARO_parent_new_level.csv")
+#a1 <- ifelse(is.na(ARO$Parent_ID[match(fargene$ARO, ARO$Term_ID)]), "-", ARO$Parent_ID[match(fargene$ARO, ARO$Term_ID)])
+#a2 <- ifelse(is.na(ARO$Parent_ID[match(fargene$ARO_from_ref_gene_RGI, ARO$Term_ID)]), "-", ARO$Parent_ID[match(fargene$ARO_from_ref_gene_RGI, ARO$Term_ID)])
+#table(fargene[a1 != a2,]$new_class)
+#table(a1[a1 != a2], a2[a1 != a2])
+
 write.csv(manual_fargene_blast_card, "arg_norm_correction/fargene_correction_blast_to_card.csv", row.names = F)
+
 #sum(!lst$fargene$aro.rgi == lst$fargene$ARO, na.rm = T)
 #table(fargene_with_rgi_dna$Cut_Off)
 #table(fargene_with_rgi$Cut_Off)
@@ -664,11 +714,21 @@ sum(abricate.card.norm$ARO == "")
 
 sum(is.na(abricate.argannot.norm$ARO))
 sum(abricate.argannot.norm$ARO == "")
+ids <- abricate.argannot.norm$ARO == ""
 
 abricate.argannot.norm <- abricate.argannot.norm %>% 
   mutate(ARO = ifelse(V6 %in% "(Ntmdz)nimj_Nitroimidazole_Gene", "ARO:3007112", 
                       ifelse(V6 %in% "(Bla)blaACT-16", "ARO:3001827", 
                              ifelse(V6 %in% "(Fcyn)FosA", "ARO:3002804", ARO))))
+
+
+unigenes_changed <- abricate.argannot.norm[ids, ] %>% 
+  group_by(ARO, V6) %>% summarise(unigenes = n()) %>% 
+  mutate(tool = "abricate argannot") %>% 
+  rename(gene_code = V6 ) %>% 
+  ungroup() %>% 
+  mutate(method = "nanual curation")
+
 
 write.csv(
   rbind(c("(Ntmdz)nimj_Nitroimidazole_Gene", "ARO:3007112"),
@@ -709,6 +769,19 @@ write.csv(colistin,
           "arg_norm_correction/resfinder_manual_blasp.csv", row.names = F)
 
 resfinder.norm <- resfinder.norm %>% mutate(ARO = ifelse(gene %in% colistin[,1], colistin[match(gene, colistin[,1]),2], ARO))
+
+
+unigenes_changed <- unigenes_changed %>% 
+  ungroup() %>% 
+  bind_rows(resfinder.norm %>% filter(gene %in% colistin[,1]) %>% 
+              select(gene, query, ARO) %>%
+              group_by(gene, ARO) %>% 
+              summarise(unigenes = n()) %>% 
+              mutate(tool = "resfinder") %>% 
+              rename(gene_code = gene ) %>% 
+              mutate(method = "manual curation") %>% 
+              ungroup())
+
 
 sum(resfinder.norm$ARO=="")
 sum(is.na(resfinder.norm$ARO))
@@ -760,7 +833,6 @@ abricate.resfinder.norm <- abricate.resfinder.norm %>%
 sum(abricate.resfinder.norm$ARO=="")
 sum(is.na(abricate.resfinder.norm$ARO))
 
-
 #no match in card "NarB_1" I inherit it from resFinder argnorm
 abricate.resfinder.norm$ARO[abricate.resfinder.norm$V6 == "NarB_1"] <- unique(resfinder.norm$ARO[resfinder.norm$gene == "NarB"])
 sum(abricate.resfinder.norm$ARO=="")
@@ -772,6 +844,17 @@ write.csv(rbind(manual_blast_abricate_resfinder,
           "arg_norm_correction/abricate_resfinder_manual_blast.csv", row.names = F)
 
 
+unigenes_changed <- unigenes_changed %>% 
+  ungroup() %>% 
+  bind_rows(abricate.resfinder.norm %>% filter(V6 %in% c(colistin_abricate[,1],
+                                                         manual_blast_abricate_resfinder[,1],"NarB_1")) %>% 
+              select(gene, query, ARO) %>%
+              group_by(gene, ARO) %>% 
+              summarise(unigenes = n()) %>% 
+              mutate(tool = "abricate resfinder") %>% 
+              rename(gene_code = gene ) %>% 
+              mutate(method = "manual curation") %>% 
+              ungroup())
 
 ################################################################################################################################################
 # ARO for abricate megares
@@ -795,6 +878,7 @@ abricate_annotation <- read.delim("check_missing_annot/abricate_annotation_megar
 abricate_annotation <- abricate_annotation[,-c(19,20,21)]
 abricate_annotation$MEG <- sapply(strsplit(abricate_annotation$ORF, split = "~~~"), function(x) x[3])
 abricate_annotation$gene <- sapply(strsplit(abricate_annotation$ORF, split = "~~~"), function(x) x[2])
+
 j <- which(abricate.megares.norm$ARO == "")
 not_mapped_argnorm_2 <- unique(abricate.megares.norm$V6[j])
 
@@ -814,6 +898,7 @@ not_mapped_argnorm_3 <- unique(abricate.megares.norm$V6[j])
 abricate.megares.norm <- abricate.megares.norm %>% mutate(code_gene = sapply(strsplit(V14, split = ":"), function(x) x[length(x)]))
 
 totally_manual_megares <- unique(abricate.megares.norm$V14[j])
+totally_manual_megares2 <- unique(abricate.megares.norm$V6[j])
 new_code <- rep(NA, length(totally_manual_megares))
 
 # RND EFFLUX PUMPS
@@ -832,6 +917,38 @@ abricate.megares.norm$ARO[j] <- new_code[match(abricate.megares.norm$V14[j], tot
 
 sum(abricate.megares.norm$ARO=="")
 sum(is.na(abricate.megares.norm$ARO))
+
+
+unigenes_changed <- unigenes_changed %>% 
+    mutate(threshold = NA) %>% 
+  ungroup() %>% 
+  bind_rows(abricate.megares.norm %>% filter(V13 %in% not_mapped_argnorm_2_manual_RGI_output$X1) %>% 
+              select(V6, V13, query, ARO) %>%
+              mutate(threshold = not_mapped_argnorm_2_manual_RGI_output$X2[match(V13, not_mapped_argnorm_2_manual_RGI_output$X1)]) %>% 
+              group_by(V6, V13, ARO, threshold) %>% 
+              summarise(unigenes = n()) %>% 
+              arrange(desc(unigenes)) %>% 
+              mutate(tool = "abricate megares") %>% 
+              rename(gene_code = V6 ) %>% 
+              mutate(method = "manual RGI") %>% 
+              ungroup() %>% 
+              select(-V13))
+
+
+unigenes_changed <- unigenes_changed %>% 
+  ungroup() %>% 
+  bind_rows(abricate.megares.norm[j,] %>% 
+              select(V6, V13, query, ARO) %>%
+              mutate(threshold = NA) %>% 
+              group_by(V6, V13, ARO, threshold) %>% 
+              summarise(unigenes = n()) %>% 
+              arrange(desc(unigenes)) %>% 
+              mutate(tool = "abricate megares") %>% 
+              rename(gene_code = V6 ) %>% 
+              mutate(method = "manual curation") %>% 
+              ungroup() %>% 
+              select(-V13))
+
 
 #rm(j, abricate_annotation, megares_annotation, new_code, totally_manual_megares)
 
@@ -860,6 +977,7 @@ abricate.ncbi.norm$ARO[j] <- d
 write.csv(first_pass_NCBI %>% filter(d!=""),
           "arg_norm_correction/abricate_ncbi_in_argnorm_mapping_failed.csv", row.names = F)
 
+j0 <- j
 j <- abricate.ncbi.norm$ARO ==""
 
 # not fixed argnorm
@@ -870,7 +988,8 @@ ncbi_annotation <- read.delim("check_missing_annot/ncbi_curation.tsv")
 ncbi_annotation <- ncbi_annotation %>% mutate(ref = sapply(strsplit(ncbi_annotation$Original.ID, split = "\\|"), function(x) x[2]))
 ncbi_annotation <- ncbi_annotation %>% mutate(genename = sapply(strsplit(ncbi_annotation$Original.ID, split = "\\|"), function(x) x[5]))
 ncbi_annotation <- ncbi_annotation %>% mutate(genename2 = sapply(strsplit(ncbi_annotation$Original.ID, split = "\\|"), function(x) x[6]))
-paste0("ARO:", ncbi_annotation$ARO[match(abricate.ncbi.norm$V6[j], ncbi_annotation$genename)])
+
+# paste0("ARO:", ncbi_annotation$ARO[match(abricate.ncbi.norm$V6[j], ncbi_annotation$genename)])
 
 
 # MANUALLY ASSIGNED THESE ONTOLOGIES, rgi loose
@@ -885,6 +1004,7 @@ manual_rgi_NCBI <- data.frame(cbind(sapply(strsplit(abricate_annotation$ORF_ID[m
 d <- paste0("ARO:", abricate_annotation$ARO[match(abricate.ncbi.norm$V6[j], x2)])
 d[d=="ARO:NA"] <- ""
 abricate.ncbi.norm$ARO[j] <- d
+j1 <- j
 
 j <- abricate.ncbi.norm$ARO ==""
 unique(abricate.ncbi.norm[j,]$V6)
@@ -898,7 +1018,8 @@ others.ncbi <- cbind(c("blaAHM-1"),
 
 abricate.ncbi.norm <- abricate.ncbi.norm %>% mutate(ARO = ifelse(V6 %in% others.ncbi[,1], others.ncbi[match(V6, others.ncbi[,1]),2], ARO))
 
-j <- abricate.ncbi.norm$ARO ==""
+sum(abricate.ncbi.norm$ARO =="")
+
 
 write.csv(cbind(c("blaAHM-1"), 
                 c("ARO:3003718")),
@@ -906,9 +1027,21 @@ write.csv(cbind(c("blaAHM-1"),
 
 #rm(others.ncbi, others, abricate_annotation, x2, x3, j)
 
-# to debug arg_norm
-#rm(d, ncbi_annotation)
 
+unigenes_changed <- unigenes_changed %>% 
+  ungroup() %>% 
+  bind_rows(abricate.ncbi.norm[j1,] %>% 
+  select(V6, V13, query, ARO) %>%
+  mutate(threshold = manual_rgi_NCBI$X3[match(ARO, paste0("ARO:",manual_rgi_NCBI$X2))]) %>% 
+  group_by(V6, V13, ARO, threshold) %>% 
+  summarise(unigenes = n()) %>% 
+  arrange(desc(unigenes)) %>% 
+  mutate(tool = "abricate ncbi") %>% 
+  rename(gene_code = V6 ) %>% 
+  mutate(method = "manual RGI") %>% 
+  mutate(method = ifelse(gene_code == "blaAHM-1", "manual curation", method)) %>% 
+  ungroup() %>% 
+  select(-V13))
 
 ### AMRFINDER
 
@@ -928,6 +1061,8 @@ amrfinder.norm.prot$ARO[j] <- d
 
 sum(amrfinder.norm.prot$ARO =="")
 
+### 
+write.csv(unigenes_changed, "code_R_analysis/output_plots/TableS4.csv", row.names = F)
 
 #rm(j, d, ncbi_annotation)
 
@@ -953,6 +1088,8 @@ aros <- tibble(data.frame(rbind(cbind(rgi.diamond$tool, rgi.diamond$Best_Hit_ARO
                                 cbind(fargene.prot$tool, fargene.prot$new_class, fargene.prot$ARO))))
 
 aros <- aros %>% distinct()
+
+
 #aros %>% group_by(X1) %>% summarise(n = n(), e = sum(X3 == "")) %>% mutate(p=e/n) %>% arrange(desc(n))
 
 # here we use the ontology information g, parent_map, label_map, rdfs_ns, aro_url, query_parents, parent_map
@@ -961,6 +1098,10 @@ df <- process_terms_fast(unique(aros$X3[aros$X3!=""]), parent_map, label_map)
 rm(g, rdfs_ns, query_parents, parent_map, query_labels, label_map)
 
 # ARO:3002870 tet(34) will be forcefully receive ARO:3000012 protein(s) conferring antibiotic resistance via molecular bypass and not tet enzyme
+df <- df %>% mutate(Parent_ID = ifelse(grepl("mcr", Term_Label) | grepl("MCR", Term_Label), 
+                                 "ARO:3004268",Parent_ID),
+              Parent_Label = ifelse(grepl("mcr", Term_Label) | grepl("MCR", Term_Label), 
+                                    "MCR phosphoethanolamine transferase",Parent_Label))
 
 df <- df %>% filter(!(Term_ID %in% "ARO:3002870" & Parent_ID %in% "ARO:3000036"))
 df <- df %>% filter(!(Term_ID %in% "ARO:3002870" & Parent_ID %in% "ARO:3000557"))
@@ -979,12 +1120,16 @@ df <- df %>% filter(!(Term_ID %in% "ARO:3002870" & Parent_ID %in% "ARO:3000557")
 # child ARO:3002484 gets ARO:3000076   || remove ARO:3000076 (classs d) for ARO:3000075 class C
 # antibiotic resistant gene variant or mutant ARO:0000031 ---> ARO:3000451 and ARO:3003040
 # gene conferring resistance via absence 3003768 (16) protein modulating permeability to antibiotic (41) 3000270
+# cell wall to "ARO:3004268" if it is a mcr
 
-overrul <- c("ARO:3003040", "ARO:3003040", "ARO:3003580", "ARO:3000451", "ARO:3004064", "ARO:3000075", "ARO:3000451", "ARO:3003040", "ARO:3000004", "ARO:3000210", "ARO:3000270")
+overrul <- c("ARO:3003040", "ARO:3003040", "ARO:3003580", "ARO:3000451", 
+             "ARO:3004064", "ARO:3000075", "ARO:3000451", "ARO:3003040", 
+             "ARO:3000004", "ARO:3000210", "ARO:3000270", "ARO:3004268")
 
 # FIRST WE DEAL WITH THOSE AROS THAT ARE ALREADY IN THE LOWEST DESIRED ONTOLOGY
 
-df_lowest_term <- df %>% filter(Term_ID %in% lowest_ontology) %>% mutate(Parent_ID = Term_ID, Parent_Label = Term_Label) %>% distinct()
+df_lowest_term <- df %>% filter(Term_ID %in% lowest_ontology) %>% 
+  mutate(Parent_ID = Term_ID, Parent_Label = Term_Label) %>% distinct()
 length(unique(df_lowest_term$Term_ID))
 
 # Now we deal with the AROS which parent is in the lowest ontology
@@ -1000,48 +1145,79 @@ length(unique(df_not_lowest$Term_ID))
 # Fort lowest parent 
 # this are the aros appearing in several branches
 
-repeated_wanted <- df_lowest_parent %>% filter(Parent_ID %in% lowest_ontology) %>% group_by(Term_ID) %>% summarise(n = n()) %>% filter(n >1)
+repeated_wanted <- df_lowest_parent %>% 
+  filter(Parent_ID %in% lowest_ontology) %>% 
+  group_by(Term_ID) %>% summarise(n = n()) %>% filter(n >1)
 
 # those repeated after selecting overrul aro, if this had entries, we need to modify overrul (it should be empty)
 
-df_lowest_parent %>% filter(Parent_ID %in% lowest_ontology) %>%  group_by(Term_ID) %>% filter(n()>1)%>% group_by(Term_ID) %>% summarise(n=sum(Parent_ID %in% overrul)) %>% filter(n<1)
+df_lowest_parent %>% filter(Parent_ID %in% lowest_ontology) %>%  
+  group_by(Term_ID) %>% filter(n()>1)%>% group_by(Term_ID) %>% 
+  summarise(n=sum(Parent_ID %in% overrul)) %>% 
+  filter(n<1)
 
 # unique lowest for df lowest parent 
 
-df_lowest_parent_2 <- df_lowest_parent %>% filter(Parent_ID %in% lowest_ontology) %>% group_by(Term_ID) %>% group_by(Term_ID) %>% filter(n()<2) %>% ungroup()
+df_lowest_parent_2 <- df_lowest_parent %>% 
+  filter(Parent_ID %in% lowest_ontology) %>% 
+  group_by(Term_ID) %>% group_by(Term_ID) %>% 
+  filter(n()<2) %>% ungroup()
 
 # add those with double ontology
 
-df_lowest_parent_2 <- df_lowest_parent_2 %>% bind_rows(df_lowest_parent %>% filter(Parent_ID %in% lowest_ontology) %>% group_by(Term_ID) %>% group_by(Term_ID) %>% filter(n()>1) %>% ungroup() %>% filter(Parent_ID %in% overrul))
+df_lowest_parent_2 <- df_lowest_parent_2 %>% 
+  bind_rows(df_lowest_parent %>% 
+              filter(Parent_ID %in% lowest_ontology) %>% 
+              group_by(Term_ID) %>% 
+              group_by(Term_ID) %>% 
+              filter(n()>1) %>% ungroup() %>% 
+              filter(Parent_ID %in% overrul))
 
 # For not lowest
 # this are the aros appearing in several branches
 
-repeated_wanted <- df_not_lowest %>% filter(Parent_ID %in% ontologies) %>% group_by(Term_ID) %>% summarise(n = n()) %>% filter(n >1)
+repeated_wanted <- df_not_lowest %>% 
+  filter(Parent_ID %in% ontologies) %>% 
+  group_by(Term_ID) %>% 
+  summarise(n = n()) %>% 
+  filter(n >1)
 
 # those repeated after selecting overrul aro, if this had entries, we need to modify overrul (it should be empty)
 
-df_not_lowest %>% filter(Parent_ID %in% ontologies) %>%  group_by(Term_ID) %>% filter(n()>1) %>% group_by(Term_ID) %>% summarise(n=sum(Parent_ID %in% overrul)) %>% filter(n<1)
+df_not_lowest %>% 
+  filter(Parent_ID %in% ontologies) %>%  
+  group_by(Term_ID) %>% filter(n()>1) %>% 
+  group_by(Term_ID) %>% summarise(n=sum(Parent_ID %in% overrul)) %>% 
+  filter(n<1)
 
 # unique lowest for df lowest parent 
 
-df_not_lowest_2 <- df_not_lowest %>% filter(Parent_ID %in% ontologies) %>% group_by(Term_ID) %>% filter(n()<2) %>% ungroup()
+df_not_lowest_2 <- df_not_lowest %>% 
+  filter(Parent_ID %in% ontologies) %>% 
+  group_by(Term_ID) %>% filter(n()<2) %>%
+  ungroup()
 
 # add those with double ontology
 
-df_not_lowest_2 <- df_not_lowest_2 %>% bind_rows(df_not_lowest %>% filter(Parent_ID %in% ontologies) %>% group_by(Term_ID) %>% group_by(Term_ID) %>% filter(n()>1) %>% ungroup() %>% filter(Parent_ID %in% overrul))
+df_not_lowest_2 <- df_not_lowest_2 %>% 
+  bind_rows(df_not_lowest %>% filter(Parent_ID %in% ontologies) %>% 
+              group_by(Term_ID) %>% group_by(Term_ID) %>% filter(n()>1) %>% 
+              ungroup() %>% 
+              filter(Parent_ID %in% overrul))
 dim(df_not_lowest_2)
 
 df2 <- df_lowest_term %>% bind_rows(df_lowest_parent_2, df_not_lowest_2)
-rm(df_lowest_term, df_lowest_parent, df_not_lowest, df_lowest_parent_2, df_not_lowest_2, aros)
 
 # Did we catch all of the aros? (it should be zero)
 sum(!df$Term_ID %in% df2$Term_ID)
+rm(df_lowest_term, df_lowest_parent, df_not_lowest, df_lowest_parent_2, df_not_lowest_2, aros)
 
 ##############
 ############## add a new arbitrary level to avoid repetitive onthologies
 
-new_level <- c("chloramphenicol phosphotransferase", "cpt",
+
+new_level <- c("MCR phosphoethanolamine transferase", "mcr",
+  "chloramphenicol phosphotransferase", "cpt",
                "ciprofloxacin phosphotransferase", "crpP",
                "viomycin phosphotransferase", "vph",
                "major facilitator superfamily (MFS) antibiotic efflux pump", "MFS efflux pump",
@@ -1117,6 +1293,9 @@ df2 <- df2 %>% mutate(new_level = new_level_df$new[match(Parent_Label, new_level
 saveRDS(df2, file = "code_R_analysis/output_abundance_diversity_resistome/conversion_ARO_parent_new_level.rds")
 write.csv(df2, file = "code_R_analysis/output_abundance_diversity_resistome/conversion_ARO_parent_new_level.csv",  row.names = F)
 
+
+#
+
 fargene <- fargene %>% mutate(manual.parent = df2$Parent_ID[match(manual.ARO, df2$Parent_ID)],
                               manual.parent_description = df2$Parent_Label[match(manual.ARO, df2$Parent_ID)],
                               manual.new_level = df2$new_level[match(manual.ARO, df2$Parent_ID)])
@@ -1174,6 +1353,7 @@ lst$fargene.prot <- lst$fargene.prot %>%
          parent_description = ifelse(coalesce(as.character(new_level), "NA") != coalesce(as.character(manual.new_level), "NA"), manual.parent_description, parent_description)) %>% 
   mutate(new_level = ifelse(coalesce(as.character(new_level), "NA") != coalesce(as.character(manual.new_level), "NA"), manual.new_level, new_level))
 
+
 rm(list = setdiff(ls(), "lst"))
 
 lst$deeparg.norm.id70 <- lst$deeparg.norm[lst$deeparg.norm$id>=70,]
@@ -1207,6 +1387,8 @@ lst$rgi.diamond.id90 <- NULL
 
 # args_abundances <- read.delim("data/abundances/args_abundances.tsv")
 args_abundances <- read.delim("data/abundances/filtered_abundance.tsv.gz")
+#args_abundances_old <- read.delim("data/abundances/args_abundances_old.tsv")
+
 #unigenes_per_habitat <-  read.delim("data/abundances/args_by_habitat.tsv")
 metadata <- read.delim("data/metadata_GMGC10.sample.meta.tsv")
 metadata <- metadata %>% mutate(sample = sample_id)
@@ -1244,32 +1426,30 @@ rm(detected_unigenes_per_habitat)
 
 lst0 <- lst
 
-lst <- lapply(lst, function(x) x %>% filter(query %in% genes_right_habitat))
-
 args_abundances <- args_abundances %>% 
   mutate(habitat = metadata$habitat[match(sample, metadata$sample)]) %>% 
-  filter(!habitat %in% c("amplicon", "isolate",  "built-environment")) %>%
+  #filter(!habitat %in% c("amplicon", "isolate",  "built-environment")) %>%
   filter(sample  %in% metadata$sample_id)
 
-metadata <- metadata %>% filter(!habitat %in% c("amplicon", "isolate", "built-environment"))
+#metadata <- metadata %>% filter(!habitat %in% c("amplicon", "isolate", "built-environment"))
 
 set.seed(2025)
 
-rarefaction <- function(X, raw, inserts, depth = 5e6, seed = 2025){
-  #set.seed(seed)
-  reads_count <- ceiling(raw)
-  arg_reads <- sum(reads_count)
-  not_arg_reads <- inserts[1] - arg_reads
-  expanded_reads <- rep(c(X,"not an ARG"), times = c(reads_count, not_arg_reads))
-  
-  if(depth > inserts[1]){
-    depth <- inserts[1]
-  }
-  
-  subsample <- sample(expanded_reads, depth, replace = FALSE)
-  tab <- table(subsample)
-  return(tab)
-}
+# rarefaction <- function(X, raw, inserts, depth = 5e6, seed = 2025){
+#   #set.seed(seed)
+#   reads_count <- ceiling(raw)
+#   arg_reads <- sum(reads_count)
+#   not_arg_reads <- inserts[1] - arg_reads
+#   expanded_reads <- rep(c(X,"not an ARG"), times = c(reads_count, not_arg_reads))
+#   
+#   if(depth > inserts[1]){
+#     depth <- inserts[1]
+#   }
+#   
+#   subsample <- sample(expanded_reads, depth, replace = FALSE)
+#   tab <- table(subsample)
+#   return(tab)
+# }
 
 rarefaction_fast <- function(X, raw, inserts, depth = 5e6, seed = 2025){
   # set.seed(seed)  # optional
@@ -1285,6 +1465,7 @@ rarefaction_fast <- function(X, raw, inserts, depth = 5e6, seed = 2025){
   sampled <- rmultinom(1, size = depth, prob = probs)
   return(sampled[,1])
 }
+
 
 # rarefied_counts <- args_abundances %>% filter(raw > 0) %>% ungroup() %>% group_by(sample) %>%
 #   summarise(
@@ -1335,11 +1516,6 @@ sarg_argnorm <- sarg_argnorm %>% select(Original.ID, ARO) %>% bind_rows(sarg_arg
 
 rank_priority <- c("I", "II", "III", "IV", "notassessed")
 
-sarg_blast_70_80 <- sarg_blast %>% filter(pident >= 70, qcovhsp >= 80) %>% 
-  mutate(rank_order = match(rank, rank_priority)) %>%
-  group_by(qseqid) %>% 
-  slice_min(rank_order, n = 1, with_ties = FALSE) %>%
-  ungroup()
 
 sarg_blast_80_80 <- sarg_blast %>% filter(pident>=80, qcovhsp >= 80) %>% 
   mutate(rank_order = match(rank, rank_priority)) %>%
@@ -1368,7 +1544,6 @@ sarg_blast_highest_bit_80 <- sarg_blast %>% filter(pident>=80, qcovhsp >= 80) %>
 lst <- lapply(lst, function(df) {
   df %>%
     mutate(
-      rank_70 = sarg_blast_70_80$rank[match(query, sarg_blast_70_80$qseqid)],
       rank_80 = sarg_blast_80_80$rank[match(query, sarg_blast_80_80$qseqid)],
       rank_90 = sarg_blast_90_80$rank[match(query, sarg_blast_90_80$qseqid)],
       rank_95 = sarg_blast_95_80$rank[match(query, sarg_blast_95_80$qseqid)],
@@ -1381,7 +1556,6 @@ lst <- lapply(lst, function(df) {
 lst <- lapply(lst, function(df) {
   df %>%
     mutate(
-      rank_70 = ifelse(is.na(rank_70), "Not found", rank_70),
       rank_80 = ifelse(is.na(rank_80), "Not found", rank_80),
       rank_90 = ifelse(is.na(rank_90), "Not found", rank_90),
       rank_95 = ifelse(is.na(rank_95), "Not found", rank_95),
@@ -1390,19 +1564,28 @@ lst <- lapply(lst, function(df) {
 })
 
 
-
 # Unigenes detected as ARG by tool
 
 unigenes <- do.call(rbind, lapply(lst, function(x) x[,c("query", "tool", "ARO", "parent", "parent_description", "new_level", "id", 
-                                                        "rank_aro", "rank_70", "rank_80", "rank_90", "rank_95", "rank_highest_bit_80")])) 
-unigenes <- unigenes %>% filter(query %in% genes_right_habitat)
+                                                        "rank_aro",  "rank_80", "rank_90", "rank_95", "rank_highest_bit_80")])) 
+
+
+# lst <- lapply(lst, function(x) x %>% filter(query %in% genes_right_habitat))
+# unigenes <- unigenes %>% filter(query %in% genes_right_habitat)
 rownames(unigenes) <- NULL
 
 ##
 db_cluster <- read.delim("db_cluster/nested_with_coverage_out/nested_cluster_membership.tsv") 
+
 db_cluster <- db_cluster %>% mutate(tool = sapply(strsplit(protein_id, split = "@@@"), function(x) x[1]),
                                     gene = sapply(strsplit(protein_id, split = "@@@"), function(x) x[2]))
 
+norm_prime <- function(x) {
+  x <- gsub("###", "'", x, fixed = TRUE)
+  x <- gsub("\u2019", "'", x, fixed = TRUE)
+  x <- gsub("\u2032", "'", x, fixed = TRUE)
+  trimws(x)
+}
 
 db_cluster <- db_cluster %>%
   mutate(gene_revised = ifelse(tool %in% "rgi-card", 
@@ -1444,6 +1627,14 @@ db_cluster <- db_cluster %>%
 db_cluster <- db_cluster %>%
   mutate(gene_revised = ifelse(tool %in% "deeparg", gene, gene_revised))
 
+db_cluster <- db_cluster %>% mutate(gene_revised = ifelse(tool %in% "fargene", norm_prime(gene), gene_revised))
+
+db_cluster <- db_cluster %>% bind_rows(db_cluster %>% filter(tool %in% "deeparg") %>% mutate(tool = "deeparg-aa"))
+db_cluster <- db_cluster %>% bind_rows(db_cluster %>% filter(tool %in% "fargene") %>% mutate(tool = "fargene.prot"))
+db_cluster <- db_cluster %>% bind_rows(db_cluster %>% filter(tool %in% "rgi-card") %>% mutate(tool = "rgi-blast"))
+db_cluster <- db_cluster %>% bind_rows(db_cluster %>% filter(tool %in% "rgi-card") %>% mutate(tool = "rgi-diamond-prot-card"))
+db_cluster <- db_cluster %>% bind_rows(db_cluster %>% filter(tool %in% "amrfinderplus") %>% mutate(tool = "amrfinderplus.nt"))
+
 
 cluster_lookup_specs <- list(
   list(name = "abricate-argannot",
@@ -1464,6 +1655,15 @@ cluster_lookup_specs <- list(
   list(name = "deeparg",
        query = lst$deeparg.norm$query,
        hit = lst$deeparg.norm$best.hit),
+  list(name = "deeparg-aa",
+       query = lst$deeparg.norm.prot$query,
+       hit = lst$deeparg.norm.prot$best.hit),
+  list(name = "rgi-blast",
+       query = lst$rgi.blast$query,
+       hit = lst$rgi.blast$Model_ID),
+  list(name = "rgi-diamond-prot-card",
+       query = lst$rgi.diamond.prot$query,
+       hit = lst$rgi.diamond.prot$Model_ID),
   list(name = "rgi-card",
        query = lst$rgi.diamond$query,
        hit = lst$rgi.diamond$Model_ID),
@@ -1472,7 +1672,16 @@ cluster_lookup_specs <- list(
        hit = lst$resfinder.norm$Accession.no.),
   list(name = "amrfinderplus",
        query = lst$amrfinder.norm.prot$query,
-       hit = lst$amrfinder.norm.prot$Closest.reference.accession)
+       hit = lst$amrfinder.norm.prot$Closest.reference.accession),
+  list(name = "amrfinderplus.nt",
+       query = lst$amrfinder.norm$query,
+       hit =lst$amrfinder.norm$Closest.reference.accession),
+  list(name = "fargene",
+       query = lst$fargene$query,
+       hit = lst$fargene$ref_gene),
+  list(name = "fargene.prot",
+       query = lst$fargene.prot$query,
+       hit = lst$fargene.prot$ref_gene)
 )
 
 tool_map <- c(
@@ -1482,34 +1691,37 @@ tool_map <- c(
   "ABRicate-NCBI"      = "abricate-ncbi",
   "ABRicate-ResFinder" = "abricate-resfinder",
   "AMRFinderPlus"      = "amrfinderplus",
-  "AMRFinderPlus-nt"   = "amrfinderplus",
+  "AMRFinderPlus-nt"   = "amrfinderplus.nt",
   "DeepARG"            = "deeparg",
-  "DeepARG-aa"         = "deeparg",
+  "DeepARG-aa"         = "deeparg-aa",
   "DeepARG70"          = "deeparg",
   "DeepARG80"          = "deeparg",
   "DeepARG90"          = "deeparg",
   "ResFinder"          = "resfinder",
-  "RGI-BLAST"          = "rgi-card",
+  "RGI-BLAST"          = "rgi-blast",
   "RGI-DIAMOND"        = "rgi-card",
-  "RGI-DIAMOND-aa"     = "rgi-card",
+  "RGI-DIAMOND-aa"     = "rgi-diamond-prot-card",
   "RGI-DIAMOND70"      = "rgi-card",
   "RGI-DIAMOND80"      = "rgi-card",
-  "RGI-DIAMOND90"      = "rgi-card"
+  "RGI-DIAMOND90"      = "rgi-card",
+  "fARGene"  = "fargene",
+  "fARGene-aa"  = "fargene.prot"
 )
 
 query_clusters <- do.call(rbind, lapply(cluster_lookup_specs, function(s) {
-  db_cluster <- db_cluster %>% filter(tool == s$name)
-  idx <- match(s$hit, db_cluster$gene_revised)
+  db_cluster0 <- db_cluster %>% filter(tool == s$name)
+  idx <- match(s$hit, db_cluster0$gene_revised)
   data.frame(
     query = s$query,
     tool = s$name,
-    gene_reference = db_cluster$gene[idx],
-    gene_db = db_cluster$gene_revised[idx],
-    cluster_99 = db_cluster$cluster_99[idx],
-    cluster_99_cov60 = db_cluster$cluster_99_cov60[idx],
-    cluster_99_cov80 = db_cluster$cluster_99_cov80[idx],
-    cluster_99_cov90 = db_cluster$cluster_99_cov90[idx]
-  )
+    gene_reference = db_cluster0$gene[idx],
+    gene_db = db_cluster0$gene_revised[idx],
+    cluster_90_cov60 = db_cluster0$cluster_90_cov60[idx],
+    cluster_90_cov90 = db_cluster0$cluster_90_cov90[idx],
+    cluster_95_cov60 = db_cluster0$cluster_95_cov60[idx],
+    cluster_95_cov90 = db_cluster0$cluster_95_cov90[idx],
+    cluster_99_cov60 = db_cluster0$cluster_99_cov60[idx],
+    cluster_99_cov90 = db_cluster0$cluster_99_cov90[idx])
 }))
 
 unigenes <- unigenes %>%
@@ -1517,44 +1729,41 @@ unigenes <- unigenes %>%
   left_join(query_clusters, by = c("query" = "query", "tool_key" = "tool")) %>%
   select(-tool_key)
 
-
-
-detection_specs <- list(
-  list(name = "abricate-argannot",  hit = lst$abricate.argannot.norm$gene),
-  list(name = "abricate-megares",   hit = lst$abricate.megares.norm$V6),
-  list(name = "abricate-card",      hit = lst$abricate.card.norm$V6),
-  list(name = "abricate-ncbi",      hit = lst$abricate.ncbi.norm$V6),
-  list(name = "abricate-resfinder", hit = lst$abricate.resfinder.norm$gene),
-  list(name = "deeparg",            hit = lst$deeparg.norm$best.hit),
-  list(name = "rgi-card",        hit = lst$rgi.diamond$Model_ID),
-  list(name = "resfinder",          hit = lst$resfinder.norm$Accession.no.),
-  list(name = "amrfinderplus",      hit = lst$amrfinder.norm.prot$Closest.reference.accession)
-)
-
-db_cluster$detected <- 0L
-for (s in detection_specs) {
-  idx <- db_cluster$tool == s$name
-  db_cluster$detected[idx] <- as.integer(db_cluster$gene_revised[idx] %in% s$hit)
-}
+# detection_specs <- list(
+#   list(name = "abricate-argannot",  hit = lst$abricate.argannot.norm$gene),
+#   list(name = "abricate-megares",   hit = lst$abricate.megares.norm$V6),
+#   list(name = "abricate-card",      hit = lst$abricate.card.norm$V6),
+#   list(name = "abricate-ncbi",      hit = lst$abricate.ncbi.norm$V6),
+#   list(name = "abricate-resfinder", hit = lst$abricate.resfinder.norm$gene),
+#   list(name = "deeparg",            hit = lst$deeparg.norm$best.hit),
+#   list(name = "rgi-card",        hit = lst$rgi.diamond$Model_ID),
+#   list(name = "resfinder",          hit = lst$resfinder.norm$Accession.no.),
+#   list(name = "amrfinderplus",      hit = lst$amrfinder.norm.prot$Closest.reference.accession)
+# )
+# 
+# db_cluster$detected <- 0L
+# for (s in detection_specs) {
+#   idx <- db_cluster$tool == s$name
+#   db_cluster$detected[idx] <- as.integer(db_cluster$gene_revised[idx] %in% s$hit)
+# }
 
 
 ###
+
 unigenes0 <- unigenes 
 unigenes <- unigenes0 %>% select(c("query", "tool","new_level", "id", 
-                                  "rank_aro", "rank_70", "rank_80", 
+                                  "rank_aro", "rank_80", 
                                   "rank_90", "rank_95","rank_highest_bit_80", 
-                                  "cluster_99", "cluster_99_cov60", 
-                                  "cluster_99_cov80", "cluster_99_cov90","ARO"))
+                                  "cluster_90_cov60", "cluster_90_cov90",
+                                  "cluster_95_cov60", "cluster_95_cov90",
+                                  "cluster_99_cov60", "cluster_99_cov90", "ARO"))
 
 
 lst <- lapply(lst, function(df) {
   df %>%
-    left_join(unigenes %>% select(query, tool, cluster_99), by = c("query", "tool"))})
-
-lst <- lapply(lst, function(df) {
-  df %>%
-    left_join(unigenes %>% select(query, tool, cluster_99_cov60, 
-                                  cluster_99_cov80, cluster_99_cov90), by = c("query", "tool"))})
+    left_join(unigenes %>% select(query, tool, cluster_90_cov60, cluster_90_cov90, 
+                                  cluster_95_cov60, cluster_95_cov90, 
+                                  cluster_99_cov60, cluster_99_cov90), by = c("query", "tool"))})
 
 lst$deeparg.norm.id70 <- lst$deeparg.norm[lst$deeparg.norm$id>=70,]
 lst$deeparg.norm.id70$tool <- "DeepARG70"
@@ -1572,16 +1781,28 @@ lst$rgi.diamond.id90$tool <- "RGI-DIAMOND90"
 
 
 
-# function to aggregate the abundance to the class level
-#
 
+
+# lst <- lapply(lst, function(x) x %>% filter(query %in% genes_right_habitat))
+# unigenes <- unigenes %>% filter(query %in% genes_right_habitat)
+
+saveRDS(unigenes, 
+        file = "code_R_analysis/output_abundance_diversity_resistome/unigenes_per_tool_all_GMGC.rds", compress = T)
+write.csv(unigenes, 
+          file = gzfile("code_R_analysis/output_abundance_diversity_resistome/unigenes_per_tool_all_GMGC.csv.gz"), row.names = F)
+
+saveRDS(unigenes %>% filter(query %in% genes_right_habitat), 
+        file = "code_R_analysis/output_abundance_diversity_resistome/unigenes_per_tool.rds", compress = T)
+write.csv(unigenes %>% filter(query %in% genes_right_habitat), 
+          file = gzfile("code_R_analysis/output_abundance_diversity_resistome/unigenes_per_tool.csv.gz"), row.names = F)
+
+# function to aggregate the abundance to the class level
 
 abundance_parent <- function(abund_df, d) {
   Y <- abund_df %>%
     inner_join(
       d %>% select(query,  new_level),
-      by = c("X" = "query")
-    )
+      by = c("X" = "query"))
   
   tool_name <- d$tool[1]
   
@@ -1591,8 +1812,7 @@ abundance_parent <- function(abund_df, d) {
       normed10m = sum(normed10m),
       distinct_unigenes_rarefied = n_distinct(X[rarified_count > 0]),
       distinct_unigenes_raw = n_distinct(X),
-      .groups = "drop"
-    ) %>%
+      .groups = "drop") %>%
     mutate(tool = tool_name, gene = new_level, aggregation = "new_level") %>%
     select(sample, gene, aggregation, tool, normed10m,
            distinct_unigenes_rarefied, distinct_unigenes_raw, new_level)
@@ -1606,8 +1826,7 @@ abundance_other_aggregation <- function(abund_df, d, level_of_aggregation) {
   Y <- abund_df %>%
     inner_join(
       d %>% select(query, new_level, all_of(level_of_aggregation)),
-      by = c("X" = "query")
-    )
+      by = c("X" = "query"))
   
   tool_name <- d$tool[1]
   
@@ -1621,8 +1840,7 @@ abundance_other_aggregation <- function(abund_df, d, level_of_aggregation) {
       normed10m = sum(normed10m),
       distinct_unigenes_rarefied = n_distinct(X[rarified_count > 0]),
       distinct_unigenes_raw = n_distinct(X),
-      .groups = "drop"
-    ) %>%
+      .groups = "drop") %>%
     mutate(tool = tool_name) %>%
     select(sample, new_level, gene, aggregation, tool, normed10m,
            distinct_unigenes_rarefied, distinct_unigenes_raw)
@@ -1642,22 +1860,21 @@ lst_abundance_diversity <- lst_abundance_diversity %>%
 saveRDS(lst_abundance_diversity, file = "code_R_analysis/output_abundance_diversity_resistome/abundance_diversity.rds", compress = T)
 write.csv(lst_abundance_diversity, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity.csv.gz"), row.names = F)
 
-c("rank_aro", "ARO", "rank_highest_bit_80", "rank_80", "cluster_99")
 
 # abundance per aro
 
-lst_abundance_diversity_aro <- bind_rows(
-  bind_rows(lapply(lst, function(d) abundance_other_aggregation(args_abundances, d, "ARO"))))
+# lst_abundance_diversity_aro <- bind_rows(
+#  bind_rows(lapply(lst, function(d) abundance_other_aggregation(args_abundances, d, "ARO"))))
 
-lst_abundance_diversity_aro <- lst_abundance_diversity_aro %>% 
-   mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)]) %>% 
-   mutate(abundance = normed10m/10) %>% 
-   rename(richness = distinct_unigenes_rarefied, richness_no_rarified = distinct_unigenes_raw) %>% 
-   select(c(sample, gene, aggregation, tool, abundance, richness, richness_no_rarified, new_level))
+# lst_abundance_diversity_aro <- lst_abundance_diversity_aro %>% 
+#   mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)]) %>% 
+#   mutate(abundance = normed10m/10) %>% 
+#   rename(richness = distinct_unigenes_rarefied, richness_no_rarified = distinct_unigenes_raw) %>% 
+#   select(c(sample, gene, aggregation, tool, abundance, richness, richness_no_rarified, new_level))
  
- saveRDS(lst_abundance_diversity_aro, file = "code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_aro.rds", compress = T)
-write.csv(lst_abundance_diversity_aro, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_aro.csv.gz"), row.names = F)
-rm(lst_abundance_diversity_aro)
+# saveRDS(lst_abundance_diversity_aro, file = "code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_aro.rds", compress = T)
+# write.csv(lst_abundance_diversity_aro, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_aro.csv.gz"), row.names = F)
+# rm(lst_abundance_diversity_aro)
 
 # abundance per rank_aro
 
@@ -1690,83 +1907,34 @@ write.csv(lst_abundance_diversity_rank_highest_bit_80, file = gzfile("code_R_ana
 rm(lst_abundance_diversity_rank_highest_bit_80)
 
 
-# abundance per cluster_99
+#  abundance per cluster_99
+levs <- c("cluster_90_cov90",
+  "cluster_95_cov90",
+  "cluster_99_cov90")
 
-lst_abundance_diversity_cluster_99 <- bind_rows(
-  bind_rows(lapply(lst, function(d) abundance_other_aggregation(args_abundances, d, "cluster_99"))))
+for(l in levs){
+  lst_abundance_diversity_cluster_99 <- bind_rows(
+    bind_rows(lapply(lst, function(d) abundance_other_aggregation(args_abundances, d, l))))
+  
+  lst_abundance_diversity_cluster_99 <- lst_abundance_diversity_cluster_99 %>% 
+    mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)]) %>% 
+    mutate(abundance = normed10m/10) %>% 
+    rename(richness = distinct_unigenes_rarefied, richness_no_rarified = distinct_unigenes_raw) %>% 
+    select(c(sample, gene, aggregation, tool, abundance, richness, richness_no_rarified, new_level))
+  
+  saveRDS(lst_abundance_diversity_cluster_99, file = paste0(paste0("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_", l), ".rds"), compress = T)
+  write.csv(lst_abundance_diversity_cluster_99, file = gzfile(paste0(paste0("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_", l), ".csv.gz")), row.names = F)
+  
+}
 
-lst_abundance_diversity_cluster_99 <- lst_abundance_diversity_cluster_99 %>% 
-  mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)]) %>% 
-  mutate(abundance = normed10m/10) %>% 
-  rename(richness = distinct_unigenes_rarefied, richness_no_rarified = distinct_unigenes_raw) %>% 
-  select(c(sample, gene, aggregation, tool, abundance, richness, richness_no_rarified, new_level))
-
-saveRDS(lst_abundance_diversity_cluster_99, file = "code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_cluster_99.rds", compress = T)
-write.csv(lst_abundance_diversity_cluster_99, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_cluster_99.csv.gz"), row.names = F)
 rm(lst_abundance_diversity_cluster_99)
 
 
-lst_abundance_diversity_cluster_99_cov60 <- bind_rows(
-  bind_rows(lapply(lst, function(d) abundance_other_aggregation(args_abundances, d, "cluster_99_cov60"))))
-
-lst_abundance_diversity_cluster_99_cov60 <- lst_abundance_diversity_cluster_99_cov60 %>% 
-  mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)]) %>% 
-  mutate(abundance = normed10m/10) %>% 
-  rename(richness = distinct_unigenes_rarefied, richness_no_rarified = distinct_unigenes_raw) %>% 
-  select(c(sample, gene, aggregation, tool, abundance, richness, richness_no_rarified, new_level))
-
-saveRDS(lst_abundance_diversity_cluster_99_cov60, file = "code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_cluster_99_cov60.rds", compress = T)
-write.csv(lst_abundance_diversity_cluster_99_cov60, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_cluster_99_cov60.csv.gz"), row.names = F)
-rm(lst_abundance_diversity_cluster_99_cov60)
 
 
-lst_abundance_diversity_cluster_99_cov80 <- bind_rows(
-  bind_rows(lapply(lst, function(d) abundance_other_aggregation(args_abundances, d, "cluster_99_cov80"))))
-
-lst_abundance_diversity_cluster_99_cov80 <- lst_abundance_diversity_cluster_99_cov80 %>% 
-  mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)]) %>% 
-  mutate(abundance = normed10m/10) %>% 
-  rename(richness = distinct_unigenes_rarefied, richness_no_rarified = distinct_unigenes_raw) %>% 
-  select(c(sample, gene, aggregation, tool, abundance, richness, richness_no_rarified, new_level))
-
-saveRDS(lst_abundance_diversity_cluster_99_cov80, file = "code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_cluster_99_cov80.rds", compress = T)
-write.csv(lst_abundance_diversity_cluster_99_cov80, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_cluster_99_cov80.csv.gz"), row.names = F)
-rm(lst_abundance_diversity_cluster_99_cov80)
-
-
-#lst_abundance_diversity_cluster_99_cov90 <- bind_rows(
-#  bind_rows(lapply(lst, function(d) abundance_other_aggregation(args_abundances, d, "cluster_99_cov90"))))
-
-#lst_abundance_diversity_cluster_99_cov90 <- lst_abundance_diversity_cluster_99_cov90 %>% 
-#  mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)]) %>% 
-#  mutate(abundance = normed10m/10) %>% 
-#  rename(richness = distinct_unigenes_rarefied, richness_no_rarified = distinct_unigenes_raw) %>% 
-#  select(c(sample, gene, aggregation, tool, abundance, richness, richness_no_rarified, new_level))
-
-#saveRDS(lst_abundance_diversity_cluster_99_cov90, file = "code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_cluster_99_cov90.rds", compress = T)
-#write.csv(lst_abundance_diversity_cluster_99_cov90, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_cluster_99_cov90.csv.gz"), row.names = F)
-#rm(lst_abundance_diversity_cluster_99_cov90)
-
-
-lst_abundance_diversity0 <- lst_abundance_diversity
-
-# lst_abundance_diversity <- lst_abundance_diversity %>% filter(aggregation %in% "new_level") %>% select(-c(aggregation))
-#sum(is.na(unigenes$new_level ))
-#ARO:3000345
-
-saveRDS(unigenes, file = "code_R_analysis/output_abundance_diversity_resistome/unigenes_per_tool.rds", compress = T)
-write.csv(unigenes, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/unigenes_per_tool.csv.gz"), row.names = F)
-
-
-
-
+##
 
 rm(db_cluster, detection_specs, cluster_lookup_specs)
-rm(sarg_argnorm, sarg, sarg_argnorm_curation, sarg_blast, 
-   sarg_blast_70_80, sarg_blast_80_80, sarg_blast_90_80, 
-   sarg_blast_95_80, sarg_blast_highest_bit_80)
-
-
 
 
 #### CORE AND PAN 
@@ -1807,70 +1975,16 @@ lst <- lapply(lst, function(x) x %>%
 lst2 <- lapply(lst, function(x) x %>% ungroup() %>% select(-c(centroid, n, new_level_centroid, new_level_majority)))
 
 # save the result of all tools
-saveRDS(lst2,  file = "code_R_analysis/output_abundance_diversity_resistome/results_tools.rds", compress = T)
 
+saveRDS(lapply(lst2, function(x) x %>% filter(query %in% genes_right_habitat)), file = "code_R_analysis/output_abundance_diversity_resistome/results_tools.rds", compress = T)
+saveRDS(lst2,  file = "code_R_analysis/output_abundance_diversity_resistome/results_tools_all_GMGC.rds", compress = T)
+
+# saveRDS(lst,  file = "code_R_analysis/output_abundance_diversity_resistome/results_tools_all_GMGC.rds", compress = T)
 
 
 
 # functions for core resistome
 
-cut_size_core <- function(df, cut) {
-  return(df %>% ungroup() %>% filter(p >= cut) %>% # filter by proportion of samples with a specific gene
-           mutate(cut = cut, cnt = 1) %>% 
-           ungroup() %>% 
-           select(centroid, new_level_centroid, tool, habitat, cut, cnt))
-}
-
-filter_samples_core <- function(args_abundances_core, d, samples_to_collect_number){
-  DF <- args_abundances_core %>% 
-    filter(query %in% d$query) %>% # filter unigenes with abundances that are in the results of the tool d
-    mutate(tool = d$tool[1]) %>% # fetch tool name
-    mutate(new_level_centroid = d$new_level_centroid[match(query, d$query)]) # fetch class of the centroid
-  
-  if (sum(is.na(DF$new_level_centroid)) > 0) {
-    print(DF[is.na(DF$new_level_centroid),])
-    stop("NA values detected in new_level for tool: ", d$tool[1])
-  }
-  
-  DF <- DF %>%
-    select(centroid, new_level_centroid, sample, tool, habitat) %>% 
-    #ungroup() %>% group_by(tool, habitat) %>% mutate(N = n_distinct(sample)) %>% # total number of samples per habitat
-    ungroup() %>% 
-    group_by(tool, habitat) %>% 
-    mutate(N = samples_to_collect_number$n[match(habitat, samples_to_collect_number$habitat)]) %>% # total number of samples per habitat
-    
-    ungroup() %>% group_by(centroid, habitat) %>% mutate(n = n_distinct(sample)) %>% # number of samples where a centroid appears per habitat
-    ungroup() %>% mutate( p = n / N) %>% filter(p >= 0.1) %>% # proportion of samples with the centroid
-    group_by(habitat, centroid) %>% 
-    slice_head(n = 1) %>% ungroup() %>% select(-sample)
-    return(DF)
-}
-
-
-core_resistome <- function(args_abundances, samples_to_collect, sed, lst, mx_sample_size, j, cuts, df) {
-  set.seed(seed = sed) # random seed
-  
-  samples_to_collect_number <-  samples_to_collect  %>% ungroup() %>% group_by(habitat) %>%
-    slice_sample(n = mx_sample_size,  replace = FALSE) %>% summarise(n = n())
-  
-  samples_to_collect2 <- samples_to_collect  %>% ungroup() %>% group_by(habitat) %>%
-    slice_sample(n = mx_sample_size,  replace = FALSE) %>%
-    ungroup() %>% select(sample) %>% pull() 
-
-  args_abundances_core <- args_abundances %>% filter(sample %in% samples_to_collect2) # subsample the metagenomic samples of a habitat
-  args_abundances_core <- do.call(rbind, lapply(lst, function(d) filter_samples_core(args_abundances_core, d, samples_to_collect_number))) # find the proportion of samples with the centroid 
-  args_abundances_core_cut <- do.call(rbind, lapply(seq_along(cuts), function(k) {cut_size_core(args_abundances_core, cuts[k])})) # filter by proportion
-
-  df <- df %>% bind_rows(args_abundances_core_cut)
-  df <- df %>% ungroup() %>% group_by(centroid, new_level_centroid, tool, habitat, cut) %>%
-    summarise(cnt = sum(cnt))
-  return(df)
-}
-
-seeds <- seq(2001, 2500, 1)
-#seeds <- c(2001)
-cuts <- c(0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9)
-#cuts <- c(0.5)
 
 samples_to_collect <- metadata %>%
   group_by(habitat) %>%
@@ -1880,145 +1994,254 @@ samples_to_collect <- metadata %>%
   ungroup() %>%
   group_by(habitat)
 
-df <- data.frame(centroid = NULL, new_level_centroid = NULL, tool = NULL, habitat = NULL, cut = NULL, cnt = NULL)
 
-for(j in 1:length(seeds)){
-  print(j)
-  df <- core_resistome(args_abundances %>% filter(rarified_count > 0),  samples_to_collect, seeds[j], lst, 100, j, cuts, df)
-}
-
-saveRDS(df, file = "code_R_analysis/output_abundance_diversity_resistome/core_resistome.rds", compress = T)
-write.csv(df, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/core_resistome.csv.gz"), row.names = F)
-
-# functions for pan-resistome 
-
-# aggregate 
-
-filter_samples_pan <- function(args_abundances_pan, d, j){
-
-  DF <- args_abundances_pan %>% 
-    filter(query %in% d$query) %>% 
-    mutate(tool = d$tool[1]) %>%
-    mutate(new_level_centroid = d$new_level_centroid[match(query, d$query)])
-  
-  Y_new_level <- DF %>% group_by(tool, habitat, new_level_centroid) %>% 
-    summarise(unigenes = n_distinct(centroid)) %>%
-    mutate(aggregation = "new_level_centroid", epoch = j) %>% ungroup() %>%
-    rename(gene_class = new_level_centroid)
-  
-  return(Y_new_level)
-}
-
-# functions for pan-resistome per habitat and tool
-
-pan_resistome <- function(df, samples_to_collect, sed, lst, mx_sample_size, j) {
-  set.seed(seed = sed)
-  
-  samples_to_collect2 <- samples_to_collect  %>%
-    slice_sample(n = mx_sample_size,  replace = FALSE) %>%  
-    ungroup() %>% pull(sample)
-  
-  args_abundances_pan <- df %>% filter(sample %in% samples_to_collect2)
-  args_abundances_pan_filter <- bind_rows(lapply(lst, function(d) filter_samples_pan(args_abundances_pan, d, j)))
-  
-  return(args_abundances_pan_filter)
-}
-
-args_abundances_rarified <- args_abundances %>% filter(rarified_count > 0)
-
-df.pan.list <- vector("list", length(seeds))
-
-# subsamples for pan-resistome
-
-for(j in seq_along(seeds)){
-  print(j)
-  df.pan.list[[j]] <- pan_resistome(args_abundances_rarified, samples_to_collect, seeds[j], lst, 100, j)
-}
-
-df.pan2 <- bind_rows(df.pan.list)
-
-saveRDS(df.pan2, file = "code_R_analysis/output_abundance_diversity_resistome/pan_resistome.rds", compress = T)
-write.csv(df.pan2, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/pan_resistome.csv.gz"), row.names = F)
-
-
-
-
-
-######
-#######
-######
-
-
-args_abundances_rarified <- args_abundances %>% filter(rarified_count > 0)
-
-tool_map <- bind_rows(lapply(lst, function(d) {
-  d %>% ungroup() %>% select(query, tool, new_level_centroid) %>% distinct()
-}))
-
-# One merged long table: every (sample, query, centroid, habitat) that some
-# tool called, tagged with which tool(s) called it and that tool's
-# new_level_centroid. This replaces the repeated per-iteration join.
-
-base_long <- bind_rows(lapply(unique(tool_map$tool), function(tl) {
-  tm <- tool_map %>% filter(tool == tl)
-  args_abundances_rarified %>%
-    inner_join(tm, by = "query", relationship = "many-to-one") %>%
-    select(sample, query, centroid, habitat, tool, new_level_centroid)
-}))
-
-
-samples_to_collect <- metadata %>%
-  group_by(habitat) %>%
-  distinct(sample_id) %>%
-  rename(sample = sample_id) %>%
-  mutate(n_unique = n()) %>%
-  ungroup() %>%
-  group_by(habitat)
-
-CUT <- 0.5
-seeds <- seq(2001, 2500, 1)
 mx_sample_size <- 100
+N_hab <- samples_to_collect %>% 
+  ungroup() %>% 
+  count(habitat, name = "N") %>% 
+  mutate(m = pmin(N, mx_sample_size))
 
-draw_subsample <- function(sed, mx_size) {
-  set.seed(sed)
-  samples_to_collect %>%
-    slice_sample(n = mx_size, replace = FALSE) %>%
-    ungroup()
-}
+gc()
 
-core_iteration <- function(sed) {
-  drawn <- draw_subsample(sed, mx_sample_size)
-  N <- drawn %>% count(habitat, name = "N")
+
+
+habitats <- unique(metadata$habitat)
+res <- list()
+
+for (h in habitats) {
+  message("habitat: ", h)
   
-  base_long %>%
-    inner_join(drawn %>% select(sample, habitat), by = c("sample", "habitat")) %>%
-    left_join(N, by = "habitat") %>%
-    group_by(tool, habitat, centroid) %>%
-    mutate(n = n_distinct(sample), p = n / N) %>%
-    ungroup() %>%
-    filter(p >= CUT) %>%
-    distinct(query, centroid, new_level_centroid, habitat, tool, p) %>%
-    mutate(seed = sed)
-}
-
-
-pan_iteration <- function(sed) {
-  drawn <- draw_subsample(sed, mx_sample_size)
+  samp_h <- unique(metadata$sample_id[metadata$habitat == h])
+  N <- length(samp_h)
+  m <- min(N, mx_sample_size)
   
-  base_long %>%
-    inner_join(drawn %>% select(sample, habitat), by = c("sample", "habitat")) %>%
-    distinct(query, centroid, new_level_centroid, habitat, tool) %>%
-    mutate(seed = sed)
+  ab_h <- args_abundances %>% 
+    filter(habitat == h, rarified_count > 0, sample %in% samp_h) %>% 
+    distinct(sample, query, centroid)
+  
+  for (d in lst) {
+    res[[length(res) + 1]] <- ab_h %>% 
+      filter(query %in% d$query) %>% 
+      mutate(new_level_centroid = d$new_level_centroid[match(query, d$query)]) %>% 
+      group_by(centroid) %>% 
+      summarise(new_level_centroid = first(new_level_centroid),
+                k = n_distinct(sample), .groups = "drop") %>% 
+      mutate(tool = d$tool[1], habitat = h, N = N, m = m)
+  }
+  
+  rm(ab_h); gc()
 }
 
-core_list <- vector("list", length(seeds))
-pan_list  <- vector("list", length(seeds))
-for (j in seq_along(seeds)) {
-  print(j)
-  core_list[[j]] <- core_iteration(seeds[j])
-  pan_list[[j]]  <- pan_iteration(seeds[j])
+k_df <- bind_rows(res)
+
+set.seed(202610)
+
+cuts <- 0.5
+
+df <- k_df %>% 
+  tidyr::crossing(cut = cuts) %>% 
+  mutate(t      = ceiling(cut * m - 1e-9),
+         p_core = phyper(t - 1, k, N - k, m, lower.tail = FALSE),
+         cnt    = p_core * 500) %>% 
+  filter(p_core > 0) %>% 
+  select(centroid, new_level_centroid, tool, habitat, cut, p_core, cnt)
+
+core <- df %>% filter(cnt > 450) 
+
+pan <- k_df %>% 
+  mutate(p_pan = phyper(0, k, N - k, m, lower.tail = FALSE),   # P(at least 1 of m samples)
+         cnt   = p_pan * 500)
+
+pan_size <- pan %>% 
+  group_by(tool, habitat, new_level_centroid) %>% 
+  summarise(pan_size = sum(p_pan), .groups = "drop")
+
+saveRDS(core %>% rename(new_level = new_level_centroid) , 
+        file = "code_R_analysis/output_abundance_diversity_resistome/core_resistome.rds", 
+        compress = T)
+
+write.csv(core %>% rename(new_level = new_level_centroid), 
+          file = gzfile("code_R_analysis/output_abundance_diversity_resistome/core_resistome.csv.gz"), 
+          row.names = F)
+
+saveRDS(pan %>%rename(new_level = new_level_centroid) , 
+        file = "code_R_analysis/output_abundance_diversity_resistome/pan_resistome.rds", compress = T)
+
+write.csv(pan %>%rename(new_level = new_level_centroid) , 
+          file = gzfile("code_R_analysis/output_abundance_diversity_resistome/pan_resistome.csv.gz"), row.names = F)
+
+
+
+write.csv(k_df, 
+          file = gzfile("code_R_analysis/output_abundance_diversity_resistome/number_samples_per_centroid_per_habitat.csv.gz"), 
+          row.names = F)
+
+
+write.csv(k_df, 
+          file = gzfile("code_R_analysis/output_abundance_diversity_resistome/number_samples_per_centroid_per_habitat.csv.gz"), 
+          row.names = F)
+
+
+res <- list()
+
+for (h in habitats) {
+  message("habitat: ", h)
+  
+  samp_h <- unique(metadata$sample_id[metadata$habitat == h])
+  N <- length(samp_h)
+  m <- min(N, mx_sample_size)
+  
+  ab_h <- args_abundances %>% 
+    filter(habitat == h, rarified_count > 0, sample %in% samp_h) %>% 
+    distinct(sample, query, centroid)
+  
+  for (d in lst) {
+    res[[length(res) + 1]] <- ab_h %>% 
+      filter(query %in% d$query) %>% 
+      mutate(new_level = d$new_level[match(query, d$query)]) %>% 
+      group_by(query) %>% 
+      summarise(new_level = first(new_level),
+                k = n_distinct(sample), .groups = "drop") %>% 
+      mutate(tool = d$tool[1], habitat = h, N = N, m = m)
+  }
+  
+  rm(ab_h); gc()
 }
 
-core_resistome_detail <- bind_rows(core_list)   # (query, centroid, new_level_centroid, habitat, tool, p, seed)
-pan_resistome_detail  <- bind_rows(pan_list)
+k_df_unigenes <- bind_rows(res)
 
+write.csv(k_df_unigenes, 
+          file = gzfile("code_R_analysis/output_abundance_diversity_resistome/number_samples_per_unigene_per_habitat.csv.gz"), 
+          row.names = F)
+
+###
+
+
+
+# cut_size_core <- function(df, cut) {
+#   return(df %>% ungroup() %>% filter(p >= cut) %>% # filter by proportion of samples with a specific gene
+#            mutate(cut = cut, cnt = 1) %>% 
+#            ungroup() %>% 
+#            select(centroid, new_level_centroid, tool, habitat, cut, cnt))
+# }
+# 
+# filter_samples_core <- function(args_abundances_core, d, samples_to_collect_number){
+#   DF <- args_abundances_core %>% 
+#     filter(query %in% d$query) %>% # filter unigenes with abundances that are in the results of the tool d
+#     mutate(tool = d$tool[1]) %>% # fetch tool name
+#     mutate(new_level_centroid = d$new_level_centroid[match(query, d$query)]) # fetch class of the centroid
+#   
+#   if (sum(is.na(DF$new_level_centroid)) > 0) {
+#     print(DF[is.na(DF$new_level_centroid),])
+#     stop("NA values detected in new_level for tool: ", d$tool[1])
+#   }
+#   
+#   DF <- DF %>%
+#     select(centroid, new_level_centroid, sample, tool, habitat) %>% 
+#     #ungroup() %>% group_by(tool, habitat) %>% mutate(N = n_distinct(sample)) %>% # total number of samples per habitat
+#     ungroup() %>% 
+#     group_by(tool, habitat) %>% 
+#     mutate(N = samples_to_collect_number$n[match(habitat, samples_to_collect_number$habitat)]) %>% # total number of samples per habitat
+#     
+#     ungroup() %>% group_by(centroid, habitat) %>% mutate(n = n_distinct(sample)) %>% # number of samples where a centroid appears per habitat
+#     ungroup() %>% mutate( p = n / N) %>% filter(p >= 0.1) %>% # proportion of samples with the centroid
+#     group_by(habitat, centroid) %>% 
+#     slice_head(n = 1) %>% ungroup() %>% select(-sample)
+#   return(DF)
+# }
+# 
+# core_resistome <- function(args_abundances, samples_to_collect, sed, lst, mx_sample_size, j, cuts, df) {
+#   set.seed(seed = sed) # random seed
+#   
+#   samples_to_collect_number <-  samples_to_collect  %>% ungroup() %>% group_by(habitat) %>%
+#     slice_sample(n = mx_sample_size,  replace = FALSE) %>% summarise(n = n())
+#   
+#   samples_to_collect2 <- samples_to_collect  %>% ungroup() %>% group_by(habitat) %>%
+#     slice_sample(n = mx_sample_size,  replace = FALSE) %>%
+#     ungroup() %>% select(sample) %>% pull() 
+#   
+#   args_abundances_core <- args_abundances %>% filter(sample %in% samples_to_collect2) # subsample the metagenomic samples of a habitat
+#   args_abundances_core <- do.call(rbind, lapply(lst, function(d) filter_samples_core(args_abundances_core, d, samples_to_collect_number))) # find the proportion of samples with the centroid 
+#   args_abundances_core_cut <- do.call(rbind, lapply(seq_along(cuts), function(k) {cut_size_core(args_abundances_core, cuts[k])})) # filter by proportion
+#   
+#   df <- df %>% bind_rows(args_abundances_core_cut)
+#   df <- df %>% ungroup() %>% group_by(centroid, new_level_centroid, tool, habitat, cut) %>%
+#     summarise(cnt = sum(cnt))
+#   return(df)
+# }
+# 
+# seeds <- seq(2001, 2500, 1)
+# 
+# cuts <- c( 0.4, 0.5, 0.6, 0.7, 0.8)
+# 
+# 
+# 
+# df <- data.frame(centroid = NULL, new_level_centroid = NULL, tool = NULL, habitat = NULL, cut = NULL, cnt = NULL)
+# 
+# for(j in 1:length(seeds)){
+#   print(j)
+#   df <- core_resistome(args_abundances %>% filter(rarified_count > 0),  
+#                        samples_to_collect, seeds[j], lst, 100, j, cuts, df)
+# }
+# 
+# saveRDS(df, file = "code_R_analysis/output_abundance_diversity_resistome/core_resistome.rds", compress = T)
+# write.csv(df, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/core_resistome.csv.gz"), row.names = F)
+# 
+# ## functions for pan-resistome 
+# 
+# ## aggregate 
+# 
+# filter_samples_pan <- function(args_abundances_pan, d, j){
+# 
+#   DF <- args_abundances_pan %>% 
+#     filter(query %in% d$query) %>% 
+#     mutate(tool = d$tool[1]) %>%
+#     mutate(new_level_centroid = d$new_level_centroid[match(query, d$query)])
+#   
+#   Y_new_level <- DF %>% group_by(tool, habitat, new_level_centroid) %>% 
+#     summarise(unigenes = n_distinct(centroid)) %>%
+#     mutate(aggregation = "new_level_centroid", epoch = j) %>% ungroup() %>%
+#     rename(gene_class = new_level_centroid)
+#   
+#   return(Y_new_level)
+# }
+# 
+# # functions for pan-resistome per habitat and tool
+# 
+# pan_resistome <- function(df, samples_to_collect, sed, lst, mx_sample_size, j) {
+#   set.seed(seed = sed)
+#   
+#   samples_to_collect2 <- samples_to_collect  %>%
+#     slice_sample(n = mx_sample_size,  replace = FALSE) %>%  
+#     ungroup() %>% pull(sample)
+#   
+#   args_abundances_pan <- df %>% filter(sample %in% samples_to_collect2)
+#   args_abundances_pan_filter <- bind_rows(lapply(lst, function(d) filter_samples_pan(args_abundances_pan, d, j)))
+#   
+#   return(args_abundances_pan_filter)
+# }
+# 
+# args_abundances_rarified <- args_abundances %>% filter(rarified_count > 0)
+# 
+# df.pan.list <- vector("list", length(seeds))
+# 
+# # subsamples for pan-resistome
+# 
+# for(j in seq_along(seeds)){
+#   print(j)
+#   df.pan.list[[j]] <- pan_resistome(args_abundances_rarified, samples_to_collect, seeds[j], lst, 100, j)
+# }
+# 
+# df.pan2 <- bind_rows(df.pan.list)
+# 
+# saveRDS(df.pan2, file = "code_R_analysis/output_abundance_diversity_resistome/pan_resistome.rds", compress = T)
+# write.csv(df.pan2, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/pan_resistome.csv.gz"), row.names = F)
+# 
+# 
+# 
+# 
+# 
+# ######
+# #######
+# ######
+# 

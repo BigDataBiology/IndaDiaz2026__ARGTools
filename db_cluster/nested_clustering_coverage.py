@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """Nested CD-HIT clustering: first splits the full input at 90%
-identity, then re-clusters each group at 99% identity (no coverage
-filter), then re-clusters each resulting group at 99% identity with
-increasing short/long sequence coverage (-aS/-aL) requirements: 60%,
-80%, 90%. Each step re-clusters only within its parent group, same
-nesting approach as nested_clustering.py.
+identity with 60% coverage, then re-clusters each resulting group,
+in sequence, at 90%/90%, 95%/60%, 95%/90%, 99%/60%, and 99%/90%
+(identity / -aS,-aL coverage). Each step re-clusters only within its
+parent group, same nesting approach as nested_clustering.py.
 
 Usage: python3 nested_clustering_coverage.py <input.faa> [outdir]
 outdir defaults to nested_out_with_coverage.
@@ -19,10 +18,11 @@ from pathlib import Path
 CDHIT_BIN = os.environ.get("CDHIT_BIN", "cd-hit")
 # (column label, identity pct, coverage pct or None for no coverage filter)
 LEVELS = [
-    ("90", 90, None),
-    ("99", 99, None),
+    ("90_cov60", 90, 60),
+    ("90_cov90", 90, 90),
+    ("95_cov60", 95, 60),
+    ("95_cov90", 95, 90),
     ("99_cov60", 99, 60),
-    ("99_cov80", 99, 80),
     ("99_cov90", 99, 90),
 ]
 
