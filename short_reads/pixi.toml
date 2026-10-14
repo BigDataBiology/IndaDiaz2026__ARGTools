@@ -2,7 +2,7 @@
 authors = ["indajuan <indajuan@users.noreply.github.com>"]
 channels = ["bioconda", "conda-forge"]
 name = "arg-compare-short-reads"
-description = "fargene / rgi / deeparg environments for the short-reads ARG comparison pipeline"
+description = "fargene / rgi / deeparg / resfinder environments for the short-reads ARG comparison pipeline"
 platforms = ["linux-64", "osx-arm64"]
 version = "0.1.0"
 
@@ -20,18 +20,12 @@ prodigal = "*"
 [feature.fargene.pypi-dependencies]
 fargene = { git = "https://github.com/indajuan/fargene.git", rev = "c76e89728004dd56c486fb032b4a17f8a6e5f1da" }
 
-[feature.fargene.tasks]
-fargene = "fargene"
-
 [feature.rgi]
 channels = ["conda-forge", "bioconda"]
 platforms = ["linux-64"]
 
 [feature.rgi.dependencies]
 rgi = "6.0.3.*"
-
-[feature.rgi.tasks]
-rgi = "rgi"
 
 [feature.deeparg]
 platforms = ["linux-64"]
@@ -47,23 +41,70 @@ pip = "*"
 deeparg-modern = { git = "https://github.com/gaarangoa/deeparg.git", tag = "v2.0.0" }
 
 [feature.deeparg.tasks]
-deeparg = "deeparg"
+# One-time DB download -- needs to run in *this* environment (huggingface_hub
+# comes from deeparg-modern's deps), never under the jug environment below.
+# jugfile.py's prepare_deeparg_db task runs this same script the same way, so
+# `pixi run jug-execute` covers the download; this task is for staging the
+# bundle by hand (e.g. on a login node before a batch run).
+download-deeparg-db = "python download_deeparg_db.py"
+
+[feature.resfinder]
+channels = ["conda-forge", "bioconda"]
+platforms = ["linux-64"]
+
+[feature.resfinder.dependencies]
+# 4.6.0 is the release that ships resfinder_db 2.4.0, the database version used
+# for the GMGC10 runs; prepare_resfinder_db in jugfile.py clones the matching
+# resfinder_db tag. kma (which ResFinder uses on reads) comes in as a dependency.
+resfinder = "4.6.0.*"
+git = "*"
+
+[feature.ngless]
+channels = ["conda-forge", "bioconda"]
+platforms = ["linux-64"]
+
+[feature.ngless.dependencies]
+# Runs preprocess.ngl to quality-trim each sample's reads into the scratch
+# directory that the tool then runs in (see jugfile.py). 1.6 is what the
+# `ngless "1.6"` header in preprocess.ngl requires.
+ngless = "1.6.*"
+
+[feature.jug]
+channels = ["conda-forge"]
+
+[feature.jug.dependencies]
+python = ">=3.10"
+jug = "*"
+
+[feature.jug.tasks]
+# jugfile.py orchestrates ngless/fargene/rgi/deeparg/resfinder by shelling out to each
+# one's own pixi environment (`pixi run -e <env> ...`) -- it never imports
+# their packages directly, so this environment only needs jug itself. They
+# are deliberately *not* exposed as pixi tasks: tasks always run from the
+# workspace root, while every tool here runs from a per-invocation scratch
+# directory (`rgi ... --local`, in particular, resolves localDB/ from its cwd).
+# --keep-going: one sample/tool failing (e.g. a missing read directory) must not
+# stop unrelated, independent tasks from running; --keep-failed is
+# deliberately omitted so a fixed prerequisite gets retried on the next run
+# instead of staying locked as permanently failed.
+jug-execute = "jug execute jugfile.py --keep-going"
+jug-status = "jug status jugfile.py"
 
 [environments]
 fargene = { features = ["fargene"], no-default-feature = true }
 rgi = { features = ["rgi"], no-default-feature = true }
 deeparg = { features = ["deeparg"], no-default-feature = true }
+resfinder = { features = ["resfinder"], no-default-feature = true }
+ngless = { features = ["ngless"], no-default-feature = true }
+jug = { features = ["jug"], no-default-feature = true }
 
 # Usage:
 #   pixi install
-#   pixi run prepare-rgi-db <work_dir>
-#   pixi run download-deeparg-db <dir>
-#   pixi run all <r1.fastq.gz> <r2.fastq.gz> <outdir> [threads]
-# Single-tool reruns: all-fargene / all-rgi / all-deeparg
-[tasks]
-prepare-rgi-db = "bash prepare_rgi_db.sh"
-download-deeparg-db = "bash download_deeparg_db.sh"
-all = "bash run_all_tools.sh"
-all-fargene = "ONLY_TOOL=fargene bash run_all_tools.sh"
-all-rgi = "ONLY_TOOL=rgi bash run_all_tools.sh"
-all-deeparg = "ONLY_TOOL=deeparg bash run_all_tools.sh"
+#   List the samples in data/samples.txt (reads in data/metagenomes/<sample>/),
+#   adjust the settings at the top of jugfile.py if needed, then:
+#   pixi run jug-status                  # what's done / pending
+#   pixi run jug-execute                 # run everything jugfile.py asks for
+# jugfile.py is safe to re-run: jug skips work it already finished. The
+# one-time database setup (CARD localDB, DeepARG model bundle, resfinder_db)
+# is part of the graph, so jug-execute does it on the first run; to stage the
+# DeepARG bundle ahead of time instead, run `pixi run download-deeparg-db <DEEPARG_HF_DIR>`.

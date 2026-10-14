@@ -1,0 +1,27 @@
+ngless "1.6"
+
+# Quality-trims one sample's reads and writes them where the caller asks.
+#
+#   ngless preprocess.ngl <sample-read-directory> <output>.fq[.gz]
+#
+# Both arguments come from the command line so that jugfile.py can point a
+# single copy of this script at a fresh temporary directory for every tool
+# invocation (see the module docstring there).
+#
+# ngless derives the actual output names from the second argument by inserting
+# a marker before the extension, so this writes
+#
+#   <output>.pair.1.fq[.gz]
+#   <output>.pair.2.fq[.gz]
+#   <output>.singles.fq[.gz]    (only when the sample carried unpaired reads)
+#
+# The extension must be one of .fq / .fq.gz / .fq.bz2 -- ngless refuses to
+# derive names from anything else (.fastq.gz included).
+
+input = load_fastq_directory(ARGV[1])
+preproc = preprocess(input, keep_singles=False) using |r|:
+    r = substrim(r, min_quality=25)
+    if len(r) < 45:
+        discard
+
+write(preproc, ofile=ARGV[2])
