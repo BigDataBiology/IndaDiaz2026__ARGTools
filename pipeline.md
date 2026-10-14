@@ -360,18 +360,46 @@ mamba run -n rgi rgi main -a DIAMOND -i ../dna/fargene_predicted.fasta -o fargen
 mamba run -n rgi rgi main -a DIAMOND -i ../protein/fargene_predicted.fasta -o fargene_prot_predicted_faa --local --clean -t protein --include_loose
 ```
 
-# Clustering ARGs with VSEARCH
+## Clustering ARGs with CD-HIT
 
 ```bash
+conda activate cdhit_env
+cd-hit -i faa_args.fa -o cluster_args/centroids.fasta -c 0.90 -n 5 -d 0 -M 0 -T 4
+
+awk '
+BEGIN { print "gene\tcluster\tcentroid\tis_representative" }
+NR==FNR {
+    if (/^>Cluster/) { cl = $2; next }
+    if (/\*$/) {
+        match($0, />[^ ]+\.\.\./)
+        centroid[cl] = substr($0, RSTART+1, RLENGTH-4)
+    }
+    next
+}
+/^>Cluster/ { cluster = $2; next }
+{
+    match($0, />[^ ]+\.\.\./)
+    gene = substr($0, RSTART+1, RLENGTH-4)
+    rep = ($0 ~ /\*$/) ? "yes" : "no"
+    print gene "\t" cluster "\t" centroid[cluster] "\t" rep
+}
+' cluster_args/centroids.fasta.clstr cluster_args/centroids.fasta.clstr > cluster_args/gene_to_cluster.tsv
+
 # conda activate which seqkit 
-cd /work/microbiome/users/juan/arg_compare/cluster_vsearch
-zcat /work/microbiome/global_data_spire/GMGC10.data/GMGC10.95nr.fna | seqkit grep -f ../genes_prot_dna.txt > args.fa
-vsearch --cluster_fast args.fa --id 0.90 --centroids centroids.fasta --uc clusters.uc --threads 4 
+# cd /work/microbiome/users/juan/arg_compare/cluster_vsearch
+# zcat /work/microbiome/global_data_spire/GMGC10.data/GMGC10.95nr.fna | seqkit grep -f ../genes_prot_dna.txt > args.fa
+# vsearch --cluster_fast args.fa --id 0.90 --centroids centroids.fasta --uc clusters.uc --threads 4 
 # conda deactivate
 # conda activate which vsearch 
 ```
 
+## Clustering reference ARG db
 
+```bash
+cd db_cluster/
+python3 merge_and_tag.py -o merged_reference_proteins.faa
+python3 nested_clustering.py merged_reference_proteins.faa nested_out
+```
 ## Creating the table of abundance of ARGs
 
 Run the file `retrieve_aros_and_abundances.R`
@@ -402,7 +430,7 @@ in the current directory, `metadata_GMGC10.sample.meta.tsv` and
 get` first). Needs `pandas`.
 
 ```bash
-python3 count-unigenes_in_interesting_habitats.py metadata_GMGC10.sample.meta.tsv GMGC10.sample-abundance.tsv.xz  unigenes_13_habitats.txt.gz unigenes_13_habitats_and_built_env.txt.gz
+python3 count-unigenes_in_interesting_habitats.py GMGC10.sample.meta.tsv.gz GMGC10.sample-abundance.tsv.xz counts.txt
 #pixi exec -s python -s pandas python count-unigenes_in_interesting_habitats.py
 ```
 
