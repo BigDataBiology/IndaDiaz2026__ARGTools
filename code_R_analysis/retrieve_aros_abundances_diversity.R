@@ -2071,12 +2071,6 @@ write.csv(pan %>%rename(new_level = new_level_centroid) ,
           file = gzfile("code_R_analysis/output_abundance_diversity_resistome/pan_resistome.csv.gz"), row.names = F)
 
 
-
-write.csv(k_df, 
-          file = gzfile("code_R_analysis/output_abundance_diversity_resistome/number_samples_per_centroid_per_habitat.csv.gz"), 
-          row.names = F)
-
-
 write.csv(k_df, 
           file = gzfile("code_R_analysis/output_abundance_diversity_resistome/number_samples_per_centroid_per_habitat.csv.gz"), 
           row.names = F)

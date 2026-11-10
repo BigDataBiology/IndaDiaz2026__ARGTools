@@ -152,7 +152,7 @@ create_class_overlaps <- function(unigenes){
     mutate(ref_n_class = length(qc_ref), comp_n_class = length(qc_comp), ref_n_all = length(q_ref), comp_n_all = length(q_comp)) %>% 
     ungroup() %>% 
     filter(tool_ref != tool_comp) %>% 
-    select(-c(qc_ref, qc_comp, q_ref, q_comp))
+    dplyr::select(-c(qc_ref, qc_comp, q_ref, q_comp))
   return(JI_class_other)
 }
 
@@ -173,7 +173,7 @@ return_overlap_tools <- function(unigenes) {
     rename(values2 = query) %>%
     mutate(jaccard = map2_dbl(values1, values2, ~ length(intersect(.x, .y)) / length(union(.x, .y)))) %>%
     mutate(csc = map2_dbl(values1, values2, ~ length(intersect(.x, .y)) / length( .y))) %>%
-    select(tool_ref, tool_comp, jaccard, csc) 
+    dplyr::select(tool_ref, tool_comp, jaccard, csc) 
   
   return(JI_all)
   
@@ -218,7 +218,7 @@ create_class_overlaps_no_shuffling <- function(unigenes){
     mutate(ref_n_class = length(qc_ref), comp_n_class = length(qc_comp), ref_n_all = length(q_ref), comp_n_all = length(q_comp)) %>% 
     ungroup() %>% 
     filter(tool_ref != tool_comp) %>% 
-    select(-c(qc_ref, qc_comp, q_ref, q_comp))
+    dplyr::select(-c(qc_ref, qc_comp, q_ref, q_comp))
   return(JI_class_other)
 }
 
@@ -249,7 +249,7 @@ plot_db_discrepancy <- function(unigenes,
     subset_data <- data %>%
       ungroup() %>%
       filter(.data[[rank_col]] == rank_value) %>%
-      select(tool, query) %>%
+      dplyr::select(tool, query) %>%
       distinct()
     set_a <- subset_data$query[subset_data$tool == a]
     set_b <- subset_data$query[subset_data$tool == b]
@@ -346,12 +346,12 @@ plot_db_discrepancy <- function(unigenes,
     JI_all_db %>%
       filter(same_pair(tool_ref, tool_comp, .env$tool_a, .env$tool_b)) %>%
       rename(tool1 = tool_ref, tool2 = tool_comp) %>%
-      select(-csc) %>%
+      dplyr::select(-csc) %>%
       mutate(lev = "Reference gene \nwith hits in GMGC"),
     JI_all %>%
       filter(same_pair(tool_ref, tool_comp, .env$tool_a, .env$tool_b)) %>%
       rename(tool1 = tool_ref, tool2 = tool_comp) %>%
-      select(-csc) %>%
+      dplyr::select(-csc) %>%
       mutate(lev = "Reported unigenes")
   ) %>%
     mutate(point_type = "Observed")
@@ -554,14 +554,14 @@ get_unigene_classification <- function(unigenes,
     mutate(detected_by_both_query = n_distinct(tool) > 1) %>%
     ungroup() %>%
     mutate(detected_by_both = ifelse(
-      detected_by_both, "Overlap\n(Jaccard Index)",
-      ifelse(detected_by_both_query, "Overlap\n(Jaccard Index)",
-             ifelse(present_in_others_db > 1, "Pipeline-driven\n difference",
-                    "Database-driven\n difference")))) %>%
+      detected_by_both, "Overlap (Jaccard Index)",
+      ifelse(detected_by_both_query, "Overlap (Jaccard Index)",
+             ifelse(present_in_others_db > 1, "Method-driven difference",
+                    "Database-driven difference")))) %>%
     mutate(detected_by_both = factor(detected_by_both, levels = c(
-      "Overlap\n(Jaccard Index)",
-      "Pipeline-driven\n difference",
-      "Database-driven\n difference"
+      "Overlap (Jaccard Index)",
+      "Method-driven difference",
+      "Database-driven difference"
     )))
   
   print("query_classification")
