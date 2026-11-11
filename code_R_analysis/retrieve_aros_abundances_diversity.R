@@ -1433,8 +1433,6 @@ args_abundances <- args_abundances %>%
 
 #metadata <- metadata %>% filter(!habitat %in% c("amplicon", "isolate", "built-environment"))
 
-set.seed(2025)
-
 # rarefaction <- function(X, raw, inserts, depth = 5e6, seed = 2025){
 #   #set.seed(seed)
 #   reads_count <- ceiling(raw)
@@ -1479,6 +1477,8 @@ rarefaction_fast <- function(X, raw, inserts, depth = 5e6, seed = 2025){
 #   mutate(count = as.integer(count)) %>% 
 #   rename(rarified_count = count)
 
+set.seed(2025)
+
 rarefied_counts <- args_abundances %>%
   filter(raw > 0) %>%
   ungroup() %>%
@@ -1515,21 +1515,52 @@ sarg_argnorm <- sarg_argnorm %>% filter(!Original.ID %in% sarg_argnorm_curation$
 sarg_argnorm <- sarg_argnorm %>% select(Original.ID, ARO) %>% bind_rows(sarg_argnorm_curation %>% select(Original.ID,ARO))
 
 rank_priority <- c("I", "II", "III", "IV", "notassessed")
+rank_priority_min <- c("IV", "III", "II", "I", "notassessed")   # lowest risk first; notassessed only as a last resort
+
+sarg_argnorm_ranked_min_risk <- sarg_argnorm %>%
+  left_join(sarg %>% distinct(ARG, Rank), by = c("Original.ID" = "ARG")) %>%
+  mutate(rank_order = match(Rank, rank_priority_min)) %>%
+  arrange(ARO, rank_order) %>%          # IV first, then III, II, I, notassessed; NA last
+  group_by(ARO) %>%
+  slice_head(n = 1) %>%
+  ungroup() %>%
+  dplyr::select(ARO, Original.ID, Rank)
+
+sarg_argnorm_ranked_max_risk <- sarg_argnorm %>%
+  left_join(sarg %>% distinct(ARG, Rank), by = c("Original.ID" = "ARG")) %>%
+  mutate(rank_order = match(Rank, rank_priority)) %>%
+  arrange(ARO, rank_order) %>%          # highest risk first; NA (accession without rank) last
+  group_by(ARO) %>%
+  slice_head(n = 1) %>%
+  ungroup() %>%
+  dplyr::select(ARO, Original.ID, Rank)
+
+joined <- sarg_argnorm %>%
+  left_join(sarg %>% distinct(ARG, Rank), by = c("Original.ID" = "ARG"))
+
+# majority vote among assessed ranks (I to IV); ties go to the higher-risk rank
+votes <- joined %>%
+  filter(!is.na(Rank), Rank != "notassessed") %>%
+  count(ARO, Rank, name = "n_votes") %>%
+  mutate(rank_order = match(Rank, rank_priority)) %>%
+  arrange(ARO, desc(n_votes), rank_order) %>%
+  group_by(ARO) %>%
+  mutate(tie = n() > 1 & n_votes[1] == n_votes[2]) %>%
+  slice_head(n = 1) %>%
+  ungroup() %>%
+  dplyr::select(ARO, Rank, n_votes, tie)
+
+# AROs with no assessed rank: notassessed if any accession has it, otherwise absent (NA later)
+fallback <- joined %>%
+  filter(Rank == "notassessed", !ARO %in% votes$ARO) %>%
+  distinct(ARO) %>%
+  mutate(Rank = "notassessed", n_votes = NA_integer_, tie = FALSE)
+
+sarg_argnorm_ranked_majority <- bind_rows(votes, fallback)
+
 
 
 sarg_blast_80_80 <- sarg_blast %>% filter(pident>=80, qcovhsp >= 80) %>% 
-  mutate(rank_order = match(rank, rank_priority)) %>%
-  group_by(qseqid) %>% 
-  slice_min(rank_order, n = 1, with_ties = FALSE) %>%
-  ungroup()
-
-sarg_blast_90_80 <- sarg_blast %>% filter(pident>=90, qcovhsp >= 80) %>% 
-  mutate(rank_order = match(rank, rank_priority)) %>%
-  group_by(qseqid) %>% 
-  slice_min(rank_order, n = 1, with_ties = FALSE) %>%
-  ungroup()
-
-sarg_blast_95_80 <- sarg_blast %>% filter(pident>=95, qcovhsp >= 80) %>% 
   mutate(rank_order = match(rank, rank_priority)) %>%
   group_by(qseqid) %>% 
   slice_min(rank_order, n = 1, with_ties = FALSE) %>%
@@ -1545,29 +1576,28 @@ lst <- lapply(lst, function(df) {
   df %>%
     mutate(
       rank_80 = sarg_blast_80_80$rank[match(query, sarg_blast_80_80$qseqid)],
-      rank_90 = sarg_blast_90_80$rank[match(query, sarg_blast_90_80$qseqid)],
-      rank_95 = sarg_blast_95_80$rank[match(query, sarg_blast_95_80$qseqid)],
-      rank_aro = sarg_argnorm$Original.ID[match(ARO, sarg_argnorm$ARO)],
+      rank_aro = sarg_argnorm_ranked_max_risk$Rank[match(ARO, sarg_argnorm_ranked_max_risk$ARO)],
+      rank_aro_min_risk = sarg_argnorm_ranked_min_risk$Rank[match(ARO, sarg_argnorm_ranked_min_risk$ARO)],
+      rank_aro_vote = sarg_argnorm_ranked_majority$Rank[match(ARO, sarg_argnorm_ranked_majority$ARO)],
       rank_highest_bit_80 = sarg_blast_highest_bit_80$rank[match(query, sarg_blast_highest_bit_80$qseqid)]
-    ) %>%
-    mutate(rank_aro = sarg$Rank[match(rank_aro, sarg$ARG)])
+    )
 })
 
 lst <- lapply(lst, function(df) {
   df %>%
     mutate(
       rank_80 = ifelse(is.na(rank_80), "Not found", rank_80),
-      rank_90 = ifelse(is.na(rank_90), "Not found", rank_90),
-      rank_95 = ifelse(is.na(rank_95), "Not found", rank_95),
       rank_highest_bit_80 = ifelse(is.na(rank_highest_bit_80), "Not found", rank_highest_bit_80),
-      rank_aro = ifelse(is.na(rank_aro), "Not found", rank_aro)) 
+      rank_aro = ifelse(is.na(rank_aro), "Not found", rank_aro),
+      rank_aro_vote = ifelse(is.na(rank_aro_vote), "Not found", rank_aro_vote),
+      rank_aro_min_risk = ifelse(is.na(rank_aro_min_risk), "Not found", rank_aro_min_risk)) 
 })
 
 
 # Unigenes detected as ARG by tool
 
 unigenes <- do.call(rbind, lapply(lst, function(x) x[,c("query", "tool", "ARO", "parent", "parent_description", "new_level", "id", 
-                                                        "rank_aro",  "rank_80", "rank_90", "rank_95", "rank_highest_bit_80")])) 
+                                                        "rank_aro", "rank_aro_min_risk", "rank_aro_vote",  "rank_80", "rank_highest_bit_80")])) 
 
 
 # lst <- lapply(lst, function(x) x %>% filter(query %in% genes_right_habitat))
@@ -1752,8 +1782,8 @@ unigenes <- unigenes %>%
 
 unigenes0 <- unigenes 
 unigenes <- unigenes0 %>% select(c("query", "tool","new_level", "id", 
-                                  "rank_aro", "rank_80", 
-                                  "rank_90", "rank_95","rank_highest_bit_80", 
+                                  "rank_aro", "rank_aro_min_risk", "rank_aro_vote", "rank_80", 
+                                  "rank_highest_bit_80", 
                                   "cluster_90_cov60", "cluster_90_cov90",
                                   "cluster_95_cov60", "cluster_95_cov90",
                                   "cluster_99_cov60", "cluster_99_cov90", "ARO"))
@@ -1861,73 +1891,57 @@ saveRDS(lst_abundance_diversity, file = "code_R_analysis/output_abundance_divers
 write.csv(lst_abundance_diversity, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity.csv.gz"), row.names = F)
 
 
-# abundance per aro
 
-# lst_abundance_diversity_aro <- bind_rows(
-#  bind_rows(lapply(lst, function(d) abundance_other_aggregation(args_abundances, d, "ARO"))))
-
-# lst_abundance_diversity_aro <- lst_abundance_diversity_aro %>% 
+# lst_abundance_diversity_rank_aro <- bind_rows(
+#   bind_rows(lapply(lst, function(d) abundance_other_aggregation(args_abundances, d, "rank_aro"))))
+# 
+# lst_abundance_diversity_rank_aro <- lst_abundance_diversity_rank_aro %>% 
 #   mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)]) %>% 
 #   mutate(abundance = normed10m/10) %>% 
 #   rename(richness = distinct_unigenes_rarefied, richness_no_rarified = distinct_unigenes_raw) %>% 
 #   select(c(sample, gene, aggregation, tool, abundance, richness, richness_no_rarified, new_level))
- 
-# saveRDS(lst_abundance_diversity_aro, file = "code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_aro.rds", compress = T)
-# write.csv(lst_abundance_diversity_aro, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_aro.csv.gz"), row.names = F)
-# rm(lst_abundance_diversity_aro)
-
-# abundance per rank_aro
-
-lst_abundance_diversity_rank_aro <- bind_rows(
-  bind_rows(lapply(lst, function(d) abundance_other_aggregation(args_abundances, d, "rank_aro"))))
-
-lst_abundance_diversity_rank_aro <- lst_abundance_diversity_rank_aro %>% 
-  mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)]) %>% 
-  mutate(abundance = normed10m/10) %>% 
-  rename(richness = distinct_unigenes_rarefied, richness_no_rarified = distinct_unigenes_raw) %>% 
-  select(c(sample, gene, aggregation, tool, abundance, richness, richness_no_rarified, new_level))
-
-saveRDS(lst_abundance_diversity_rank_aro, file = "code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_rank_aro.rds", compress = T)
-write.csv(lst_abundance_diversity_rank_aro, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_rank_aro.csv.gz"), row.names = F)
-rm(lst_abundance_diversity_rank_aro)
-
-# abundance per rank_highest_bit_80
-
-lst_abundance_diversity_rank_highest_bit_80 <- bind_rows(
-  bind_rows(lapply(lst, function(d) abundance_other_aggregation(args_abundances, d, "rank_highest_bit_80"))))
-
-lst_abundance_diversity_rank_highest_bit_80 <- lst_abundance_diversity_rank_highest_bit_80 %>% 
-  mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)]) %>% 
-  mutate(abundance = normed10m/10) %>% 
-  rename(richness = distinct_unigenes_rarefied, richness_no_rarified = distinct_unigenes_raw) %>% 
-  select(c(sample, gene, aggregation, tool, abundance, richness, richness_no_rarified, new_level))
-
-saveRDS(lst_abundance_diversity_rank_highest_bit_80, file = "code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_rank_highest_bit_80.rds", compress = T)
-write.csv(lst_abundance_diversity_rank_highest_bit_80, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_rank_highest_bit_80.csv.gz"), row.names = F)
-rm(lst_abundance_diversity_rank_highest_bit_80)
-
-
-#  abundance per cluster_99
-levs <- c("cluster_90_cov90",
-  "cluster_95_cov90",
-  "cluster_99_cov90")
-
-for(l in levs){
-  lst_abundance_diversity_cluster_99 <- bind_rows(
-    bind_rows(lapply(lst, function(d) abundance_other_aggregation(args_abundances, d, l))))
-  
-  lst_abundance_diversity_cluster_99 <- lst_abundance_diversity_cluster_99 %>% 
-    mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)]) %>% 
-    mutate(abundance = normed10m/10) %>% 
-    rename(richness = distinct_unigenes_rarefied, richness_no_rarified = distinct_unigenes_raw) %>% 
-    select(c(sample, gene, aggregation, tool, abundance, richness, richness_no_rarified, new_level))
-  
-  saveRDS(lst_abundance_diversity_cluster_99, file = paste0(paste0("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_", l), ".rds"), compress = T)
-  write.csv(lst_abundance_diversity_cluster_99, file = gzfile(paste0(paste0("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_", l), ".csv.gz")), row.names = F)
-  
-}
-
-rm(lst_abundance_diversity_cluster_99)
+# 
+# saveRDS(lst_abundance_diversity_rank_aro, file = "code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_rank_aro.rds", compress = T)
+# write.csv(lst_abundance_diversity_rank_aro, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_rank_aro.csv.gz"), row.names = F)
+# rm(lst_abundance_diversity_rank_aro)
+# 
+# # abundance per rank_highest_bit_80
+# 
+# lst_abundance_diversity_rank_highest_bit_80 <- bind_rows(
+#   bind_rows(lapply(lst, function(d) abundance_other_aggregation(args_abundances, d, "rank_highest_bit_80"))))
+# 
+# lst_abundance_diversity_rank_highest_bit_80 <- lst_abundance_diversity_rank_highest_bit_80 %>% 
+#   mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)]) %>% 
+#   mutate(abundance = normed10m/10) %>% 
+#   rename(richness = distinct_unigenes_rarefied, richness_no_rarified = distinct_unigenes_raw) %>% 
+#   select(c(sample, gene, aggregation, tool, abundance, richness, richness_no_rarified, new_level))
+# 
+# saveRDS(lst_abundance_diversity_rank_highest_bit_80, file = "code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_rank_highest_bit_80.rds", compress = T)
+# write.csv(lst_abundance_diversity_rank_highest_bit_80, file = gzfile("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_rank_highest_bit_80.csv.gz"), row.names = F)
+# rm(lst_abundance_diversity_rank_highest_bit_80)
+# 
+# 
+# #  abundance per cluster_99
+# levs <- c("cluster_90_cov90",
+#   "cluster_95_cov90",
+#   "cluster_99_cov90")
+# 
+# for(l in levs){
+#   lst_abundance_diversity_cluster_99 <- bind_rows(
+#     bind_rows(lapply(lst, function(d) abundance_other_aggregation(args_abundances, d, l))))
+#   
+#   lst_abundance_diversity_cluster_99 <- lst_abundance_diversity_cluster_99 %>% 
+#     mutate(habitat = metadata$habitat[match(sample, metadata$sample_id)]) %>% 
+#     mutate(abundance = normed10m/10) %>% 
+#     rename(richness = distinct_unigenes_rarefied, richness_no_rarified = distinct_unigenes_raw) %>% 
+#     select(c(sample, gene, aggregation, tool, abundance, richness, richness_no_rarified, new_level))
+#   
+#   saveRDS(lst_abundance_diversity_cluster_99, file = paste0(paste0("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_", l), ".rds"), compress = T)
+#   write.csv(lst_abundance_diversity_cluster_99, file = gzfile(paste0(paste0("code_R_analysis/output_abundance_diversity_resistome/abundance_diversity_", l), ".csv.gz")), row.names = F)
+#   
+# }
+# 
+# rm(lst_abundance_diversity_cluster_99)
 
 
 

@@ -20,8 +20,8 @@ ARG detection was performed using:
 - **DeepARG** v2, [https://github.com/gaarangoa/deeparg](https://github.com/gaarangoa/deeparg) 
 - **AMRFinderPlus** v4.0.15 (DB: 2024-12-18.1), [https://github.com/ncbi/amr](https://github.com/ncbi/amr) 
 - **RGI** v6.0.3 (CARD v4.0.0), [https://github.com/arpcard/rgi](https://github.com/arpcard/rgi) 
-- **ResFinder**: v2.4.0, [https://github.com/cadms/resfinder](https://github.com/cadms/resfinder) 
-- **ABRicate**:  v1.0.1 (DBs: ARG-ANNOT, CARD, MEGARes v2.0, ResFinder, NCBI; updated 2025-01-14), [https://github.com/tseemann/ABRICATE](https://github.com/tseemann/ABRICATE) 
+- **ResFinder**: v4.6.0 with database v2.4.0, [https://github.com/cadms/resfinder](https://github.com/cadms/resfinder) 
+- **ABRicate**:  v1.4.0 (DBs: ARG-ANNOT, CARD, MEGARes v2.0, ResFinder, NCBI; updated April 3, 2026), [https://github.com/tseemann/ABRICATE](https://github.com/tseemann/ABRICATE) 
 
 
 ## Normalization

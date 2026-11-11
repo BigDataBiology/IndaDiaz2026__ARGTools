@@ -115,6 +115,28 @@ tool_map <- c(
   "fargene" = "fARGene"
 )
 
+tool_map_all <- c(
+  "abricate.argannot.norm"  = "ABRicate-ARGANNOT",
+  "abricate.card.norm"      = "ABRicate-CARD",
+  "abricate.megares.norm"   = "ABRicate-MEGARes",
+  "abricate.ncbi.norm"      = "ABRicate-NCBI",
+  "abricate.resfinder.norm" = "ABRicate-ResFinder",
+  "deeparg.norm"            = "DeepARG",
+  "resfinder.norm"          = "ResFinder",
+  "rgi.diamond"             = "RGI-DIAMOND",
+  "fargene"                 = "fARGene",
+  "amrfinder.norm.prot"     = "AMRFinderPlus",
+  "amrfinder.norm"          = "AMRFinderPlus (nt)",
+  "deeparg.norm.prot"       = "DeepARG (aa)",
+  "rgi.diamond.prot"        = "RGI-DIAMOND (aa)",
+  "rgi.blast"               = "RGI-BLAST",
+  "fargene.prot"            = "fARGene (aa)",
+  # unions
+  "union_rgi"               = "RGI (all setups)",
+  "union_abricate_all"      = "ABRicate (all 5 databases)",
+  "union_abricate_noMEGA"   = "ABRicate (excl. MEGARes)"
+)
+
 
 # add the name of each tool to the color palet 
 names(pal_10_q) <- basic_tools
@@ -338,20 +360,6 @@ unigenes <- tibble(readRDS(file = "code_R_analysis/output_abundance_diversity_re
          tools_db = factor(tools_db[tool], levels = tools_db_factor)) %>% 
   filter(tool %in% basic_tools)
 
-unigenes0 <- tibble(readRDS(file = "code_R_analysis/output_abundance_diversity_resistome/unigenes_per_tool.rds")) %>% 
-  # convert MFS to efflux pump
-  mutate(gene_class = ifelse(new_level == "MFS efflux pump", "efflux pump", new_level)) %>%  
-  mutate(tool = factor(tool, levels = tools_levels)) %>%
-  mutate(tools_labels = factor(tools_labels[tool], levels = tools_labels_factor),
-         texture = ifelse(tool %in% tools_texture, "yes", "no"),
-         tools_db = factor(tools_db[tool], levels = tools_db_factor))
-
-sum((unigenes0 %>% filter(!tool %in% basic_tools) %>% pull(query)) %in% 
-(unigenes0 %>% filter(tool %in% basic_tools) %>% pull(query)))
-
-sum(!(unigenes0 %>% filter(!tool %in% basic_tools) %>% pull(query)) %in% 
-      (unigenes0 %>% filter(tool %in% basic_tools) %>% pull(query)))
-
 ## database_clusters
 db_cluster <- read.delim("db_cluster/nested_with_coverage_out/nested_cluster_membership.tsv") 
 
@@ -507,6 +515,84 @@ JI_all_rank_IV_aro <-
 
 
 
+JI_all_rank_I_aro_min <- 
+  return_overlap_tools(unigenes %>% 
+                         filter(tool %in% basic_tools,
+                                rank_aro_min_risk == "I")) %>% 
+  mutate(rank = "Risk I") 
+
+JI_all_rank_II_aro_min <- return_overlap_tools(unigenes %>% 
+                                             filter(tool %in% basic_tools,
+                                                    rank_aro_min_risk == "II")) %>% 
+  mutate(rank = "Risk II") 
+
+JI_all_rank_III_aro_min <- return_overlap_tools(unigenes %>% 
+                                              filter(tool %in% basic_tools,
+                                                     rank_aro_min_risk == "III")) %>% 
+  mutate(rank = "Risk III") 
+
+JI_all_rank_IV_aro_min <- 
+  return_overlap_tools(unigenes %>% 
+                         filter(tool %in% basic_tools, rank_aro_min_risk == "IV")) 
+
+
+JI_all_rank_I_aro_vote <- 
+  return_overlap_tools(unigenes %>% 
+                         filter(tool %in% basic_tools,
+                                rank_aro_vote == "I")) %>% 
+  mutate(rank = "Risk I") 
+
+JI_all_rank_II_aro_vote <- return_overlap_tools(unigenes %>% 
+                                                 filter(tool %in% basic_tools,
+                                                        rank_aro_vote == "II")) %>% 
+  mutate(rank = "Risk II") 
+
+JI_all_rank_III_aro_vote <- return_overlap_tools(unigenes %>% 
+                                                  filter(tool %in% basic_tools,
+                                                         rank_aro_vote == "III")) %>% 
+  mutate(rank = "Risk III") 
+
+JI_all_rank_IV_aro_vote <- 
+  return_overlap_tools(unigenes %>% 
+                         filter(tool %in% basic_tools, rank_aro_vote == "IV")) 
+
+
+rules <- c(max = "", min = "_min", vote = "_vote")
+ranks <- c("I", "II", "III", "IV")
+
+tri_rules <- map_dfr(names(rules), function(r)
+  map_dfr(ranks, function(k)
+    get(paste0("JI_all_rank_", k, "_aro", rules[[r]])) %>%
+      filter(as.numeric(tool_ref) < as.numeric(tool_comp)) %>%
+      mutate(rank = paste("Risk", k), rule = r))) %>%
+  mutate(rank = factor(rank, levels = paste("Risk", ranks)),
+         rule = factor(rule, levels = c("max", "min", "vote"),
+                       labels = c("Highest risk", "Lowest risk", "Majority")))
+
+p_rules <- ggplot(tri_rules, aes(x = tool_comp, y = tool_ref, fill = jaccard)) +
+  geom_tile(color = "grey") +
+  scale_fill_gradientn(colors = brewer.pal(9, "YlOrBr"),
+                       limits = c(0, 1),
+                       labels = percent_format(accuracy = 1),
+                       breaks = c(0.25, 0.5, 0.75)) +
+  geom_text(data = tri_rules %>% filter(jaccard >= 0.3),
+            aes(label = scales::percent(jaccard, accuracy = 1),
+                color = jaccard > 0.65),
+            size = general_size / .pt, show.legend = FALSE) +
+  scale_color_manual(values = c("black", "white")) +
+  facet_grid(rule ~ rank) +
+  labs(fill = "", x = "", y = "") +
+  theme1 +
+  theme(legend.position = "bottom", panel.grid = element_blank(),
+        panel.border = element_blank(),
+        panel.background = element_rect(fill = "white", colour = NA),
+        plot.margin = margin(0, 0, 0, 0, unit = "pt"),
+        axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5),
+        strip.text.x = element_text(size = general_size, angle = 0, vjust = 0, hjust = 0.5)) +
+  scale_x_discrete(expand = c(0, 0)) +
+  scale_y_discrete(expand = c(0, 0), limits = rev)
+
+
 #
 
 all_jaccard <- JI_all %>% 
@@ -590,63 +676,6 @@ all_csc_plot <-
   theme1 +
   theme(panel.grid  = element_blank()) +
   labs(x = NULL, y = NULL, fill = "Jaccard\nindex") 
-
-
-all_jaccard %>% filter(tool_ref != tool_comp) %>%
-  filter(rank %in% c("Reported ARGs", "Risk I", "Subset gene classes",
-                     "Reference database (ID99%, COV90%)")) %>% 
-  ggplot(aes(x = tool_ref, y = csc, fill = rank)) +
-    geom_boxplot()
-
-all_jaccard %>% filter(tool_ref != tool_comp) %>%
-  filter(rank %in% c("Reported ARGs", "Risk I", "Subset gene classes",
-                     "Reference database (ID99%, COV90%)")) %>% 
-  ggplot(aes(x = tool_comp, y = csc, fill = rank)) +
-  geom_boxplot()
-
-all_jaccard %>% 
-  filter(tool_ref != tool_comp) %>% 
-  dplyr::select(tool_ref, tool_comp, csc, rank) %>% 
-  rename(x = csc) %>% 
-  left_join(all_jaccard %>% filter(tool_ref != tool_comp) %>% 
-              dplyr::select(tool_comp, csc, rank, tool_ref) %>% 
-              rename(y = csc, tool_ref = tool_comp, tool_comp = tool_ref), by = c("tool_ref","tool_comp", "rank")) %>% 
-  filter(rank %in% c("Reported ARGs")) %>% #, "Risk I", "Subset gene classes",
-                     #"Reference database (ID99%, COV90%)")) %>% 
-  ggplot(aes(x = y, y = x, color = tool_ref)) +
-  geom_point() + geom_line()
-
-
-all_jaccard %>% 
-  filter(tool_ref != tool_comp) %>% 
-  dplyr::select(tool_ref, tool_comp, csc, rank) %>% 
-  mutate(direction = "by") %>% 
-  bind_rows(all_jaccard %>% filter(tool_ref != tool_comp) %>% 
-              dplyr::select(tool_comp, csc, rank, tool_ref) %>% 
-              mutate(direction = "on") %>% 
-              rename(tool_ref = tool_comp, tool_comp = tool_ref)) %>% 
-  filter(rank %in% c("Reported ARGs", "Risk I", "Subset gene classes",
-                     "Reference database (ID99%, COV90%)")) %>%
-  ggplot(aes(x = tool_ref, y = csc, color = rank, fill = rank)) +
-  geom_boxplot(whisker.linetype = NA, outliers = F) +
-  facet_grid(. ~ direction) + theme1 +
-  ylab("Inclusion ratio") 
-
-all_jaccard %>% 
-  filter(tool_ref != tool_comp) %>% 
-  dplyr::select(tool_ref, tool_comp, csc, rank) %>% 
-  mutate(direction = "by") %>% 
-  bind_rows(all_jaccard %>% filter(tool_ref != tool_comp) %>% 
-              dplyr::select(tool_comp, csc, rank, tool_ref) %>% 
-              mutate(direction = "on") %>% 
-              rename(tool_ref = tool_comp, tool_comp = tool_ref)) %>% 
-  filter(rank %in% c("Reported ARGs", "Risk I", "Subset gene classes",
-                     "Reference database (ID99%, COV90%)")) %>%
-  ggplot(aes(x = tool_ref, y = csc, color = rank, fill = rank)) +
-  geom_boxplot(whisker.linetype = NA, outliers = F) +
-  facet_grid(. ~ direction) + theme1 +
-  ylab("Inclusion ratio") +
-  coord_flip()
 
 
 delta_jaccard <- all_jaccard2 %>%
@@ -1995,6 +2024,55 @@ joint_pcoa <- function(d, value, seed = 1, method = "bray", transform = "log") {
   out
 }
 
+place_plot <- function(d, which_place, pal, title = NULL, colour_var = tool) {
+  ve <- attr(d, "var_exp")
+  lab <- if (is.null(ve)) c("UMAP1", "UMAP2")
+  else sprintf(c("Axis1 (%.1f%%)", "Axis2 (%.1f%%)"), ve)
+  d %>%
+    mutate(al = place == which_place) %>%
+    ggplot(aes(u1, u2, colour = {{ colour_var }}, fill = {{ colour_var }},
+               shape = texture, size = al, alpha = al)) +
+    geom_point(color = "black", stroke = .2, key_glyph = draw_key_point_line) +
+    scale_size_manual(values = c("TRUE" = 0.7, "FALSE" = 0.05), guide = "none") +
+    scale_colour_manual(values = pal, name = "") +
+    scale_fill_manual(values = pal, name = "") +
+    scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0.1), guide = "none") +
+    scale_shape_manual(values = c("no" = 21, "yes" = 24)) +
+    guides(colour = guide_legend(override.aes = list(size = 2, alpha = 1), nrow = 2),
+           fill = guide_legend(nrow = 2, override.aes = list(shape = shape_tools,
+                                                             color = "black", stroke = 0.4)),
+           shape = "none") +
+    theme1 +
+    theme(plot.subtitle = element_text(size = general_size, color = "black")) +
+    xlab(lab[1]) + ylab(lab[2]) +
+    labs(title = title, subtitle = which_place)
+}
+
+
+place_plot_2 <- function(d, which_place, pal, title = NULL, colour_var = tool) {
+  ve <- attr(d, "var_exp")
+  lab <- if (is.null(ve)) c("UMAP1", "UMAP2")
+  else sprintf(c("Axis1 (%.1f%%)", "Axis2 (%.1f%%)"), ve)
+  d %>%
+    mutate(al = habitat == which_place) %>%
+    ggplot(aes(u1, u2, colour = {{ colour_var }}, fill = {{ colour_var }},
+               shape = texture, size = al, alpha = al)) +
+    geom_point(color = "black", stroke = .2, key_glyph = draw_key_point_line) +
+    scale_size_manual(values = c("TRUE" = 0.7, "FALSE" = 0.1), guide = "none") +
+    scale_colour_manual(values = pal, name = "") +
+    scale_fill_manual(values = pal, name = "") +
+    scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0.13), guide = "none") +
+    scale_shape_manual(values = c("no" = 21, "yes" = 24)) +
+    guides(colour = guide_legend(override.aes = list(size = 2, alpha = 1), nrow = 2),
+           fill = guide_legend(nrow = 2, override.aes = list(shape = shape_tools,
+                                                             color = "black", stroke = 0.4)),
+           shape = "none") +
+    theme1 +
+    theme(plot.subtitle = element_text(size = general_size, color = "black")) +
+    xlab(lab[1]) + ylab(lab[2]) +
+    labs(title = title, subtitle = which_place)
+}
+
 
 #pca1  <- joint_pca(hg, abundance)
 pca1  <- joint_pca(abundance_class, abundance, transform = "log")
@@ -2108,21 +2186,22 @@ pca_gut / pcoa_gut
 pca_nongut / pcoa_nongut
 pca_external / pcoa_external
 
+#pcoa3 <- joint_pcoa(abundance_class %>% filter(sample %in% 
+#                                                 unique(c(#as.vector(ids2$sample), 
+#                                                   as.vector(ids2$sample)))), 
+#                    abundance)
 
-pcoa3$habitat <- abundance_class$habitat[match(pcoa3$sample, abundance_class$sample)]
-pcoa3 <- pcoa3 %>% 
-  mutate(place = ifelse(habitat %in% c("soil", "marine", "freshwater", "soil","wastewater"), "External", 
-                        ifelse(grepl("gut", habitat), "Gut-associated", "Human (non-gut)"))) 
 
-pcoa3 <- joint_pcoa(abundance_class %>% filter(sample %in% 
-                                                 unique(c(#as.vector(ids2$sample), 
-                                                          as.vector(ids2$sample)))), 
-                    abundance, logtransform = T)
+#pcoa3$habitat <- abundance_class$habitat[match(pcoa3$sample, abundance_class$sample)]
+#pcoa3 <- pcoa3 %>% 
+#  mutate(place = ifelse(habitat %in% c("soil", "marine", "freshwater", "soil","wastewater"), "External", 
+#                        ifelse(grepl("gut", habitat), "Gut-associated", "Human (non-gut)"))) 
 
-pcoa3$habitat <- abundance_class$habitat[match(pcoa3$sample, abundance_class$sample)]
-pcoa3 <- pcoa3 %>% 
-  mutate(place = ifelse(habitat %in% c("soil", "marine", "freshwater", "soil","wastewater"), "External", 
-                        ifelse(grepl("gut", habitat), "Gut-associated", "Human (non-gut)"))) 
+
+#pcoa3$habitat <- abundance_class$habitat[match(pcoa3$sample, abundance_class$sample)]
+#pcoa3 <- pcoa3 %>% 
+#  mutate(place = ifelse(habitat %in% c("soil", "marine", "freshwater", "soil","wastewater"), "External", 
+#                        ifelse(grepl("gut", habitat), "Gut-associated", "Human (non-gut)"))) 
 
 
 pca1$habitat <- abundance_class$habitat[match(pca1$sample, abundance_class$sample)]
@@ -2130,66 +2209,15 @@ pca1 <- pca1 %>%
   mutate(place = ifelse(habitat %in% c("soil", "marine", "freshwater", "soil","wastewater"), "External", 
                         ifelse(grepl("gut", habitat), "Gut-associated", "Human (non-gut)"))) 
 
-pca2$habitat <- abundance_class$habitat[match(pca1$sample, abundance_class$sample)]
-pca2 <- pca2 %>% 
-  mutate(place = ifelse(habitat %in% c("soil", "marine", "freshwater", "soil","wastewater"), "External", 
-                        ifelse(grepl("gut", habitat), "Gut-associated", "Human (non-gut)"))) 
+#pca2$habitat <- abundance_class$habitat[match(pca1$sample, abundance_class$sample)]
+#pca2 <- pca2 %>% 
+#  mutate(place = ifelse(habitat %in% c("soil", "marine", "freshwater", "soil","wastewater"), "External", 
+#                        ifelse(grepl("gut", habitat), "Gut-associated", "Human (non-gut)"))) 
 
-pca3$habitat <- abundance_class$habitat[match(pca1$sample, abundance_class$sample)]
-pca3 <- pca3 %>% 
-  mutate(place = ifelse(habitat %in% c("soil", "marine", "freshwater", "soil","wastewater"), "External", 
-                        ifelse(grepl("gut", habitat), "Gut-associated", "Human (non-gut)"))) 
-
-
-
-place_plot <- function(d, which_place, pal, title = NULL, colour_var = tool) {
-  ve <- attr(d, "var_exp")
-  lab <- if (is.null(ve)) c("UMAP1", "UMAP2")
-  else sprintf(c("Axis1 (%.1f%%)", "Axis2 (%.1f%%)"), ve)
-  d %>%
-    mutate(al = place == which_place) %>%
-    ggplot(aes(u1, u2, colour = {{ colour_var }}, fill = {{ colour_var }},
-               shape = texture, size = al, alpha = al)) +
-    geom_point(color = "black", stroke = .2, key_glyph = draw_key_point_line) +
-    scale_size_manual(values = c("TRUE" = 0.7, "FALSE" = 0.05), guide = "none") +
-    scale_colour_manual(values = pal, name = "") +
-    scale_fill_manual(values = pal, name = "") +
-    scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0.1), guide = "none") +
-    scale_shape_manual(values = c("no" = 21, "yes" = 24)) +
-    guides(colour = guide_legend(override.aes = list(size = 2, alpha = 1), nrow = 2),
-           fill = guide_legend(nrow = 2, override.aes = list(shape = shape_tools,
-                                                             color = "black", stroke = 0.4)),
-           shape = "none") +
-    theme1 +
-    theme(plot.subtitle = element_text(size = general_size, color = "black")) +
-    xlab(lab[1]) + ylab(lab[2]) +
-    labs(title = title, subtitle = which_place)
-}
-
-
-place_plot_2 <- function(d, which_place, pal, title = NULL, colour_var = tool) {
-  ve <- attr(d, "var_exp")
-  lab <- if (is.null(ve)) c("UMAP1", "UMAP2")
-  else sprintf(c("Axis1 (%.1f%%)", "Axis2 (%.1f%%)"), ve)
-  d %>%
-    mutate(al = habitat == which_place) %>%
-    ggplot(aes(u1, u2, colour = {{ colour_var }}, fill = {{ colour_var }},
-               shape = texture, size = al, alpha = al)) +
-    geom_point(color = "black", stroke = .2, key_glyph = draw_key_point_line) +
-    scale_size_manual(values = c("TRUE" = 0.7, "FALSE" = 0.1), guide = "none") +
-    scale_colour_manual(values = pal, name = "") +
-    scale_fill_manual(values = pal, name = "") +
-    scale_alpha_manual(values = c("TRUE" = 1, "FALSE" = 0.13), guide = "none") +
-    scale_shape_manual(values = c("no" = 21, "yes" = 24)) +
-    guides(colour = guide_legend(override.aes = list(size = 2, alpha = 1), nrow = 2),
-           fill = guide_legend(nrow = 2, override.aes = list(shape = shape_tools,
-                                                             color = "black", stroke = 0.4)),
-           shape = "none") +
-    theme1 +
-    theme(plot.subtitle = element_text(size = general_size, color = "black")) +
-    xlab(lab[1]) + ylab(lab[2]) +
-    labs(title = title, subtitle = which_place)
-}
+#pca3$habitat <- abundance_class$habitat[match(pca1$sample, abundance_class$sample)]
+#pca3 <- pca3 %>% 
+#  mutate(place = ifelse(habitat %in% c("soil", "marine", "freshwater", "soil","wastewater"), "External", 
+#                        ifelse(grepl("gut", habitat), "Gut-associated", "Human (non-gut)"))) 
 
 
 p1 <- place_plot(pca1[pca1$sample %in% umap3.1$sample,], "External",        pal_tool,  colour_var = tools_labels)
@@ -2202,50 +2230,32 @@ p111 <- place_plot(pca1[pca1$sample %in% umap3.1$sample ,], "External",        p
 p222 <- place_plot(pca1[pca1$sample %in% umap3.1$sample ,], "Gut-associated",  pal_10_q,  title = "c")
 p333 <- place_plot(pca1[pca1$sample %in% umap3.1$sample ,], "Human (non-gut)", pal_10_q)
 
-p1111 <- place_plot(pca2[pca2$sample %in% umap3.1$sample ,], "External",        pal_tool,  colour_var = tools_labels)
-p2222 <- place_plot(pca2[pca2$sample %in% umap3.1$sample ,], "Gut-associated",  pal_10_q,  title = "c")
-p3332 <- place_plot(pca2[pca2$sample %in% umap3.1$sample ,], "Human (non-gut)", pal_10_q)
+#p1111 <- place_plot(pca2[pca2$sample %in% umap3.1$sample ,], "External",        pal_tool,  colour_var = tools_labels)
+#p2222 <- place_plot(pca2[pca2$sample %in% umap3.1$sample ,], "Gut-associated",  pal_10_q,  title = "c")
+#p3332 <- place_plot(pca2[pca2$sample %in% umap3.1$sample ,], "Human (non-gut)", pal_10_q)
 
 
 p2 +xlab("") +ylab("PC2") | p3 +xlab("PC1") +ylab("")| p1 +xlab("") +ylab("")
 
 
 
-p11111 <- place_plot(pca3[pca3$sample %in% umap3.1$sample ,], "External",        pal_tool,  colour_var = tools_labels)
-p22222 <- place_plot(pca3[pca3$sample %in% umap3.1$sample ,], "Gut-associated",  pal_10_q,  title = "c")
-p33333 <- place_plot(pca3[pca3$sample %in% umap3.1$sample ,], "Human (non-gut)", pal_10_q)
+#p11111 <- place_plot(pca3[pca3$sample %in% umap3.1$sample ,], "External",        pal_tool,  colour_var = tools_labels)
+#p22222 <- place_plot(pca3[pca3$sample %in% umap3.1$sample ,], "Gut-associated",  pal_10_q,  title = "c")
+#p33333 <- place_plot(pca3[pca3$sample %in% umap3.1$sample ,], "Human (non-gut)", pal_10_q)
 
 p222 +xlab("") +ylab("PC2") | p333 +xlab("PC1") +ylab("")| p111 +xlab("") +ylab("")
-p2222 +xlab("") +ylab("PC2") | p3333 +xlab("PC1") +ylab("")| p1111 +xlab("") +ylab("")
-p22222 +xlab("") +ylab("PC2") | p33333 +xlab("PC1") +ylab("")| p11111 +xlab("") +ylab("")
+#p2222 +xlab("") +ylab("PC2") | p3333 +xlab("PC1") +ylab("")| p1111 +xlab("") +ylab("")
+#p22222 +xlab("") +ylab("PC2") | p33333 +xlab("PC1") +ylab("")| p11111 +xlab("") +ylab("")
 
 
-p11 <- place_plot(pcoa3[pcoa3$sample %in% umap3.1$sample,], "External",        pal_tool,  colour_var = tools_labels)
-p22 <- place_plot(pcoa3[pcoa3$sample %in% umap3.1$sample,], "Gut-associated",  pal_10_q,  title = "c")
-p33 <- place_plot(pcoa3[pcoa3$sample %in% umap3.1$sample,], "Human (non-gut)", pal_10_q)
+#p11 <- place_plot(pcoa3[pcoa3$sample %in% umap3.1$sample,], "External",        pal_tool,  colour_var = tools_labels)
+#p22 <- place_plot(pcoa3[pcoa3$sample %in% umap3.1$sample,], "Gut-associated",  pal_10_q,  title = "c")
+#p33 <- place_plot(pcoa3[pcoa3$sample %in% umap3.1$sample,], "Human (non-gut)", pal_10_q)
 
-p22 +xlab("") + ylab("PCo2") | p33 +xlab("PCo1") +ylab("")| p11 +xlab("") +ylab("")
+#p22 +xlab("") + ylab("PCo2") | p33 +xlab("PCo1") +ylab("")| p11 +xlab("") +ylab("")
 
 ##
 
-x <- build_mat(abundance_class, abundance)
-nrow(x$m)
-dim(x$m)
-nrow(x$m)^2 * 8 / 2 / 1024^3
-
-xs  <- build_mat(abundance_class %>% filter(sample %in% umap3.1$sample), abundance)
-nrow(xs$m)                              # confirm ~5k
-nrow(xs$m)^2 * 8 / 2 / 1024^3           # confirm <0.2 GB
-
-meta <- xs$w %>%
-  mutate(habitat = sub$habitat[match(sample, sub$sample)],
-         place = ifelse(habitat %in% c("soil","marine","freshwater","wastewater"), "External",
-                        ifelse(grepl("gut", habitat), "Gut-associated", "Human (non-gut)")))
-
-# sanity checks before the expensive part
-count(meta, place)
-count(meta, tool)
-sum(is.na(meta$habitat))   # should be 0
 
 #u3_plot2 + xlab("") | u3_plot3 + ylab("") | u3_plot1 + ylab("") + xlab("")
 
@@ -2265,8 +2275,6 @@ main_abundance_right <-
 left1 <- main_abundance_left | main_abundance_right
 
 leg <- g_legend(u3_plot1 + ylab("") + xlab("") + theme(legend.position = "bottom"))
-
-
 
 #umap_together <- wrap_elements(full = leg) / 
 #  (((u2_plot + ggtitle("c") + theme(plot.margin = margin(10, 0, 0, 0, unit = "pt")))) | 
@@ -2569,8 +2577,8 @@ for(j in 1:length(places)){
   plot_core_pan_list[[j]] <- 
     pan_core_sum %>% 
     rename(tool_name = tools_labels) %>%
-    filter(habitat %in% c("human gut", "pig gut", "dog gut", "human nose", "wastewater",
-                          "marine", "soil", "human oral", "human skin")) %>% 
+    filter(habitat %in% c("human gut", "pig gut",  "wastewater",
+                          "marine",  "human oral", "human skin")) %>% 
     filter(
            place %in% places[j]) %>% 
     ggplot(aes(y = log10(Core+1), x = log10(Pan+1), shape = habitat)) +
@@ -2601,8 +2609,8 @@ for(j in 1:length(places)){
   plot_core_pan_list_sup[[j]] <- 
     pan_core_sum %>% 
     rename(tool_name = tools_labels) %>%
-    filter(!habitat %in% c("human gut", "pig gut", "dog gut", "human nose", "wastewater",
-                          "marine", "soil", "human oral", "human skin")) %>% 
+    filter(!habitat %in% c("human gut", "pig gut",  "wastewater",
+                          "marine",  "human oral", "human skin")) %>% 
     filter(
       place %in% places[j]) %>% 
     ggplot(aes(y = log10(Core+1), x = log10(Pan+1), shape = habitat)) +
@@ -2693,6 +2701,9 @@ for(h in 1:length(EN)){
       breaks = c(0, 0.33, 0.66, 1),
       limits = c(0, 1)) +
     theme1 +
+    xlab("") +
+    ylab("") +
+    labs(fill = "") +
     theme(legend.position = "bottom", panel.grid = element_blank())
 } 
 
@@ -2794,7 +2805,7 @@ plot_core_pan_list_sup_1 <- (plot_core_pan_list_sup[[1]] + xlab("") + ylab("") +
 
 p4_new <- ((p_core_pan_1 | composition_pan_core) +
     patchwork::plot_layout(widths = c(3,5)))/
-(((wrap_elements(full = leg)) |  wrap_elements(g_legend(co_marine))) +
+(((wrap_elements(full = leg)) |  wrap_elements(g_legend(composition_pan_core_list[[1]]))) +
    patchwork::plot_layout(widths = c(5,3))) +
    patchwork::plot_layout(heights = c(9,1))
 
@@ -3204,6 +3215,29 @@ overlap_all_plots <- (plot_overlaps_same_tool / abricate_plot + ggtitle("d")) + 
 
 ggsave("code_R_analysis/output_plots/overlaps_all_plots.svg", overlap_all_plots, width = 180, height = 180, unit = "mm")
 
+
+nm   <- names(lst2)[1:15]
+sets <- lapply(lst2[nm], function(x) unique(x$query))
+
+abr_all  <- c("abricate.argannot.norm","abricate.card.norm","abricate.megares.norm",
+              "abricate.ncbi.norm","abricate.resfinder.norm")
+abr_noMG <- setdiff(abr_all, "abricate.megares.norm")
+
+sets$union_rgi             <- unique(unlist(sets[c("rgi.blast","rgi.diamond","rgi.diamond.prot")]))
+sets$union_abricate_all    <- unique(unlist(sets[abr_all]))
+sets$union_abricate_noMEGA <- unique(unlist(sets[abr_noMG]))
+
+all_nm <- names(sets)
+overlap_mat <- sapply(sets, function(a)
+  sapply(sets, function(b) length(intersect(a, b))))
+dimnames(overlap_mat) <- list(all_nm, all_nm)
+
+stopifnot(all(all_nm %in% names(tool_map_all)))
+rownames(overlap_mat) <- unname(tool_map_all[rownames(overlap_mat)])
+colnames(overlap_mat) <- unname(tool_map_all[colnames(overlap_mat)])
+
+overlap_mat
+write.csv(overlap_mat, "code_R_analysis/output_plots/TableS7.csv")
 
 
 ####
@@ -3732,7 +3766,7 @@ write.csv(metadata %>% dplyr::select(sample_id, habitat) %>% rename(sample = sam
 
 
 
-###
+######################################################
 
 disc <- unigenes %>%
   mutate(new_level = ifelse(new_level == "MFS efflux pump", "efflux pump", new_level)) %>% 
@@ -3924,6 +3958,15 @@ core_acc_plot <- cor_accumulation_summary %>%
   theme1 
 
 pan_acc_plot + core_acc_plot
+
+
+
+######################################################
+######################################################
+######################################################
+######################################################
+######################################################
+######################################################
 
 ############################################################
 ############################################################
