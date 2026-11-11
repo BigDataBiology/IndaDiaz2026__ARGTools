@@ -727,7 +727,7 @@ unigenes_changed <- abricate.argannot.norm[ids, ] %>%
   mutate(tool = "abricate argannot") %>% 
   rename(gene_code = V6 ) %>% 
   ungroup() %>% 
-  mutate(method = "nanual curation")
+  mutate(method = "manual curation")
 
 
 write.csv(

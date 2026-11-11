@@ -229,8 +229,8 @@ ARO <- read.csv("code_R_analysis/output_abundance_diversity_resistome/conversion
 
 # results per individual tool 
 
-lst <- readRDS("code_R_analysis/output_abundance_diversity_resistome/results_tools_all_GMGC.rds")
-lst0 <- readRDS("code_R_analysis/output_abundance_diversity_resistome/results_tools.rds")
+#lst0 <- readRDS("code_R_analysis/output_abundance_diversity_resistome/results_tools_all_GMGC.rds")
+lst <- readRDS("code_R_analysis/output_abundance_diversity_resistome/results_tools.rds")
 lst <- lst[c(1,4,6,9,10,11,12,13,14,15)]
 
 # metagenomes' metadata
@@ -768,6 +768,12 @@ non_overlap %>%
   summarise(mn = mean(p), sd = sd(p))
 
 non_overlap %>% 
+  filter(grepl("ABR",tool_a) , grepl("ABR",tool_b)) %>% 
+  ungroup() %>% 
+  group_by(g) %>% 
+  summarise(mn = mean(p), sd = sd(p))
+
+non_overlap %>% 
   filter((!grepl("ABR",tool_a)) | grepl("Res",tool_a), (!grepl("ABR",tool_b)) | grepl("Res",tool_b)) %>% 
   ungroup() %>% 
   group_by(g) %>% 
@@ -786,7 +792,7 @@ non_overlap %>%
 non_overlap %>%  
   filter(grepl("RGI",tool_a) | grepl("RGI",tool_b)) %>% 
   filter(!grepl("fARG",tool_a), !grepl("fARG",tool_b), !grepl("AMR",tool_a), !grepl("AMR",tool_b)) %>% 
-  group_by(g) %>% summarise(mn = mean(p), sd = sd(p))
+  group_by(g) %>% summarise(mn = mean(p), min = min(p), max = max(p), sd = sd(p))
 
 non_overlap %>%  
   filter(grepl("ResF",tool_a) & grepl("ResF",tool_b), grepl("ResF",tool_b) & grepl("ResF",tool_a))
@@ -841,7 +847,17 @@ non_overlap %>%
 
 non_overlap %>% 
   filter((grepl("RGI",tool_a) ) | (grepl("RGI",tool_b) )) %>% 
-  ungroup() %>% filter(g %in% 'Method-driven difference')
+  ungroup() %>% filter(g %in% 'Method-driven difference') %>% 
+  filter(p > 0.5)
+
+non_overlap %>% 
+  filter(grepl("fARG",tool_a) | (grepl("fARG",tool_b))) %>% 
+  ungroup() %>% filter(g %in% 'Method-driven difference') 
+
+non_overlap %>% 
+  filter(grepl("AMRF",tool_a) | (grepl("AMRF",tool_b))) %>% 
+  ungroup() %>% filter(g %in% 'Method-driven difference') 
+
 
 decompose_difference_plot <- all_pairs_summary_2 %>%
   bind_rows(all_pairs_summary_2 %>% rename(tool_a = tool_b, tool_b = tool_a)) %>% 
@@ -1119,25 +1135,28 @@ id_plot_data <- unigenes %>%
   filter(!tool %in% "fARGene") %>% 
   ungroup() %>%
   mutate(tool_2 = ifelse(tool %in% c("ABRicate-ARGANNOT", "ABRicate-MEGARes", "ABRicate-CARD",
-                                     "ABRicate-ResFinder", "ABRicate-NCBI", "ResFinder"), "ABRicate/\nResFinder", 
+                                     "ABRicate-ResFinder", "ABRicate-NCBI", "ResFinder"), "ABRicate/\nResFinder (nt)", 
                          as.character(tools_labels))) %>% 
   filter(!((tool_2 %in% "AMRFinder-\nPlus") & (query %in% lst$amrfinder.norm.prot$query[lst$amrfinder.norm.prot$Method %in% "HMM"]))) %>% 
-  mutate(tool_2 = ifelse(tool_2 %in% "AMRFinder-\nPlus", "AMRFinder-\nPlus (aa)",tool_2)) %>% 
-  mutate(tool_2 = factor(tool_2, levels = c("DeepARG", "RGI",  "ABRicate/\nResFinder", "AMRFinder-\nPlus (aa)"))) %>% 
-  mutate(data_type = ifelse(tool_2 %in% c("DeepARG", "RGI", "ABRicate/\nResFinder"), "nucleotide", "amino acid")) %>% 
+  mutate(tool_2 = ifelse(tool_2 %in% "AMRFinder-\nPlus", "AMRFinder-\nPlus",tool_2)) %>% 
+  mutate(tool_2 = factor(tool_2, levels = c("DeepARG", "RGI",  "ABRicate/\nResFinder (nt)", "AMRFinder-\nPlus"))) %>% 
+  mutate(data_type = ifelse(tool_2 %in% c("ABRicate/\nResFinder (nt)"), "nucleotide", "amino acid")) %>% 
   mutate(data_type = factor(data_type, levels = c( "nucleotide", "amino acid"))) %>% 
   ungroup() %>% 
   group_by(tool_2) %>% mutate(N_obs = n()) %>% 
-  mutate(tool_3 = paste0(tool_2, "\n(n = ", scales::comma(N_obs), ")"))
+  mutate(tool_3 = paste0(tool_2, "\n(n = ", scales::comma(N_obs), ")")) %>% 
+  mutate(tool_3 = ifelse(tool_3 == "ABRicate/\nResFinder (nt)\n(n = 39,170)", 
+  "ABRicate/\nResFinder\n(nt, n = 39,170)",tool_3))
 
 
 id_plot_data %>% group_by(tool_2) %>% summarise(n = n())
+id_plot_data %>% group_by(tool_3) %>% summarise(n = n())
 
 # plot the ECDF
 
 id_plot <- id_plot_data %>% 
   mutate(tool_3 = factor(tool_3, levels = c("DeepARG\n(n = 100,075)","RGI\n(n = 65,937)",
-                                            "ABRicate/\nResFinder\n(n = 39,170)", "AMRFinder-\nPlus (aa)\n(n = 3,141)"))) %>% 
+                                            "ABRicate/\nResFinder\n(nt, n = 39,170)", "AMRFinder-\nPlus\n(n = 3,141)"))) %>% 
   mutate(data_number = factor(data_type, levels = c( "nucleotide", "amino acid"))) %>% 
   ggplot(aes(x = id , color = tool_3, fill = tool_3)) +
   stat_ecdf(geom = "step", linewidth = 1) + 
@@ -1515,13 +1534,13 @@ p2_flip <- (p2a + ggtitle("a") + theme(strip.clip = "off",
 #(top_fig2 / bottom_fig2) + patchwork::plot_layout(heights = c(1,2))
 p2_1 <- left_fig2 | right_fig2
 
-ggsave("code_R_analysis/output_plots/fig2_flip.svg", p2_flip, 
-       width = 180, height = 180, unit = "mm")
+#ggsave("code_R_analysis/output_plots/fig2_flip.svg", p2_flip, 
+#       width = 180, height = 180, unit = "mm")
 
 ggsave("code_R_analysis/output_plots/fig2.svg", p2_1, width = 180, height = 180, unit = "mm")
-ggsave("code_R_analysis/output_plots/fig2_1.svg", p2_1_1, width = 180, height = 180, unit = "mm")
+#ggsave("code_R_analysis/output_plots/fig2_1.svg", p2_1_1, width = 180, height = 180, unit = "mm")
 ggsave("code_R_analysis/output_plots/sup_jaccards.svg", all_jaccard_plot, width = 180, height = 180, unit = "mm")
-ggsave("code_R_analysis/output_plots/sup_inclusion_ratio.svg", all_csc_plot, width = 180, height = 180, unit = "mm")
+#ggsave("code_R_analysis/output_plots/sup_inclusion_ratio.svg", all_csc_plot, width = 180, height = 180, unit = "mm")
 
 
 # tools 
@@ -2950,7 +2969,7 @@ theme_overlap <- theme_minimal() +
 
 # create the overlap for RGI
 
-lst2 <- readRDS("code_R_analysis/output_abundance_diversity_resistome/results_tools_all_GMGC.rds")
+lst2 <- readRDS("code_R_analysis/output_abundance_diversity_resistome/results_tools.rds")
 
 rgi_query <- data.frame(gene = unique(c(lst2$rgi.blast$query, lst2$rgi.diamond$query, lst2$rgi.diamond.prot$query)))
 rgi_query <- rgi_query %>% 

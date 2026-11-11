@@ -1,7 +1,7 @@
 "ARO","gene_code","unigenes","tool","method","threshold"
-"ARO:3001827","(Bla)blaACT-16",1,"abricate argannot","nanual curation",NA
-"ARO:3002804","(Fcyn)FosA",11,"abricate argannot","nanual curation",NA
-"ARO:3007112","(Ntmdz)nimj_Nitroimidazole_Gene",3,"abricate argannot","nanual curation",NA
+"ARO:3001827","(Bla)blaACT-16",1,"abricate argannot","manual curation",NA
+"ARO:3002804","(Fcyn)FosA",11,"abricate argannot","manual curation",NA
+"ARO:3007112","(Ntmdz)nimj_Nitroimidazole_Gene",3,"abricate argannot","manual curation",NA
 "ARO:3007277","mcr-10.2",1,"resfinder","manual curation",NA
 "ARO:3007248","mcr-3.33",1,"resfinder","manual curation",NA
 "ARO:3007257","mcr-3.36",1,"resfinder","manual curation",NA

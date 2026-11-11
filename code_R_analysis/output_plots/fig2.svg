@@ -24,9 +24,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="pt"
-     inkscape:zoom="0.84674496"
-     inkscape:cx="385.00377"
-     inkscape:cy="494.24564"
+     inkscape:zoom="1.088156"
+     inkscape:cx="539.44472"
+     inkscape:cy="626.28888"
      inkscape:window-width="1472"
      inkscape:window-height="890"
      inkscape:window-x="0"
@@ -5550,134 +5550,135 @@
          lengthAdjust="spacingAndGlyphs"
          id="text693">100</text>
       <text
-         x="403.51999"
+         x="403.52"
          y="479.69"
          text-anchor="middle"
-         style="font-weight:bold;font-size:6px;font-family:Arial"
-         textLength="28.379999"
+         style="font-size: 6.00px; font-weight: bold; font-family: &quot;Arial&quot;;"
+         textLength="28.38px"
          lengthAdjust="spacingAndGlyphs"
-         id="text694"
-         transform="translate(0,-21)">% Identity</text>
+         id="text694">% Identity</text>
       <text
-         transform="rotate(-90,343.625,69.765)"
+         transform="translate(252.86,413.39) rotate(-90)"
          text-anchor="middle"
-         style="font-weight:bold;font-size:6px;font-family:Arial"
-         textLength="62.75"
+         style="font-size: 6.00px; font-weight: bold; font-family: &quot;Arial&quot;;"
+         textLength="62.75px"
          lengthAdjust="spacingAndGlyphs"
          id="text695">Empirical Cumulative </text>
       <text
-         transform="rotate(-90,346.865,66.525)"
+         transform="translate(259.34,413.39) rotate(-90)"
          text-anchor="middle"
-         style="font-weight:bold;font-size:6px;font-family:Arial"
-         textLength="60.75"
+         style="font-size: 6.00px; font-weight: bold; font-family: &quot;Arial&quot;;"
+         textLength="60.75px"
          lengthAdjust="spacingAndGlyphs"
          id="text696">Distribution Function</text>
       <line
-         x1="301.51"
-         y1="494.27"
-         x2="309.45"
-         y2="494.27"
-         style="stroke-width: 2.13; stroke: #1B9E77; stroke-linecap: butt;"
+         x1="286.82999"
+         y1="494.26999"
+         x2="294.76999"
+         y2="494.26999"
+         style="stroke:#1b9e77;stroke-width:2.13;stroke-linecap:butt"
          id="line696" />
       <line
-         x1="353.81"
+         x1="343.63"
          y1="494.26999"
-         x2="361.75"
+         x2="351.57001"
          y2="494.26999"
          style="stroke:#e6ab02;stroke-width:2.13;stroke-linecap:butt"
          id="line697" />
       <line
-         x1="402.76999"
+         x1="397.09"
          y1="494.26999"
-         x2="410.70999"
+         x2="405.03"
          y2="494.26999"
          style="stroke:#7570b3;stroke-width:2.13;stroke-linecap:butt"
          id="line698" />
       <line
-         x1="451.73001"
+         x1="458.91"
          y1="494.26999"
-         x2="459.67001"
+         x2="466.85001"
          y2="494.26999"
          style="stroke:#66a61e;stroke-width:2.13;stroke-linecap:butt"
          id="line699" />
       <text
-         x="315.92"
-         y="493.18"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="27.36px"
+         x="311.73999"
+         y="493.17999"
+         style="font-size:6px;font-family:Arial"
+         textLength="27.360001"
          lengthAdjust="spacingAndGlyphs"
-         id="text699">DeepARG</text>
+         id="text699"
+         transform="translate(-10.5)">DeepARG</text>
       <text
-         x="315.92"
+         x="311.73999"
          y="499.66"
-         style="font-size: 6.00px; font-family: &quot;Arial&quot;;"
-         textLength="35.92px"
+         style="font-size:6px;font-family:Arial"
+         textLength="35.919998"
          lengthAdjust="spacingAndGlyphs"
-         id="text700">(n = 100,075)</text>
+         id="text700"
+         transform="translate(-10.5)">(n = 100,075)</text>
       <text
-         x="372.72"
+         x="368.54001"
          y="493.17999"
          style="font-size:6px;font-family:Arial"
          textLength="10.67"
          lengthAdjust="spacingAndGlyphs"
          id="text701"
-         transform="translate(-4.5)">RGI</text>
+         transform="translate(-10.5)">RGI</text>
       <text
-         x="372.72"
+         x="368.54001"
          y="499.66"
          style="font-size:6px;font-family:Arial"
          textLength="32.580002"
          lengthAdjust="spacingAndGlyphs"
          id="text702"
-         transform="translate(-4.5)">(n = 65,937)</text>
+         transform="translate(-10.5)">(n = 65,937)</text>
       <text
-         x="426.17999"
+         x="422"
          y="489.94"
          style="font-size:6px;font-family:Arial"
          textLength="26.690001"
          lengthAdjust="spacingAndGlyphs"
          id="text703"
-         transform="translate(-9)">ABRicate/</text>
+         transform="translate(-10.5)">ABRicate/</text>
       <text
-         x="426.17999"
+         x="422"
          y="496.42001"
          style="font-size:6px;font-family:Arial"
          textLength="27.700001"
          lengthAdjust="spacingAndGlyphs"
          id="text704"
-         transform="translate(-9)">ResFinder</text>
+         transform="translate(-10.5)">ResFinder</text>
       <text
-         x="426.17999"
+         x="422"
          y="502.89999"
          style="font-size:6px;font-family:Arial"
-         textLength="32.580002"
+         textLength="40.939999"
          lengthAdjust="spacingAndGlyphs"
          id="text705"
-         transform="translate(-9)">(n = 39,170)</text>
+         transform="translate(-10.5)">(nt, n = 39,170)</text>
       <text
-         x="479.64001"
+         x="483.82001"
          y="489.94"
          style="font-size:6px;font-family:Arial"
          textLength="32.360001"
          lengthAdjust="spacingAndGlyphs"
          id="text706"
-         transform="translate(-13.5)">AMRFinder-</text>
+         transform="translate(-10.5)">AMRFinder-</text>
       <text
-         x="479.64001"
+         x="483.82001"
          y="496.42001"
          style="font-size:6px;font-family:Arial"
-         textLength="24.030001"
+         textLength="11.67"
          lengthAdjust="spacingAndGlyphs"
          id="text707"
-         transform="translate(-13.5)">Plus (aa)</text>
+         transform="translate(-10.5)">Plus</text>
       <text
-         x="479.64001"
+         x="483.82001"
          y="502.89999"
          style="font-size:6px;font-family:Arial"
          textLength="29.23"
          lengthAdjust="spacingAndGlyphs"
          id="text708"
-         transform="translate(-13.5)">(n = 3,141)</text>
+         transform="translate(-10.5)">(n = 3,141)</text>
       <text
          x="302.28"
          y="385.56"

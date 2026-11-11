@@ -746,20 +746,20 @@
 <text x='109.18' y='458.12' text-anchor='middle' style='font-size: 6.00px; font-weight: bold; font-family: "Arial";' textLength='28.38px' lengthAdjust='spacingAndGlyphs'>% Identity</text>
 <text transform='translate(9.78,348.56) rotate(-90)' text-anchor='middle' style='font-size: 6.00px; font-weight: bold; font-family: "Arial";' textLength='62.75px' lengthAdjust='spacingAndGlyphs'>Empirical Cumulative </text>
 <text transform='translate(16.26,348.56) rotate(-90)' text-anchor='middle' style='font-size: 6.00px; font-weight: bold; font-family: "Arial";' textLength='60.75px' lengthAdjust='spacingAndGlyphs'>Distribution Function</text>
-<line x1='60.52' y1='471.49' x2='68.46' y2='471.49' style='stroke-width: 2.13; stroke: #1B9E77; stroke-linecap: butt;' />
-<line x1='60.52' y1='495.49' x2='68.46' y2='495.49' style='stroke-width: 2.13; stroke: #E6AB02; stroke-linecap: butt;' />
-<line x1='117.32' y1='471.49' x2='125.26' y2='471.49' style='stroke-width: 2.13; stroke: #7570B3; stroke-linecap: butt;' />
-<line x1='117.32' y1='495.49' x2='125.26' y2='495.49' style='stroke-width: 2.13; stroke: #66A61E; stroke-linecap: butt;' />
-<text x='74.93' y='470.40' style='font-size: 6.00px; font-family: "Arial";' textLength='27.36px' lengthAdjust='spacingAndGlyphs'>DeepARG</text>
-<text x='74.93' y='476.88' style='font-size: 6.00px; font-family: "Arial";' textLength='35.92px' lengthAdjust='spacingAndGlyphs'>(n = 100,075)</text>
-<text x='74.93' y='494.40' style='font-size: 6.00px; font-family: "Arial";' textLength='10.67px' lengthAdjust='spacingAndGlyphs'>RGI</text>
-<text x='74.93' y='500.88' style='font-size: 6.00px; font-family: "Arial";' textLength='32.58px' lengthAdjust='spacingAndGlyphs'>(n = 65,937)</text>
-<text x='131.73' y='467.16' style='font-size: 6.00px; font-family: "Arial";' textLength='26.69px' lengthAdjust='spacingAndGlyphs'>ABRicate/</text>
-<text x='131.73' y='473.64' style='font-size: 6.00px; font-family: "Arial";' textLength='27.70px' lengthAdjust='spacingAndGlyphs'>ResFinder</text>
-<text x='131.73' y='480.12' style='font-size: 6.00px; font-family: "Arial";' textLength='32.58px' lengthAdjust='spacingAndGlyphs'>(n = 39,170)</text>
-<text x='131.73' y='491.16' style='font-size: 6.00px; font-family: "Arial";' textLength='32.36px' lengthAdjust='spacingAndGlyphs'>AMRFinder-</text>
-<text x='131.73' y='497.64' style='font-size: 6.00px; font-family: "Arial";' textLength='24.03px' lengthAdjust='spacingAndGlyphs'>Plus (aa)</text>
-<text x='131.73' y='504.12' style='font-size: 6.00px; font-family: "Arial";' textLength='29.23px' lengthAdjust='spacingAndGlyphs'>(n = 3,141)</text>
+<line x1='56.34' y1='471.49' x2='64.28' y2='471.49' style='stroke-width: 2.13; stroke: #1B9E77; stroke-linecap: butt;' />
+<line x1='56.34' y1='495.49' x2='64.28' y2='495.49' style='stroke-width: 2.13; stroke: #E6AB02; stroke-linecap: butt;' />
+<line x1='113.14' y1='471.49' x2='121.08' y2='471.49' style='stroke-width: 2.13; stroke: #7570B3; stroke-linecap: butt;' />
+<line x1='113.14' y1='495.49' x2='121.08' y2='495.49' style='stroke-width: 2.13; stroke: #66A61E; stroke-linecap: butt;' />
+<text x='70.75' y='470.40' style='font-size: 6.00px; font-family: "Arial";' textLength='27.36px' lengthAdjust='spacingAndGlyphs'>DeepARG</text>
+<text x='70.75' y='476.88' style='font-size: 6.00px; font-family: "Arial";' textLength='35.92px' lengthAdjust='spacingAndGlyphs'>(n = 100,075)</text>
+<text x='70.75' y='494.40' style='font-size: 6.00px; font-family: "Arial";' textLength='10.67px' lengthAdjust='spacingAndGlyphs'>RGI</text>
+<text x='70.75' y='500.88' style='font-size: 6.00px; font-family: "Arial";' textLength='32.58px' lengthAdjust='spacingAndGlyphs'>(n = 65,937)</text>
+<text x='127.55' y='467.16' style='font-size: 6.00px; font-family: "Arial";' textLength='26.69px' lengthAdjust='spacingAndGlyphs'>ABRicate/</text>
+<text x='127.55' y='473.64' style='font-size: 6.00px; font-family: "Arial";' textLength='27.70px' lengthAdjust='spacingAndGlyphs'>ResFinder</text>
+<text x='127.55' y='480.12' style='font-size: 6.00px; font-family: "Arial";' textLength='40.94px' lengthAdjust='spacingAndGlyphs'>(nt, n = 39,170)</text>
+<text x='127.55' y='491.16' style='font-size: 6.00px; font-family: "Arial";' textLength='32.36px' lengthAdjust='spacingAndGlyphs'>AMRFinder-</text>
+<text x='127.55' y='497.64' style='font-size: 6.00px; font-family: "Arial";' textLength='11.67px' lengthAdjust='spacingAndGlyphs'>Plus</text>
+<text x='127.55' y='504.12' style='font-size: 6.00px; font-family: "Arial";' textLength='29.23px' lengthAdjust='spacingAndGlyphs'>(n = 3,141)</text>
 <text x='46.93' y='277.47' style='font-size: 9.60px; font-weight: bold; font-family: "Arial";' textLength='5.33px' lengthAdjust='spacingAndGlyphs'>c</text>
 </g>
 <defs>
@@ -953,15 +953,12 @@
 <text transform='translate(437.37,417.09) rotate(-90)' text-anchor='end' style='font-size: 6.00px;fill: #4D4D4D; font-family: "Arial";' textLength='27.02px' lengthAdjust='spacingAndGlyphs'>ABRicate-</text>
 <text transform='translate(443.85,417.09) rotate(-90)' text-anchor='end' style='font-size: 6.00px;fill: #4D4D4D; font-family: "Arial";' textLength='28.34px' lengthAdjust='spacingAndGlyphs'>MEGARes</text>
 <text transform='translate(467.70,417.09) rotate(-90)' text-anchor='end' style='font-size: 6.00px;fill: #4D4D4D; font-family: "Arial";' textLength='24.70px' lengthAdjust='spacingAndGlyphs'>fARGene</text>
-<rect x='268.88' y='477.75' width='9.35' height='11.48' style='stroke-width: 0.43; stroke-linecap: butt; stroke-linejoin: miter; fill: #BF812D;' />
-<rect x='329.47' y='477.75' width='9.35' height='11.48' style='stroke-width: 0.43; stroke-linecap: butt; stroke-linejoin: miter; fill: #F5F5F5;' />
-<rect x='391.76' y='477.75' width='9.35' height='11.48' style='stroke-width: 0.43; stroke-linecap: butt; stroke-linejoin: miter; fill: #35978F;' />
-<text x='283.99' y='482.40' style='font-size: 6.00px; font-family: "Arial";' textLength='39.72px' lengthAdjust='spacingAndGlyphs'>Pipeline-driven</text>
-<text x='283.99' y='488.88' style='font-size: 6.00px; font-family: "Arial";' textLength='27.95px' lengthAdjust='spacingAndGlyphs'> difference</text>
-<text x='344.59' y='482.40' style='font-size: 6.00px; font-family: "Arial";' textLength='21.03px' lengthAdjust='spacingAndGlyphs'>Overlap</text>
-<text x='344.59' y='488.88' style='font-size: 6.00px; font-family: "Arial";' textLength='41.41px' lengthAdjust='spacingAndGlyphs'>(Jaccard Index)</text>
-<text x='406.88' y='482.40' style='font-size: 6.00px; font-family: "Arial";' textLength='44.08px' lengthAdjust='spacingAndGlyphs'>Database-driven</text>
-<text x='406.88' y='488.88' style='font-size: 6.00px; font-family: "Arial";' textLength='27.95px' lengthAdjust='spacingAndGlyphs'> difference</text>
+<rect x='397.94' y='380.13' width='9.35' height='9.35' style='stroke-width: 0.43; stroke-linecap: butt; stroke-linejoin: miter; fill: #BF812D;' />
+<rect x='397.94' y='390.05' width='9.35' height='9.35' style='stroke-width: 0.43; stroke-linecap: butt; stroke-linejoin: miter; fill: #F5F5F5;' />
+<rect x='397.94' y='399.97' width='9.35' height='9.35' style='stroke-width: 0.43; stroke-linecap: butt; stroke-linejoin: miter; fill: #35978F;' />
+<text x='413.06' y='386.96' style='font-size: 6.00px; font-family: "Arial";' textLength='66.36px' lengthAdjust='spacingAndGlyphs'>Method-driven difference</text>
+<text x='413.06' y='396.88' style='font-size: 6.00px; font-family: "Arial";' textLength='64.11px' lengthAdjust='spacingAndGlyphs'>Overlap (Jaccard Index)</text>
+<text x='413.06' y='406.80' style='font-size: 6.00px; font-family: "Arial";' textLength='72.03px' lengthAdjust='spacingAndGlyphs'>Database-driven difference</text>
 <text x='223.65' y='277.47' style='font-size: 9.60px; font-weight: bold; font-family: "Arial";' textLength='5.86px' lengthAdjust='spacingAndGlyphs'>d</text>
 </g>
 </g>
